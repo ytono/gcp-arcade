@@ -34,10 +34,3 @@ terraform plan -out=test.tfplan
 gcloud beta terraform vet tfplan.json --policy-library=.
 
 terraform apply test.tfplan
-
-
-
-
-
-
-
