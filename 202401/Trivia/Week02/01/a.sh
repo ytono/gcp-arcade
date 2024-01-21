@@ -10,25 +10,7 @@ cp samples/iam_service_accounts_only.yaml policies/constraints
 
 cat policies/constraints/iam_service_accounts_only.yaml
 
-echo <<EOF > main.tf
-terraform {
-  required_providers {
-    google = {
-      source = "hashicorp/google"
-      version = "~> 3.84"
-    }
-  }
-}
-
-resource "google_project_iam_binding" "sample_iam_binding" {
-  project = "DEVSHELL_PROJECT_ID"
-  role    = "roles/viewer"
-
-  members = [
-    "user:USER_ACCOUNT"
-  ]
-}
-EOF
+cp ~/main.tf .
 
 sed -i "s/DEVSHELL_PROJECT_ID/${DEVSHELL_PROJECT_ID}/g" main.tf
 sed -i "s/USER_ACCOUNT/${USER_ACCOUNT}/g" main.tf
