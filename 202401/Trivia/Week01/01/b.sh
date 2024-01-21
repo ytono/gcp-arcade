@@ -184,11 +184,13 @@ vault read sys/auth/token/tune
 
 vault token create -policy=default
 
+read -p "Token: " TOKEN
+
 ### Get the token count
 
 vault read sys/internal/counters/tokens
 
-curl --header "X-Vault-Token:<your root token>" \
+curl --header "X-Vault-Token:${TOKEN}" \
        $VAULT_ADDR/v1/sys/internal/counters/tokens | jq .data
 
 

@@ -4,5 +4,6 @@ PROJECT_ID=${DEVSHELL_PROJECT_ID}
 
 curl -O https://raw.githubusercontent.com/ytono/gcp-arcade/main/202401/Trivia/Week01/01/a.sh
 curl -O https://raw.githubusercontent.com/ytono/gcp-arcade/main/202401/Trivia/Week01/01/b.sh
+curl -O https://raw.githubusercontent.com/ytono/gcp-arcade/main/202401/Trivia/Week01/01/c.sh
 
 bash a.sh
