@@ -11,7 +11,7 @@ echo $ZONE
 
 gcloud compute instances create bloghost --project="$DEVSHELL_PROJECT_ID" --zone=$ZONE \
     --machine-type=e2-medium --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default \
-    --metadata=startup-script="apt-get update; apt-get install apache2 php php-mysql -y; service apache2 restart; touch /tmp/index.php; chmod 777 /tmp/index.php; ln -s /tmp/index.php /var/www/html/index.php" \
+    --metadata=startup-script="apt-get update; apt-get install apache2 php php-mysql -y; service apache2 restart; echo '<?php phpinfo(); ?>' > /tmp/index.php; chmod 777 /tmp/index.php; ln -s /tmp/index.php /var/www/html/index.php" \
     --maintenance-policy=MIGRATE --provisioning-model=STANDARD --service-account=$PROJECT_NUMBER-compute@developer.gserviceaccount.com \
     --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append \
     --tags=http-server --create-disk=auto-delete=yes,boot=yes,device-name=bloghost,image=projects/debian-cloud/global/images/debian-11-bullseye-v20240110,mode=rw,size=10,type=projects/$DEVSHELL_PROJECT_ID/zones/$ZONE/diskTypes/pd-balanced \
