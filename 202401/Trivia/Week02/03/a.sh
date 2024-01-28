@@ -8,7 +8,7 @@ mv index.js package.json gc-function
 
 gcloud functions deploy GCFunction --region=$REGION --gen2 --trigger-http --source=./gc-function --entry-point=helloWorld --runtime=nodejs20 --allow-unauthenticated --max-instances=5 --quiet
 
-sleep 10
+sleep 5
 ##
 curl -m 70 -X POST https://$REGION-$DEVSHELL_PROJECT_ID.cloudfunctions.net/GCFunction \
 -H "Authorization: bearer $(gcloud auth print-identity-token)" \
@@ -16,4 +16,4 @@ curl -m 70 -X POST https://$REGION-$DEVSHELL_PROJECT_ID.cloudfunctions.net/GCFun
 -d '{"message":"Hello World!"}'
 
 ##
-gcloud logging read --project $DEVSHELL_PROJECT_ID --limit 10 --filter "resource.type=cloud_function AND resource.labels.function_name=GCFunction
+gcloud logging read --project $DEVSHELL_PROJECT_ID --limit 10 --filter "resource.type=cloud_function AND resource.labels.function_name=GCFunction"
