@@ -1,12 +1,12 @@
-read -p "Region : " $REGION
+read -p "Region : " REGION
 
 gcloud services enable run.googleapis.com
 gcloud services enable cloudfunctions.googleapis.com
 
-mkdir gc-funciton && cd gc-function
+mkdir gc-function
 mv index.js package.json gc-function
 
-gcloud functions deploy GCFunction --region=$REGION --gen2--trigger-http --source=./gc-function --entry-point=helloWorld --runtime=nodejs20 --allow-unauthenticated --max-instances=5 --quiet
+gcloud functions deploy GCFunction --region=$REGION --gen2 --trigger-http --source=./gc-function --entry-point=helloWorld --runtime=nodejs20 --allow-unauthenticated --max-instances=5 --quiet
 
 sleep 10
 ##
