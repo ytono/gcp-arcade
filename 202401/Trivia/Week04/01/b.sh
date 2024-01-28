@@ -13,18 +13,6 @@ gcloud compute instances create bloghost --project="$DEVSHELL_PROJECT_ID" --zone
 
 gcloud compute firewall-rules create allow-http --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=http-server &
 
-INSTANCE_NAME="blog-db"
-DBPASSWORD="test1234"
-gcloud sql instances create $INSTANCE_NAME \
-  --database-version=MYSQL_5_7 \
-  --region="${ZONE%-*}" \
-  --tier=db-n1-standard-1 \
-  --storage-size=10GB \
-  --storage-type=SSD \
-  --backup-start-time=07:00 \
-  --maintenance-window-day=MON \
-  --maintenance-window-hour=10 \
-  --backup-location="${ZONE%-*}" &
 
 ## Task 3. Create a Cloud Storage bucket using the gcloud storage command line
 export LOCATION=ASIA
@@ -38,7 +26,18 @@ gcloud storage cp my-excellent-blog.png gs://$DEVSHELL_PROJECT_ID/my-excellent-b
 gsutil acl ch -u allUsers:R gs://$DEVSHELL_PROJECT_ID/my-excellent-blog.png
 
 ## Task 4. Create the Cloud SQL instance
-read -p "Enter:"
+INSTANCE_NAME="blog-db"
+DBPASSWORD="test1234"
+gcloud sql instances create $INSTANCE_NAME \
+  --database-version=MYSQL_5_7 \
+  --region="${ZONE%-*}" \
+  --tier=db-n1-standard-1 \
+  --storage-size=10GB \
+  --storage-type=SSD \
+  --backup-start-time=07:00 \
+  --maintenance-window-day=MON \
+  --maintenance-window-hour=10 \
+  --backup-location="${ZONE%-*}"
 
 gcloud sql users create blogdbuser --instance=$INSTANCE_NAME --password=$DBPASSWORD
 
