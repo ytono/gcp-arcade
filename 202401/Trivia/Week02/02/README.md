@@ -1,4 +1,4 @@
-# Vertex AI PaLM API: Qwik Start
+# Cloud IAM: Qwik Start
 
 PROJECT_ID=${DEVSHELL_PROJECT_ID}
 

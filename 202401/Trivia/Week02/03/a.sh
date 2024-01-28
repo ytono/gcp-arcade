@@ -1,17 +1,19 @@
-export PROJECT_ID=qwiklabs-gcp-01-8872978e85dd
-export ACCOUNT=student-03-a61d519153ca@qwiklabs.net
-export REGION=us-east4
+read -p "Region : " $REGION
 
-gcloud auth login ${ACCOUNT} --project=${PROJECT_ID}
+gcloud services enable run.googleapis.com
+gcloud services enable cloudfunctions.googleapis.com
 
-export ID=$(gcloud info --format='value(config.project)')
+mkdir gc-funciton && cd gc-function
+mv index.js package.json gc-function
 
-gcloud functions deploy GCFunction --region=$REGION --trigger-http --source=. --entry-point=helloHttp --runtime nodejs18 --quiet
+gcloud functions deploy GCFunction --region=$REGION --gen2--trigger-http --source=./gc-function --entry-point=helloWorld --runtime=nodejs20 --allow-unauthenticated --max-instances=5 --quiet
 
+sleep 10
 ##
-curl -m 70 -X POST https://$REGION-$PROJECT_ID.cloudfunctions.net/GCFunction \
+curl -m 70 -X POST https://$REGION-$DEVSHELL_PROJECT_ID.cloudfunctions.net/GCFunction \
 -H "Authorization: bearer $(gcloud auth print-identity-token)" \
 -H "Content-Type: application/json" \
 -d '{"message":"Hello World!"}'
 
-gcloud auth revoke
+##
+gcloud logging read --project $DEVSHELL_PROJECT_ID --limit 10 --filter "resource.type=cloud_function AND resource.labels.function_name=GCFunction

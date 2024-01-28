@@ -5,6 +5,7 @@ read -p "Enter a zone 2: " ZONE_2
 
 ## Task 1. Set up a Global VPC environment
 REGION_1=${ZONE_1%-*}
+REGION_2=${ZONE_2%-*}
 
 gcloud compute networks create vpn-network-1 --subnet-mode custom
 
