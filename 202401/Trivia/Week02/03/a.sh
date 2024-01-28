@@ -1,9 +1,8 @@
 read -p "Region : " REGION
 
 gcloud services enable run.googleapis.com
-gcloud services enable cloudfunctions.googleapis.com
 
-sleep 10
+sleep 25
 
 mkdir gc-function
 mv index.js package.json gc-function
