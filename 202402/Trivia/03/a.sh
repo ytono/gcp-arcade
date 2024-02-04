@@ -9,6 +9,8 @@ cd php-docs-samples/appengine/standard/helloworld
 
 # Task 3. Deploy your app
 
+gcloud app create
+
 gcloud app deploy --quiet
 
 # Task 4. View your application
