@@ -2,6 +2,8 @@
 
 gcloud services enable appengine.googleapis.com
 
+gcloud app create
+
 # Task 2. Download the Hello World app
 git clone https://github.com/GoogleCloudPlatform/java-docs-samples.git
 
@@ -16,7 +18,7 @@ mvn appengine:run
 
 # Task 4. Deploy your app
 
-gcloud app create
+# gcloud app create
 
 sed -i "s/gcloud app create/$PROJECT_ID/g" pom.xml
 
