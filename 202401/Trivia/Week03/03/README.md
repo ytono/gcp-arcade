@@ -1,142 +1,86 @@
-# Google Chat Bot - Apps Script
-
+https://console.cloud.google.com/apis/credentials/consent
+https://console.cloud.google.com/apis/library/chat.googleapis.com
+https://console.cloud.google.com/iam-admin/settings
 https://script.google.com/create
+https://mail.google.com/mail/u/0/
+https://calendar.google.com/calendar/u/0/r
 
-# Project Name
+# Cloud Console
+## Configure the Google Cloud project and update the script to use it
+## APIs & Services > OAuth consent screen
+
+
+## 1. Internal create
+## 2. App Name , User support email, Developer contact information
+```
+Attendance Bot
+```
+## 3. Save and Continue x 2
+
+## 4. Back to Dashboard
+## 5. Project settings. > Project number copy
+
+
+
+# Google Chat Bot - Apps Script
+# Project rename
 Attendance Bot
 
 ## Task 1. Create handlers for Google Chat events
-###  Code.gs
-```
-/**
-* Responds to an ADDED_TO_SPACE event in Google Chat.
-* @param {object} event the event object from Google Chat
-* @return {object} JSON-formatted response
-* @see https://developers.google.com/chat/reference/message-formats/events
-*/
-
-function onAddToSpace(event) {
-  console.info(event);
-  var message = 'Thank you for adding me to ';
-  if (event.space.type === 'DM') {
-    message += 'a DM, ' + event.user.displayName + '!';
-  } else {
-    message += event.space.displayName;
-  }
-  console.log('Attendance Bot added in ', event.space.name);
-  return { text: message };
-}
-
-/**
-* Responds to a REMOVED_FROM_SPACE event in Google Chat.
-* @param {object} event the event object from Google Chat
-* @see https://developers.google.com/chat/reference/message-formats/events
-*/
-function onRemoveFromSpace(event) {
-  console.info(event);
-  console.log('Bot removed from ', event.space.name);
-}
-
-```
-
-## Task 2. Publish the bot
-
+### Code_1.gs
 ### appsscript.json
+## Add GMail service
+
+# App Script editor
+## 1. Project Number Settings 
+## 2. Deploy > New Deployment
+## 3. Description copy
+
 ```
-{
-  "timeZone": "Asia/Tokyo",
-  "dependencies": {
-      "enabledAdvancedServices": [
-      {
-        "userSymbol": "Gmail",
-        "version": "v1",
-        "serviceId": "gmail"
-      },
-      ]
-  },
-  "exceptionLogging": "STACKDRIVER",
-  "chat": {},
-  "runtimeVersion": "V8"
-}
-Configure the Google Cloud proj
+App Script lab bot
 ```
-
-# APIs & Services > OAuth consent screen
-# Internal create
-# App Name , User support email, Developer contact information
-```
-Attendance Bot
-```
-
-# Back to Dashboard > Project settings. > Project number
-# App Script editor > Project Settings 
-# Deploy > New Deployment
-
-Description copy
-
-# Google Chat API > Configuration 
-
+## 4. copy Deployment ID 
+AKfycbyBCCbQfoZN6StubiiEqF5ZgRI1j_zVq4Vcn7e1CtUUWCUI5cbuDbfA9PlZv_Hy5ii3uw
+# Cloud Console
+## Google Chat API 
+## Configuration 
 Attendance Bot
 https://goo.gl/kv2ENA
 Apps Script lab bot
 Receive 1:1 messages
-# Deployment ID field
-# username
+copied Deployment ID
+username
+## Save x 2
 
+# Test the bot
 https://chat.google.com/
 
-search Attendance bot
-
+## Start a chat (Start a chat icon) > Find apps in the Chat section
 ```
-var DEFAULT_IMAGE_URL = 'https://goo.gl/bMqzYS';
-var HEADER = {
-  header: {
-    title : 'Attendance Bot',
-    subtitle : 'Log your vacation time',
-    imageUrl : DEFAULT_IMAGE_URL
-  }
-};
-
-/**
- * Creates a card-formatted response.
- * @param {object} widgets the UI components to send
- * @return {object} JSON-formatted response
- */
-function createCardResponse(widgets) {
-  return {
-    cards: [HEADER, {
-      sections: [{
-        widgets: widgets
-      }]
-    }]
-  };
-}
-
-/**
- * Responds to a MESSAGE event triggered
- * in Google Chat.
- *
- * @param event the event object from Google Chat
- * @return JSON-formatted response
- */
-function onMessage(event) {
-  var userMessage = event.message.text;
-
-  var widgets = [{
-    "textParagraph": {
-      "text": "You said: " + userMessage
-    }
-  }];
-
-  console.log('You said:', userMessage);
-
-  return createCardResponse(widgets);
-}
+Attendance bot
 ```
 
-### Deploy
-
+# App Script editor
+### Deploy > Manage deployments
 ### Test the bot
 
-configure
+
+# Task 4. React to button clicks in cards
+# App Script editor
+## Code_2.gs
+### Deploy > Manage deployments
+
+# Test the bot
+
+## 1. type.
+```
+I'm sick
+```
+
+## 2. click Configure
+## 3. click SET VACATION IN GMAIL
+## 4. click BLOCK OUT DAY IN CALENDAR
+
+## Google GMail and Calendar
+
 

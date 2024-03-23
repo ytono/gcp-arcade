@@ -1,11 +1,20 @@
-#! /bin/bash
+# Getting Started with BigQuery ML
+
+read -p "PROJECT: " PROJECT; echo $PROJECT
+read -p "ACCOUNT: " ACCOUNT; echo $ACCOUNT
+if [ ${#ACCOUNT} -ne 0 ]; then
+  gcloud auth login ${ACCOUNT} --project ${PROJECT}
+fi
 
 ## Task 1. Create a dataset
+
 bq mk --dataset bqml_lab
 
 ## Task 2. Create a model
+
 bq query --use_legacy_sql=false \
-'CREATE OR REPLACE MODEL `bqml_lab.sample_model`
+'#standardSQL
+CREATE OR REPLACE MODEL `bqml_lab.sample_model`
 OPTIONS(model_type="logistic_reg") AS
 SELECT
   IF(totals.transactions IS NULL, 0, 1) AS label,
@@ -82,9 +91,4 @@ ORDER BY total_predicted_purchases DESC
 LIMIT 10;'
 
 ## Task 5. Test your understanding
-### BigQuery is a fully-managed enterprise data warehouse that enables super-fast SQL queries.
-### Which option best describes what BigQuery ML does?
-#### Exports data from the warehouse, reformats the data, then executes the model using standard SQL queries.
-#### Creates machine learning models using Python or Java in BigQuery, then executes the model using standard SQL queries.
-#### Creates and executes machine learning models in BigQuery using standard SQL queries.
-#### Creates machine learning models so you can export and use the model to re-evaluate the accuracy of other models.
+

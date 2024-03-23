@@ -1,0 +1,71 @@
+{
+    "author": "Rich Rose",
+    "publish": "14th Dec 2023",
+    "tasks": [
+        {
+            "challenges": [
+                {
+                    "command": "",
+                    "step": "Create a Cloud Source Repo"
+                },
+                {
+                    "command": "devsite",
+                    "step": "Name the Source Repo as \"devsite\"."
+                },
+                {
+                    "command": "qwiklabs-gcp-03-8f0eba3763ea",
+                    "step": "Set the project as \"qwiklabs-gcp-03-8f0eba3763ea."
+                },
+                {
+                    "command": "",
+                    "step": "You are not required to add code to the repository."
+                }
+            ],
+            "image": "https://storage.googleapis.com/spls/arc-hero/assets/images/virtual_private_cloud.png",
+            "instructions": [
+                {
+                    "command": "",
+                    "step": "Access the Google Cloud Console: Go to https://console.cloud.google.com and log in to your Google Cloud account."
+                },
+                {
+                    "command": "",
+                    "step": "Navigate to Cloud Source Repositories: Click the navigation menu (hamburger icon) in the top left corner and select 'Cloud Source Repositories'."
+                },
+                {
+                    "command": "",
+                    "step": "Initiate Repository Creation: Click the 'Add repository' or 'Create repository' button."
+                },
+                {
+                    "command": "",
+                    "step": "Choose 'Create new repository': Select the option to create a new repository."
+                },
+                {
+                    "command": "devsite",
+                    "step": "Name Your Repository: In the 'Repository name' field, enter 'devsite'."
+                },
+                {
+                    "command": "qwiklabs-gcp-03-8f0eba3763ea",
+                    "step": "Select Project: Choose the Google Cloud project as 'qwiklabs-gcp-03-8f0eba3763ea'."
+                },
+                {
+                    "command": "",
+                    "step": "Click 'Create' and review your settings and finally click the 'Create' button to finalize the process."
+                },
+                {
+                    "command": "",
+                    "step": "You are not required to add code to the repository."
+                },
+                {
+                    "command": "",
+                    "step": "The task is now complete."
+                }
+            ],
+            "project_id": "qwiklabs-gcp-03-8f0eba3763ea",
+            "ref": "repo-1",
+            "region": "us-west1",
+            "resource_name": "devsite",
+            "title": "Create a Cloud Source Repo",
+            "zone": "us-west1-b"
+        }
+    ]
+}
