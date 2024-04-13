@@ -1,3 +1,4 @@
+read -p "service_url: " SERVICE_URL
 read -p "account_id: " ACCOUNT_ID
 
 PROJECT_ID=$(cat tasks.json|jq -r .tasks[0].project_id)
@@ -5,7 +6,6 @@ if [ ${#ACCOUNT_ID} -ne 0 ]; then
   gcloud auth login ${ACCOUNT_ID} --project=${PROJECT_ID}
 fi
 
-read -p "service_url: " SERVICE_URL
 curl -X GET -O ${SERVICE_URL}/assets/config/tasks.json
 
 DATASET_NAME=$(cat tasks.json|jq -r .tasks[0].challenges[0].command)

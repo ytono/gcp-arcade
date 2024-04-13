@@ -1,159 +1,69 @@
-# Getting Started with BigQuery ML
-
+# Deploy Your Website on Cloud Run
 read -p "PROJECT: " PROJECT; echo $PROJECT
 read -p "ACCOUNT: " ACCOUNT; echo $ACCOUNT
 if [ ${#ACCOUNT} -ne 0 ]; then
   gcloud auth login ${ACCOUNT} --project ${PROJECT}
 fi
 
-read -p "ZONE: " ZONE; echo $ZONE
+read -p "REGION: " REGION; echo $REGION
 
-gcloud config set compute/region ${ZONE%-*}
-gcloud config set compute/zone ${ZONE}
+# タスク 1. ソース リポジトリのクローンを作成する
+# git clone https://github.com/googlecodelabs/monolith-to-microservices.git
+# cd ~/monolith-to-microservices
+cd ~/monolith-to-microservices/monolith
 
-gcloud compute instances create www1 \
-    --zone=${ZONE} \
-    --tags=network-lb-tag \
-    --machine-type=e2-small \
-    --image-family=debian-11 \
-    --image-project=debian-cloud \
-    --metadata=startup-script='#!/bin/bash
-      apt-get update
-      apt-get install apache2 -y
-      service apache2 restart
-      echo "<h3>Web Server: www1</h3>" | tee /var/www/html/index.html'
+# タスク 2. Cloud Build を使用して Docker コンテナを作成する
+gcloud artifacts repositories create monolith-demo --repository-format=docker --location=${REGION}
 
-gcloud compute instances create www2 \
-    --zone=${ZONE} \
-    --tags=network-lb-tag \
-    --machine-type=e2-small \
-    --image-family=debian-11 \
-    --image-project=debian-cloud \
-    --metadata=startup-script='#!/bin/bash
-      apt-get update
-      apt-get install apache2 -y
-      service apache2 restart
-      echo "<h3>Web Server: www2</h3>" | tee /var/www/html/index.html'
+gcloud auth configure-docker 
 
-gcloud compute instances create www3 \
-    --zone=${ZONE}  \
-    --tags=network-lb-tag \
-    --machine-type=e2-small \
-    --image-family=debian-11 \
-    --image-project=debian-cloud \
-    --metadata=startup-script='#!/bin/bash
-      apt-get update
-      apt-get install apache2 -y
-      service apache2 restart
-      echo "<h3>Web Server: www3</h3>" | tee /var/www/html/index.html'
+gcloud services enable artifactregistry.googleapis.com \
+    cloudbuild.googleapis.com \
+    run.googleapis.com
 
-gcloud compute firewall-rules create www-firewall-network-lb \
-    --target-tags network-lb-tag --allow tcp:80
+gcloud builds submit --tag ${REGION}-docker.pkg.dev/${PROJECT}/monolith-demo/monolith:1.0.0
 
-gcloud compute instances list
+cd ~/monolith-to-microservices/react-app/src/pages/Home
+mv index.js.new index.js
 
-echo "*** Task 2. Create multiple web server instances ***"
+cat ~/monolith-to-microservices/react-app/src/pages/Home/index.js
 
-## Task 3. Configure the load balancing service
+cd ~/monolith-to-microservices/react-app
+npm run build:monolith &
 
-gcloud compute addresses create network-lb-ip-1 \
-  --region ${ZONE%-*}
+# タスク 3. コンテナを Cloud Run にデプロイする
+cd ~/monolith-to-microservices/monolith
+gcloud run deploy monolith --image ${REGION}-docker.pkg.dev/${PROJECT}/monolith-demo/monolith:1.0.0 --region ${REGION} --quiet
 
-gcloud compute http-health-checks create basic-check
+gcloud run services list
 
-gcloud compute target-pools create www-pool \
-  --region ${ZONE%-*} --http-health-check basic-check
+# タスク 4. 同時実行の値を小さくした新しいリビジョンを作成する
+gcloud run deploy monolith --image ${REGION}-docker.pkg.dev/${PROJECT}/monolith-demo/monolith:1.0.0 --region ${REGION} --concurrency 1
 
-gcloud compute target-pools add-instances www-pool \
-    --instances www1,www2,www3
+echo "Check!!!!!"
 
-gcloud compute forwarding-rules create www-rule \
-    --region  ${ZONE%-*} \
-    --ports 80 \
-    --address network-lb-ip-1 \
-    --target-pool www-pool
+gcloud run deploy monolith --image ${REGION}-docker.pkg.dev/${PROJECT}/monolith-demo/monolith:1.0.0 --region ${REGION} --concurrency 80
 
-echo "*** Task 3. Configure the load balancing service ***"
+# タスク 5. ウェブサイトに変更を加える
+# cd ~/monolith-to-microservices/react-app/src/pages/Home
+# mv index.js.new index.js
 
-## Task 4. Sending traffic to your instances
+# cat ~/monolith-to-microservices/react-app/src/pages/Home/index.js
 
-gcloud compute forwarding-rules describe www-rule --region ${ZONE%-*}
+# cd ~/monolith-to-microservices/react-app
+# npm run build:monolith
 
-IPADDRESS=$(gcloud compute forwarding-rules describe www-rule --region ${ZONE%-*} --format="json" | jq -r .IPAddress)
+cd ~/monolith-to-microservices/monolith
+gcloud builds submit --tag ${REGION}-docker.pkg.dev/${PROJECT}/monolith-demo/monolith:2.0.0
 
-echo $IPADDRESS
+echo "Check!!!!!"
+# タスク 6. ダウンタイムなしでウェブサイトを更新する
 
-while true; do curl -m1 $IPADDRESS; done
+gcloud run deploy monolith --image ${REGION}-docker.pkg.dev/${PROJECT}/monolith-demo/monolith:2.0.0 --region ${REGION}
 
-echo "*** Task 4. Sending traffic to your instances ***"
+echo "Check!!!!!"
 
-## Task 5. Create an HTTP load balancer
+gcloud run services describe monolith --platform managed --region ${REGION}
 
-gcloud compute instance-templates create lb-backend-template \
-   --region=${ZONE%-*} \
-   --network=default \
-   --subnet=default \
-   --tags=allow-health-check \
-   --machine-type=e2-medium \
-   --image-family=debian-11 \
-   --image-project=debian-cloud \
-   --metadata=startup-script='#!/bin/bash
-     apt-get update
-     apt-get install apache2 -y
-     a2ensite default-ssl
-     a2enmod ssl
-     vm_hostname="$(curl -H "Metadata-Flavor:Google" \
-     http://169.254.169.254/computeMetadata/v1/instance/name)"
-     echo "Page served from: $vm_hostname" | \
-     tee /var/www/html/index.html
-     systemctl restart apache2'
-
-gcloud compute instance-groups managed create lb-backend-group \
-   --template=lb-backend-template --size=2 --zone=${ZONE}
-
-gcloud compute firewall-rules create fw-allow-health-check \
-  --network=default \
-  --action=allow \
-  --direction=ingress \
-  --source-ranges=130.211.0.0/22,35.191.0.0/16 \
-  --target-tags=allow-health-check \
-  --rules=tcp:80
-
-gcloud compute addresses create lb-ipv4-1 \
-  --ip-version=IPV4 \
-  --global
-
-gcloud compute addresses describe lb-ipv4-1 \
-  --format="get(address)" \
-  --global
-
-gcloud compute health-checks create http http-basic-check \
-  --port 80
-
-gcloud compute backend-services create web-backend-service \
-  --protocol=HTTP \
-  --port-name=http \
-  --health-checks=http-basic-check \
-  --global
-
-gcloud compute backend-services add-backend web-backend-service \
-  --instance-group=lb-backend-group \
-  --instance-group-zone=${ZONE} \
-  --global
-
-gcloud compute url-maps create web-map-http \
-  --default-service web-backend-service
-
-gcloud compute target-http-proxies create http-lb-proxy \
-  --url-map web-map-http
-
-gcloud compute forwarding-rules create http-content-rule \
-   --address=lb-ipv4-1\
-   --global \
-   --target-http-proxy=http-lb-proxy \
-   --ports=80
-
-echo "*** Task 5. Create an HTTP load balancer ***"
-
-Task 6. Testing traffic sent to your instances
+gcloud beta run services list
 

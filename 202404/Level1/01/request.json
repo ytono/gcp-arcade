@@ -1,0 +1,22 @@
+{
+    "kind": "compute#firewall",
+    "name": "default-allow-http",
+    "selfLink": "projects/qwiklabs-gcp-02-e71d47e1b81d/global/firewalls/default-allow-http",
+    "network": "projects/qwiklabs-gcp-02-e71d47e1b81d/global/networks/default",
+    "direction": "INGRESS",
+    "priority": 1000,
+    "targetTags": [
+        "http-server"
+    ],
+    "allowed": [
+        {
+            "IPProtocol": "tcp",
+            "ports": [
+                "80"
+            ]
+        }
+    ],
+    "sourceRanges": [
+        "0.0.0.0/0"
+    ]
+}
