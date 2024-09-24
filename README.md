@@ -1,377 +1,353 @@
 
-Title: August 19, 2024
-Link: https://cloud.google.com/release-notes#August_19_2024
-## BigQuery - Timeouts when deploying API proxies and shared flows
+Title: September 23, 2024
+Link: https://cloud.google.com/release-notes#September_23_2024
+## BigQuery: Libraries リリースノート
 
-### 元の文章
+### 内容
 
-Apigee のエンドポイントにおいて、1秒あたりのクエリ数（QPS）が多い場合にタイムアウトが発生する可能性があります。影響を受けるエンドポイントは次のとおりです。
+* BigQueryのGo用クライアントライブラリ `bigquery/storage/apiv1beta1` のアップデート
+    *  バージョン1.63.0がリリース、多数の変更と修正が含まれています。
+    *  主な変更点：
+        * Go 1.23 iteratorsのサポート追加 (パフォーマンス向上)
+        * 新しいクライアントの追加
+        * いくつかのバグ修正と依存関係の更新
 
-- organizations.environments.apis.revisions.deployments.deploy
-- organizations.environments.apis.revisions.deployments.undeploy
-- organizations.environments.sharedflows.revisions.deployments.deploy
-- organizations.environments.sharedflows.revisions.deployments.undeploy
+### 影響
 
-タイムアウトの可能性を減らすために、これらのエンドポイントを使用する場合は、目標を3 QPSにすることをお勧めします。
-
-### 説明
-
-Apigee の特定のエンドポイントを使用する際に、高負荷の場合にタイムアウトが発生する可能性があるという問題です。これは、Apigee が BigQuery を利用している場合に発生する可能性があります。
-
-### 製品への影響有無
-
-あなたは Google Cloud Composer2 と Google Kubernetes Engine 1.27, 1.28 を利用しているとのことですが、この問題は **Apigee** に関するものであるため、直接的な影響はありません。
+* Go言語でBigQuery Storage API v1beta1を利用している場合、このアップデートによる影響を受ける可能性があります。
 
 ### 対処方法
 
-該当製品を利用していないため、対処は不要です。 
+* リリースノートに記載された変更点を確認し、必要に応じてコードの修正を行ってください。
+* 最新バージョンへのアップグレードを検討してください。
 
-もし、Apigee を利用していて、上記エンドポイントへのリクエストが多い場合は、リクエスト頻度を調整する必要があります。
-Title: August 16, 2024
-Link: https://cloud.google.com/release-notes#August_16_2024
-## Apigee X リリースノートについて
+## Cloud Monitoring: Changed リリースノート
 
-### アナウンス
+### 内容
 
-**元の文章:**
+* インシデント詳細ページのレイアウトが更新されました。
+* 関連するインシデントを表示できるようになりました。
+* アラートポリシーが評価したすべての時系列を表示するか、条件を満たした時系列のみを表示するかを切り替えられるようになりました。
 
-On August 16, 2024, we released an updated version of Apigee (1-13-0-apigee-2).
+### 影響
 
-> **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to be completed across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
+* Cloud Monitoringを利用しているユーザーは、インシデント詳細ページのレイアウト変更に気付くでしょう。
+* 新しい機能により、インシデント分析がより便利になります。
 
-**説明:**
+### 対処方法
 
-Apigee X のバージョン 1-13-0-apigee-2 がリリースされました。本番環境へのロールアウトは 8月18日から開始され、すべての Google Cloud リージョンへの展開が完了するまで4営業日以上かかる可能性があります。
+* 特に対処は必要ありません。
+* 更新されたインシデント詳細ページの使用方法を確認してください。
 
-**製品への影響有無:**
+## Cloud Run: Changed リリースノート
 
-Apigee X を利用している場合は影響を受ける可能性があります。
+### 内容
 
-**対処方法:**
+* 一部のPHPランタイムのランタイムサポートスケジュールが、PHPの公式サポートスケジュールに合わせて延長されました。
 
-* リリースノートの内容を確認し、新バージョンによる影響がないか確認してください。
-* 影響がある場合は、必要に応じて対応してください。
-* 本番環境への適用前に、ステージング環境などで動作確認を行うことを推奨します。
+### 影響
 
+* 対象のPHPランタイムを利用しているCloud Runユーザーは、より長い期間サポートを受けられるようになります。
 
-### 修正
+### 対処方法
 
-**元の文章:**
+* 特に対処は必要ありません。
+* サポート延長の詳細については、リリースノートのリンク先を確認してください。
 
-| Bug ID | Description |
-| --- | --- |
-| **324418891** | Added improvements to the MessageLogging policy to avoid potential downtime and deployment failures. |
-| **351068926** | Updated the error format and status code returned (from `500` to `400`) in cases where an invalid authorization code causes an error. |
+## Cloud Storage: Changed リリースノート
 
-**説明:**
+### 内容
 
-* Bug ID 324418891: MessageLogging ポリシーの改善により、潜在的なダウンタイムとデプロイメントの失敗が回避されるようになりました。
-* Bug ID 351068926: 無効な認証コードでエラーが発生した場合に返されるエラー形式とステータスコードが更新されました（`500` から `400` に変更）。
+* Cloud Storageの使用ログとストレージログを保存するバケットを設定する場合、ログを保存するバケットは、ログ対象のバケットと同じ組織内に存在する必要があります。
+* ログ対象のバケットが組織に関連付けられていない場合は、ログを保存するバケットは代わりに同じプロジェクト内に存在する必要があります。
 
-**製品への影響有無:**
+### 影響
 
-上記のBug IDに関連する問題が発生していた場合は、影響を受ける可能性があります。
+* Cloud Storageの使用ログとストレージログを異なる組織またはプロジェクトのバケットに保存している場合、この変更の影響を受けます。
+* 今後、ログを保存するためには、同じ組織またはプロジェクト内のバケットを使用する必要があります。
 
-**対処方法:**
+### 対処方法
 
-* リリースノートの内容を確認し、該当のBug IDに関連する問題が発生していないか確認してください。
-* 発生していた場合は、本リリースの適用により問題が解決される可能性があります。
+* ログを保存するバケットを、ログ対象のバケットと同じ組織またはプロジェクト内に移動してください。
 
+## Google Kubernetes Engine: Security リリースノート
 
-## Google Kubernetes Engine リリースノートについて
+### 内容
 
-### 変更
+* Windowsノードを持つKubernetesクラスタにおいて、`BUILTIN\Users` がコンテナログを読み取れる可能性、`AUTHORITY\Authenticated` ユーザーがコンテナログを変更できる可能性があるセキュリティ問題が発見されました。
+* 詳細は、GCP-2024-054セキュリティ情報で確認できます。
 
-**元の文章:**
+### 影響
 
-In GKE version 1.29.7-gke.1238000-1.30, and 1.30.3-gke.1571000 or later, node pools use regional instance templates instead of global instance templates. To learn more, see Regional and global instance templates.
+* Google Kubernetes EngineでWindowsノードを使用している場合、このセキュリティ問題の影響を受ける可能性があります。
+* 悪意のあるユーザーがコンテナログに不正にアクセスする可能性があります。
 
-[Regional and global instance templates](https://cloud.google.com/compute/docs/instance-templates#regional_and_global_instance_templates)
+### 対処方法
 
-**説明:**
+* セキュリティ情報の指示に従って、影響を受ける可能性のあるクラスタを修正してください。
+* セキュリティ情報の詳細は、以下のリンク先を参照してください。
+    * [GCP-2024-054 security bulletin](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2024-054) 
 
-GKE バージョン 1.29.7-gke.1238000-1.30 と 1.30.3-gke.1571000 以降では、ノードプールはグローバルインスタンス テンプレートではなく、リージョンインスタンス テンプレートを使用します。
+Title: September 20, 2024
+Link: https://cloud.google.com/release-notes#September_20_2024
+## Apigee X リリースノート September 20, 2024 (1-13-0-apigee-5) の解説
 
-**製品への影響有無:**
+### アナウンス概要
 
-* Google Kubernetes Engine 1.27, 1.28 を使用しているため、 **影響はありません**。
-* ただし、GKE を 1.29.7-gke.1238000-1.30, 1.30.3-gke.1571000 以降にアップグレードする場合は注意が必要です。
+Apigee X の新バージョン (1-13-0-apigee-5) がリリースされました。今後2営業日以内に段階的に本番環境に適用され、全Google Cloudゾーンへの展開完了までには4営業日以上かかる可能性があります。
 
-**対処方法:**
+### 変更点
 
-* GKE を 1.29.7-gke.1238000-1.30, 1.30.3-gke.1571000 以降にアップグレードする場合は、リージョンインスタンステンプレートを使用するように変更する必要があります。詳細については、提供されたリンクを参照してください。 
+| Bug ID | 説明 | 製品への影響有無 | 対処方法 |
+|---|---|---|---|
+| 366039324 | **JWT/JWS ポリシーにおける PEM 解析エラーの修正**: 問題のある PEM 形式が原因で発生していた JWT/JWS ポリシー実行時の PEM 解析エラーを修正しました。 | Apigee X で JWT/JWS ポリシーを使用している場合、影響を受ける可能性があります。 | 特に対処は不要です。今回のアップデートにより自動的に修正されます。 |
+| 353527851 | **WebSocket 接続の切断の解決**: OAuthV2 ポリシーと `VerifyJWTAccessToken` オペレーションまたは VerifyJWT を使用しているときに WebSocket 接続が切断される問題を修正しました。 | Apigee X で OAuthV2 ポリシーと `VerifyJWTAccessToken` オペレーションまたは VerifyJWT を使用して WebSocket を利用している場合、影響を受ける可能性があります。 | 特に対処は不要です。今回のアップデートにより自動的に修正されます。 |
+| N/A | セキュリティインフラストラクチャとライブラリの更新 | セキュリティ強化のため、常に最新の状態を保つことが推奨されます。 | 特に対処は不要です。今回のアップデートにより自動的に適用されます。 |
 
-**備考:**
+### 製品への影響と対処方法
 
-CVE 情報は提供されていません。 
+今回のリリースは、Apigee X のバグ修正とセキュリティ強化が主な内容です。上記「製品への影響有無」と「対処方法」を参考に、必要に応じて対応してください。 
 
-Title: August 15, 2024
-Link: https://cloud.google.com/release-notes#August_15_2024
+**注記:** リリースノートに記載されている影響範囲はあくまで一般的なものであり、個々の環境や設定によって影響度が異なる場合があります。 ご自身の環境への影響については、リリースノートの内容をよく確認し、必要に応じてテストを実施することをお勧めします。 
+
+Title: September 19, 2024
+Link: https://cloud.google.com/release-notes#September_19_2024
+## Google Kubernetes Engine のアップデート内容
+
+###  GKE cluster versions have been updated.
+
+#### 説明
+GKEクラスタのバージョンがアップデートされました。 各チャネル(Rapid, Regular, Stable, Extended, No channel)で利用可能なバージョン、デフォルトバージョン、自動アップグレード対象バージョンが更新されています。
+
+#### 製品への影響
+*  利用中のGKEクラスタのチャネルとバージョンに依存します。
+*  自動アップグレードが有効になっている場合は、リリースノートで指定されたバージョンに自動的にアップグレードされます。
+    *  Rapidチャネルの場合、1.29系は1.30.3-gke.1969001、1.30系は1.31.0-gke.1506000に自動アップグレードされます。
+    *  Regularチャネルの場合、1.29系は1.30.3-gke.1969001に自動アップグレードされます。
+    *  Stableチャネルの場合、自動アップグレード対象バージョンはありません。
+    *  Extendedチャネルの場合、1.30系は1.30.3-gke.1969001に自動アップグレードされます。
+    *  No channelの場合、1.30系は1.30.3-gke.1969001、1.31系は1.31.0-gke.1506000に自動アップグレードされます。
+
+#### 対処方法
+* 自動アップグレードが有効になっている場合は、特に操作は必要ありません。 アップグレードが完了するまで数日かかる場合があります。
+* 特定のバージョンへのアップグレードを希望する場合は、リリースノートで指定された利用可能なバージョンを確認し、手動でアップグレードを実施してください。
+
+### その他
+* 各バージョンに対応するCHANGELOGのリンクが記載されています。 アップグレード前に、各バージョンにおける変更点を確認することをお勧めします。 特に、Breaking ChangesやDeprecationに注意が必要です。
+
+**注記:** 上記の情報は、提供されたリリースノートの一部に基づいています。 リリースノート全体を確認し、詳細な情報やその他の変更点については、Google Cloudの公式ドキュメントを参照してください。 
+
+Title: September 18, 2024
+Link: https://cloud.google.com/release-notes#September_18_2024
 ## Apigee X
 
 ### Announcement
 
-**元の文章**
+**原文**
 
-On August 15, 2024 documentation was added describing how to provision Apigee in the Google Cloud console.
+On September 18, 2024 we released an updated version of Apigee
 
-See Get started in the Google Cloud console for more information.
-
-[Get started in the Google Cloud console](https://cloud.google.com/apigee/docs/api-platform/get-started/wizard-select-project)
+> **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to complete across all Google Cloud zones. Your instances may not have the feature available until the rollout is complete.
 
 **説明**
 
-2024年8月15日、Google Cloud ConsoleでApigeeをプロビジョニングする方法を説明したドキュメントが追加されました。
+Apigee X のアップデートバージョンがリリースされました。今後2営業日以内に本番環境へのロールアウトが開始され、Google Cloudのすべてのゾーンで完了するまでに4営業日以上かかる可能性があります。
 
-**製品への影響有無**
+**製品への影響**
 
-影響なし。ドキュメントの追加のみ。
+Apigee Xを利用している場合、このアップデートが適用されるまで、新機能が使用できない可能性があります。
 
 **対処方法**
 
-特になし。
+特に対処は必要ありません。ロールアウトが完了するまで待つようにしてください。
 
 
-## Cloud SQL for PostgreSQL
+## Cloud Composer
 
 ### Announcement
 
-**元の文章**
+**原文**
 
-Extended support pricing is now available for Cloud SQL for PostgreSQL. To view pricing details, see  Cloud SQL pricing.
-
-[Cloud SQL pricing](https://cloud.google.com/sql/pricing#extended-support-pricing)
- For more information about extended support, see Extended support for Cloud SQL.
-
-[Extended support for Cloud SQL](https://cloud.google.com/sql/docs/postgres/extended-support)
- For more information about extended support timelines, see Database versions and version policies.
-
-[Database versions and version policies](https://cloud.google.com/sql/docs/postgres/db-versions)
+A new Cloud Composer release has started on **September 18, 2024**. Get ready for upcoming changes and features as we roll out the new release to all regions. This release is in progress at the moment. Listed changes and features might not be available in some regions yet.
 
 **説明**
 
-Cloud SQL for PostgreSQLで拡張サポートの料金体系が利用可能になりました。
+Cloud Composer の新しいリリースが開始されました。今後、すべてのリージョンに展開されます。リリースは進行中であり、記載されている変更点や機能は一部のリージョンではまだ利用できない可能性があります。
 
-**製品への影響有無**
+**製品への影響**
 
-影響なし。情報提供のみ。
+Cloud Composer を利用している場合、新機能が利用可能になるまで、時間差が発生する可能性があります。
 
 **対処方法**
 
-特になし。
+特に対処は必要ありません。リリースノートで提供される情報を確認し、新機能が利用可能になったら、必要に応じて適用してください。
 
-### Changed
+### Fixed (Cloud Composer 2)
 
-**元の文章**
+**原文**
 
-If your Cloud SQL Enterprise edition instance stores the transaction logs used for point-in-time recovery (PITR) on disk, then when you do an in-place upgrade to Cloud SQL Enterprise Plus edition the storage location for the transaction logs is switched to Cloud Storage. For more information, see Upgrade an instance to Cloud SQL Enterprise Plus edition by using in-place upgrade.
-
-[Upgrade an instance to Cloud SQL Enterprise Plus edition by using in-place upgrade](https://cloud.google.com/sql/docs/postgres/upgrade-cloud-sql-instance-to-enterprise-plus-in-place)
- To check where your instance stores the transaction logs used for PITR, see Use point-in-time recovery (PITR).
-
-[Use point-in-time recovery (PITR)](https://cloud.google.com/sql/docs/postgres/backup-recovery/pitr#check-log-storage-location)
+*(Cloud Composer 2)* Fixed the issue where environment create and update operations could fail in rare cases because of the scheduler probe timeouts.
 
 **説明**
 
-Cloud SQL Enterprise エディションインスタンスで、ポイントインタイムリカバリ（PITR）に使用されるトランザクションログをディスクに保存している場合、Cloud SQL Enterprise Plus エディションにインプレースアップグレードを行うと、トランザクションログの保存場所がCloud Storageに切り替わります。
+Cloud Composer 2で、スケジューラプローブのタイムアウトが原因で、環境の作成および更新操作がまれに失敗する問題が修正されました。
 
-**製品への影響有無**
+**製品への影響**
 
-Cloud SQL for PostgreSQLのEnterpriseエディションを利用しており、PITRのトランザクションログをディスクに保存している場合、Enterprise Plusエディションへのインプレースアップグレード時にトランザクションログの保存場所が変更されるため、影響があります。
+Cloud Composer 2を利用していて、過去にこの問題が発生していた場合は、修正済みのため、今後は発生しなくなります。
 
 **対処方法**
 
-Cloud SQL Enterprise Plus エディションへのインプレースアップグレードを行う前に、トランザクションログの保存場所が変更されることを認識しておく必要があります。必要に応じて、アップグレード前に既存のトランザクションログをCloud Storageに移動してください。
+特に対処は必要ありません。
 
-Title: August 14, 2024
-Link: https://cloud.google.com/release-notes#August_14_2024
-## Google Kubernetes Engine リリースノート 분석 (2024-08-14)
+### Fixed (Cloud Composer 3)
 
-### **Changed: GKE cluster versions update**
+**原文**
 
-**元の文章:** 
+*(Cloud Composer 3)* Fixed the issue that caused KubernetesPodOperator tasks to fail if they ran for longer than 15 minutes.
 
-GKE cluster versions have been updated. New versions available for upgrades and new clusters. The following Kubernetes versions are now available for new clusters and for opt-in control plane upgrades and node upgrades for existing clusters. For more information on versioning and upgrades, see GKE versioning and support and Upgrades.
+**説明**
 
-**説明：**
+Cloud Composer 3で、KubernetesPodOperatorタスクが15分を超えて実行されると失敗する問題が修正されました。
 
-このリリースでは、さまざまなリリースチャネルで利用可能なGKEクラスタバージョン（Kubernetesバージョン）を更新します。
+**製品への影響**
 
-**製品の影響:**
+Cloud Composer 3を利用していて、過去にこの問題が発生していた場合は、修正済みのため、今後は発生しなくなります。
 
-* Google Kubernetes Engine 1.27、1.28の利用に影響があります。
+**対処方法**
 
-**処置:**
+特に対処は必要ありません。
 
-*使用中のリリースチャンネル（Rapid、Regular、Stable、Extended、No channel）を確認してください。
-*各リリースチャンネルで新しくリリースされたバージョンと使用できなくなったバージョンを確認します。
-* Auto-upgradeが有効になっている場合は、対応するバージョンにクラスタがアップグレードされます。
-*必要に応じて、GKEバージョンサポートポリシー（[https://cloud.google.com/kubernetes-engine/versioning]（https://cloud.google.com/kubernetes-engine/versioning））とアップグレードガイド（[ https://cloud.google.com/kubernetes-engine/upgrades]（https://cloud.google.com/kubernetes-engine/upgrades））を参照してクラスタを手動でアップグレードします。
+### Changed (New Airflow builds)
 
----
-
-### Rapid Channelの変更
-
-**原文：**
-
-> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
-
-- Version 1.30.3-gke.1225000 is now the default version in the Rapid channel.
-- The following versions are now available in the Rapid channel:
- - 1.27.16-gke.1148000
- - 1.28.12-gke.1179000
- - 1.29.7-gke.1274000
- - 1.30.3-gke.1639000
-- The following versions are no longer available in the Rapid channel:
- - 1.27.16-gke.1008000
- - 1.28.11-gke.1315000
- - 1.29.7-gke.1008000
- - 1.30.2-gke.1587003
- - 1.30.3-gke.1451000
-- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.26 to version 1.27.16-gke.1051000 with this release.
-- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.27 to version 1.27.16-gke.1051000 with this release.
-- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.27 to version 1.28.12-gke.1052000 with this release.
-- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.28.12-gke.1052000 with this release.
-- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.29.7-gke.1104000 with this release.
-- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.29.7-gke.1104000 with this release.
-- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.3-gke.1225000 with this release.
-- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.3-gke.1225000 with this release.
-
-**説明：**
-
-* Rapid Channelでは、Kubernetes 1.30.3-gke.1225000が新しい基本バージョンになりました。
-* 複数のバージョンが新しく利用可能であり、一部の古いバージョンは使用できなくなりました。
-* Auto-upgradeが有効になっていると、以前のバージョンから新しいバージョンに自動アップグレードが行われます。
-*詳細については、提供されている各バージョンの変更ログリンクを参照してください。
-
-**製品の影響:**
-
-* Google Kubernetes Engine 1.27、1.28の利用に影響があります。
-* Rapid Channelを使用する場合に該当します。
-
-**アクション：**
-
-* Rapid Channelを使用してAuto-upgradeを使用している場合、クラスタは自動的にアップグレードされます。アップグレードスケジュールを確認し、必要に備えてください。
-* Auto-upgradeを使用しない場合は、提供された変更ログを確認して新しいバージョンにアップグレードすることを検討してください。
-
----
-
-### **Issue: Internal passthrough Network Load Balancers の問題**
-
-**原文：**
-
-We've identified a potential issue that may cause downtime for traffic coming to your GKE managed Internal passthrough Network Load Balancers, after certain cluster operations like node upgrades. This issue specifically affects clusters with GKE Subsetting and Services with `externalTrafficPolicy=Cluster`. This issue is more likely to occur in clusters with more than 25 nodes. To prevent this issue altogether, we recommend updating your Service configuration to use `externalTrafficPolicy=Local`. If you're already experiencing downtime, scale up the number of pods backing your LoadBalancer to provide immediate relief. A fix for this issue will be available in upcoming GKE releases.
-
-**説明：**
-
-* GKE Subsettingを使用し、 `externalTrafficPolicy = Cluster`に設定されているサービスを持つクラスタでノードのアップグレードなどの操作が完了した後、Internal passthrough Network Load Balancerに入ってくるトラフィックが中断される可能性がある問題が発見されました。
-*特に25以上のノードを持つクラスタで発生する可能性が高いです。
-*この問題は将来のGKEリリースで修正される予定です。
-
-**製品の影響:**
-
-* Google Kubernetes Engine 1.27、1.28の利用に影響があります。
-* GKE Subsettingを使用し、 `externalTrafficPolicy = Cluster`設定されたサービスを持つクラスターに対応します。
-
-**アクション：**
-
-*影響を受ける構成を使用している場合は、サービス設定を `externalTrafficPolicy = Local`に更新することをお勧めします。
-*すでにダウンタイムが発生している場合は、LoadBalancerをサポートするPodの数を増やすことで、すぐに問題を軽減できます。
-
----
-
-**次のRegular channel、Stable channel、Extended channel、No channelへの変更も、Rapid Channelと同じ方法で分析して影響を受けていることを確認し、必要な措置を講じる必要があります。**
-
-**各チャンネルごとの変更の説明、製品の影響、およびアクションは、上記のRapid Channelの変更と同じフォーマットを維持しながら分析できます。**
-
-**注：**各変更に含まれるKubernetesバージョン固有の変更ログリンク（[https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/]（https://github.com/kubernetes/ kubernetes/blob/master/CHANGELOG/))でCVE情報を確認し、影響度の高いCVEに関する詳細を確認する必要があります。
-
-Title: August 13, 2024
-Link: https://cloud.google.com/release-notes#August_13_2024
-## Cloud Composer リリースノート
-
-### アナウンス: 新しい Cloud Composer リリースの開始
-
-#### 元の文章
-
-A new Cloud Composer release has started on **August 13, 2024**. Get ready for upcoming changes and features as we roll out the new release to all regions. This release is in progress at the moment. Listed changes and features might not be available in some regions yet. 
-
-#### 説明
-Cloud Composer の新しいリリースが2024年8月13日から開始されました。このリリースは現在進行中で、すべてのリージョンに展開されるまでに時間がかかる可能性があります。リストされている変更点や新機能の一部は、一部のリージョンではまだ利用できない場合があります。
-
-#### 製品への影響有無
-Cloud Composer 2 を利用している場合、このリリースは影響ありません。Cloud Composer 3 を利用している場合は、新しい Airflow ビルドと Cloud Composer イメージが利用可能になるため、影響があります。
-
-#### 対処方法
-* **Cloud Composer 2**: リリースノートの内容を確認し、必要に応じて新しいバージョンへのアップグレードを検討してください。
-* **Cloud Composer 3**: 新しい Airflow ビルドと Cloud Composer イメージを利用する場合は、リリースノートの内容を確認し、アップグレード手順に従ってください。
-
-### 変更点: Cloud Composer 3 で利用可能な新しい Airflow ビルド
-
-#### 元の文章
+**原文**
 
 New Airflow builds are available in Cloud Composer 3:
 
 [Airflow builds](https://cloud.google.com/composer/docs/concepts/versioning/composer-versions#images-composer-3)
-- composer-3-airflow-2.9.1-build.4
-- composer-3-airflow-2.7.3-build.13 
+- composer-3-airflow-2.9.3-build.0
+- composer-3-airflow-2.9.1-build.7 (default)
+- composer-3-airflow-2.7.3-build.16
 
-#### 説明
-Cloud Composer 3 で、新しい Airflow ビルドが利用可能になりました。
+**説明**
 
-* composer-3-airflow-2.9.1-build.4
-* composer-3-airflow-2.7.3-build.13
+Cloud Composer 3で、新しい Airflow ビルドが利用可能になりました。
 
-#### 製品への影響有無
-Cloud Composer 3 を利用している場合、新しい Airflow ビルドが利用可能になったため、影響があります。
+**製品への影響**
 
-#### 対処方法
-必要に応じて、新しい Airflow ビルドへのアップグレードを検討してください。アップグレード手順については、提供されているリンクを参照してください。
+Cloud Composer 3を利用している場合、新しいAirflowビルドを利用することができます。
 
-### 変更点: Cloud Composer 2.9.1 イメージの提供開始
+**対処方法**
 
-#### 元の文章
+必要に応じて、新しいAirflowビルドを利用するようにしてください。
 
- Cloud Composer 2.9.1 images are available:
+### Changed (Cloud Composer 2.9.4 images)
+
+**原文**
+
+Cloud Composer 2.9.4 images are available:
 
 [images](https://cloud.google.com/composer/docs/concepts/versioning/composer-versions#images-composer-2)
-- composer-2.9.1-airflow-2.9.1 (default)
-- composer-2.9.1-airflow-2.7.3
+- composer-2.9.4-airflow-2.9.3
+- composer-2.9.4-airflow-2.9.1 (default)
+- composer-2.9.4-airflow-2.7.3
 
-#### 説明
-Cloud Composer 2.9.1 イメージが利用可能になりました。
+**説明**
 
-* composer-2.9.1-airflow-2.9.1 (デフォルト)
-* composer-2.9.1-airflow-2.7.3
+Cloud Composer 2.9.4 のイメージが利用可能になりました。
 
-#### 製品への影響有無
-Cloud Composer 2 を利用している場合、新しいイメージが利用可能になったため、影響があります。
+**製品への影響**
 
-#### 対処方法
-必要に応じて、新しいイメージへのアップグレードを検討してください。アップグレード手順については、提供されているリンクを参照してください。
+Cloud Composer 2.9.4 を利用する場合、新しいイメージを利用することができます。
 
+**対処方法**
 
-## Google Kubernetes Engine リリースノート
+必要に応じて、新しいイメージを利用するようにしてください。
 
-### 修正: 特権ワークロードにおける PDCSI ドライバの問題解決
+### Changed (Support dates for previous Cloud Composer 3 builds)
 
-#### 元の文章
+**原文**
 
- In GKE version 1.30 and later, there is a workaround in the PDCSI driver for privileged workloads that access container namespaces with hostpath. The workaround delays NodeUnstage until attached filesystems are no longer in use. Under certain conditions, the privileged hostpath workloads may cause a container's mount namespace to be retained longer than the container's lifecycle. The workaround addresses an issue where the driver could proceed with detaching a GCE persistent disk even if the block device filesystem is still in use.
+Support dates for previous Cloud Composer 3 builds are available. All Cloud Composer 3 builds with Airflow 2.9.1 are supported until September 18, 2025.
 
-[workaround in the PDCSI driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver/pull/1658)
- With this fix, the PDCSI driver will validate that an attached block device is no longer in use prior to unmounting it from a GKE node.
+**説明**
 
-#### 説明
+以前の Cloud Composer 3 ビルドのサポート日が公開されました。Airflow 2.9.1 を使用するすべての Cloud Composer 3 ビルドは、2025 年 9 月 18 日までサポートされます。
 
-GKEバージョン1.30以降では、hostpathを使用してコンテナ名前空間にアクセスする特権ワークロード向けにPDCSIドライバに回避策が導入されました。この回避策は、アタッチされたファイルシステムが使用されなくなるまでNodeUnstageを遅延させます。特定の条件下では、特権hostpathワークロードが原因で、コンテナのマウント名前空間がコンテナのライフサイクルよりも長く保持される可能性があります。この回避策は、ブロックデバイスファイルシステムがまだ使用されている場合でも、ドライバがGCE永続ディスクのデタッチ処理を進めてしまう可能性がある問題に対処しています。
+**製品への影響**
 
-この修正により、PDCSIドライバは、GKEノードからマウント解除する前に、アタッチされたブロックデバイスが使用されていないことを検証するようになります。
+Cloud Composer 3 の古いバージョンを利用している場合は、サポート終了日に注意する必要があります。
 
-#### 製品への影響有無
+**対処方法**
 
-GKE 1.27, 1.28 を利用している場合、この修正は GKE 1.30 以降に適用されるため、影響はありません。
+サポート終了日までに、サポートされているバージョンにアップグレードしてください。
 
-#### 対処方法
+### Deprecated (Cloud Composer versions 2.4.2 and 2.4.3)
 
-GKE 1.27, 1.28 を利用している場合は、特別な対処は不要です。ただし、この問題の影響を受けないためには、GKEの最新バージョンへのアップグレードを検討することをお勧めします。
+**原文**
+
+Cloud Composer versions 2.4.2 and 2.4.3 have reached their end of support period.
+
+[end of support period](https://cloud.google.com/composer/docs/concepts/versioning/composer-versioning-overview#version-deprecation-and-support)
+
+**説明**
+
+Cloud Composer バージョン 2.4.2 および 2.4.3 は、サポート終了に達しました。
+
+**製品への影響**
+
+Cloud Composer  バージョン 2.4.2 および 2.4.3 を利用している場合は、サポートが提供されなくなります。
+
+**対処方法**
+
+サポートされているバージョンにアップグレードしてください。
+
+## Compute Engine
+
+### Changed (Determine the number of provisioned VMs)
+
+**原文**
+
+You can determine the number of running VMs and reservations that match the properties of a future reservation request. By subtracting this number from the total count specified in a future reservation request, you can determine the number of reserved VMs that an existing future reservation provisions at its start time. For more information, see Determine the number of provisioned VMs.
+
+[Determine the number of provisioned VMs](https://cloud.google.com/compute/docs/instances/view-future-reservations#determine-provisioned-vms)
+
+**説明**
+
+将来のリソース予約リクエストのプロパティと一致する、実行中のVMと予約の数を決定できるようになりました。将来のリソース予約リクエストで指定された合計数からこの数を引くことで、既存の将来のリソース予約が開始時にプロビジョニングする予約済みVMの数を決定できます。
+
+**製品への影響**
+
+Compute Engineを利用している場合、将来のリソース予約の管理がより詳細にできるようになります。
+
+**対処方法**
+
+必要に応じて、この新機能を利用するようにしてください。
+
+### Changed (Create a future reservation request by reusing the properties of an existing VM)
+
+**原文**
+
+You can create a future reservation request by reusing the properties of an existing VM. This lets you consume the auto-created reservations for the future reservation by creating VMs with properties that exactly match the reference VM's properties. For more information, see the following:
+
+- Create future reservation requests for a single project
+- Create shared future reservation requests
+
+ Create future reservation requests for a single project
+
+[Create future reservation requests for a single project](https://cloud.google.com/compute/docs/instances/create-single-project-future-reservations)
+ Create shared future reservation requests
+
+[Create shared future reservation requests](https://cloud.google.com/compute/docs/instances/create-shared-future-reservations)
+
+**説明**
+
+既存のVMのプロパティを再利用して、将来のリソース予約リクエストを作成できるようになりました。これにより、参照VMのプロパティと完全に一致するプロパティを持つVMを作成することで、将来のリソース予約用に自動作成された予約を利用できます。
+
+**製品への影響**
+
+Compute Engineを利用している場合、将来のリソース予約の作成がより簡単になります。
+
+**対処方法**
+
+必要に応じて、この新機能を利用するようにしてください。 
