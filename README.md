@@ -10,8 +10,8 @@ yum install --installroot $micromount --releasever 9 --setopt install_weak_deps=
 yum clean all --installroot $micromount
 
 buildah umount $microcontainer
-buildah commit $microcontainer us-central1-docker.pkg.dev/dx-training2-6df7/cloud-run-source-deploy/keycloak-ex
+buildah commit $microcontainer <image>
 
 gcloud auth print-access-token | podman login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
 
-podman push us-central1-docker.pkg.dev/dx-training2-6df7/cloud-run-source-deploy/keycloak-ex
+podman push <image>
