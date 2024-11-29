@@ -1,41 +1,33 @@
 
-# Title: November 15, 2024 
-Link: https://cloud.google.com/release-notes#November_15_2024<br>
-## Cloud Storage
+# Title: November 25, 2024 
+Link: https://cloud.google.com/release-notes#November_25_2024<br>
+## BigQuery - Java ライブラリアップデート (google-cloud-bigquery)
 
-### Changed
+### 変更カテゴリ
 
-**原文:** You can now use the `x-amz-decoded-content-length` header to allow an XML API upload that uses chunked transfer encoding to include a signature in its `Authorization` header. 
-
-**説明:** XML API を使用してチャンク転送エンコーディングでアップロードする際に、 `x-amz-decoded-content-length` ヘッダーを使用することで `Authorization` ヘッダーに署名を含めることができるようになりました。
-
-**影響有無:**  アップロード時にチャンク転送エンコーディングを使用し、かつ `Authorization` ヘッダーに署名を含める場合に影響があります。
-
-**対処方法:** 
-* `x-amz-decoded-content-length` ヘッダーを使用する場合は、Cloud Storage のドキュメントを参照し、正しく実装してください。
-* 従来の方法で問題なく動作している場合は、変更は必須ではありません。 
-
-# Title: November 14, 2024 
-Link: https://cloud.google.com/release-notes#November_14_2024<br>
-# BigQuery 
-
-## Announcement
+Changed (変更)
 
 ### 原文
-You can try Gemini in BigQuery at no charge until January 27, 2025. After that date, to continue to use Gemini in BigQuery you must do one of the following:
 
-- Purchase and assign BigQuery Enterprise Plus edition reservations to projects that use Gemini in BigQuery.
-- Purchase Gemini Code Assist Enterprise.
-To learn more, see Purchase Gemini in BigQuery. These purchase options are now generally available (GA).
+- Enable maxTimeTravelHours in BigQuery java client library (#3555) (bd24fd8)
+- Update experimental methods documentation to @internalapi (#3552) (20826f1)
+- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.55.0 (#3559) (950ad0c)
+- Update dependency com.google.apis:google-api-services-bigquery to v2-rev20241027-2.0.0 (#3568) (b5ccfcc)
+- Update dependency com.google.cloud:google-cloud-datacatalog-bom to v1.59.0 (#3561) (1bd24a1)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.40.0 (#3576) (d5fa951)
+- Update github/codeql-action action to v2.27.1 (#3567) (e154ee3)
+- Update github/codeql-action action to v2.27.3 (#3569) (3707a40)
+- Update github/codeql-action action to v2.27.4 (#3572) (2c7b4f7)
+- Fix BigQuery documentation formating (#3565) (552f491)
 
 ### 説明
 
-BigQueryでGeminiを2025年1月27日まで無料で試用できます。それ以降もGeminiを使い続けるには、以下のいずれかが必要です。
+BigQuery Javaクライアントライブラリに以下の変更がありました。
 
-- BigQuery Enterprise Plus Editionの予約を購入し、BigQueryでGeminiを使用するプロジェクトに割り当てる。
-- Gemini Code Assist Enterpriseを購入する。
-
-これらの購入オプションは現在、一般提供(GA)されています。
+- maxTimeTravelHours が有効になりました。
+- 実験的なメソッドのドキュメントが @internalapi に更新されました。
+- いくつかの依存関係が更新されました。
+- BigQueryドキュメントのフォーマットが修正されました。
 
 ### 製品への影響有無
 
@@ -43,152 +35,223 @@ BigQueryでGeminiを2025年1月27日まで無料で試用できます。それ�
 
 ### 対処方法
 
-2025年1月27日以降もBigQueryでGeminiを使用する場合、上記2つの購入オプションから選択し、購入・設定を行う必要があります。 
-
-# Title: November 13, 2024 
-Link: https://cloud.google.com/release-notes#November_13_2024<br>
-## Cloud Composer 
-
-### Announcement - 2024年11月13日リリース開始 
-
-**原文:** A new Cloud Composer release has started on **November 13, 2024**. Get ready for upcoming changes and features as we roll out the new release to all regions. This release is in progress at the moment. Listed changes and features might not be available in some regions yet.
-
-**説明:** 2024年11月13日から新しいCloud Composerのリリースが開始されました。段階的に全リージョンに展開されるため、今後の変更や新機能に備えてください。リリースは現在進行中であり、記載されている変更や機能の一部は、一部のリージョンではまだ利用できない可能性があります。
-
-**製品への影響有無:** 無
-
-**対処方法:** 特になし。
+BigQuery Java クライアントライブラリを使用している場合は、バージョン2.44.0以降にアップデートしてください。
 
 
-### Fixed - AirflowのDST遷移問題を修正 
+## Pub/Sub - Java ライブラリアップデート (google-cloud-pubsub)
 
-**原文:** *(Airflow 2.7.3)* Backported #35887 to fix an issue that occurred during the DST transition. The issue affected DAGs with timezone-aware cron schedule and caused infinite loops in the Airflow scheduler.
+### 変更カテゴリ
 
-[#35887](https://github.com/apache/airflow/pull/35887)
+Changed (変更)
 
-**説明:** Airflow 2.7.3において、DST（夏時間）遷移中に発生する問題を修正するために、#35887がバックポートされました。この問題は、タイムゾーンを認識するcronスケジュールを持つDAGに影響を与え、Airflowスケジューラで無限ループを引き起こしていました。
+### 原文
 
-**製品への影響有無:**  有 (Airflow 2.7.3を利用している場合)
-
-**対処方法:** Cloud Composerを最新バージョンにアップデートしてください。
-
-
-### Changed - Cloud Composer 3 環境作成エラーメッセージの改善 
-
-**原文:** Improved the error message generated when a Cloud Composer 3 environment creation fails because of missing permissions.
-
-**説明:** 権限不足が原因でCloud Composer 3環境の作成に失敗した場合に生成されるエラーメッセージが改善されました。
-
-**製品への影響有無:** 無
-
-**対処方法:** 特になし。
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.49.0 (77546e0)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.50.0 (3f21af3)
+- Update dependency com.google.cloud:google-cloud-bigquery to v2.43.3 (#2256) (f7fbc6c)
+- Update dependency com.google.cloud:google-cloud-core to v2.47.0 (#2249) (3df5729)
+- Update dependency com.google.cloud:google-cloud-storage to v2.44.1 (#2240) (f8dae4d)
+- Update googleapis/sdk-platform-java action to v2.50.0 (#2261) (d0aab7d)
+- Update sdk platform java dependencies (#2262) (b689fe2)
 
 
-### Changed - apache-airflow-providers-google パッケージのアップグレード 
+### 説明
 
-**原文:** *(Airflow 2.10.2 and 2.9.3)* The `apache-airflow-providers-google` package was upgraded to version 10.25.0 in Cloud Composer 2 images and Cloud Composer 3 builds. For more information about changes, see the apache-airflow-providers-google changelog from version 10.24.0 to version 10.25.0.
+Pub/Sub Java クライアントライブラリの依存関係がアップデートされました。
 
-[apache-airflow-providers-google changelog](https://airflow.apache.org/docs/apache-airflow-providers-google/10.25.0/commits.html)
+- Java コードジェネレーター (gapic-generator-java) がバージョン 2.49.0 および 2.50.0 にアップデートされました。
+- いくつかの依存関係が更新されました。
 
-**説明:** Airflow 2.10.2および2.9.3において、Cloud Composer 2イメージとCloud Composer 3ビルドで`apache-airflow-providers-google`パッケージがバージョン10.25.0にアップグレードされました。変更点の詳細については、バージョン10.24.0からバージョン10.25.0へのapache-airflow-providers-googleの変更履歴を参照してください。
+### 製品への影響有無
 
-**製品への影響有無:**  有 (Airflow 2.10.2, 2.9.3 を利用している場合)
+有
 
-**対処方法:** `apache-airflow-providers-google` の変更履歴を確認し、必要な対応を行ってください。
+### 対処方法
 
+Pub/Sub Java クライアントライブラリを使用している場合は、バージョン 1.134.2 以降にアップデートしてください。
 
-### Changed - apache-airflow-providers-cncf-kubernetes パッケージのアップグレード 
-
-**原文:** *(Airflow 2.10.2 and 2.9.3)* The `apache-airflow-providers-cncf-kubernetes` package was upgraded to version 9.0.1 in Cloud Composer 2 images and Cloud Composer 3 builds. For more information about changes, see the apache-airflow-providers-cncf-kubernetes changelog from version 9.0.0 to version 9.0.1.
-
-[apache-airflow-providers-cncf-kubernetes changelog](https://airflow.apache.org/docs/apache-airflow-providers-cncf-kubernetes/stable/changelog.html)
-
-**説明:** Airflow 2.10.2および2.9.3において、Cloud Composer 2イメージとCloud Composer 3ビルドで`apache-airflow-providers-cncf-kubernetes`パッケージがバージョン9.0.1にアップグレードされました。変更点の詳細については、バージョン9.0.0からバージョン9.0.1へのapache-airflow-providers-cncf-kubernetesの変更履歴を参照してください。
-
-**製品への影響有無:**  有 (Airflow 2.10.2, 2.9.3 を利用している場合)
-
-**対処方法:** `apache-airflow-providers-cncf-kubernetes` の変更履歴を確認し、必要な対応を行ってください。
-
-
-### Changed - Cloud Composer 3 で利用可能な新しい Airflow ビルド 
-
-**原文:** New Airflow builds are available in Cloud Composer 3:
-
-[Airflow builds](https://cloud.google.com/composer/docs/concepts/versioning/composer-versions#images-composer-3)
-- composer-3-airflow-2.10.2-build.0
-- composer-3-airflow-2.9.3-build.7 (default)
-- composer-3-airflow-2.7.3-build.23
-
-**説明:** Cloud Composer 3で新しいAirflowビルドが利用可能になりました。
-
-**製品への影響有無:** 無
-
-**対処方法:** 特になし。
-
-
-### Changed - Cloud Composer 2 で利用可能な新しいイメージ
-
-**原文:** New images are available in Cloud Composer 2:
-
-[images](https://cloud.google.com/composer/docs/concepts/versioning/composer-versions#images-composer-2)
-- composer-2.9.11-airflow-2.10.2
-- composer-2.9.11-airflow-2.9.3 (default)
-- composer-2.9.11-airflow-2.7.3
-
-**説明:** Cloud Composer 2で新しいイメージが利用可能になりました。
-
-**製品への影響有無:** 無
-
-**対処方法:** 特になし。
-
-
-### Changed - 以前の Cloud Composer 3 ビルドのサポート期間
-
-**原文:** Support dates for previous Cloud Composer 3 builds are available. All Cloud Composer 3 builds with Airflow 2.9.3 are supported until November 13, 2025.
-
-**説明:** 以前のCloud Composer 3ビルドのサポート日が公開されました。Airflow 2.9.3を搭載したすべてのCloud Composer 3ビルドは、2025年11月13日までサポートされます。
-
-**製品への影響有無:** 無
-
-**対処方法:** 特になし。 
-
-# Title: November 11, 2024 
-Link: https://cloud.google.com/release-notes#November_11_2024<br>
-## BigQuery
-
-### Changes for google-cloud-bigquery
-
-**原文:**
-- Updates to allow users to set max_stream_count (#2039) (7372ad6)
-
-**説明:**
-BigQueryのPythonクライアントライブラリ `google-cloud-bigquery` のバージョン 3.27.0 がリリースされました。このバージョンでは、`max_stream_count` を設定できるようになりました。これにより、ユーザーはストリームの最大数を制御できるようになります。
-
-**製品への影響有無:** 無
-**対処方法:** 特に対応は不要です。 `google-cloud-bigquery` をバージョン 3.27.0 にアップデートすることで、新機能が利用可能になります。
-
+# Title: November 21, 2024 
+Link: https://cloud.google.com/release-notes#November_21_2024<br>
 ## Google Kubernetes Engine
 
 ### Changed
 
-**原文:**
-Clusters now have unified and flexible configuration, allowing you to modify control plane access and cluster node settings at any time, without the need to recreate the cluster. This eliminates the previous distinction between private and public clusters. All clusters support this flexibility and utilize DNS-based endpoints for secure and direct control plane access from any network, removing the need for bastion hosts or proxies. You can still enhance security with measures like VPC Service Controls. 
+**原文:** If your GKE cluster was created before version 1.26, you can now migrate it to cgroupv2. This migration enables the use of Pod bursting in Autopilot mode.
 
-**説明:**
-Google Kubernetes Engine (GKE) のクラスタ設定がより柔軟になりました。コントロールプレーンへのアクセスやクラスタノードの設定を、クラスタを作り直すことなくいつでも変更できるようになりました。これにより、従来のプライベートクラスタとパブリッククラスタの区別がなくなり、すべてのクラスタでこの柔軟性がサポートされます。また、すべてのクラスタはDNSベースのエンドポイントを利用して、どのネットワークからでもセキュアかつ直接的にコントロールプレーンにアクセスできるようになり、bastionホストやプロキシが不要になりました。VPC Service Controlsなどの対策でセキュリティを強化することも可能です。
+**説明:**  バージョン 1.26 より前に作成された GKE クラスタを cgroupv2 に移行できるようになりました。この移行により、Autopilot モードで Pod バースト機能が使用できるようになります。
 
 **製品への影響有無:** 有
-**対処方法:** 既存のクラスタは自動的に新しい設定に更新されますが、以前の設定を引き続き使用することもできます。詳細については、[About network isolation in GKE](https://cloud.google.com/kubernetes-engine/docs/concepts/network-isolation) を参照してください。
 
-## Pub/Sub
+**対処方法:** 
+* GKEクラスタでAutopilotモードを使用しており、Pod bursting機能を利用したい場合は、クラスタをcgroupv2に移行する必要があります。
+* 移行手順については、提供されたリンクを参照してください。
+    * [migrate it to cgroupv2](https://cloud.google.com/kubernetes-engine/docs/how-to/migrate-cgroupv2)
+    * [Pod bursting](https://cloud.google.com/kubernetes-engine/docs/how-to/pod-bursting-gke#availability-in-gke) 
+* cgroupv2への移行は、アプリケーションに影響を与える可能性があります。移行前に、十分なテストを実施してください。 
 
-### Changes for google-cloud-pubsub
+# Title: November 19, 2024 
+Link: https://cloud.google.com/release-notes#November_19_2024<br>
+# Compute Engine
+## Changed
+原文: The documentation has been updated to clarify that future reservation requests don't support E2 machine types. To reserve VMs that use E2 machine types, use on-demand reservations instead.
 
-**原文:** 
-- Add support for Python3.13 (#1302) (ab22e27)
+説明： 将来の予約リクエストではE2 マシンタイプがサポートされなくなりました。E2 マシンタイプを使用するVMを予約するには、代わりにオンデマンド予約を使用してください。
 
-**説明:**
-Pub/SubのPythonクライアントライブラリ `google-cloud-pubsub` のバージョン 2.27.1 がリリースされました。このバージョンでは、Python 3.13 のサポートが追加されました。
+影響有無：無し
+対処方法：E2 マシンタイプを使用するVMを予約する場合は、オンデマンド予約を使用してください。
 
-**製品への影響有無:** 無
-**対処方法:** Python 3.13 を使用する場合は、`google-cloud-pubsub` をバージョン 2.27.1 にアップデートする必要があります。 
+# Google Kubernetes Engine
+## Changed
+原文: GKE cluster versions have been updated.
+
+**New versions available for upgrades and new clusters.**
+
+ The following Kubernetes versions are now available for new clusters and for
+opt-in control plane upgrades and node upgrades for existing clusters. For more
+information on versioning and upgrades, see GKE versioning and support
+and Upgrades.
+説明： GKEクラスタバージョンが更新されました。
+
+新しいクラスタとアップグレードで利用可能なバージョン：
+
+以下のKubernetesバージョンが、新しいクラスタ、および既存クラスタのオプトインによるコントロールプレーンとノードのアップグレードで利用可能になりました。バージョン管理とアップグレードの詳細については、GKEのバージョン管理とサポートおよびアップグレードを参照してください。
+
+影響有無：有
+対処方法：必要に応じて、新しいバージョンを利用するためにクラスタのアップグレードを検討してください。
+
+## Rapid channel
+## Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+when we publish the release notes, and can take multiple days to complete across all Google Cloud
+zones.
+
+- The following versions are now available in the Rapid channel:
+
+- 1.28.15-gke.1159000
+- 1.29.10-gke.1227000
+- 1.30.6-gke.1125000
+- 1.31.2-gke.1518000
+
+説明： Rapidチャネルで以下のバージョンが利用可能になりました。
+
+- 1.28.15-gke.1159000
+- 1.29.10-gke.1227000
+- 1.30.6-gke.1125000
+- 1.31.2-gke.1518000
+
+これらのバージョンは、リリースノートの公開時に展開がすでに進行中であり、Google Cloudのすべてのゾーンで完了するまでに数日かかる場合があります。
+
+影響有無：有
+対処方法：必要に応じて、Rapidチャネルで利用可能な新しいバージョンへのアップグレードを検討してください。
+
+## Regular channel
+## Changed
+原文: There are no new releases in the Regular channel.
+
+説明： Regularチャネルでの新しいリリースはありません。
+
+影響有無：無
+対処方法：対応不要です。
+
+## Stable channel
+## Changed
+原文: There are no new releases in the Stable channel.
+説明： Stableチャネルでの新しいリリースはありません。
+
+影響有無：無
+対処方法：対応不要です。
+
+## Extended channel
+## Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+when we publish the release notes, and can take multiple days to complete across all Google Cloud
+zones.
+
+- Version 1.27.16-gke.1836000 is now available in the Extended channel.
+説明： Extendedチャネルでバージョン1.27.16-gke.1836000が利用可能になりました。
+
+このバージョンは、リリースノートの公開時に展開がすでに進行中であり、Google Cloudのすべてのゾーンで完了するまでに数日かかる場合があります。
+
+影響有無：有
+対処方法：必要に応じて、Extendedチャネルで利用可能な新しいバージョンへのアップグレードを検討してください。
+
+## No channel
+## Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+when we publish the release notes, and can take multiple days to complete across all Google Cloud
+zones.
+
+- The following versions are now available:
+
+- 1.28.15-gke.1159000
+- 1.29.10-gke.1227000
+- 1.30.6-gke.1125000
+- 1.31.2-gke.1518000
+
+- The following node versions are now available:
+
+- 1.27.16-gke.1836000
+- 1.28.15-gke.1159000
+- 1.29.10-gke.1227000
+- 1.30.6-gke.1125000
+- 1.31.2-gke.1518000
+説明： 
+チャネルを指定していないクラスタ向けに以下のバージョンが利用可能になりました。
+
+- 利用可能なバージョン: 1.28.15-gke.1159000, 1.29.10-gke.1227000, 1.30.6-gke.1125000, 1.31.2-gke.1518000
+- 利用可能なノードバージョン: 1.27.16-gke.1836000, 1.28.15-gke.1159000, 1.29.10-gke.1227000, 1.30.6-gke.1125000, 1.31.2-gke.1518000
+
+これらのバージョンは、リリースノートの公開時に展開がすでに進行中であり、Google Cloudのすべてのゾーンで完了するまでに数日かかる場合があります。
+
+影響有無：有
+対処方法：必要に応じて、チャネルを指定していないクラスタで利用可能な新しいバージョンへのアップグレードを検討してください。 
+
+# Title: November 18, 2024 
+Link: https://cloud.google.com/release-notes#November_18_2024<br>
+# Pub/Sub
+
+## Libraries/Node.js/@google-cloud/pubsub/Changes for @google-cloud/pubsub/4.9.0
+
+### 原文
+
+- Add IngestionFailureEvent to the external proto (#1984) (7075430)
+- KiB, not MiB for ack size limits (#1999) (798270d)
+
+### 説明
+- Pub/Sub Node.js ライブラリのバージョン 4.9.0 がリリースされました。
+  - 外部プロトコルに IngestionFailureEvent が追加されました。
+  - 確認応答サイズの上限の単位が MiB から KiB に修正されました。
+
+### 製品への影響有無
+-  バージョン 4.9.0 より前の  `@google-cloud/pubsub` を使用しているアプリケーションに影響があります。
+
+### 対処方法
+ - `@google-cloud/pubsub` をバージョン 4.9.0 以降にアップデートしてください。
+ -  確認応答サイズの上限に MiB 単位を使用している場合は、KiB 単位に修正してください。 
+
+# Title: November 15, 2024 
+Link: https://cloud.google.com/release-notes#November_15_2024<br>
+## Cloud Run
+
+### Changed
+
+原文: `asia-south1` (Mumbai, India) is now subject to Tier 1 pricing
+
+説明：インドのムンバイリージョン(`asia-south1`)がTier 1の料金体系の対象になりました。
+
+影響有無：有
+
+対処方法：`asia-south1` リージョンを利用している場合は、料金体系が変更になるため、[料金表](https://cloud.google.com/run/pricing#tables)を確認してください。 
+
+
+## Cloud Storage
+
+### Changed
+
+原文: You can now use the `x-amz-decoded-content-length` header to allow an XML API upload that uses chunked transfer encoding to include a signature in its `Authorization` header.
+
+説明：チャンク転送エンコーディングを使用する XML API アップロードで、`Authorization` ヘッダーに署名を含めるために `x-amz-decoded-content-length` ヘッダーを使用できるようになりました。
+
+影響有無：無
+
+対処方法： `x-amz-decoded-content-length` ヘッダーは任意で利用できます。チャンク転送エンコーディングを使用する XML API アップロードで署名を利用する場合は、[x-amz-decoded-content-length ヘッダー](https://cloud.google.com/storage/docs/xml-api/reference-headers#xamzdecodedcontentlength)と[署名](https://cloud.google.com/storage/docs/authentication/signatures)のドキュメントを参照してください。 
