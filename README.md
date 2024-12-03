@@ -1,3 +1,159 @@
+# Title: November 27, 2024 
+Link: https://cloud.google.com/release-notes#November_27_2024<br>
+## Cloud Composer
+
+### Announcement: Removal of Deprecated Airflow Operators in December 2024
+
+**Original Release Note:**
+
+In December 2024, Google will **remove the following previously deprecated Airflow operators** from the `apache-airflow-providers-google` package.
+
+ The new version of this package will be included in one of the future releases of Cloud Composer and the change will be announced in the Release Notes. After this change, it will not be possible to use these operators in your DAGs.
+
+ Make sure that you use up-to-date alternatives of the removed operators instead. For more information about removed and deprecated Airflow operators and their up-to-date alternatives, see Deprecated and removed Airflow operators.
+
+[Deprecated and removed Airflow operators](https://cloud.google.com/composer/docs/composer-2/write-dags#deprecated-operators)
+ **Operators that will be removed in December 2024**: DataPipelineHook, CreateDataPipelineOperator, RunDataPipelineOperator, AutoMLDatasetLink, AutoMLDatasetListLink, AutoMLModelLink, AutoMLModelTrainLink, AutoMLModelPredictLink.
+
+**説明:**
+
+2024年12月に、非推奨のAirflowオペレーターが`apache-airflow-providers-google`パッケージから削除されます。削除されるオペレーターは、DataPipelineHook, CreateDataPipelineOperator, RunDataPipelineOperator, AutoMLDatasetLink, AutoMLDatasetListLink, AutoMLModelLink, AutoMLModelTrainLink, AutoMLModelPredictLinkです。
+
+この変更は将来の Cloud Composer のリリースに含まれ、リリースノートで発表されます。変更後、これらのオペレーターはDAGで使用できなくなります。
+
+**製品への影響有無:** 有
+
+**対処方法:**
+
+削除されるオペレーターを使用している場合は、代替のオペレーターへの移行が必要です。 詳細は、[Deprecated and removed Airflow operators](https://cloud.google.com/composer/docs/composer-2/write-dags#deprecated-operators) を参照してください。 
+
+# Title: November 25, 2024 
+Link: https://cloud.google.com/release-notes#November_25_2024<br>
+## BigQuery
+
+### 変更カテゴリ
+
+Libraries/Java/Changes for google-cloud-bigquery
+
+### 原文
+
+- Enable maxTimeTravelHours in BigQuery java client library (#3555) (bd24fd8)
+- Update experimental methods documentation to @internalapi (#3552) (20826f1)
+- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.55.0 (#3559) (950ad0c)
+- Update dependency com.google.apis:google-api-services-bigquery to v2-rev20241027-2.0.0 (#3568) (b5ccfcc)
+- Update dependency com.google.cloud:google-cloud-datacatalog-bom to v1.59.0 (#3561) (1bd24a1)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.40.0 (#3576) (d5fa951)
+- Update github/codeql-action action to v2.27.1 (#3567) (e154ee3)
+- Update github/codeql-action action to v2.27.3 (#3569) (3707a40)
+- Update github/codeql-action action to v2.27.4 (#3572) (2c7b4f7)
+- Fix BigQuery documentation formating (#3565) (552f491)
+
+### 説明
+
+BigQuery Javaクライアントライブラリのバージョン2.44.0における変更です。
+
+- maxTimeTravelHoursが有効化されました。
+- 実験的なメソッドのドキュメントが@internalapiに更新されました。
+- いくつかの依存関係が更新されました。
+- BigQueryドキュメントのフォーマットが修正されました。
+
+### 影響有無
+
+有
+
+### 対処方法
+
+BigQuery Javaクライアントライブラリをバージョン 2.44.0 に更新する必要があります。 
+
+## Cloud Logging
+
+### 変更カテゴリ
+
+Libraries/Java/Changes for google-cloud-logging
+
+### 原文
+
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.49.0 (a1ec68d)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.50.0 (afcf63c)
+- Fixed outdated link to X-Cloud-Trace-Context header description (#1713) (d474313)
+- Update sdk platform java dependencies (#1725) (531f8c5)
+
+### 説明
+Cloud Logging Javaライブラリのバージョン 3.20.7における変更です。
+
+- Javaコードジェネレーター (gapic-generator-java) がバージョン 2.49.0 および 2.50.0 に更新されました。
+- X-Cloud-Trace-Context ヘッダーの説明への古いリンクが修正されました。
+- SDKプラットフォームJavaの依存関係が更新されました。
+
+### 影響有無
+有
+
+### 対処方法
+
+Cloud Logging Javaライブラリをバージョン 3.20.7 に更新する必要があります。
+
+## Cloud Storage
+
+### 変更カテゴリ
+
+Libraries/Java/Changes for google-cloud-storage
+
+### 原文
+
+- Adds support for restore token (aef367d)
+- Adds support for restore token (#2768) (0394354)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.49.0 (aef367d)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.50.0 (281cccb)
+- Set default values for monitored resource (#2809) (27829a4)
+- Update sdk-platform-java dependencies (#2817) (9e961c4)
+
+### 説明
+
+Cloud Storage Java ライブラリのバージョン 2.45.0 における変更です。
+
+- リストアトークンがサポートされました。
+- Javaコードジェネレーター (gapic-generator-java) がバージョン 2.49.0 および 2.50.0 に更新されました。
+- 監視対象リソースのデフォルト値が設定されました。
+- SDKプラットフォームJavaの依存関係が更新されました。
+
+### 影響有無
+
+有
+
+### 対処方法
+
+Cloud Storage Java ライブラリをバージョン 2.45.0 に更新する必要があります。 
+
+## Pub/Sub
+
+### 変更カテゴリ
+
+Libraries/Java/Changes for google-cloud-pubsub
+
+### 原文
+
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.49.0 (77546e0)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.50.0 (3f21af3)
+- Update dependency com.google.cloud:google-cloud-bigquery to v2.43.3 (#2256) (f7fbc6c)
+- Update dependency com.google.cloud:google-cloud-core to v2.47.0 (#2249) (3df5729)
+- Update dependency com.google.cloud:google-cloud-storage to v2.44.1 (#2240) (f8dae4d)
+- Update googleapis/sdk-platform-java action to v2.50.0 (#2261) (d0aab7d)
+- Update sdk platform java dependencies (#2262) (b689fe2)
+
+### 説明
+
+Pub/Sub Java ライブラリのバージョン 1.134.2 における変更です。
+
+- Javaコードジェネレーター (gapic-generator-java) がバージョン 2.49.0 および 2.50.0 に更新されました。
+- いくつかの依存関係が更新されました。
+
+### 影響有無
+
+有
+
+### 対処方法
+
+Pub/Sub Java ライブラリをバージョン 1.134.2 に更新する必要があります。 
 
 # Title: November 25, 2024 
 Link: https://cloud.google.com/release-notes#November_25_2024<br>
