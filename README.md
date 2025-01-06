@@ -1,103 +1,88 @@
-**v1.30.6からの変更点**
 
-*   **バグ修正**
-    *   **ノードのホスト名とノード名が一致しない場合のスケジューリングの問題**:
-        *   ノードのホスト名ラベルがノード名と異なる場合、ホスト名に基づくノードアフィニティ（特定のノードにPodを配置する設定）を持つPersistent Volume (PV)を使用しているPodが、誤ったノードにスケジュールされる、またはスケジュールに失敗する可能性があったバグを修正しました。
-        *   これは、スケジューリングとストレージを担当するチーム（SIG Scheduling and Storage）によって修正されました。
-    *   **Pod Disruption Budget (PDB)違反時のスケジューラによる先取りの問題**:
-        *   スケジューラ（Podの配置を決定するコンポーネント）が、Podを強制的に別のノードに移動させる（先取り）際、PDB（Podが一時的に利用不可になることを防ぐための設定）を適切に考慮していなかった問題を修正しました。
-        *   これは、スケジューリングを担当するチーム（SIG Scheduling）によって修正されました。
+# Title: January 02, 2025 
+Link: https://cloud.google.com/release-notes#January_02_2025<br>
+# BigQuery
 
-**v1.30.5からの変更点**
+## Changed
 
-*   **機能追加**
-    *   **Go言語のバージョンアップ**:
-        *   Kubernetesのビルドに使用するGo言語のバージョンが1.22.7および1.22.8にアップグレードされました。
-        *   これは、リリースとテストを担当するチーム（SIG Release and Testing）によって行われました。
-*   **バグ修正**
-    *   **DaemonSetコントローラの可用性計算の修正**:
-        *   DaemonSetコントローラ（すべてのノードで特定のPodを動かすためのコントローラ）が、古い異常なPodを最大利用不可予算の計算に含めていなかった問題を修正しました。
-        *   これは、アプリケーションを担当するチーム（SIG Apps）によって修正されました。
-    *   **Endpointコントローラの修正**:
-        *   Endpointオブジェクト（サービスに対するPodのエンドポイント情報をまとめたオブジェクト）が、1000件以上のエンドポイントアドレスを持つ場合に切り詰められた後、Endpointコントローラがオブジェクトを正しく調整していなかったバグを修正しました。
-        *   これは、アプリケーション、ネットワーク、テストを担当するチーム（SIG Apps, Network and Testing）によって修正されました。
-    *   **メモリリークの修正**:
-        *   Kubernetesのデフォルト設定（1.29）で、トレース機能に関連するkubelet（各ノードでPodを実行するエージェント）とkube-apiserver（Kubernetes APIを提供するコンポーネント）のメモリリークを修正しました。
-        *   これは、API MachineryとNodeを担当するチーム（SIG API Machinery and Node）によって修正されました。
-    *   **UDPコネクションのクリーンアップの問題**:
-        *   1.29で発生したリグレッション（以前は正常だったものが、バグにより悪化すること）を修正しました。削除されたPodへのUDPコネクションの接続追跡情報（conntrack）が正しくクリーンアップされていなかったため、DNS Podの再起動時にDNS問題が発生する可能性があった問題を修正しました。
-        *   これは、ネットワークを担当するチーム（SIG Network）によって修正されました。
-    *   **Kubeadmのタイムアウト処理**:
-        *   kubeadm（Kubernetesクラスタを構築・管理するためのツール）のアップグレード前チェックで使用するPodが、タイムアウト後に正しく終了していなかった問題を修正しました。
-        *   これは、クラスタライフサイクルを担当するチーム（SIG Cluster Lifecycle）によって修正されました。
-    *   **Kubeadmのetcdメンバーリストの修正**:
-        *   Kubeadmでetcdメンバー（Kubernetesクラスタの状態を保存する分散データベース）を削除する際に、誤ったメンバーリストが報告されていた問題を修正しました。
-        *   これは、クラスタライフサイクルを担当するチーム（SIG Cluster Lifecycle）によって修正されました。
-    *   **Kubeadmのetcdメンバー追加/削除処理の修正**:
-        *   Kubeadmで新しいコントロールプレーンノードを追加する際に、etcdメンバーの追加が既にメンバーリストに存在しない場合のみ実行されるように、また、Kubeadmのリセット時に、削除するetcdメンバーのIDが存在する場合のみ削除を実行するように修正しました。
-        *   これは、クラスタライフサイクルを担当するチーム（SIG Cluster Lifecycle）によって修正されました。
-*   **その他（クリーンアップまたは一時的な問題）**
-    *   **Kubeadmのpreflightチェックからのツール削除**:
-        *   kubeadmのpreflightチェック（Kubernetesクラスタが正常に構築されるための前提条件をチェックする機能）から、socatとebtablesを削除しました。
-        *   これは、クラスタライフサイクルを担当するチーム（SIG Cluster Lifecycle）によって行われました。
+**原文:** An updated version of JDBC driver for BigQuery is now available.
 
-**まとめ**
+**説明:** BigQueryのJDBCドライバーの最新バージョンが利用可能になりました。
 
-このchangelogは、Kubernetesの安定性と信頼性を向上させるための重要な修正といくつかの機能追加を示しています。
+**影響有無:** 有（BigQueryのJDBCドライバーを利用している場合）
 
-*   **v1.30.6** では、特にノードのホスト名に関するスケジューリングのバグと、スケジューラによるPDB違反時の先取りに関する問題を修正しました。
-*   **v1.30.5** では、Go言語のバージョンアップ、DaemonSetコントローラの可用性計算の修正、Endpointコントローラの修正、kubeletとkube-apiserverのメモリリークの修正、UDPコネクションのクリーンアップの問題の修正など、多数のバグ修正とKubeadmに関連する修正が行われました。
+**対処方法:** 
 
-これらの変更は、Kubernetesの安定性を高め、様々な環境での信頼性を向上させる上で重要です。Kubernetesを利用する際には、これらの変更点を確認し、必要に応じてアップグレードを検討することをお勧めします。
+* BigQueryのJDBCドライバーを利用している場合は、最新バージョンへのアップデートを検討してください。
+* 最新バージョンでは、バグ修正やパフォーマンスの向上が含まれている可能性があります。
+* 詳細については、リリースノートのリンク先を参照してください。
+ [JDBC driver for BigQuery](https://cloud.google.com/bigquery/docs/reference/odbc-jdbc-drivers#current_jdbc_driver) 
 
+# Title: December 23, 2024 
+Link: https://cloud.google.com/release-notes#December_23_2024<br>
+# BigQuery 
 
+## Changed
+
+**原文:** BigQuery is available in the Mexico (northamerica-south1) region. 
+
+[Mexico (northamerica-south1)](https://cloud.google.com/bigquery/docs/locations#regions)
+
+**説明:** BigQuery がメキシコ(northamerica-south1)リージョンで利用可能になりました。
+
+**影響有無:** 無
+
+**対処方法:** 特に対応は不要です。
 # Title: December 20, 2024 
 Link: https://cloud.google.com/release-notes#December_20_2024<br>
 ## Apigee X
 
 ### Announcement
 
-**原文:** On December 20, 2024 we released an updated version of Apigee. 
+> On December 20, 2024 we released an updated version of Apigee.
+>
+> > **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to complete across all Google Cloud zones. Your instances may not have the feature available until the rollout is complete.
 
-> **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to complete across all Google Cloud zones. Your instances may not have the feature available until the rollout is complete.
+説明： 2024年12月20日にApigeeのアップデートバージョンがリリースされました。本番環境へのロールアウトは2営業日以内に開始され、Google Cloudのすべてのゾーンで完了するまでに4営業日以上かかる場合があります。ロールアウトが完了するまで、インスタンスで新機能が使用できない場合があります。
 
-**説明:** 2024年12月20日にApigeeのアップデートバージョンがリリースされました。今後2営業日以内に本番環境へのロールアウトが開始され、Google Cloudのすべてのゾーンへの展開が完了するまで4営業日以上かかる場合があります。 
+影響有無： 有
 
-**製品への影響有無:**  有
-
-**対処方法:**  本番環境のインスタンスで新機能が利用可能になるまで最大4営業日かかる場合があるので、注意が必要です。
+対処方法： 本番環境へのロールアウトは自動で行われますが、新機能が使用可能になるまで最大4営業日かかる可能性があります。新しい機能に依存する場合は、ロールアウトが完了するまで待つ必要があります。
 
 
 ## Pub/Sub
 
 ### Announcement
 
-**原文:**  Documentation is now available to help you troubleshoot Pub/Sub issues by using audit logs. You can use audit logs to troubleshoot issues related to identifying who created, deleted, or modified Pub/Sub resources, tracking configuration changes to topics or subscriptions, and verifying the existence and status of topics and subscriptions. For more information, see Troubleshoot Pub/Sub issues with audit logs and General troubleshooting.
+> Documentation is now available to help you troubleshoot Pub/Sub issues by using audit logs. You can use audit logs to troubleshoot issues related to identifying who created, deleted, or modified Pub/Sub resources, tracking configuration changes to topics or subscriptions, and verifying the existence and status of topics and subscriptions. For more information, see Troubleshoot Pub/Sub issues with audit logs and General troubleshooting.
+>
+> [Troubleshoot Pub/Sub issues with audit logs](https://cloud.google.com/pubsub/docs/troubleshooting-audit-logs)
+> [General troubleshooting](https://cloud.google.com/pubsub/docs/troubleshooting)
 
-**説明:** Pub/Subの問題を監査ログを使用してトラブルシューティングするためのドキュメントが公開されました。監査ログを使用すると、Pub/Subリソースの作成、削除、変更を行ったユーザーの特定、トピックまたはサブスクリプションへの構成変更の追跡、トピックとサブスクリプションの存在と状態の確認に関連する問題をトラブルシューティングできます。 
+説明： Pub/Subの問題を監査ログを使用してトラブルシューティングするためのドキュメントが公開されました。監査ログを使用すると、Pub/Subリソースの作成、削除、または変更を行ったユーザーの特定、トピックまたはサブスクリプションへの構成変更の追跡、トピックとサブスクリプションの存在とステータスの確認に関連する問題をトラブルシューティングできます。
 
-**製品への影響有無:** 無
+影響有無： 無
 
-**対処方法:**  特に対処は不要です。ドキュメントは参考情報として活用してください。 
+対処方法： 監査ログを使用したトラブルシューティングは任意です。詳細については、提供されたリンク先のドキュメントを参照してください。 
 
 # Title: December 19, 2024 
 Link: https://cloud.google.com/release-notes#December_19_2024<br>
-## Apigee X (1-14-0-apigee-3)
+## Apigee X
 
-### Announcement - セキュリティアップデートとトライアル版リリース
+### Announcement
 
 **原文:** On December 19, 2024, we released an updated version of Apigee (1-14-0-apigee-3) for trial organizations only.
 
 > **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to be completed across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
 
-**説明:** 2024年12月19日、トライアル版組織向けにApigeeのアップデートバージョン(1-14-0-apigee-3)がリリースされました。このリリースは、2営業日以内に本番環境へのロールアウトが開始され、Google Cloudのすべてのゾーンで完了するまでに4営業日以上かかる場合があります。本番環境のインスタンスでは、ロールアウトが完了するまで、新機能と修正プログラムが利用できない場合があります。
+**説明:** 2024年12月19日、トライアル版の組織向けにApigeeのアップデートバージョン(1-14-0-apigee-3)がリリースされました。 プロダクションインスタンスへのロールアウトは2営業日以内に開始され、Google Cloudのすべてのゾーンへの展開が完了するまで4営業日以上かかる場合があります。 ロールアウトが完了するまで、すべての機能や修正が利用できない場合があります。
 
-**製品への影響有無:**  あり（トライアル版を利用している場合）
+**製品への影響有無:** 無 (トライアル版組織以外)
 
-**対処方法:** 本番環境へのロールアウトは自動的に行われますが、完了まで最大4営業日以上かかる可能性があります。新機能や修正プログラムを利用する場合は、ロールアウトが完了するまでお待ちください。
+**対処方法:**  特になし。本番環境への適用は後日開始され、完了まで時間がかかることに注意してください。
 
 
-### Fixed - セキュリティ基盤とライブラリのアップデート
+### Fixed
 
 **原文:** 
 
@@ -105,25 +90,26 @@ Link: https://cloud.google.com/release-notes#December_19_2024<br>
 | --- | --- |
 | **N/A** | **Updates to security infrastructure and libraries.** |
 
-**説明:** セキュリティ基盤とライブラリがアップデートされました。具体的な内容は記載されていません。
+**説明:** セキュリティ基盤とライブラリのアップデート
 
-**製品への影響有無:**  あり（セキュリティアップデートが含まれているため）
+**製品への影響有無:**  有 (セキュリティアップデートが含まれるため)
 
-**対処方法:** セキュリティアップデートの内容を確認し、必要な対応があれば実施してください。Apigeeのセキュリティに関するドキュメントやベストプラクティスを参照することをお勧めします。
+**対処方法:** Apigee X の利用状況に応じて、セキュリティアップデートの内容を確認し、必要な対応を行うことを推奨します。
+
 
 ## Pub/Sub
 
-### Announcement - Pub/SubとCloud Managed Service for Apache Kafkaの比較資料公開
+### Announcement
 
 **原文:** Documentation is now available to help you choose between Pub/Sub and Google Cloud Managed Service for Apache Kafka. The comparison is based on factors such as operational ease, portability, existing Kafka setup, and integration with other Google Cloud products. A detailed feature comparison table is also included. For more information, see Choose Pub/Sub or Cloud Managed Service for Apache Kafka.
 
 [Choose Pub/Sub or Cloud Managed Service for Apache Kafka](https://cloud.google.com/pubsub/docs/choose-pubsub-kafka)
 
-**説明:** Pub/SubとCloud Managed Service for Apache Kafkaのどちらを選択するかを支援するドキュメントが公開されました。この比較は、運用性、移植性、既存のKafka設定、他のGoogle Cloud製品との統合などの要素に基づいています。詳細な機能比較表も含まれています。
+**説明:** Pub/SubとGoogle Cloud Managed Service for Apache Kafkaのどちらを選択するかを支援するドキュメントが公開されました。この比較は、運用性、移植性、既存のKafka設定、他のGoogle Cloud製品との統合などの要素に基づいています。詳細な機能比較表も含まれています。
 
-**製品への影響有無:** なし（ドキュメント公開のみ）
+**製品への影響有無:**  無 (ドキュメント公開のみ)
 
-**対処方法:** Pub/SubまたはCloud Managed Service for Apache Kafkaの利用を検討する際は、公開されたドキュメントを参照して、要件に最適なサービスを選択してください。 
+**対処方法:**  Pub/SubまたはCloud Managed Service for Apache Kafkaの利用を検討する場合は、このドキュメントを参照してください。
 
 # Title: December 18, 2024 
 Link: https://cloud.google.com/release-notes#December_18_2024<br>
