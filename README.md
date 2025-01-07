@@ -1,38 +1,49 @@
+# Title: January 06, 2025 
+Link: https://cloud.google.com/release-notes#January_06_2025<br>
+## Cloud Logging (Go)
 
+### Changes for logging/apiv2
+
+原文: 
+- **logging:** Change go gapic transport to grpc+rest in logging (#11289) (a5f250b)
+- **logging:** Update golang.org/x/net to v0.33.0 (e9b0b69)
+- **logging:** Update google.golang.org/api to v0.203.0 (8bb87d5)
+- **logging:** WARNING: On approximately Dec 1, 2024, an update to Protobuf will change service registration function signatures to use an interface instead of a concrete type in generated .pb.go files. This change is expected to affect very few if any users of this client library. For more information, see https://togithub.com/googleapis/google-cloud-go/issues/11020. (8bb87d5)
+
+説明：
+
+- Cloud LoggingのGo用クライアントライブラリ `logging/apiv2` がバージョン1.13.0にアップデートされました。
+    - gapicのtransportがgrpc+restに変更されました。
+    -  `golang.org/x/net` が v0.33.0 にアップデートされました。
+    - `google.golang.org/api` が v0.203.0 にアップデートされました。
+    - 2024年12月1日頃に予定されているProtobufのアップデートにより、サービス登録関数のシグネチャが、生成された.pb.goファイル内で、具体的な型ではなくインターフェースを使用するように変更される予定です。この変更は、このクライアントライブラリのユーザーに影響を与えることはほとんどないと予想されます。詳細については、https://togithub.com/googleapis/google-cloud-go/issues/11020 を参照してください。
+
+影響有無： 有
+
+対処方法： 
+
+- GoでCloud Loggingのクライアントライブラリ `logging/apiv2` を利用している場合は、バージョン1.13.0へのアップデートを検討してください。
+- 特に、Protobufのアップデートに関する警告は、将来的に備えて確認しておきましょう。
 # Title: January 02, 2025 
 Link: https://cloud.google.com/release-notes#January_02_2025<br>
 # BigQuery
 
 ## Changed
 
-**原文:** An updated version of JDBC driver for BigQuery is now available.
+**原文:** An updated version of JDBC driver for BigQuery is now available. 
 
-**説明:** BigQueryのJDBCドライバーの最新バージョンが利用可能になりました。
+[JDBC driver for BigQuery](https://cloud.google.com/bigquery/docs/reference/odbc-jdbc-drivers#current_jdbc_driver)
 
-**影響有無:** 有（BigQueryのJDBCドライバーを利用している場合）
+**説明:** BigQuery 用の JDBC ドライバのアップデートバージョンがリリースされました。
+
+**影響有無:**  有（BigQueryのJDBCドライバを利用している場合）
 
 **対処方法:** 
 
-* BigQueryのJDBCドライバーを利用している場合は、最新バージョンへのアップデートを検討してください。
-* 最新バージョンでは、バグ修正やパフォーマンスの向上が含まれている可能性があります。
-* 詳細については、リリースノートのリンク先を参照してください。
- [JDBC driver for BigQuery](https://cloud.google.com/bigquery/docs/reference/odbc-jdbc-drivers#current_jdbc_driver) 
+BigQueryのJDBCドライバを利用している場合は、最新バージョンへのアップデートを検討してください。アップデートによって、新機能の追加やパフォーマンスの向上が見込める可能性があります。
 
-# Title: December 23, 2024 
-Link: https://cloud.google.com/release-notes#December_23_2024<br>
-# BigQuery 
+詳細については、提供されたリンク先を参照してください。 
 
-## Changed
-
-**原文:** BigQuery is available in the Mexico (northamerica-south1) region. 
-
-[Mexico (northamerica-south1)](https://cloud.google.com/bigquery/docs/locations#regions)
-
-**説明:** BigQuery がメキシコ(northamerica-south1)リージョンで利用可能になりました。
-
-**影響有無:** 無
-
-**対処方法:** 特に対応は不要です。
 # Title: December 20, 2024 
 Link: https://cloud.google.com/release-notes#December_20_2024<br>
 ## Apigee X
