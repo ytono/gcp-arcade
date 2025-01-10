@@ -1,48 +1,256 @@
+
+# Title: January 07, 2025 
+Link: https://cloud.google.com/release-notes#January_07_2025<br>
+## Google Kubernetes Engine (1/6)
+
+### Changed
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+>  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+>  zones.
+>
+> - Version 1.31.4-gke.1183000 is now the default version for cluster creation in the Rapid channel.
+
+#### 説明
+
+Rapid channelでクラスタ作成時のデフォルトバージョンが 1.31.4-gke.1183000 に更新されました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+Rapid Channelを利用していて、デフォルトバージョンでクラスタ作成をしている場合は、バージョン1.31.4-gke.1183000が適用されるようになります。以前のバージョンを利用し続けたい場合は、明示的にバージョンを指定してください。
+
+## Google Kubernetes Engine (2/6)
+
+### Changed
+
+> - The following versions are now available in the Rapid channel:
+>
+> - 1.28.15-gke.1488000
+> - 1.28.15-gke.1503000
+> - 1.29.12-gke.1126000
+> - 1.29.12-gke.1143000
+> - 1.30.8-gke.1133000
+> - 1.30.8-gke.1162000
+> - 1.31.4-gke.1249000
+> - 1.31.4-gke.1256000
+> - 1.32.0-gke.1538000
+> - 1.32.0-gke.1577000
+
+#### 説明
+
+Rapid Channelで以下のバージョンが利用可能になりました。
+
+- 1.28.15-gke.1488000
+- 1.28.15-gke.1503000
+- 1.29.12-gke.1126000
+- 1.29.12-gke.1143000
+- 1.30.8-gke.1133000
+- 1.30.8-gke.1162000
+- 1.31.4-gke.1249000
+- 1.31.4-gke.1256000
+- 1.32.0-gke.1538000
+- 1.32.0-gke.1577000
+
+#### 製品への影響有無
+
+無
+
+#### 対処方法
+
+特になし。
+
+## Google Kubernetes Engine (3/6)
+
+### Changed
+
+> - The following versions are no longer available in the Rapid channel:
+>
+> - 1.28.15-gke.1342000
+> - 1.28.15-gke.1362000
+> - 1.28.15-gke.1388000
+> - 1.28.15-gke.1435000
+> - 1.29.10-gke.1280000
+> - 1.29.11-gke.1012000
+> - 1.29.11-gke.1045000
+> - 1.29.12-gke.1055000
+> - 1.30.6-gke.1596000
+> - 1.30.7-gke.1084000
+> - 1.30.7-gke.1136000
+> - 1.30.8-gke.1051000
+> - 1.31.3-gke.1006000
+> - 1.31.3-gke.1056000
+> - 1.31.3-gke.1121001
+> - 1.31.3-gke.1162000
+> - 1.31.4-gke.1072000
+> - 1.31.4-gke.1177000
+> - 1.32.0-gke.1358000
+
+#### 説明
+
+Rapid Channelで以下のバージョンが利用不可になりました。
+
+- 1.28.15-gke.1342000
+- 1.28.15-gke.1362000
+- 1.28.15-gke.1388000
+- 1.28.15-gke.1435000
+- 1.29.10-gke.1280000
+- 1.29.11-gke.1012000
+- 1.29.11-gke.1045000
+- 1.29.12-gke.1055000
+- 1.30.6-gke.1596000
+- 1.30.7-gke.1084000
+- 1.30.7-gke.1136000
+- 1.30.8-gke.1051000
+- 1.31.3-gke.1006000
+- 1.31.3-gke.1056000
+- 1.31.3-gke.1121001
+- 1.31.3-gke.1162000
+- 1.31.4-gke.1072000
+- 1.31.4-gke.1177000
+- 1.32.0-gke.1358000
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+上記バージョンを利用している場合は、利用可能なバージョンへのアップグレードを検討してください。
+
+## Google Kubernetes Engine (4/6)
+
+### Changed
+
+> - Auto-upgrade targets are now available for the following minor versions:
+>
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.27 to version 1.28.15-gke.1480000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.29.12-gke.1120000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.8-gke.1128000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.4-gke.1183000 with this release.
+
+#### 説明
+
+Rapid Channelで自動アップグレードが有効になっているコントロールプレーンとノードは、以下のバージョンに自動的にアップグレードされます。
+
+- バージョン 1.27 から バージョン 1.28.15-gke.1480000
+- バージョン 1.28 から バージョン 1.29.12-gke.1120000
+- バージョン 1.29 から バージョン 1.30.8-gke.1128000
+- バージョン 1.30 から バージョン 1.31.4-gke.1183000
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+自動アップグレードを有効にしている場合は、アップグレードによる影響がないか確認してください。影響がある場合は、メンテナンスウィンドウのスケジュールを設定するか、自動アップグレードを無効にすることを検討してください。
+
+## Google Kubernetes Engine (5/6)
+
+### Changed
+
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+>
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.28.15-gke.1480000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.29.12-gke.1120000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.8-gke.1128000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.4-gke.1183000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.32 to version 1.32.0-gke.1448000 with this release.
+
+#### 説明
+
+Rapid Channelで、メンテナンス除外またはマイナーバージョンアップグレードを妨げるその他の要因があるクラスタでは、以下のパッチのみのバージョン自動アップグレードターゲットが利用可能になりました。
+
+- バージョン 1.28 から バージョン 1.28.15-gke.1480000
+- バージョン 1.29 から バージョン 1.29.12-gke.1120000
+- バージョン 1.30 から バージョン 1.30.8-gke.1128000
+- バージョン 1.31 から バージョン 1.31.4-gke.1183000
+- バージョン 1.32 から バージョン 1.32.0-gke.1448000
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+メンテナンス除外を設定しているクラスタ、またはマイナーバージョンアップグレードを妨げているその他の要因があるクラスタで、自動アップグレードを有効にしている場合は、アップグレードによる影響がないことを確認してください。影響がある場合は、メンテナンスウィンドウのスケジュールを設定するか、自動アップグレードを無効にすることを検討してください。
+
+## Google Kubernetes Engine (6/6)
+
+### Changed
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+> when we publish the release notes, and can take multiple days to complete across all Google Cloud
+> zones.
+>
+> - The following versions are now available in the Stable channel:
+>
+> - 1.28.15-gke.1342000
+> - 1.29.10-gke.1155000
+> - 1.29.10-gke.1280000
+> - 1.30.5-gke.1713000
+> - 1.30.6-gke.1596000
+
+#### 説明
+
+Stable Channelで以下のバージョンが利用可能になりました。
+
+- 1.28.15-gke.1342000
+- 1.29.10-gke.1155000
+- 1.29.10-gke.1280000
+- 1.30.5-gke.1713000
+- 1.30.6-gke.1596000
+
+#### 製品への影響有無
+
+無
+
+#### 対処方法
+
+特になし。
 # Title: January 06, 2025 
 Link: https://cloud.google.com/release-notes#January_06_2025<br>
-## Cloud Logging (Go)
+## Cloud Logging
 
-### Changes for logging/apiv2
+### Changes for logging/apiv2 (Changed)
 
-原文: 
+**原文:**
 - **logging:** Change go gapic transport to grpc+rest in logging (#11289) (a5f250b)
 - **logging:** Update golang.org/x/net to v0.33.0 (e9b0b69)
 - **logging:** Update google.golang.org/api to v0.203.0 (8bb87d5)
 - **logging:** WARNING: On approximately Dec 1, 2024, an update to Protobuf will change service registration function signatures to use an interface instead of a concrete type in generated .pb.go files. This change is expected to affect very few if any users of this client library. For more information, see https://togithub.com/googleapis/google-cloud-go/issues/11020. (8bb87d5)
 
-説明：
+**説明:**
+- Cloud LoggingのGo用クライアントライブラリで、gRPC+RESTへのtransportの変更など、いくつかの更新が行われました。
+- また、使用しているライブラリが更新されました。
+- 2024年12月1日頃に予定されているProtobufのアップデートにより、サービス登録関数のシグネチャが変更される予定です。 
+  これは、.pb.goファイル内で、具体的な型ではなくインターフェースを使用するように変更されます。
 
-- Cloud LoggingのGo用クライアントライブラリ `logging/apiv2` がバージョン1.13.0にアップデートされました。
-    - gapicのtransportがgrpc+restに変更されました。
-    -  `golang.org/x/net` が v0.33.0 にアップデートされました。
-    - `google.golang.org/api` が v0.203.0 にアップデートされました。
-    - 2024年12月1日頃に予定されているProtobufのアップデートにより、サービス登録関数のシグネチャが、生成された.pb.goファイル内で、具体的な型ではなくインターフェースを使用するように変更される予定です。この変更は、このクライアントライブラリのユーザーに影響を与えることはほとんどないと予想されます。詳細については、https://togithub.com/googleapis/google-cloud-go/issues/11020 を参照してください。
-
-影響有無： 有
-
-対処方法： 
-
-- GoでCloud Loggingのクライアントライブラリ `logging/apiv2` を利用している場合は、バージョン1.13.0へのアップデートを検討してください。
-- 特に、Protobufのアップデートに関する警告は、将来的に備えて確認しておきましょう。
-# Title: January 02, 2025 
-Link: https://cloud.google.com/release-notes#January_02_2025<br>
-# BigQuery
-
-## Changed
-
-**原文:** An updated version of JDBC driver for BigQuery is now available. 
-
-[JDBC driver for BigQuery](https://cloud.google.com/bigquery/docs/reference/odbc-jdbc-drivers#current_jdbc_driver)
-
-**説明:** BigQuery 用の JDBC ドライバのアップデートバージョンがリリースされました。
-
-**影響有無:**  有（BigQueryのJDBCドライバを利用している場合）
+**製品への影響有無:** 有
 
 **対処方法:** 
+- Go用クライアントライブラリを使用している場合は、最新バージョン(v1.13.0)へのアップデートを検討してください。
+- Protobufのアップデートについては、今後の発表に注意し、必要があれば対応してください。
 
-BigQueryのJDBCドライバを利用している場合は、最新バージョンへのアップデートを検討してください。アップデートによって、新機能の追加やパフォーマンスの向上が見込める可能性があります。
 
-詳細については、提供されたリンク先を参照してください。 
+## Secret Manager
+
+### Changes for secretmanager/apiv1 (Changed)
+
+**原文:**
+- **secretmanager:** Update golang.org/x/net to v0.33.0 (e9b0b69)
+
+**説明:**
+- Secret ManagerのGo用クライアントライブラリで使用されている `golang.org/x/net` が v0.33.0 にアップデートされました。
+
+**製品への影響有無:**  有
+
+**対処方法:**
+- Go用クライアントライブラリを使用している場合は、最新バージョン(v1.14.3)へのアップデートを検討してください。 
 
 # Title: December 20, 2024 
 Link: https://cloud.google.com/release-notes#December_20_2024<br>
