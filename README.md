@@ -1,256 +1,371 @@
+# Title: January 13, 2025 
+Link: https://cloud.google.com/release-notes#January_13_2025<br>
+## Cloud Run
+
+### Breaking
+
+**原文:** The principal (user or service account) creating a Cloud Run resource now needs explicit permission to access the container image(s). When using Artifact Registry, ensure the principal has the Artifact Registry Reader (`roles/artifactregistry.reader`) IAM role on the project or repository containing the container image(s) to deploy.
+
+**説明:**  Cloud Runリソースを作成する主体（ユーザーまたはサービスアカウント）は、コンテナイメージにアクセスするための明示的な権限が必要になりました。Artifact Registryを使用する場合、デプロイするコンテナイメージを含むプロジェクトまたはリポジトリに対して、主体が Artifact Registry Reader (`roles/artifactregistry.reader`) IAM ロールを持っていることを確認してください。
+
+**影響有無:** 有
+
+**対処方法:** Cloud Runリソースを作成する主体（ユーザーまたはサービスアカウント）に対して、Artifact Registryの該当プロジェクトまたはリポジトリの `Artifact Registry Reader` IAM ロールを付与してください。
+
+
+## Pub/Sub
+
+### Libraries
+
+**原文:** A weekly digest of client library updates from across the Cloud SDK.
+
+**説明:** これは、Cloud SDK全体のクライアントライブラリのアップデートに関する週刊ダイジェストです。
+
+**影響有無:** 無
+
+**対処方法:**  特になし。
+
+### Java
+
+#### Changes for google-cloud-pubsub
+
+**原文:**
+[google-cloud-pubsub](https://github.com/googleapis/java-pubsub)
+[1.136.0](https://github.com/googleapis/java-pubsub/compare/v1.135.0...v1.136.0)
+- Add Kafka-based sources to IngestionDataSourceSettings proto and IngestionFailureEvent proto (2947169)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.51.1 (9c166f7)
+- Update dependency com.google.cloud:google-cloud-bigquery to v2.45.0 (#2292) (79a8982)
+- Update dependency com.google.cloud:google-cloud-storage to v2.46.0 (#2291) (7b60884)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.41.1 (#2301) (53c1a8a)
+- Update dependency com.google.protobuf:protobuf-java-util to v4.29.2 (#2294) (48d4ac1)
+- Update dependency org.assertj:assertj-core to v3.27.2 (#2296) (e5b68a5)
+- Update googleapis/sdk-platform-java action to v2.51.1 (#2298) (16e0144)
+
+**説明:** Google Cloud Pub/Sub Javaライブラリ バージョン1.136.0がリリースされました。主な変更点は以下の通りです。
+
+- KafkaベースのソースをIngestionDataSourceSettings protoとIngestionFailureEvent protoに追加しました。
+- Javaコードジェネレータ（gapic-generator-java）を2.51.1にアップデートしました。
+- いくつかの依存関係を更新しました。
+
+**影響有無:** 無
+
+**対処方法:** 特になし。Javaライブラリのバージョン1.136.0を利用できます。
+
+
+### Python
+
+#### Changes for google-cloud-pubsub
+
+**原文:**
+[google-cloud-pubsub](https://github.com/googleapis/python-pubsub)
+[2.27.2](https://github.com/googleapis/python-pubsub/compare/v2.27.1...v2.27.2)
+- Handle TransportError Exceptions thrown from gapic_publish (#1318) (0e058c7)
+
+**説明:**  Google Cloud Pub/Sub Pythonライブラリ バージョン2.27.2がリリースされました。主な変更点は以下の通りです。
+
+-  `gapic_publish` からスローされた `TransportError` 例外を処理するようになりました。
+
+**影響有無:** 無
+
+**対処方法:**  特になし。Pythonライブラリのバージョン2.27.2を利用できます。 
+
+# Title: January 12, 2025 
+Link: https://cloud.google.com/release-notes#January_12_2025<br>
+## Cloud Composer
+
+### Announcement
+
+#### 元のリリースノート
+
+Starting after **April 13, 2025**, Cloud Composer 3 will **unify its billing with BigQuery**. The Cloud Composer 3 standard milli DCU-hours SKU will be replaced with the new BigQuery Engine for Apache Airflow SKU, which will be calculated based on the number of BigQuery slot hours that your Cloud Composer 3 environments consume. Other SKUs will be renamed and moved under the BigQuery hierarchy. The change will be rolled out gradually to all regions supported by Cloud Composer 3. For more information about the change, see Transition to BigQuery slot-hour-based pricing.
+
+[Transition to BigQuery slot-hour-based pricing](https://cloud.google.com/composer/pricing#composer-3-bq-sku)
+
+#### 説明
+
+2025年4月13日以降、Cloud Composer 3 の料金請求が BigQuery に統合されます。Cloud Composer 3 の標準ミリ DCU 時間 SKU は、BigQuery Engine for Apache Airflow SKU に置き換えられ、Cloud Composer 3 環境で消費される BigQuery スロット時間数に基づいて計算されるようになります。その他の SKU も名前が変更され、BigQuery 階層に移動します。この変更は、Cloud Composer 3 でサポートされているすべてのリージョンに徐々に展開されます。
+
+#### 製品への影響
+
+有
+
+#### 対処方法
+
+- 2025年4月13日以降、Cloud Composer 3 の料金は BigQuery スロット時間数に基づいて計算されるようになります。
+- 料金の詳細については、提供されたリンク先「Transition to BigQuery slot-hour-based pricing」を参照してください。
+- この変更は、既存のワークロードのコストに影響を与える可能性があります。
+- 変更前に、提供されるドキュメントと料金計算ツールを使用して、新しい料金体系でのコストを見積もることが推奨されます。
+
+# Title: January 10, 2025 
+Link: https://cloud.google.com/release-notes#January_10_2025<br>
+# Cloud Composer
+## Issue
+**原文:** The issue with automatic environment upgrades and upgrading Airflow builds in Cloud Composer 3 **is resolved** and these operations are working. If you think that your environment is still impacted by this issue, please reach out to the Cloud Support team.
+
+**説明:** Cloud Composer 3 の自動環境アップグレードと Airflow ビルドのアップグレードに関する問題は解決され、これらの操作は機能しています。 
+
+**影響有無:** 影響があった可能性があります。
+
+**対処方法:** この問題の影響を受けていると思われる場合は、Cloud Support チームにご連絡ください。 
+
+# Title: January 09, 2025 
+Link: https://cloud.google.com/release-notes#January_09_2025<br>
+## Apigee X
+
+### Announcement
+
+**原文:** On January 9, 2025, we released an updated version of Apigee (1-14-0-apigee-3).
+
+> **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to be completed across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
+
+**説明:** Apigee のアップデートバージョン (1-14-0-apigee-3) がリリースされました。本番環境へのロールアウトは2営業日以内に開始され、Google Cloud のすべてのゾーンへの適用完了までに4営業日以上かかる場合があります。
+
+**製品への影響有無:** 有
+
+**対処方法:**  本番環境への反映は数日かかる可能性があるため、新機能や修正がすぐに利用できない場合があります。リリースノートの内容を確認し、必要な場合は対応を検討してください。 
+
+
+### Fixed
+
+**原文:** 
+
+| Bug ID | Description |
+| --- | --- |
+| **365406457** | **Implemented fix to optimize CPU usage and close sockets when needed.** |
+| **382967738, 383113773** | **Fixed security vulnerability in PythonScript policy.** |
+| **382883585** | **Fixed security vulnerability in JavaCallout policy.** |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+
+**説明:** 以下のバグ修正とセキュリティアップデートが行われました。
+
+* CPU使用量を最適化し、必要に応じてソケットを閉じるように修正 (Bug ID: 365406457)
+* PythonScriptポリシーのセキュリティ脆弱性を修正 (Bug ID: 382967738, 383113773)
+* JavaCalloutポリシーのセキュリティ脆弱性を修正 (Bug ID: 382883585)
+* セキュリティインフラストラクチャとライブラリの更新
+
+**製品への影響有無:** 有 (セキュリティ脆弱性に関する修正が含まれているため)
+
+**対処方法:** Apigee X の利用者は、最新バージョンへのアップグレードを検討してください。
+
+## Cloud Composer
+
+### Issue
+
+**原文:** 
+
+ **January 10, 2025 update**: The issue is resolved.
+
+ *(Cloud Composer 3 only)* We are currently experiencing an issue with automatic environment upgrades and upgrading Airflow builds for Cloud Composer 3 in asia-south1, europe-west1, and asia-northeast2 regions.
+
+ The upgrades are temporarily disabled as we continue our work to restore the listed functionalities. We will release an additional announcement after the issue is resolved.
+
+**説明:** (解決済み) Cloud Composer 3 の asia-south1、europe-west1、asia-northeast2 リージョンにおいて、環境の自動アップグレードと Airflow ビルドのアップグレードに問題が発生していました。この問題は既に解決されています。
+
+**製品への影響有無:**  (問題は解決済みのため) 無
+
+**対処方法:**  特に対処は不要です。
+
+
+### Announcement
+
+**原文:** 
+
+ In January 2025, we will **delete inactive Cloud Composer 1 environments that are non-recoverable**. Environments that have both of the following problems present at the same time will be deleted:
+
+- The environment's underlying GKE cluster is deleted.
+- The environment is in the ERROR state for at least 60 days because of a disabled billing account or because the Cloud Composer API service was deactivated in its project.
+
+ This change doesn't affect buckets of these environments. You can still recover your DAGs and other data from the environment's bucket and then delete the bucket manually. See Delete environments for information about data that is not deleted automatically together with the environment.
+
+[Delete environments](https://cloud.google.com/composer/docs/delete-environments#about-not-deleted)
+
+**説明:** 2025年1月より、復旧不可能な非アクティブ状態の Cloud Composer 1 環境が削除されます。対象となるのは、以下の条件を両方満たす環境です。
+
+* 環境の基盤となる GKE クラスタが削除されている
+* 課金アカウントが無効になっているか、Cloud Composer API サービスがプロジェクトで無効になっているために、環境が少なくとも 60 日間 ERROR 状態である
+
+環境のバケットは削除されません。環境のバケットから DAG やその他のデータを復旧し、手動でバケットを削除できます。
+
+**製品への影響有無:** 有 (Cloud Composer 1 環境を利用している場合)
+
+**対処方法:**  Cloud Composer 1 環境を利用している場合は、以下の点を確認してください。
+
+* 環境が ERROR 状態になっていないか
+* 環境の基盤となる GKE クラスタが削除されていないか
+
+該当する環境がある場合は、データのバックアップと復旧手順を確認してください。
+
+## Google Kubernetes Engine
+
+### Security
+
+**原文:** 
+
+ A security issue impacted resources in VPCs with GKE Multi-Cluster Gateway (MCG) configured. MCG is an optional feature that is used by a small subset of GKE customers. We are individually notifying customers who had the feature enabled during that time period.
+
+ For more details, see the GCP-2025-001 security bulletin.
+
+[GCP-2025-001 security bulletin](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2025-001)
+
+**説明:** GKE Multi-Cluster Gateway (MCG) を構成した VPC 内のリソースに影響を与えるセキュリティ上の問題が発生しました。MCG は一部の GKE ユーザーが利用するオプションの機能です。影響を受けた可能性のあるユーザーには個別に通知が行われています。
+
+**製品への影響有無:**  GKE Multi-Cluster Gateway (MCG) を利用している場合、有
+
+**対処方法:** GKE Multi-Cluster Gateway (MCG) を利用している場合は、GCP-2025-001 セキュリティ情報を確認し、必要な対応を行ってください。 
 
 # Title: January 07, 2025 
 Link: https://cloud.google.com/release-notes#January_07_2025<br>
-## Google Kubernetes Engine (1/6)
+# Google Kubernetes Engine
+## Changed
+原文: 
+GKE cluster versions have been updated.
 
-### Changed
+**New versions available for upgrades and new clusters.**
 
+The following Kubernetes versions are now available for new clusters and for
+opt-in control plane upgrades and node upgrades for existing clusters. For more
+information on versioning and upgrades, see GKE versioning and support
+and Upgrades.
+
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+説明： GKEクラスタバージョンがアップデートされ、新しいクラスタの作成と既存クラスタのアップグレードに利用できるようになりました。詳細については、GKEのバージョニングとサポート、アップグレードに関するドキュメントを参照してください。
+影響有無： 有
+対処方法： GKEクラスタのバージョンアップグレードは、自動アップグレードまたは手動アップグレードによって行えます。自動アップグレードを利用している場合は、特に対応は不要です。手動アップグレードを行う場合は、GKEのドキュメントを参照し、適切なバージョンにアップグレードしてください。
+
+## Changed
+原文: 
 > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
->  when we publish the release notes, and can take multiple days to complete across all Google Cloud
->  zones.
->
-> - Version 1.31.4-gke.1183000 is now the default version for cluster creation in the Rapid channel.
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
 
-#### 説明
-
-Rapid channelでクラスタ作成時のデフォルトバージョンが 1.31.4-gke.1183000 に更新されました。
-
-#### 製品への影響有無
-
-有
-
-#### 対処方法
-
-Rapid Channelを利用していて、デフォルトバージョンでクラスタ作成をしている場合は、バージョン1.31.4-gke.1183000が適用されるようになります。以前のバージョンを利用し続けたい場合は、明示的にバージョンを指定してください。
-
-## Google Kubernetes Engine (2/6)
-
-### Changed
-
-> - The following versions are now available in the Rapid channel:
->
-> - 1.28.15-gke.1488000
-> - 1.28.15-gke.1503000
-> - 1.29.12-gke.1126000
-> - 1.29.12-gke.1143000
-> - 1.30.8-gke.1133000
-> - 1.30.8-gke.1162000
-> - 1.31.4-gke.1249000
-> - 1.31.4-gke.1256000
-> - 1.32.0-gke.1538000
-> - 1.32.0-gke.1577000
-
-#### 説明
-
-Rapid Channelで以下のバージョンが利用可能になりました。
+- Version 1.31.4-gke.1183000 is now the default version for cluster creation in the Rapid channel.
+- The following versions are now available in the Rapid channel:
 
 - 1.28.15-gke.1488000
 - 1.28.15-gke.1503000
-- 1.29.12-gke.1126000
-- 1.29.12-gke.1143000
-- 1.30.8-gke.1133000
-- 1.30.8-gke.1162000
-- 1.31.4-gke.1249000
-- 1.31.4-gke.1256000
-- 1.32.0-gke.1538000
-- 1.32.0-gke.1577000
+- ...(中略)...
 
-#### 製品への影響有無
+説明： RapidチャネルのGKEクラスタで利用可能なバージョンが更新されました。バージョン1.31.4-gke.1183000がデフォルトのクラスタ作成バージョンとなり、多数のバージョンが利用可能になりました。また、いくつかのバージョンは利用できなくなっています。自動アップグレードの対象バージョンも更新され、バージョン1.27, 1.28, 1.29, 1.30のクラスタは、それぞれ指定されたバージョンに自動でアップグレードされます。メンテナンスの除外など、マイナーバージョンアップグレードを妨げる要因があるクラスタのために、パッチのみのバージョン自動アップグレードの対象も更新されました。
+影響有無： 有
+対処方法： RapidチャネルでGKEクラスタを利用している場合は、利用可能なバージョンと自動アップグレードの対象バージョンを確認してください。必要な場合は、クラスタを手動でアップグレードするか、自動アップグレードの対象バージョンに合わせてください。
 
-無
-
-#### 対処方法
-
-特になし。
-
-## Google Kubernetes Engine (3/6)
-
-### Changed
-
-> - The following versions are no longer available in the Rapid channel:
->
-> - 1.28.15-gke.1342000
-> - 1.28.15-gke.1362000
-> - 1.28.15-gke.1388000
-> - 1.28.15-gke.1435000
-> - 1.29.10-gke.1280000
-> - 1.29.11-gke.1012000
-> - 1.29.11-gke.1045000
-> - 1.29.12-gke.1055000
-> - 1.30.6-gke.1596000
-> - 1.30.7-gke.1084000
-> - 1.30.7-gke.1136000
-> - 1.30.8-gke.1051000
-> - 1.31.3-gke.1006000
-> - 1.31.3-gke.1056000
-> - 1.31.3-gke.1121001
-> - 1.31.3-gke.1162000
-> - 1.31.4-gke.1072000
-> - 1.31.4-gke.1177000
-> - 1.32.0-gke.1358000
-
-#### 説明
-
-Rapid Channelで以下のバージョンが利用不可になりました。
-
-- 1.28.15-gke.1342000
-- 1.28.15-gke.1362000
-- 1.28.15-gke.1388000
-- 1.28.15-gke.1435000
-- 1.29.10-gke.1280000
-- 1.29.11-gke.1012000
-- 1.29.11-gke.1045000
-- 1.29.12-gke.1055000
-- 1.30.6-gke.1596000
-- 1.30.7-gke.1084000
-- 1.30.7-gke.1136000
-- 1.30.8-gke.1051000
-- 1.31.3-gke.1006000
-- 1.31.3-gke.1056000
-- 1.31.3-gke.1121001
-- 1.31.3-gke.1162000
-- 1.31.4-gke.1072000
-- 1.31.4-gke.1177000
-- 1.32.0-gke.1358000
-
-#### 製品への影響有無
-
-有
-
-#### 対処方法
-
-上記バージョンを利用している場合は、利用可能なバージョンへのアップグレードを検討してください。
-
-## Google Kubernetes Engine (4/6)
-
-### Changed
-
-> - Auto-upgrade targets are now available for the following minor versions:
->
-> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.27 to version 1.28.15-gke.1480000 with this release.
-> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.29.12-gke.1120000 with this release.
-> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.8-gke.1128000 with this release.
-> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.4-gke.1183000 with this release.
-
-#### 説明
-
-Rapid Channelで自動アップグレードが有効になっているコントロールプレーンとノードは、以下のバージョンに自動的にアップグレードされます。
-
-- バージョン 1.27 から バージョン 1.28.15-gke.1480000
-- バージョン 1.28 から バージョン 1.29.12-gke.1120000
-- バージョン 1.29 から バージョン 1.30.8-gke.1128000
-- バージョン 1.30 から バージョン 1.31.4-gke.1183000
-
-#### 製品への影響有無
-
-有
-
-#### 対処方法
-
-自動アップグレードを有効にしている場合は、アップグレードによる影響がないか確認してください。影響がある場合は、メンテナンスウィンドウのスケジュールを設定するか、自動アップグレードを無効にすることを検討してください。
-
-## Google Kubernetes Engine (5/6)
-
-### Changed
-
-> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
->
-> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.28.15-gke.1480000 with this release.
-> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.29.12-gke.1120000 with this release.
-> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.8-gke.1128000 with this release.
-> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.4-gke.1183000 with this release.
-> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.32 to version 1.32.0-gke.1448000 with this release.
-
-#### 説明
-
-Rapid Channelで、メンテナンス除外またはマイナーバージョンアップグレードを妨げるその他の要因があるクラスタでは、以下のパッチのみのバージョン自動アップグレードターゲットが利用可能になりました。
-
-- バージョン 1.28 から バージョン 1.28.15-gke.1480000
-- バージョン 1.29 から バージョン 1.29.12-gke.1120000
-- バージョン 1.30 から バージョン 1.30.8-gke.1128000
-- バージョン 1.31 から バージョン 1.31.4-gke.1183000
-- バージョン 1.32 から バージョン 1.32.0-gke.1448000
-
-#### 製品への影響有無
-
-有
-
-#### 対処方法
-
-メンテナンス除外を設定しているクラスタ、またはマイナーバージョンアップグレードを妨げているその他の要因があるクラスタで、自動アップグレードを有効にしている場合は、アップグレードによる影響がないことを確認してください。影響がある場合は、メンテナンスウィンドウのスケジュールを設定するか、自動アップグレードを無効にすることを検討してください。
-
-## Google Kubernetes Engine (6/6)
-
-### Changed
-
+## Changed
+原文: 
 > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
-> when we publish the release notes, and can take multiple days to complete across all Google Cloud
-> zones.
->
-> - The following versions are now available in the Stable channel:
->
-> - 1.28.15-gke.1342000
-> - 1.29.10-gke.1155000
-> - 1.29.10-gke.1280000
-> - 1.30.5-gke.1713000
-> - 1.30.6-gke.1596000
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
 
-#### 説明
+- Version 1.30.6-gke.1596000 is now the default version for cluster creation in the Regular channel.
+- The following versions are now available in the Regular channel:
 
-Stable Channelで以下のバージョンが利用可能になりました。
+- 1.28.15-gke.1362000
+- 1.28.15-gke.1435000
+- ...(中略)...
+
+説明： RegularチャネルのGKEクラスタで利用可能なバージョンが更新されました。バージョン1.30.6-gke.1596000がデフォルトのクラスタ作成バージョンとなり、多数のバージョンが利用可能になりました。また、いくつかのバージョンは利用できなくなっています。自動アップグレードの対象バージョンも更新され、バージョン1.27, 1.28, 1.29のクラスタは、それぞれ指定されたバージョンに自動でアップグレードされます。メンテナンスの除外など、マイナーバージョンアップグレードを妨げる要因があるクラスタのために、パッチのみのバージョン自動アップグレードの対象も更新されました。
+影響有無： 有
+対処方法： RegularチャネルでGKEクラスタを利用している場合は、利用可能なバージョンと自動アップグレードの対象バージョンを確認してください。必要な場合は、クラスタを手動でアップグレードするか、自動アップグレードの対象バージョンに合わせてください。
+
+## Changed
+原文: 
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available in the Stable channel:
 
 - 1.28.15-gke.1342000
 - 1.29.10-gke.1155000
 - 1.29.10-gke.1280000
-- 1.30.5-gke.1713000
-- 1.30.6-gke.1596000
+- ...(中略)...
 
-#### 製品への影響有無
+説明： StableチャネルのGKEクラスタで利用可能なバージョンが更新されました。多数のバージョンが利用可能になりました。
+影響有無： 有
+対処方法： StableチャネルでGKEクラスタを利用している場合は、利用可能なバージョンを確認してください。必要な場合は、クラスタを手動でアップグレードしてください。
 
-無
+## Changed
+原文: 
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
 
-#### 対処方法
+- Version 1.30.6-gke.1596000 is now the default version for cluster creation in the Extended channel.
+- The following versions are now available in the Extended channel:
 
-特になし。
+- 1.27.16-gke.2142000
+- 1.28.15-gke.1362000
+- ...(中略)...
+
+説明： ExtendedチャネルのGKEクラスタで利用可能なバージョンが更新されました。バージョン1.30.6-gke.1596000がデフォルトのクラスタ作成バージョンとなり、多数のバージョンが利用可能になりました。また、いくつかのバージョンは利用できなくなっています。メンテナンスの除外など、マイナーバージョンアップグレードを妨げる要因があるクラスタのために、パッチのみのバージョン自動アップグレードの対象も更新されました。バージョン1.27, 1.28, 1.29, 1.30のクラスタは、それぞれ指定されたバージョンに自動でアップグレードされます。
+影響有無： 有
+対処方法： ExtendedチャネルでGKEクラスタを利用している場合は、利用可能なバージョンと自動アップグレードの対象バージョンを確認してください。必要な場合は、クラスタを手動でアップグレードするか、自動アップグレードの対象バージョンに合わせてください。
+
+## Changed
+原文:
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.30.6-gke.1596000 is now the default version for cluster creation.
+- The following versions are now available:
+
+- 1.28.15-gke.1488000
+- 1.28.15-gke.1503000
+- ...(中略)...
+説明： GKEクラスタで利用可能なバージョンが更新されました。バージョン 1.30.6-gke.1596000 がデフォルトのクラスタ作成バージョンとなり、多数のバージョンが利用可能になりました。また、いくつかのバージョンは利用できなくなっています。自動アップグレードの対象バージョンも更新され、バージョン 1.27, 1.28 のクラスタは、それぞれ指定されたバージョンに自動でアップグレードされます。メンテナンスの除外など、マイナーバージョンアップグレードを妨げる要因があるクラスタのために、パッチのみのバージョン自動アップグレードの対象も更新されました。
+影響有無： 有
+対処方法： GKEクラスタを利用している場合は、利用可能なバージョンと自動アップグレードの対象バージョンを確認してください。必要な場合は、クラスタを手動でアップグレードするか、自動アップグレードの対象バージョンに合わせてください。
+
+# Google Cloud Composer
+## 情報なし
+Google Cloud Composer2 (Compoer version 2.7.1、Airflow version 2.7.3)に関するリリースノートの情報は見つかりませんでした。
+
 # Title: January 06, 2025 
 Link: https://cloud.google.com/release-notes#January_06_2025<br>
-## Cloud Logging
+## Cloud Logging - Go 用クライアントライブラリのアップデート (logging/apiv2)
 
-### Changes for logging/apiv2 (Changed)
+### Changes
 
-**原文:**
-- **logging:** Change go gapic transport to grpc+rest in logging (#11289) (a5f250b)
-- **logging:** Update golang.org/x/net to v0.33.0 (e9b0b69)
-- **logging:** Update google.golang.org/api to v0.203.0 (8bb87d5)
-- **logging:** WARNING: On approximately Dec 1, 2024, an update to Protobuf will change service registration function signatures to use an interface instead of a concrete type in generated .pb.go files. This change is expected to affect very few if any users of this client library. For more information, see https://togithub.com/googleapis/google-cloud-go/issues/11020. (8bb87d5)
+- grpc+rest への移行を含む、 Go 用 Cloud Logging クライアントライブラリ v1.13.0 のリリース ([logging/apiv2 v1.13.0](https://github.com/googleapis/google-cloud-go/compare/logging/v1.12.0...logging/v1.13.0))
+- 依存関係のアップデート (golang.org/x/net v0.33.0, google.golang.org/api v0.203.0)
+- 将来の Protobuf のアップデートに伴う、サービス登録関数のシグネチャ変更に関する警告 (2024年12月1日頃予定) ([#11020](https://togithub.com/googleapis/google-cloud-go/issues/11020))
 
-**説明:**
-- Cloud LoggingのGo用クライアントライブラリで、gRPC+RESTへのtransportの変更など、いくつかの更新が行われました。
-- また、使用しているライブラリが更新されました。
-- 2024年12月1日頃に予定されているProtobufのアップデートにより、サービス登録関数のシグネチャが変更される予定です。 
-  これは、.pb.goファイル内で、具体的な型ではなくインターフェースを使用するように変更されます。
+### 説明
 
-**製品への影響有無:** 有
+Cloud Logging の Go 用クライアントライブラリが v1.13.0 にアップデートされました。主な変更点は以下の通りです。
 
-**対処方法:** 
-- Go用クライアントライブラリを使用している場合は、最新バージョン(v1.13.0)へのアップデートを検討してください。
-- Protobufのアップデートについては、今後の発表に注意し、必要があれば対応してください。
+- 内部通信方式が gRPC+REST に変更されました。
+- いくつかの依存ライブラリが更新されました。
+- 2024年12月1日頃に予定されている Protobuf のアップデートにより、サービス登録関数のシグネチャが変更される予定です。この変更は、Go 用 Cloud Logging  クライアントライブラリのユーザーに影響を与える可能性があります。
+
+### 影響有無
+
+Go 用 Cloud Logging クライアントライブラリ (logging/apiv2) を使用している場合、影響があります。
+
+### 対処方法
+
+- Go 用 Cloud Logging クライアントライブラリを v1.13.0 にアップデートしてください。
+- Protobuf のアップデートに関する警告 ([#11020](https://togithub.com/googleapis/google-cloud-go/issues/11020)) を確認し、必要があれば対応してください。
 
 
-## Secret Manager
+## Secret Manager - Go 用クライアントライブラリのアップデート (secretmanager/apiv1)
 
-### Changes for secretmanager/apiv1 (Changed)
+### Changes 
 
-**原文:**
-- **secretmanager:** Update golang.org/x/net to v0.33.0 (e9b0b69)
+- 依存関係のアップデート (golang.org/x/net v0.33.0) を含む、Go 用 Secret Manager クライアントライブラリ v1.14.3 のリリース ([secretmanager/apiv1 v1.14.3](https://github.com/googleapis/google-cloud-go/compare/secretmanager/v1.14.2...secretmanager/v1.14.3))
 
-**説明:**
-- Secret ManagerのGo用クライアントライブラリで使用されている `golang.org/x/net` が v0.33.0 にアップデートされました。
+### 説明
 
-**製品への影響有無:**  有
+Secret Manager の Go 用クライアントライブラリが v1.14.3 にアップデートされました。主な変更点は、依存ライブラリ (golang.org/x/net) が v0.33.0 に更新されたことです。
 
-**対処方法:**
-- Go用クライアントライブラリを使用している場合は、最新バージョン(v1.14.3)へのアップデートを検討してください。 
+### 影響有無
+
+Go 用 Secret Manager クライアントライブラリ (secretmanager/apiv1) を使用している場合、影響があります。
+
+### 対処方法
+
+Go 用 Secret Manager クライアントライブラリを v1.14.3 にアップデートしてください。
 
 # Title: December 20, 2024 
 Link: https://cloud.google.com/release-notes#December_20_2024<br>
