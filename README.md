@@ -1,3 +1,288 @@
+# Title: January 20, 2025 
+Link: https://cloud.google.com/release-notes#January_20_2025<br>
+## BigQuery
+
+### Libraries Changes for google-cloud-bigquery (Java)
+
+**原文**
+
+- **bigquery:** Support IAM conditions in datasets in Java client. (#3602) (6696a9c)
+  - NPE when reading BigQueryResultSet from empty tables (#3627) (9a0b05a)
+  - **test:** Force usage of ReadAPI (#3625) (5ca7d4a)
+- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.57.0 (#3617) (51370a9)
+- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.58.0 (#3631) (b0ea0d5)
+- Update dependency com.google.apis:google-api-services-bigquery to v2-rev20241222-2.0.0 (#3623) (4061922)
+- Update dependency com.google.cloud:google-cloud-datacatalog-bom to v1.61.0 (#3618) (6cba626)
+- Update dependency com.google.cloud:google-cloud-datacatalog-bom to v1.62.0 (#3632) (e9ff265)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.41.1 (#3628) (442d217) 
+
+
+**説明**
+
+- Javaクライアントでデータセットに対するIAM条件のサポートが追加されました。
+- 空のテーブルからBigQueryResultSetを読み込む際に発生していたNullPointerExceptionの問題が修正されました。
+- いくつかの依存関係が更新されました。
+
+**製品への影響有無**:  有
+
+**対処方法**: BigQueryのJavaクライアントを使用している場合は、最新バージョン(2.46.0)にアップデートしてください。
+
+
+
+### Libraries Changes for google-cloud-bigquery (Python)
+
+**原文**
+
+- Add property for `allowNonIncrementalDefinition` for materialized view (#2084) (3359ef3)
+- Add property for maxStaleness in table definitions (#2087) (729322c)
+- Add type hints to Client (#2044) (40529de)
+- Adds ExternalCatalogDatasetOptions and tests (#2111) (b929a90)
+- Adds ForeignTypeInfo class and tests (#2110) (55ca63c)
+- Adds new input validation function similar to isinstance. (#2107) (a2bebb9)
+- Adds StorageDescriptor and tests (#2109) (6be0272)
+- Adds the SerDeInfo class and tests (#2108) (62960f2)
+- Migrate to pyproject.toml (#2041) (1061611)
+- Preserve unknown fields from the REST API representation in `SchemaField` (#2097) (aaf1eb8)
+- Resource tags in dataset (#2090) (3e13016)
+- Support setting max_stream_count when fetching query result (#2051) (d461297)
+- Allow geopandas 1.x (#2065) (f2ab8cb)
+- Render fields correctly for update calls (#2055) (a4d9534)
+
+**説明**
+
+- マテリアライズドビューで`allowNonIncrementalDefinition`プロパティが使用できるようになりました。
+- テーブル定義でmaxStalenessプロパティが使用できるようになりました。
+- クライアントにタイプヒントが追加されました。
+- 外部カタログデータセットのオプションや外部の型情報、ストレージ記述子など、多数のクラスや関数が追加されました。
+- `SchemaField`でREST API表現からの未知のフィールドが保持されるようになりました。
+- データセット内のリソースタグがサポートされました。
+- クエリ結果を取得する際にmax_stream_countの設定がサポートされました。
+- geopandas 1.xが使用できるようになりました。
+- 更新呼び出しのフィールドが正しくレンダリングされるようになりました。
+
+**製品への影響有無**: 有
+
+**対処方法**: BigQueryのPythonクライアントを使用している場合は、最新バージョン(3.28.0)にアップデートしてください。pandas-gbqとの互換性の問題があるので、最新バージョンが推奨されます。
+
+
+## Cloud Logging
+
+### Libraries Changes for google-cloud-logging (Java)
+
+**原文**
+
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.51.1 (705dba2)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.41.1 (#1745) (6a7280d) 
+
+**説明**
+- Javaコードジェネレーター(gapic-generator-java)がバージョン2.51.1に更新されました。
+- 依存関係`com.google.cloud:sdk-platform-java-config`がバージョン3.41.1に更新されました。
+
+**製品への影響有無**: 有
+
+**対処方法**: Cloud LoggingのJavaクライアントを使用している場合は、最新バージョン(3.21.1)にアップデートしてください。 
+
+# Title: January 16, 2025 
+Link: https://cloud.google.com/release-notes#January_16_2025<br>
+## Google Kubernetes Engine 
+
+### Deprecated
+
+**原文:** With minor version 1.33, GKE nodes use containerd 2.0, which removes support for Docker Schema 1 images and the CRI v1alpha2 API. GKE pauses automatic upgrades to 1.33 when it detects that a cluster uses the deprecated features. To prepare for this change, see Migrate nodes to containerd 2.
+
+**説明:**  GKEバージョン1.33以降では、ノードのコンテナランタイムがcontainerd 2.0へ変更されます。それに伴い、Docker Schema 1イメージとCRI v1alpha2 APIのサポートが廃止されます。もし、クラスタでこれらの非推奨機能が使用されている場合は、バージョン1.33への自動アップグレードは一時停止します。 
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+バージョン1.33以降へのアップグレード前に、以下の対応が必要です。
+* Docker Schema 1イメージを使用している場合は、Docker Schema 2イメージへ移行してください。
+* CRI v1alpha2 APIを使用している場合は、CRI v1 APIへ移行してください。
+
+詳細な移行手順については、以下のドキュメントを参照してください。
+[Migrate nodes to containerd 2](https://cloud.google.com/kubernetes-engine/docs/deprecations/migrate-containerd-2) 
+
+# Title: January 15, 2025 
+Link: https://cloud.google.com/release-notes#January_15_2025<br>
+## Cloud Composer
+
+### サービスアカウントの必須化
+
+#### 原文
+Starting April 13, 2025, we are **removing the default environment's service account setting**. This change enhances security and provides greater control over your Cloud Composer environments.
+
+- Previously, the default Compute Engine service account was used by default when a user didn't specify a service account during Cloud Composer creation.
+- After the change, you'll need to explicitly specify a service account when you create a new Cloud Composer environment.
+- Existing Cloud Composer environments will not be affected by this change.
+
+ To address this change:
+
+- We recommend to **create one or more user-managed service accounts** for Cloud Composer environments in your project and grant them the minimum of required permissions. For more information and instructions, see Grant roles to an environment's service account.
+- If you use **Terraform, scripts or other automation and configuration management tools**, then make sure to update them, so that an environment's service account is specified when you create an environment.
+
+#### 説明
+2025年4月13日以降、Cloud Composer 環境作成時にデフォルトのサービスアカウント設定が廃止されます。
+
+- 従来は、Cloud Composer 環境作成時にサービスアカウントを指定しない場合、デフォルトの Compute Engine サービスアカウントが使用されていました。
+- 変更後は、Cloud Composer 環境を作成する際に、サービスアカウントを明示的に指定する必要があります。
+- 既存のCloud Composer 環境は、この変更の影響を受けません。
+
+#### 製品への影響有無
+-  新規作成のCloud Composer 環境：有
+-  既存のCloud Composer 環境：無
+
+#### 対処方法
+- Cloud Composer 環境用に、プロジェクト内に1つ以上のユーザー管理サービスアカウントを作成し、必要な権限のみを付与することをお勧めします。
+- Terraform、スクリプト、またはその他の自動化および構成管理ツールを使用する場合は、環境を作成するときに環境のサービスアカウントが指定されるように、必ず更新してください。
+
+### PyPIパッケージインストール時のサービスアカウント変更
+
+#### 原文
+ In April 2025, Cloud Composer 2 environments will always **use the environment's service account for performing PyPI packages installations**:
+
+- The environment's service account will be used instead.
+- Existing Cloud Composer 2 environments that previously used the default Cloud Build service account will change to using the environment's service account instead.
+- Cloud Composer 2 environments created in versions 2.10.2 and later already have this change.
+- Cloud Composer 3 environments already use the environment's service account, and are not impacted by this change.
+
+#### 説明
+2025年4月以降、Cloud Composer 2環境では、PyPIパッケージのインストールを実行するために、常に環境のサービスアカウントが使用されるようになります。
+
+- 従来は、デフォルトの Cloud Build サービスアカウントが使用されていました。
+- 変更後は、環境のサービスアカウントが使用されます。
+- バージョン2.10.2以降で作成された Cloud Composer 2環境には、既にこの変更が適用されています。
+- Cloud Composer 3 環境では、既に環境のサービスアカウントが使用されているため、この変更の影響はありません。
+
+#### 製品への影響有無
+- Cloud Composer 2環境 (バージョン 2.10.2 より前)：有
+- Cloud Composer 2環境 (バージョン 2.10.2 以降)：無
+- Cloud Composer 3 環境：無
+
+#### 対処方法
+- Cloud Composer 2環境 (バージョン 2.10.2 より前) をお使いの場合は、環境のサービスアカウントに、PyPIパッケージのインストールに必要な権限が付与されていることを確認してください。
+
+
+## Compute Engine
+
+### メタデータサーバーの既知の問題
+
+#### 原文
+
+ The metadata server might display old `physicalHost` metadata if a VM experiences a host error. For more information, see known issues.
+
+#### 説明
+
+VMでホストエラーが発生した場合、メタデータサーバーが古い `physicalHost` メタデータを表示する可能性があります。
+
+#### 製品への影響有無
+
+ホストエラーが発生した場合に、メタデータサーバーから古い情報が取得される可能性があります。
+
+#### 対処方法
+
+現時点では、明確な対処方法は提示されていません。回避策として、ホストエラー発生後、メタデータサーバーからの `physicalHost` 情報の取得に依存する処理を行う場合は、情報の整合性に注意が必要です。 
+
+# Title: January 14, 2025 
+Link: https://cloud.google.com/release-notes#January_14_2025<br>
+## Google Kubernetes Engine
+
+### 変更内容
+
+#### 原文
+
+GKE cluster versions have been updated.
+
+**New versions available for upgrades and new clusters.**
+
+The following Kubernetes versions are now available for new clusters and for opt-in control plane upgrades and node upgrades for existing clusters. For more information on versioning and upgrades, see GKE versioning and support and Upgrades.
+
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+
+#### 説明
+
+GKEクラスタバージョンが更新され、新しいクラスタとアップグレードで利用可能なバージョンが追加されました。詳細については、GKEのバージョン管理とサポート、アップグレードに関するドキュメントを参照してください。
+
+#### 影響有無
+
+有
+
+#### 対処方法
+
+利用可能なバージョンを確認し、必要があればアップグレードを実施してください。
+
+***
+
+### 変更内容
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+
+- The following versions are now available in the Rapid channel:
+    - 1.28.15-gke.1612000
+    - 1.29.12-gke.1270000
+    - 1.30.8-gke.1224000
+    - 1.30.8-gke.1261000
+    - 1.31.4-gke.1372000
+    - 1.32.0-gke.1709000
+
+- The following versions are no longer available in the Rapid channel:
+    - 1.28.15-gke.1488000
+    - 1.29.12-gke.1126000
+    - 1.30.8-gke.1128000
+    - 1.30.8-gke.1133000
+    - 1.31.4-gke.1249000
+    - 1.32.0-gke.1577000
+
+- Auto-upgrade targets are now available for the following minor versions:
+    - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.8-gke.1162000 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+    - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.8-gke.1162000 with this release.
+    - 1.28.15-gke.1612000
+    - 1.29.12-gke.1270000
+    - 1.30.8-gke.1224000
+    - 1.30.8-gke.1261000
+    - 1.31.4-gke.1372000
+    - 1.32.0-gke.1709000
+
+#### 説明
+
+Rapid Channelで利用可能なバージョンが更新されました。
+いくつかのバージョンが利用不可となり、新しいバージョンが追加されています。
+また、自動アップグレードの対象バージョンも更新されています。
+
+#### 影響有無
+
+有
+
+#### 対処方法
+-  自動アップグレードが無効になっているクラスタについては、利用可能なバージョンを確認し、必要があれば手動でアップグレードを実施してください。
+- 自動アップグレードが有効になっているクラスタについては、メンテナンスの除外設定などを確認し、アップグレードの影響範囲を確認してください。
+  - アップグレードの影響範囲が許容できない場合は、自動アップグレードを無効にするか、メンテナンスの除外設定などを調整してください。
+
+***
+
+以下、同様の変更内容が続くため、最初の説明と影響有無、対処方法のみを記載します。
+
+### 変更内容
+
+#### 説明
+
+Regular Channel、Stable Channel、Extended Channel、および全体で利用可能なバージョンが更新されました。
+いくつかのバージョンが利用不可となり、新しいバージョンが追加されています。
+また、自動アップグレードの対象バージョンも更新されています。
+
+#### 影響有無
+
+有
+
+#### 対処方法
+-  自動アップグレードが無効になっているクラスタについては、利用可能なバージョンを確認し、必要があれば手動でアップグレードを実施してください。
+- 自動アップグレードが有効になっているクラスタについては、メンテナンスの除外設定などを確認し、アップグレードの影響範囲を確認してください。
+  - アップグレードの影響範囲が許容できない場合は、自動アップグレードを無効にするか、メンテナンスの除外設定などを調整してください。
+
 # Title: January 13, 2025 
 Link: https://cloud.google.com/release-notes#January_13_2025<br>
 ## Cloud Run
@@ -6,11 +291,11 @@ Link: https://cloud.google.com/release-notes#January_13_2025<br>
 
 **原文:** The principal (user or service account) creating a Cloud Run resource now needs explicit permission to access the container image(s). When using Artifact Registry, ensure the principal has the Artifact Registry Reader (`roles/artifactregistry.reader`) IAM role on the project or repository containing the container image(s) to deploy.
 
-**説明:**  Cloud Runリソースを作成する主体（ユーザーまたはサービスアカウント）は、コンテナイメージにアクセスするための明示的な権限が必要になりました。Artifact Registryを使用する場合、デプロイするコンテナイメージを含むプロジェクトまたはリポジトリに対して、主体が Artifact Registry Reader (`roles/artifactregistry.reader`) IAM ロールを持っていることを確認してください。
+**説明:**  Cloud Run リソースを作成する主体 (ユーザーまたはサービスアカウント) に、コンテナイメージへのアクセスに必要な権限を明示的に付与する必要があるようになりました。Artifact Registry を使用する場合、デプロイするコンテナイメージを含むプロジェクトまたはリポジトリに対して、主体に Artifact Registry Reader (`roles/artifactregistry.reader`) IAM ロールが付与されていることを確認してください。
 
 **影響有無:** 有
 
-**対処方法:** Cloud Runリソースを作成する主体（ユーザーまたはサービスアカウント）に対して、Artifact Registryの該当プロジェクトまたはリポジトリの `Artifact Registry Reader` IAM ロールを付与してください。
+**対処方法:** Cloud Run リソースを作成する主体 (ユーザーまたはサービスアカウント) に、Artifact Registry  のコンテナイメージを含むプロジェクトまたはリポジトリに対して Artifact Registry Reader (`roles/artifactregistry.reader`) IAM ロールを付与してください。
 
 
 ## Pub/Sub
@@ -19,17 +304,18 @@ Link: https://cloud.google.com/release-notes#January_13_2025<br>
 
 **原文:** A weekly digest of client library updates from across the Cloud SDK.
 
-**説明:** これは、Cloud SDK全体のクライアントライブラリのアップデートに関する週刊ダイジェストです。
+**説明:** これは、Cloud SDK 全体におけるクライアントライブラリのアップデートに関する週刊ダイジェストです。
 
 **影響有無:** 無
 
-**対処方法:**  特になし。
+**対処方法:**  特に対処は不要です。必要に応じて提供されるライブラリアップデートを確認してください。
+
 
 ### Java
 
-#### Changes for google-cloud-pubsub
+### Changes for google-cloud-pubsub
 
-**原文:**
+**原文:** 
 [google-cloud-pubsub](https://github.com/googleapis/java-pubsub)
 [1.136.0](https://github.com/googleapis/java-pubsub/compare/v1.135.0...v1.136.0)
 - Add Kafka-based sources to IngestionDataSourceSettings proto and IngestionFailureEvent proto (2947169)
@@ -41,33 +327,33 @@ Link: https://cloud.google.com/release-notes#January_13_2025<br>
 - Update dependency org.assertj:assertj-core to v3.27.2 (#2296) (e5b68a5)
 - Update googleapis/sdk-platform-java action to v2.51.1 (#2298) (16e0144)
 
-**説明:** Google Cloud Pub/Sub Javaライブラリ バージョン1.136.0がリリースされました。主な変更点は以下の通りです。
+**説明:** google-cloud-pubsub の Java ライブラリのバージョン 1.136.0 がリリースされました。主な変更点は以下の通りです。
 
-- KafkaベースのソースをIngestionDataSourceSettings protoとIngestionFailureEvent protoに追加しました。
-- Javaコードジェネレータ（gapic-generator-java）を2.51.1にアップデートしました。
-- いくつかの依存関係を更新しました。
+* Kafkaベースのソースを IngestionDataSourceSettings proto と IngestionFailureEvent proto に追加しました。
+* Java コードジェネレータ (gapic-generator-java) をバージョン 2.51.1 に更新しました。
+* いくつかの依存関係を更新しました。
 
-**影響有無:** 無
+**影響有無:** 有
 
-**対処方法:** 特になし。Javaライブラリのバージョン1.136.0を利用できます。
+**対処方法:** google-cloud-pubsub の Java ライブラリをバージョン 1.136.0 に更新してください。
 
 
 ### Python
 
-#### Changes for google-cloud-pubsub
+### Changes for google-cloud-pubsub
 
 **原文:**
 [google-cloud-pubsub](https://github.com/googleapis/python-pubsub)
 [2.27.2](https://github.com/googleapis/python-pubsub/compare/v2.27.1...v2.27.2)
 - Handle TransportError Exceptions thrown from gapic_publish (#1318) (0e058c7)
 
-**説明:**  Google Cloud Pub/Sub Pythonライブラリ バージョン2.27.2がリリースされました。主な変更点は以下の通りです。
+**説明:** google-cloud-pubsub の Python ライブラリのバージョン 2.27.2 がリリースされました。主な変更点は以下の通りです。
 
--  `gapic_publish` からスローされた `TransportError` 例外を処理するようになりました。
+* gapic_publish からスローされた TransportError 例外を処理するようにしました。
 
-**影響有無:** 無
+**影響有無:** 有
 
-**対処方法:**  特になし。Pythonライブラリのバージョン2.27.2を利用できます。 
+**対処方法:** google-cloud-pubsub の Python ライブラリをバージョン 2.27.2 に更新してください。
 
 # Title: January 12, 2025 
 Link: https://cloud.google.com/release-notes#January_12_2025<br>
