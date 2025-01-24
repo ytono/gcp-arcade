@@ -1,86 +1,76 @@
+# Title: January 21, 2025 
+Link: https://cloud.google.com/release-notes#January_21_2025<br>
+# Cloud Logging
+## Announcement
+原文: On April 22, 2025, Cloud Logging will replace the single, global quota for the number of calls to write log entries with a set of volume-based regional quotas. For more information, see Logging API quotas and limits.
+[Logging API quotas and limits](https://cloud.google.com/logging/quotas#api-limits)
+
+説明：2025年4月22日から、Cloud Loggingのログエントリ書き込み呼び出し回数に対する単一のグローバルクォータが、ボリュームベースのリージョナルクォータのセットに置き換えられます。 
+影響有無：有
+対処方法： 詳細については、提供されているリンク先の"Logging API quotas and limits"をご確認ください。今後、ログエントリの書き込みに関して、これまで通りの方法でクォータが適用されなくなる可能性があります。変更後もサービスを適切に利用できるように、リージョナルクォータの詳細と、それがCloud Loggingの使用にどのように影響するかを理解しておく必要があります。
+
 # Title: January 20, 2025 
 Link: https://cloud.google.com/release-notes#January_20_2025<br>
 ## BigQuery
 
-### Libraries Changes for google-cloud-bigquery (Java)
+### Libraries Changes for google-cloud-bigquery - Java
 
-**原文**
+####  原文
 
-- **bigquery:** Support IAM conditions in datasets in Java client. (#3602) (6696a9c)
-  - NPE when reading BigQueryResultSet from empty tables (#3627) (9a0b05a)
-  - **test:** Force usage of ReadAPI (#3625) (5ca7d4a)
-- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.57.0 (#3617) (51370a9)
-- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.58.0 (#3631) (b0ea0d5)
-- Update dependency com.google.apis:google-api-services-bigquery to v2-rev20241222-2.0.0 (#3623) (4061922)
-- Update dependency com.google.cloud:google-cloud-datacatalog-bom to v1.61.0 (#3618) (6cba626)
-- Update dependency com.google.cloud:google-cloud-datacatalog-bom to v1.62.0 (#3632) (e9ff265)
-- Update dependency com.google.cloud:sdk-platform-java-config to v3.41.1 (#3628) (442d217) 
+A weekly digest of client library updates from across the Cloud SDK.
 
+[Cloud SDK](https://cloud.google.com/sdk)
 
-**説明**
+#### 説明
+Cloud SDK全体におけるクライアントライブラリの更新に関する週次ダイジェストです。 
 
-- Javaクライアントでデータセットに対するIAM条件のサポートが追加されました。
-- 空のテーブルからBigQueryResultSetを読み込む際に発生していたNullPointerExceptionの問題が修正されました。
-- いくつかの依存関係が更新されました。
+#### 製品への影響有無
+無し
 
-**製品への影響有無**:  有
-
-**対処方法**: BigQueryのJavaクライアントを使用している場合は、最新バージョン(2.46.0)にアップデートしてください。
+#### 対処方法
+不要
 
 
+### Libraries Changes for google-cloud-bigquery - Python
 
-### Libraries Changes for google-cloud-bigquery (Python)
+#### 原文
 
-**原文**
+This turned out to be incompatible with pandas-gbq. For more details, see issue.
 
-- Add property for `allowNonIncrementalDefinition` for materialized view (#2084) (3359ef3)
-- Add property for maxStaleness in table definitions (#2087) (729322c)
-- Add type hints to Client (#2044) (40529de)
-- Adds ExternalCatalogDatasetOptions and tests (#2111) (b929a90)
-- Adds ForeignTypeInfo class and tests (#2110) (55ca63c)
-- Adds new input validation function similar to isinstance. (#2107) (a2bebb9)
-- Adds StorageDescriptor and tests (#2109) (6be0272)
-- Adds the SerDeInfo class and tests (#2108) (62960f2)
-- Migrate to pyproject.toml (#2041) (1061611)
-- Preserve unknown fields from the REST API representation in `SchemaField` (#2097) (aaf1eb8)
-- Resource tags in dataset (#2090) (3e13016)
-- Support setting max_stream_count when fetching query result (#2051) (d461297)
-- Allow geopandas 1.x (#2065) (f2ab8cb)
-- Render fields correctly for update calls (#2055) (a4d9534)
+[pandas-gbq](https://github.com/googleapis/python-bigquery-pandas)
+[issue](https://github.com/googleapis/python-bigquery-pandas/issues/854)
 
-**説明**
+#### 説明
 
-- マテリアライズドビューで`allowNonIncrementalDefinition`プロパティが使用できるようになりました。
-- テーブル定義でmaxStalenessプロパティが使用できるようになりました。
-- クライアントにタイプヒントが追加されました。
-- 外部カタログデータセットのオプションや外部の型情報、ストレージ記述子など、多数のクラスや関数が追加されました。
-- `SchemaField`でREST API表現からの未知のフィールドが保持されるようになりました。
-- データセット内のリソースタグがサポートされました。
-- クエリ結果を取得する際にmax_stream_countの設定がサポートされました。
-- geopandas 1.xが使用できるようになりました。
-- 更新呼び出しのフィールドが正しくレンダリングされるようになりました。
+このリリースはpandas-gbqとの互換性がないことが判明しました。詳細は、issueを参照してください。
 
-**製品への影響有無**: 有
+#### 製品への影響有無
 
-**対処方法**: BigQueryのPythonクライアントを使用している場合は、最新バージョン(3.28.0)にアップデートしてください。pandas-gbqとの互換性の問題があるので、最新バージョンが推奨されます。
+有
+
+#### 対処方法
+
+pandas-gbqとの互換性の問題が解決するまで、このリリースの利用は控えてください。
 
 
 ## Cloud Logging
 
-### Libraries Changes for google-cloud-logging (Java)
+### Libraries Changes for google-cloud-logging - Java
 
-**原文**
+#### 原文
 
-- **deps:** Update the Java code generator (gapic-generator-java) to 2.51.1 (705dba2)
-- Update dependency com.google.cloud:sdk-platform-java-config to v3.41.1 (#1745) (6a7280d) 
+A weekly digest of client library updates from across the Cloud SDK.
 
-**説明**
-- Javaコードジェネレーター(gapic-generator-java)がバージョン2.51.1に更新されました。
-- 依存関係`com.google.cloud:sdk-platform-java-config`がバージョン3.41.1に更新されました。
+[Cloud SDK](https://cloud.google.com/sdk)
 
-**製品への影響有無**: 有
+#### 説明
+Cloud SDK全体におけるクライアントライブラリの更新に関する週次ダイジェストです。 
 
-**対処方法**: Cloud LoggingのJavaクライアントを使用している場合は、最新バージョン(3.21.1)にアップデートしてください。 
+#### 製品への影響有無
+無し
+
+#### 対処方法
+不要 
 
 # Title: January 16, 2025 
 Link: https://cloud.google.com/release-notes#January_16_2025<br>
