@@ -1,3 +1,465 @@
+
+# Title: January 24, 2025 
+Link: https://cloud.google.com/release-notes#January_24_2025<br>
+## Apigee X
+
+### Announcement: Updated version of Apigee (1-14-0-apigee-4) released
+
+**原文:** On January 24, 2025, we released an updated version of Apigee (1-14-0-apigee-4).
+
+> **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to be completed across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
+
+**説明:** Apigeeのアップデートバージョン(1-14-0-apigee-4)がリリースされました。
+本番環境へのロールアウトは2営業日以内に開始され、Google Cloudのすべてのゾーンへの展開が完了するまで4営業日以上かかる場合があります。 
+すべての機能と修正が利用可能になるまでには、ロールアウトが完了するまで待つ必要があります。
+
+**影響有無:** 無
+
+**対処方法:** 特になし。
+
+
+### Fixed: Issues related to flow variable and security updates
+
+**原文:**
+
+| Bug ID | Description |
+| --- | --- |
+| **372248577** | **Fixed issue causing `system.pod.name` flow variable  to return `null`.** |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+
+**説明:** 以下の2つの問題が修正されました。
+
+*  `system.pod.name` flow 変数がnullを返す問題の修正。
+*  セキュリティインフラストラクチャとライブラリの更新。
+
+**影響有無:** 無
+
+**対処方法:** 特になし。
+
+
+## Cloud Composer
+
+### Deprecated: Rolled back Airflow builds and Composer versions
+
+**原文:** The following recently released Cloud Composer 3 Airflow builds and Cloud Composer 2 versions are **rolled back and aren't available** for creating and upgrading existing environments. We will roll out new builds in the next release.
+
+- composer-2.11.0-airflow-2.10.2
+- composer-2.11.0-airflow-2.9.3
+- composer-3-airflow-2.10.2-build.6
+- composer-3-airflow-2.9.3-build.13
+
+**説明:** 以下のCloud Composer 3 AirflowビルドとCloud Composer 2バージョンはロールバックされ、新規環境の作成や既存環境のアップグレードには利用できません。
+
+* composer-2.11.0-airflow-2.10.2
+* composer-2.11.0-airflow-2.9.3
+* composer-3-airflow-2.10.2-build.6
+* composer-3-airflow-2.9.3-build.13
+
+新しいビルドは次回のリリースで提供される予定です。
+
+**影響有無:** 有 (上記バージョンを利用している場合)
+
+**対処方法:** 上記バージョンを利用している場合は、新しいバージョンがリリースされるまで待つ必要があります。
+
+
+## Cloud Load Balancing
+
+### Announcement: Changes to RSA certificate requirements
+
+**原文:** **Changes to RSA certificate requirements coming April 28, 2025**
+
+We're changing how Application Load Balancers establish TLS connections to backends. This change fixes a problem where the keyUsage extension of RSA certificates is not being validated consistently and might allow a certificate that should have been rejected based on the keyUsage configuration. 
+
+**What you need to do**
+
+*Starting April 28, 2025*, RSA certificates that don't meet the keyUsage configuration requirements will no longer be considered valid for establishing TLS connections. We recommend that you check whether your backends' RSA certificates are invalid, and replace them with valid certificates if needed. 
+
+A valid RSA certificate is one that has the X509v3 Key Usage extension and includes both the Digital Signature and Key Encipherment parameters.
+
+To identify an invalid RSA certificate, perform the following steps:
+
+- First confirm that the certificate type is RSA by running the following command. 
+`openssl x509 -text -in cert.crt | grep "Public Key Algorithm"`. 
+For RSA certificates, this should output `rsaEncryption`. If it is a non-RSA certificate (for example, EC), you don't need to take any more action at this time.
+- If it is an RSA certificate, examine the Key Usage configuration by running the following command:
+`openssl x509 -text -in cert.crt | grep -A1 "X509v3 Key Usage"`
+For a valid RSA certificate, the correct value is `Digital Signature, Key Encipherment`. If either of these values is not present, the RSA certificate is invalid.
+
+First confirm that the certificate type is RSA by running the following command.
+
+`openssl x509 -text -in cert.crt | grep "Public Key Algorithm"`.
+
+For RSA certificates, this should output `rsaEncryption`. If it is a non-RSA certificate (for example, EC), you don't need to take any more action at this time.
+
+If it is an RSA certificate, examine the Key Usage configuration by running the following command:
+
+`openssl x509 -text -in cert.crt | grep -A1 "X509v3 Key Usage"`
+
+For a valid RSA certificate, the correct value is `Digital Signature, Key Encipherment`. If either of these values is not present, the RSA certificate is invalid.
+
+For more information about the X.509 certificate format, see RFC 5280 Key Usage.
+
+[RFC 5280 Key Usage](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3)
+
+
+**説明:** 2025年4月28日から、Application Load BalancerがバックエンドへのTLS接続を確立する方法が変わります。
+これは、RSA証明書のkeyUsage拡張が正しく検証されず、keyUsage設定に基づいて拒否されるべき証明書が許可される可能性がある問題を修正するためです。
+
+**影響有無:** 有 (無効なRSA証明書を使用している場合)
+
+**対処方法:** 
+2025年4月28日以降、keyUsage設定の要件を満たさないRSA証明書は、TLS接続の確立に有効とみなされなくなります。
+バックエンドのRSA証明書が無効かどうかを確認し、必要であれば有効な証明書に置き換えることをお勧めします。
+
+無効な証明書を特定するには、以下の手順に従ってください。
+
+1.  証明書タイプがRSAであることを確認します。
+    * `openssl x509 -text -in cert.crt | grep "Public Key Algorithm"` を実行します。
+    * RSA証明書の場合、出力は `rsaEncryption` となります。非RSA証明書(ECなど)の場合は、この時点でこれ以上の対応は必要ありません。
+2.  RSA証明書の場合、Key Usage設定を確認します。
+    * `openssl x509 -text -in cert.crt | grep -A1 "X509v3 Key Usage"` を実行します。
+    * 有効なRSA証明書の場合、正しい値は `Digital Signature, Key Encipherment` です。これらの値のいずれかがない場合、RSA証明書は無効です。 
+3.  無効な証明書は、有効な証明書に置き換えてください。
+
+詳細については、[RFC 5280 Key Usage](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3) を参照してください。
+
+# Title: January 23, 2025 
+Link: https://cloud.google.com/release-notes#January_23_2025<br>
+## Google Kubernetes Engine (GKE)
+
+### 変更内容
+
+#### 原文
+
+GKE cluster versions have been updated.
+
+**New versions available for upgrades and new clusters.**
+
+The following Kubernetes versions are now available for new clusters and for
+opt-in control plane upgrades and node upgrades for existing clusters. For more
+information on versioning and upgrades, see GKE versioning and support
+and Upgrades.
+
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+
+#### 説明
+
+GKEクラスタバージョンが更新され、新しいクラスタおよび既存クラスタのオプトインコントロールプレーンアップグレードとノードアップグレードに新しいバージョンが利用できるようになりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+GKEバージョンサポートポリシーに従って、利用可能なバージョンを確認し、必要に応じてクラスタをアップグレードしてください。
+
+---
+
+### 変更内容
+
+#### 原文
+
+Starting with GKE version 1.32.1-gke.1002000, the default OS image for Ubuntu is updated from Ubuntu 22.04 to Ubuntu 24.04.
+
+#### 説明
+
+GKEバージョン1.32.1-gke.1002000以降、UbuntuのデフォルトOSイメージがUbuntu 22.04からUbuntu 24.04に更新されます。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+Ubuntu 24.04のサポート状況、アプリケーションとの互換性を確認し、必要に応じて対応してください。 Ubuntu 22.04を引き続き使用する場合、GKEバージョン1.32.1-gke.1002000へのアップグレードを控えることを検討してください。
+
+---
+
+### 変更内容
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+
+- Version 1.31.4-gke.1372000 is now the default version for cluster creation in the Rapid channel.
+
+（以下、原文の記載に倣い、変更点ごとに説明、製品への影響有無、対処方法を記述します。）
+
+- The following versions are now available in the Rapid channel:
+
+- 1.28.15-gke.1641000
+- 1.29.13-gke.1006000
+- 1.30.8-gke.1282000
+- 1.30.9-gke.1009000
+- 1.31.5-gke.1023000
+- 1.32.1-gke.1002000
+
+#### 説明
+
+Rapidチャネルでクラスタを作成する場合のデフォルトバージョンが1.31.4-gke.1372000になりました。また、Rapidチャネルで以下のバージョンが利用可能になりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+Rapidチャネルでクラスタを新規作成する場合、デフォルトでバージョン1.31.4-gke.1372000が使用されます。以前のバージョンを使用する場合は、明示的に指定してください。
+
+---
+
+- The following versions are no longer available in the Rapid channel:
+
+- 1.28.15-gke.1480000
+- 1.29.12-gke.1120000
+- 1.30.8-gke.1162000
+- 1.30.8-gke.1224000
+- 1.31.4-gke.1183000
+- 1.32.0-gke.1709000
+
+#### 説明
+
+以下のバージョンは、Rapidチャネルで使用できなくなりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+記載のバージョンを使用しているクラスタは、サポート対象外となるため、アップグレードを実施してください。
+
+---
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.27 to version 1.28.15-gke.1503000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.29.12-gke.1143000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.8-gke.1261000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.4-gke.1256000 with this release.
+
+#### 説明
+
+Rapidチャネルで自動アップグレードが有効になっているコントロールプレーンとノードは、今回のリリースで以下のバージョンにアップグレードされます。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+自動アップグレードが有効になっているクラスタは、上記バージョンへのアップグレードが自動的に行われます。アップグレードによる影響を事前に確認し、問題があれば自動アップグレードを無効にするか、メンテナンスウィンドウを設定してください。
+
+---
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.28.15-gke.1503000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.29.12-gke.1143000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.8-gke.1261000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.4-gke.1256000 with this release.
+
+
+#### 説明
+
+メンテナンス除外またはマイナーバージョンアップグレードを妨げるその他の要因があるクラスタでは、以下のパッチのみのバージョン自動アップグレードターゲットが利用できるようになりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+メンテナンス除外設定などを利用しているクラスタは、上記バージョンへのパッチ適用によるアップグレードが自動的に行われます。 アップグレードによる影響を事前に確認し、問題があれば自動アップグレードを無効にするか、メンテナンスウィンドウを設定してください。
+
+---
+
+### 変更内容
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.31.4-gke.1183000 is now the default version for cluster creation in the Regular channel.
+- The following versions are now available in the Regular channel:
+
+- 1.28.15-gke.1503000
+- 1.29.12-gke.1143000
+- 1.30.8-gke.1162000
+- 1.31.4-gke.1256000
+
+- The following versions are no longer available in the Regular channel:
+
+- 1.28.15-gke.1435000
+- 1.29.12-gke.1055000
+- 1.30.8-gke.1051000
+- 1.31.3-gke.1162000
+
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.27 to version 1.28.15-gke.1480000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.28 to version 1.29.12-gke.1120000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.30.8-gke.1128000 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.28 to version 1.28.15-gke.1480000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.29.12-gke.1120000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.30.8-gke.1128000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.31.4-gke.1183000 with this release.
+
+
+#### 説明
+
+Regularチャネルにおける変更点です。Rapidチャネルと同様に、デフォルトバージョン、利用可能なバージョン、サポート対象外バージョン、自動アップグレード対象バージョンが更新されています。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+Regularチャネルを利用している場合は、Rapidチャネルと同様の対応が必要となります。
+
+---
+
+### 変更内容
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available in the Stable channel:
+
+- 1.28.15-gke.1435000
+- 1.29.12-gke.1055000
+- 1.30.8-gke.1051000
+
+- Version 1.30.6-gke.1596000 is no longer available in the Stable channel.
+
+#### 説明
+
+Stableチャネルで利用可能なバージョンが更新され、バージョン 1.30.6-gke.1596000 は Stable チャネルで使用できなくなりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+Stableチャネルを利用していて、バージョン 1.30.6-gke.1596000 を使用している場合は、サポート対象外となるため、アップグレードを実施してください。
+
+---
+
+### 変更内容
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.31.4-gke.1183000 is now the default version for cluster creation in the Extended channel.
+- The following versions are now available in the Extended channel:
+
+- 1.27.16-gke.2142000
+- 1.27.16-gke.2270000
+- 1.28.15-gke.1503000
+- 1.29.12-gke.1143000
+- 1.30.8-gke.1162000
+- 1.31.4-gke.1256000
+
+- The following versions are no longer available in the Extended channel:
+
+- 1.27.16-gke.2081000
+- 1.27.16-gke.2246000
+- 1.28.15-gke.1435000
+- 1.29.12-gke.1055000
+- 1.30.8-gke.1051000
+- 1.31.3-gke.1162000
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.27 to version 1.27.16-gke.2122000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.28 to version 1.28.15-gke.1480000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.29 to version 1.29.12-gke.1120000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.30 to version 1.30.8-gke.1128000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.31 to version 1.31.4-gke.1183000 with this release.
+
+#### 説明
+
+Extendedチャネルにおける変更点です。Rapid, Regularチャネルと同様に、デフォルトバージョン、利用可能なバージョン、サポート対象外バージョン、自動アップグレード対象バージョンが更新されています。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+Extendedチャネルを利用している場合は、Rapid, Regularチャネルと同様の対応が必要となります。
+
+---
+
+### 変更内容
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.31.4-gke.1183000 is now the default version for cluster creation.
+- The following versions are now available:
+
+- 1.28.15-gke.1641000
+- 1.29.13-gke.1006000
+- 1.30.8-gke.1282000
+- 1.30.9-gke.1009000
+- 1.31.5-gke.1023000
+
+- The following node versions are now available:
+
+- 1.27.16-gke.2270000
+- 1.28.15-gke.1641000
+- 1.29.13-gke.1006000
+- 1.30.8-gke.1282000
+- 1.30.9-gke.1009000
+- 1.31.5-gke.1023000
+
+- The following versions are no longer available:
+
+- 1.30.6-gke.1596000
+- 1.30.8-gke.1224000
+- 1.31.3-gke.1006000
+- 1.31.3-gke.1162000
+
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.27 to version 1.28.15-gke.1480000 with this release.
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.28 to version 1.29.12-gke.1120000 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.28 to version 1.28.15-gke.1480000 with this release.
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.29 to version 1.29.12-gke.1120000 with this release.
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.31 to version 1.31.4-gke.1183000 with this release.
+
+#### 説明
+
+GKE全体における変更点です。チャネル指定がない場合のデフォルトバージョン、利用可能なバージョン、サポート対象外バージョン、自動アップグレード対象バージョンが更新されています。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+GKEを利用している場合は、上記バージョン情報を確認し、必要があれば自動アップグレードを無効にする、またはメンテナンスウィンドウを設定してください。サポート対象外バージョンを利用しているクラスタは、速やかにアップグレードを実施してください。
+
 # Title: January 21, 2025 
 Link: https://cloud.google.com/release-notes#January_21_2025<br>
 # Cloud Logging
