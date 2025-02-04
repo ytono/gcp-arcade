@@ -1,4 +1,549 @@
 
+# Title: February 03, 2025 
+Link: https://cloud.google.com/release-notes#February_03_2025<br>
+## Google Kubernetes Engine
+
+### Changed
+
+**原文:** Starting on February 3, 2025, GKE will create a new service agent named `service-{PROJECT_
+NUMBER}@gcp-sa-gkenode.iam.gserviceaccount.com` that the GKE system workloads that run on your worker nodes can use. This service agent will only have the minimum permissions that GKE needs to operate these nodes by default, and will help to isolate the requirements of GKE-managed workloads from the requirements of your workloads. GKE-managed system workloads will begin using this service agent in an upcoming GKE version, which we'll announce in a separate release note. 
+
+**説明:**  2025年2月3日以降、GKEはワーカーノードで動作するGKEシステムワークロードが使用できる `service-{PROJECT_
+NUMBER}@gcp-sa-gkenode.iam.gserviceaccount.com` という新しいサービスアカウントを作成します。このサービスアカウントは、デフォルトでGKEがこれらのノードを運用するために必要な最小限の権限のみを持ち、GKE管理ワークロードの要件とユーザーワークロードの要件を分離するのに役立ちます。GKE管理システムワークロードは、今後のGKEバージョンでこのサービスアカウントの使用を開始します。これについては、別のリリースノートでお知らせします。
+
+**影響有無:** 無
+
+**対処方法:** 現時点では対応不要です。今後のGKEバージョンでこのサービスアカウントが使用されるため、将来的なリリースノートに注意してください。 
+
+# Title: February 01, 2025 
+Link: https://cloud.google.com/release-notes#February_01_2025<br>
+# Cloud SQL for PostgreSQL
+
+## Announcement
+
+**原文:** All Cloud SQL for PostgreSQL  9.6, 10, 11, and 12 instances are running community end-of-life (EOL) major versions and are now enrolled in Cloud SQL extended support.
+
+ IMPORTANT: Extended support is a paid service and is an addition to the current cost of your instance. Charges for extended support are waived from February 1, 2025 through April 30, 2025. Starting on May 1, 2025, all instances enrolled in extended support will be charged. To learn more about the benefits of extended support and pricing, see Extended support for Cloud SQL.
+
+[Extended support for Cloud SQL](https://cloud.google.com/sql/docs/postgres/extended-support)
+
+**説明:** Cloud SQL for PostgreSQL のバージョン 9.6, 10, 11, 12 は、コミュニティサポートが終了したバージョンとなり、Cloud SQLの延長サポートに自動的に登録されました。
+延長サポートは有料サービスとなり、インスタンスの費用に加えて請求が発生します。ただし、2025年2月1日から2025年4月30日までは、延長サポートの費用は免除されます。2025年5月1日以降は、延長サポートに登録されているすべてのインスタンスに対して課金されます。 
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+* 上記バージョンを利用している場合は、延長サポートの費用と内容を確認してください。
+* 可能であれば、サポートされているバージョンへのアップグレードを検討してください。 
+
+# Title: January 31, 2025 
+Link: https://cloud.google.com/release-notes#January_31_2025<br>
+## Cloud Composer
+### Issue
+原文：The issue with upgrading Airflow builds **is now resolved**. You can now upgrade Airflow builds for Cloud Composer 3 in the asia-south1, asia-northeast2, europe-west1, europe-west3, and europe-north1 regions. 
+説明：asia-south1, asia-northeast2, europe-west1, europe-west3, and europe-north1 リージョンにおいて、Cloud Composer 3 の Airflow  ビルドのアップグレードに関する問題は解決されました。
+影響有無：有（過去に問題があった場合）
+対処方法：過去に Airflow ビルドのアップグレードで問題が発生した場合は、再度アップグレードを試してみてください。
+
+## Spanner
+### Libraries
+原文： A monthly digest of client library updates from across the Cloud SDK.
+説明：これは Cloud SDK 全体のクライアントライブラリの月次更新の概要です。
+影響有無：無し
+対処方法：特になし
+
+### Java
+#### Changes for google-cloud-spanner
+原文：
+* Add gcp client attributes in OpenTelemetry traces (#3595) (7893f24)
+* Add LockHint feature (#3588) (326442b)
+* **spanner:** MTLS setup for spanner external host clients (#3574) (f8dd152)
+* ... (以下略) ... 
+
+説明：
+* OpenTelemetry トレースに GCP クライアント属性が追加されました。
+* LockHint 機能が追加されました。
+* Spanner 外部ホストクライアント向けに MTLS がセットアップされました。
+* ... (以下ライブラリのバージョンアップに伴う変更) ...
+
+影響有無：有（google-cloud-spannerを利用している場合）
+対処方法：google-cloud-spanner の最新バージョン(6.85.0)を利用するようにしてください。
+
+### Node.js
+#### Changes for @google-cloud/spanner
+原文：
+* This release inadvertently introduced an issue where OpenTelemetry Trace context Global Propagators are default set to W3CTraceContextPropagator. For more details, refer to issue #2208
+* A fix for this issue has been included in version 7.17.1
+* ... (以下略) ... 
+
+説明：
+* このリリースでは、OpenTelemetry Trace コンテキストグローバルプロパゲーターがデフォルトで W3CTraceContextPropagator に設定されるという問題がうっかり導入されました。詳細は、問題 #2208 を参照してください。
+* この問題の修正は、バージョン 7.17.1 に含まれています。
+* ... (以下ライブラリのバージョンアップに伴う変更) ... 
+
+影響有無：有（@google-cloud/spannerを利用している場合）
+対処方法：@google-cloud/spanner を最新バージョン(7.17.1)にアップデートしてください。バージョン 7.17.0 を使用している場合は、7.17.1 にアップグレードして、OpenTelemetry Trace コンテキストグローバルプロパゲーターの意図しない設定を修正してください。 
+
+# Title: January 30, 2025 
+Link: https://cloud.google.com/release-notes#January_30_2025<br>
+## Cloud Composer 
+
+### Announcement: Deletion of Inactive and Non-recoverable Cloud Composer Environments
+
+#### 原文 
+
+At the beginning of February 2025, we will **delete inactive environments that are non-recoverable** in Cloud Composer 1, Cloud Composer 2, and Cloud Composer 3. After this change, non-recoverable environments that have listed problems will be deleted automatically.
+
+ **Cloud Composer 1 and Cloud Composer 2** environments that have both of the following problems present at the same time will be deleted:
+
+- The environment's underlying GKE cluster is deleted.
+- The environment is in the ERROR state for at least 60 days because of a disabled billing account or because the Cloud Composer API service was deactivated in its project.
+
+ **Cloud Composer 3** environments that have the following problem will be deleted:
+
+- The environment is in the ERROR state for at least 60 days because of a disabled billing account or because the Cloud Composer API service was deactivated in its project.
+
+ This change doesn't affect buckets of these environments. You can still recover your DAGs and other data from the environment's bucket and then delete the bucket manually. See Delete environments for information about data that is not deleted automatically together with the environment.
+
+[Delete environments](https://cloud.google.com/composer/docs/composer-3/delete-environments#about-not-deleted)
+
+#### 説明
+
+2025年2月上旬より、Cloud Composer 1、2、3において、復旧不可能な状態の非アクティブな環境が自動的に削除されるようになります。
+
+- Cloud Composer 1 および 2 では、GKEクラスタが削除済みで、かつ課金アカウントの無効化やCloud Composer APIサービスの無効化によって60日間以上 ERROR 状態の環境が削除対象となります。
+
+- Cloud Composer 3 では、課金アカウントの無効化やCloud Composer APIサービスの無効化によって60日間以上 ERROR 状態の環境が削除対象となります。
+
+なお、環境のバケットは削除対象に含まれません。必要なDAGやデータは事前にバックアップを取った上で、手動でバケットを削除してください。
+
+#### 影響有無
+
+有
+
+#### 対処方法
+
+Cloud Composer 1, 2, 3 のいずれかの環境を利用中で、以下の条件に当てはまる場合は、環境が削除されないように対処が必要です。
+
+- 環境が ERROR 状態となっている
+- 環境のGKEクラスタが削除されている（Cloud Composer 1, 2の場合）
+- 課金アカウントが無効化されている
+- Cloud Composer API サービスが無効化されている
+
+上記に該当する場合は、課金アカウントやCloud Composer APIサービスを有効化する、または環境を復旧させるなどの対応を行い、ERROR状態を解消してください。
+
+
+## Google Kubernetes Engine
+
+### Deprecated: GKE Posture Management Features
+
+#### 原文
+
+ Starting on January 28, 2025, the following Preview features are deprecated:
+
+- GKE threat detection
+- Supply chain concerns - Binary Authorization
+- GKE Compliance dashboard
+
+ For deprecation and removal dates, and for information about alternatives, see Posture management deprecations.
+
+[Posture management deprecations](https://cloud.google.com/kubernetes-engine/docs/deprecations/posture-management-deprecation)
+
+#### 説明
+
+2025年1月28日より、以下のGKEのプレビュー機能が非推奨になります。
+
+- GKE threat detection
+- Supply chain concerns - Binary Authorization
+- GKE Compliance dashboard
+
+具体的な廃止日や代替機能については、Posture management deprecations を参照してください。
+
+#### 影響有無
+
+有 (該当機能を利用している場合)
+
+#### 対処方法
+
+非推奨となった機能を利用している場合は、代替機能への移行を検討してください。具体的な代替機能や移行手順については、提供されるドキュメントを参照してください。
+# Title: January 29, 2025 
+Link: https://cloud.google.com/release-notes#January_29_2025<br>
+## Google Kubernetes Engine(見出し1)
+### Changed(見出し2)
+原文: GKE cluster versions have been updated.
+
+ **New versions available for upgrades and new clusters.**
+
+ The following Kubernetes versions are now available for new clusters and for
+opt-in control plane upgrades and node upgrades for existing clusters. For more
+information on versioning and upgrades, see GKE versioning and support
+and Upgrades.
+
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+説明： GKEクラスタのバージョンが更新されました。新しいバージョンがアップグレードと新規クラスタ作成に利用可能になりました。記載されているKubernetesバージョンが、新規クラスタと、既存クラスタのオプトインコントロールプレーンアップグレードとノードアップグレードで利用可能になりました。
+影響有無：有
+対処方法： GKEのバージョンサポートポリシーに従って、クラスタをアップグレードしてください。特に、古いバージョンを使っている場合は、セキュリティと安定性のために最新バージョンへのアップグレードを検討してください。
+# Title: January 28, 2025 
+Link: https://cloud.google.com/release-notes#January_28_2025<br>
+## Cloud Composer
+
+### Fixed
+
+####  原文
+Fixed a problem where synchronization between the environment's bucket and Airflow components failed because incorrect objects in the bucket were not ignored.
+
+#### 説明
+環境のバケットと Airflow コンポーネント間の同期が、バケット内の不正なオブジェクトが無視されなかったために失敗する問題が修正されました。
+
+#### 製品への影響有無
+有
+
+#### 対処方法
+過去にこの問題が発生していた場合は、修正により解決されるため、Composer環境のアップグレードを検討してください。
+
+
+### Fixed
+
+####  原文
+*(Cloud Composer 3)* Fixed an issue with KubernetesPodOperator failing to run properly when `do_xcom_push` was set to `True`.
+
+#### 説明
+Cloud Composer 3 環境において、`do_xcom_push` が `True` に設定されている場合に KubernetesPodOperator が適切に実行されない問題が修正されました。
+
+#### 製品への影響有無
+Cloud Composer 3 を利用している場合、有
+
+#### 対処方法
+過去にこの問題が発生していた場合は、修正により解決されるため、Composer環境のアップグレードを検討してください。
+
+### Changed
+
+####  原文
+*(Available without upgrading)* Starting from Cloud Composer version 2.11.0 with Airflow 2.10.2 and 2.9.3, the `enable_task_context_logger` Airflow configuration option is no longer blocked.
+
+#### 説明
+Cloud Composer バージョン 2.11.0 以降、Airflow 2.10.2 および 2.9.3 を使用する場合、`enable_task_context_logger` Airflow 設定オプションはブロックされなくなりました。アップグレードなしで利用できます。
+
+#### 製品への影響有無
+無
+
+#### 対処方法
+特になし。
+
+### Fixed
+
+####  原文
+Terminating Airflow workers now generate log messages with information about still running tasks.
+
+#### 説明
+Airflow ワーカーの終了時に、実行中のタスクに関する情報を含むログメッセージが生成されるようになりました。
+
+#### 製品への影響有無
+有
+
+#### 対処方法
+Airflow ワーカーの終了時のログ出力内容が変更されます。ログ監視設定などを利用している場合は、必要に応じて調整してください。
+
+### Fixed
+
+####  原文
+Fixed an issue where log messages were incorrectly formatted for non-string content, such as dictionaries and numbers.
+
+#### 説明
+辞書や数値などの文字列以外のコンテンツに対して、ログメッセージのフォーマットが正しく行われない問題が修正されました。
+
+#### 製品への影響有無
+有
+
+#### 対処方法
+過去にこの問題が発生していた場合は、修正により解決されるため、ログを確認し問題が解決されているか確認してください。
+
+### Changed
+
+####  原文
+*(Available without upgrading)* In Cloud Composer 2 and Cloud Composer 1, a more meaningful error message is produced when the Composer Service Agent account doesn't have necessary permissions to access the network during the environment creation.
+
+#### 説明
+Cloud Composer 2 および Cloud Composer 1 において、環境の作成中に Composer サービス エージェント アカウントに必要なネットワークアクセス許可がない場合に、より分かりやすいエラーメッセージが表示されるようになりました。アップグレードなしで利用できます。
+
+#### 製品への影響有無
+無
+
+#### 対処方法
+特になし。
+
+### Fixed
+
+####  原文
+*(Available without upgrading)* In Cloud Composer 3, fixed an issue where  deleting an environment with an attached VPC network failed if the project accept list of the network attachment was cleared manually.
+
+#### 説明
+Cloud Composer 3 において、ネットワークアタッチメントのプロジェクト承認リストが手動でクリアされた場合に、VPC ネットワークが接続された環境の削除が失敗する問題が修正されました。アップグレードなしで利用できます。
+
+#### 製品への影響有無
+Cloud Composer 3 を利用している場合、有
+
+#### 対処方法
+過去にこの問題が発生していた場合は、修正により解決されます。
+
+### Changed
+
+####  原文
+*(Cloud Composer 3)* The zone in the `Environment.config.node_config.location` field is no longer populated in the Cloud Composer API.
+
+[`Environment.config.node_config.location`](https://cloud.google.com/composer/docs/reference/rest/v1/projects.locations.environments#nodeconfig)
+
+#### 説明
+Cloud Composer 3 において、Cloud Composer API の `Environment.config.node_config.location` フィールドにゾーン情報が設定されなくなりました。
+
+#### 製品への影響有無
+Cloud Composer 3 を利用し、`Environment.config.node_config.location` フィールドを利用している場合、有
+
+#### 対処方法
+`Environment.config.node_config.location` フィールドの値に依存した処理を行っている場合は、修正が必要です。
+
+### Changed
+
+####  原文
+*(Airflow 2.10.2 and 2.9.3)* The `apache-airflow-providers-cncf-kubernetes` package was upgraded to version 10.1.0 in Cloud Composer 2 images and Cloud Composer 3 builds. For more information about changes, see the apache-airflow-providers-cncf-kubernetes changelog from version 10.0.1 to version 10.1.0.
+
+[apache-airflow-providers-cncf-kubernetes changelog](https://airflow.apache.org/docs/apache-airflow-providers-cncf-kubernetes/stable/changelog.html)
+
+#### 説明
+Airflow 2.10.2 および 2.9.3 において、Cloud Composer 2 イメージと Cloud Composer 3 ビルドで、`apache-airflow-providers-cncf-kubernetes` パッケージがバージョン 10.1.0 にアップグレードされました。変更点については、バージョン 10.0.1 からバージョン 10.1.0 までの apache-airflow-providers-cncf-kubernetes の変更履歴を参照してください。
+
+#### 製品への影響有無
+Airflow 2.10.2 および 2.9.3 を利用している場合、有
+
+#### 対処方法
+`apache-airflow-providers-cncf-kubernetes` パッケージの変更点を確認し、必要に応じて対応してください。
+
+### Changed
+
+####  原文
+*(Airflow 2.10.2 and 2.9.3)* The following preinstalled provider packages were upgraded to new major versions:
+
+- `apache-airflow-providers-apache-beam` upgraded from 5.9.1 to 6.0.0
+- `apache-airflow-providers-dbt-cloud` upgraded from 3.11.2 to 4.0.0
+- `apache-airflow-providers-hashicorp` upgraded from 3.8.0 to 4.0.0
+- `apache-airflow-providers-http` upgraded from 4.13.3 to 5.0.0
+- `apache-airflow-providers-mysql` upgraded from 5.7.4 to 6.0.0
+- `apache-airflow-providers-sendgrid` upgraded from 3.6.0 to 4.0.0
+- `apache-airflow-providers-sqlite` upgraded from 3.9.1 to 4.0.0
+- `apache-airflow-providers-ssh` upgraded from 3.14.0 to 4.0.0
+
+#### 説明
+Airflow 2.10.2 および 2.9.3 において、以下のプリインストールされたプロバイダーパッケージが新しいメジャーバージョンにアップグレードされました。
+
+- `apache-airflow-providers-apache-beam` が 5.9.1 から 6.0.0 にアップグレード
+- `apache-airflow-providers-dbt-cloud` が 3.11.2 から 4.0.0 にアップグレード
+- `apache-airflow-providers-hashicorp` が 3.8.0 から 4.0.0 にアップグレード
+- `apache-airflow-providers-http` が 4.13.3 から 5.0.0 にアップグレード
+- `apache-airflow-providers-mysql` が 5.7.4 から 6.0.0 にアップグレード
+- `apache-airflow-providers-sendgrid` が 3.6.0 から 4.0.0 にアップグレード
+- `apache-airflow-providers-sqlite` が 3.9.1 から 4.0.0 にアップグレード
+- `apache-airflow-providers-ssh` が 3.14.0 から 4.0.0 にアップグレード
+
+#### 製品への影響有無
+Airflow 2.10.2 および 2.9.3 を利用している場合、有
+
+#### 対処方法
+アップグレードされた各プロバイダーパッケージの変更点を確認し、必要に応じて対応してください。
+
+### Changed
+
+####  原文
+*(Airflow 2.10.2 and 2.9.3)* The following preinstalled packages were downgraded:
+
+- `certifi` downgraded from 2024.12.14 to 2024.8.30.
+- `charset-normalizer` downgraded from 3.4.1 to 3.4.0.
+- `cryptography` downgraded from 44.0.0 to 43.0.3.
+- `filelock` downgraded from 3.16.1 to 3.15.4.
+- `google-auth` downgraded from 2.37.0 to 2.35.0.
+- `keyring` downgraded from 25.6.0 to 25.5.0.
+- `urllib3` downgraded from 2.3.0 to 2.2.3.
+- `zipp` downgraded from 3.21.0 to 3.20.2.
+
+#### 説明
+Airflow 2.10.2 および 2.9.3 において、以下のプリインストールされたパッケージがダウングレードされました。
+
+- `certifi` が 2024.12.14 から 2024.8.30 にダウングレード
+- `charset-normalizer` が 3.4.1 から 3.4.0 にダウングレード
+- `cryptography` が 44.0.0 から 43.0.3 にダウングレード
+- `filelock` が 3.16.1 から 3.15.4 にダウングレード
+- `google-auth` が 2.37.0 から 2.35.0 にダウングレード
+- `keyring` が 25.6.0 から 25.5.0 にダウングレード
+- `urllib3` が 2.3.0 から 2.2.3 にダウングレード
+- `zipp` が 3.21.0 から 3.20.2 にダウングレード
+
+#### 製品への影響有無
+Airflow 2.10.2 および 2.9.3 を利用している場合、有
+
+#### 対処方法
+ダウングレードされた各パッケージの変更点を確認し、必要に応じて対応してください。
+
+### Changed
+
+####  原文
+New Airflow builds are available in Cloud Composer 3:
+
+[Airflow builds](https://cloud.google.com/composer/docs/concepts/versioning/composer-versions#images-composer-3)
+- composer-3-airflow-2.10.2-build.7 (default)
+- composer-3-airflow-2.9.3-build.14
+
+#### 説明
+Cloud Composer 3 で、新しい Airflow ビルドが利用可能になりました。
+
+- composer-3-airflow-2.10.2-build.7 (デフォルト)
+- composer-3-airflow-2.9.3-build.14
+
+#### 製品への影響有無
+無
+
+#### 対処方法
+新しい Airflow ビルドを利用する場合は、Cloud Composer 環境の作成時または更新時に選択してください。
+
+### Changed
+
+####  原文
+New images are available in Cloud Composer 2:
+
+[images](https://cloud.google.com/composer/docs/concepts/versioning/composer-versions#images-composer-2)
+- composer-2.11.1-airflow-2.10.2 (default)
+- composer-2.11.1-airflow-2.9.3
+
+#### 説明
+Cloud Composer 2 で、新しいイメージが利用可能になりました。
+
+- composer-2.11.1-airflow-2.10.2 (デフォルト)
+- composer-2.11.1-airflow-2.9.3
+
+#### 製品への影響有無
+無
+
+#### 対処方法
+新しいイメージを利用する場合は、Cloud Composer 環境の作成時または更新時に選択してください。
+
+### Deprecated
+
+####  原文
+Cloud Composer version 2.5.5 has reached its end of support period.
+
+[end of support period](https://cloud.google.com/composer/docs/concepts/versioning/composer-versioning-overview#version-deprecation-and-support)
+
+#### 説明
+Cloud Composer バージョン 2.5.5 はサポート終了期間に達しました。
+
+#### 製品への影響有無
+Cloud Composer 2.5.5 を利用している場合、有
+
+#### 対処方法
+サポート終了に伴い、セキュリティリスクやバグ修正が行われなくなります。速やかにサポートされているバージョンにアップグレードしてください。
+# Title: January 27, 2025 
+Link: https://cloud.google.com/release-notes#January_27_2025<br>
+## BigQuery
+
+### Libraries
+
+#### Go
+
+##### Changes for bigquery/storage/apiv1beta1
+
+原文: 
+- **bigquery/storage/managedwriter:** Graceful connection drains (#11463) (b29912f)
+- **bigquery:** Update golang.org/x/net to v0.33.0 (e9b0b69)
+
+説明：
+- BigQuery Storage managed writer に graceful connection drain 機能が追加されました。
+- 使用している golang.org/x/net が v0.33.0 にアップデートされました。
+
+影響有無： 無
+
+対処方法： 特に対応は不要です。
+
+#### Python
+
+##### Changes for google-cloud-bigquery
+
+原文: 
+- Add ExternalCatalogTableOptions class and tests (#2116) (cdc1a6e)
+- Add default value in SchemaField.from_api_repr() (#2115) (7de6822)
+
+説明：
+- 外部カタログテーブルのオプションを設定するための ExternalCatalogTableOptions クラスが追加されました。
+- SchemaField.from_api_repr() にデフォルト値が追加されました。
+
+影響有無： 無
+
+対処方法： 特に対応は不要です。
+
+### Announcement
+
+原文: 
+We previously communicated that after January 27, 2025, a purchase would be required to use Gemini in BigQuery features. We are temporarily delaying enforcement of these procurement methods, and no purchase is required at this time. For more information, see Gemini for Google Cloud pricing.
+
+説明： 
+当初、2025年1月27日以降、BigQuery の Gemini 機能を使用するには購入が必要になると伝えられていましたが、これらの調達方法の実施は一時的に延期され、現時点では購入は不要です。
+
+影響有無： 無
+
+対処方法： 特に対応は不要です。
+
+
+## Cloud Composer
+
+### Issue
+
+原文: 
+**(Cloud Composer 3 only)* We are currently experiencing an issue with upgrading Airflow builds for Cloud Composer 3 in asia-south1, asia-northeast2, europe-west1, europe-west3, europe-north1 regions.
+
+The upgrades are temporarily disabled as we continue our work to restore the listed functionalities. We will release an additional announcement after the issue is resolved.
+
+**January 31, 2025 update**: The issue is resolved.
+
+説明：
+Cloud Composer 3 の asia-south1、asia-northeast2、europe-west1、europe-west3、europe-north1 リージョンで、Airflow ビルドのアップグレードに関する問題が発生していました。影響を受けた機能を復旧するためにアップグレードは一時的に無効化されていましたが、2025年1月31日現在、問題は解決しています。
+
+影響有無： 無(問題は解決済み)
+
+対処方法： 特に対応は不要です。
+
+
+## Pub/Sub
+
+### Libraries
+
+#### Node.js
+
+##### Changes for @google-cloud/pubsub
+
+原文: 
+- Add Kafka-based sources to IngestionDataSourceSettings proto and IngestionFailureEvent proto (#2007) (08d00a1)
+- **deps:** Update dependency @opentelemetry/semantic-conventions to ~1.28.0 (#2001) (c8e5811)
+
+説明：
+- IngestionDataSourceSettings proto と IngestionFailureEvent proto に Kafka ベースのソースが追加されました。
+- 依存関係の @opentelemetry/semantic-conventions が ~1.28.0 にアップデートされました。
+
+影響有無： 無
+
+対処方法： 特に対応は不要です。
+
+#### Python
+
+##### Changes for google-cloud-pubsub
+
+原文: 
+- Stop using api_core default timeouts in publish since they are broken (#1326) (ba2c2ee)
+
+説明：
+- api_core のデフォルトタイムアウトが機能しないため、publish での使用が停止されました。
+
+影響有無： 有
+
+対処方法： パブリッシュ時にタイムアウトを明示的に設定する必要があるかもしれません。 
+
 # Title: January 24, 2025 
 Link: https://cloud.google.com/release-notes#January_24_2025<br>
 ## Apigee X
