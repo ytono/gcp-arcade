@@ -1,40 +1,369 @@
 
-# Title: February 03, 2025 
-Link: https://cloud.google.com/release-notes#February_03_2025<br>
+# Title: February 07, 2025 
+Link: https://cloud.google.com/release-notes#February_07_2025<br>
+## Cloud Composer 
+
+### Announcement
+
+#### 原文
+
+Starting March 2025, the **default version for new Cloud Composer environments** changes from Cloud Composer 2 to Cloud Composer 3.
+
+New environments that are created without a specified version will use the default Airflow build of Cloud Composer 3, `composer-3-airflow-2`. Currently, the default version is `composer-2-airflow-2`.
+
+
+#### 説明
+
+2025年3月以降、Cloud Composer 環境の新規作成時のデフォルトバージョンが、Cloud Composer 2 から Cloud Composer 3 に変更されます。
+
+バージョンを指定せずに新しい環境を作成すると、Cloud Composer 3 のデフォルト Airflow ビルドである `composer-3-airflow-2` が使用されます。現在のデフォルトバージョンは `composer-2-airflow-2` です。
+
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+2025年3月以降もCloud Composer 2を使い続けたい場合は、環境作成時にバージョンを明示的に指定する必要があります。 
+また、Cloud Composer 3へのアップグレードを検討してください。 
+アップグレードにより、新機能の利用やパフォーマンスの向上が見込めます。
+
+# Title: February 06, 2025 
+Link: https://cloud.google.com/release-notes#February_06_2025<br>
+## Apigee X
+
+### Announcement
+**原文:** On February 6, 2025, we released an updated version of Apigee (1-14-0-apigee-6).
+
+**説明:** Apigeeのアップデートバージョン(1-14-0-apigee-6)が2025年2月6日にリリースされました。
+このリリースは今後数営業日中に本番環境へのロールアウトが開始され、Google Cloudのすべてのゾーンで完了するまでに4営業日以上かかる場合があります。
+お客様のインスタンスでは、ロールアウトが完了するまで、新機能と修正プログラムが利用できない場合があります。
+**影響有無:** 無
+**対処方法:** 特になし
+
+## Apigee X
+
+### Fixed
+**原文:** 
+| Bug ID | Description |
+| --- | --- |
+| **381553288** | **Fixed class initialization issue in JavaCallout policy.** |
+| **390559772** | **Fixed issue with ResponseCache policy not appearing in debug sessions when added using Apigee APIM Operator for Kubernetes.** |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+
+**説明:** 以下のバグが修正されました。
+* JavaCalloutポリシーのクラス初期化問題
+* Kubernetes 用 Apigee APIM Operator を使用して追加した際に、デバッグセッションに ResponseCache ポリシーが表示されない問題
+* セキュリティ基盤とライブラリのアップデート
+**影響有無:** 無
+**対処方法:** 特になし
+
+## Cloud Composer
+
+### Changed
+**原文:** Cloud Composer 2 is **no longer available in Mexico (northamerica-south1)**. It is not possible to select this region when creating a new Cloud Composer 2 environment. Existing Cloud Composer 2 environments and both new and existing Cloud Composer 3 environments are not affected by this change.
+
+**説明:** Cloud Composer 2はメキシコ(northamerica-south1)リージョンでは利用できなくなりました。そのため、Cloud Composer 2環境を新規作成する際に、メキシコ(northamerica-south1)リージョンを選択することはできません。既存のCloud Composer 2環境、および新規/既存のCloud Composer 3環境は、この変更による影響を受けません。
+
+**影響有無:** 有 (Cloud Composer 2をメキシコ(northamerica-south1)で利用している場合)
+
+**対処方法:** 
+* メキシコ(northamerica-south1)リージョンでCloud Composer 2環境を引き続き利用する必要がある場合は、Cloud Composer 3への移行を検討してください。
+
+
 ## Google Kubernetes Engine
 
 ### Changed
 
-**原文:** Starting on February 3, 2025, GKE will create a new service agent named `service-{PROJECT_
-NUMBER}@gcp-sa-gkenode.iam.gserviceaccount.com` that the GKE system workloads that run on your worker nodes can use. This service agent will only have the minimum permissions that GKE needs to operate these nodes by default, and will help to isolate the requirements of GKE-managed workloads from the requirements of your workloads. GKE-managed system workloads will begin using this service agent in an upcoming GKE version, which we'll announce in a separate release note. 
+**原文:**
 
-**説明:**  2025年2月3日以降、GKEはワーカーノードで動作するGKEシステムワークロードが使用できる `service-{PROJECT_
-NUMBER}@gcp-sa-gkenode.iam.gserviceaccount.com` という新しいサービスアカウントを作成します。このサービスアカウントは、デフォルトでGKEがこれらのノードを運用するために必要な最小限の権限のみを持ち、GKE管理ワークロードの要件とユーザーワークロードの要件を分離するのに役立ちます。GKE管理システムワークロードは、今後のGKEバージョンでこのサービスアカウントの使用を開始します。これについては、別のリリースノートでお知らせします。
+GKE cluster versions have been updated. ...(中略)...
+[1.31.5-gke.1068000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1315)
+- 1.28.15-gke.1720000
+- 1.29.13-gke.1109000
+- 1.30.9-gke.1127000
+- 1.31.5-gke.1169000
+- 1.32.1-gke.1200003
+- 1.32.1-gke.1357001
 
-**影響有無:** 無
+...(中略)...
+[1.28.15-gke.1720000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815)
+[1.29.13-gke.1109000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12913)
+[1.30.9-gke.1127000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1309)
+[1.31.5-gke.1169000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1315)
+[1.32.1-gke.1200003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1321)
+[1.32.1-gke.1357001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1321)
+...(中略)...
 
-**対処方法:** 現時点では対応不要です。今後のGKEバージョンでこのサービスアカウントが使用されるため、将来的なリリースノートに注意してください。 
+**説明:** 
+GKEクラスタのバージョンが更新されました。
 
-# Title: February 01, 2025 
-Link: https://cloud.google.com/release-notes#February_01_2025<br>
-# Cloud SQL for PostgreSQL
+**Rapidチャンネル**
+* 新規クラスタ作成時のデフォルトバージョンが 1.31.5-gke.1068000 に変更されました。
+* 1.28.15-gke.1720000 から 1.32.1-gke.1357001 までのバージョンが利用可能になりました。
+* 一部の古いバージョンは利用できなくなりました。
+* 自動アップグレードが有効になっているクラスタは、記載されたバージョンに自動的にアップグレードされます。
+    * メンテナンスの除外などが原因でマイナーバージョンへのアップグレードができないクラスタのために、パッチのみのバージョンアップグレードターゲットも提供されます。
 
-## Announcement
+**影響有無:** 有 (GKEクラスタの自動アップグレードを有効にしている場合)
 
-**原文:** All Cloud SQL for PostgreSQL  9.6, 10, 11, and 12 instances are running community end-of-life (EOL) major versions and are now enrolled in Cloud SQL extended support.
+**対処方法:** 
+* 自動アップグレードが有効になっているクラスタは、リリースノートに記載されたバージョンに自動的にアップグレードされます。
+* アップグレード前に新バージョンでの変更点を確認し、必要があれば対応してください。
 
- IMPORTANT: Extended support is a paid service and is an addition to the current cost of your instance. Charges for extended support are waived from February 1, 2025 through April 30, 2025. Starting on May 1, 2025, all instances enrolled in extended support will be charged. To learn more about the benefits of extended support and pricing, see Extended support for Cloud SQL.
+**以下、原文に記載されている各チャンネルとバージョンの組み合わせについて、同様の説明を省略します。**
 
-[Extended support for Cloud SQL](https://cloud.google.com/sql/docs/postgres/extended-support)
+**(Regularチャンネル、Stableチャンネル、Extendedチャンネル、および最後のChangedセクションも同様です)** 
 
-**説明:** Cloud SQL for PostgreSQL のバージョン 9.6, 10, 11, 12 は、コミュニティサポートが終了したバージョンとなり、Cloud SQLの延長サポートに自動的に登録されました。
-延長サポートは有料サービスとなり、インスタンスの費用に加えて請求が発生します。ただし、2025年2月1日から2025年4月30日までは、延長サポートの費用は免除されます。2025年5月1日以降は、延長サポートに登録されているすべてのインスタンスに対して課金されます。 
+# Title: February 05, 2025 
+Link: https://cloud.google.com/release-notes#February_05_2025<br>
+## Cloud Storage
+
+### Announcement
+
+**原文:** Announced billing changes for accessing Cloud Storage through BigQuery take effect Feb 21, 2025. These changes were originally set to take effect on February 01, 2025.
+
+[Announced billing changes](https://cloud.google.com/resources/storage/billing-fix-bigquery)
+
+**説明:** BigQuery から Cloud Storage へのアクセスに関する請求の変更が、当初予定されていた 2025 年 2 月 1 日から **2025 年 2 月 21 日** に延期されました。
+
+**影響有無:** 有（BigQuery から Cloud Storage へアクセスするユーザー）
+
+**対処方法:** 請求変更の内容については、記載されているリンク先をご確認ください。請求が発生する可能性があるため、変更内容を理解しておく必要があります。 
+
+# Title: February 04, 2025 
+Link: https://cloud.google.com/release-notes#February_04_2025<br>
+## Cloud Composer
+
+### Announcement
+
+####  原文
+All Cloud Composer environment's GKE clusters are set up with maintenance exclusions from January 21, 2025 to February 10, 2025. For more information, see Maintenance exclusions.
+
+[Maintenance exclusions](https://cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions#exclusions)
+
+#### 説明
+2025年1月21日から2月10日までの期間、Cloud Composer環境のGKEクラスタに対してメンテナンスによる自動更新が行われないように設定されています。メンテナンスに関する情報は、メンテナンス除外設定のドキュメントをご確認ください。
+
+#### 影響有無
+無
+
+#### 対処方法
+特に対処は不要です。
+
+
+## Google Kubernetes Engine
+
+### Fixed
+
+#### 原文
+ A bug in the image streaming feature caused authentication-related failures in specific scenarios when the workload tried to access container image data. This bug has been fixed in the following GKE versions:
+
+[image streaming](https://cloud.google.com/kubernetes-engine/docs/how-to/image-streaming)
+- 1.32.0-gke.1448000 and above.
+- 1.31.4-gke.1183000 and above.
+- 1.30.8-gke.1261000 and above.
+
+
+#### 説明
+特定のシナリオにおいて、ワークロードがコンテナイメージデータにアクセスしようとした際に、イメージストリーミング機能のバグが原因で認証関連のエラーが発生していました。
+この問題は、以下のGKEバージョンで修正されています。
+
+- 1.32.0-gke.1448000 以上
+- 1.31.4-gke.1183000 以上
+- 1.30.8-gke.1261000 以上
+
+#### 影響有無
+有 (1.30.8-gke.1261000 より前のバージョンを利用している場合)
+
+#### 対処方法
+1.30.8-gke.1261000 以上のバージョンにアップグレードしてください。
+
+
+### Security
+
+#### 原文
+ A security vulnerability was discovered in the Google Secret Manager Provider for Secret Store CSI Driver. This vulnerability could allow an attacker to gain access to the Kubernetes service account token of the CSI driver.
+
+ For more details, see GCP-2025-006 security bulletin.
+
+[GCP-2025-006 security bulletin](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2025-006)
+
+#### 説明
+Secret Store CSI Driver の Google Secret Manager プロバイダにおいて、セキュリティの脆弱性が発見されました。攻撃者がこの脆弱性を悪用した場合、CSI ドライバの Kubernetes サービスアカウントトークンへのアクセスが可能になる可能性があります。詳細については、GCP-2025-006 セキュリティ бюллетень を参照してください。
+
+#### 影響有無
+有 (Google Secret Manager Provider for Secret Store CSI Driver を利用している場合)
+
+#### 対処方法
+GCP-2025-006 セキュリティ бюллетень に記載されている対策方法に従ってください。
+# Title: February 03, 2025 
+Link: https://cloud.google.com/release-notes#February_03_2025<br>
+## BigQuery
+
+### Changed
+
+**原文:**
+
+The BigQuery ML `ML.BUCKETIZE` and `ML.QUANTILE_BUCKETIZE` functions now support formatting of the function output. You can use the `output_format` argument to format the function output as one of the following:
+
+[`ML.BUCKETIZE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-bucketize)
+[`ML.QUANTILE_BUCKETIZE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-quantile-bucketize)
+- A string in the format `bin_<bucket_index>`
+- A string in interval notation
+- A JSON-formatted string
+
+[interval notation](https://en.wikipedia.org/wiki/Interval_(mathematics))
+
+**説明:**
+
+BigQuery MLの関数 `ML.BUCKETIZE` と `ML.QUANTILE_BUCKETIZE` において、出力フォーマットが指定可能になりました。`output_format` 引数を使用することで、以下のような形式で出力フォーマットを指定できます。
+
+- `bin_<bucket_index>` のフォーマットの文字列
+- 区間表記の文字列
+- JSON形式の文字列
+
+**製品への影響有無:** 無
+
+**対処方法:** 特に対応は不要です。 `ML.BUCKETIZE` と `ML.QUANTILE_BUCKETIZE` を使用する際に、必要であれば `output_format` 引数を使用して出力フォーマットを指定してください。
+
+
+## Cloud Billing
+
+### Changed
+
+**原文:**
+
+ **Google Cloud Marketplace now uses the agency model for marketplace services for UK, FR, and DE customers.**
+
+ As part of this change, customers will receive separate invoices for Google Cloud and third-party vendor transactions in the Cloud Marketplace.
+
+ For more information, see Split invoicing for agency model transactions and Marketplace Agency Account Migration FAQ.
+
+[Split invoicing for agency model transactions](https://cloud.google.com/billing/docs/how-to/split-invoice)
+[Marketplace Agency Account Migration FAQ](https://support.google.com/cloud/answer/13855075)
+
+**説明:**
+
+Google Cloud Marketplaceは、イギリス、フランス、ドイツのお客様向けに、マーケットプレイスサービスの代理店モデルの利用を開始しました。
+
+この変更の一環として、お客様には、Google CloudとサードパーティベンダーのCloud Marketplaceでの取引に対して、請求書が別々に発行されるようになります。
+
+詳細については、「代理店モデルの取引に対する請求書の分割」と「マーケットプレイス代理店アカウントの移行に関するFAQ」をご覧ください。
+
+**製品への影響有無:** 有
+
+**対処方法:** イギリス、フランス、ドイツのお客様は、Cloud Marketplaceの取引において、Google Cloudとサードパーティベンダーからそれぞれ請求書が発行されるようになるため注意が必要です。
+
+
+## Cloud Logging
+
+### Libraries
+
+#### Java
+
+##### Changes for google-cloud-logging
+
+バージョン: 3.21.2
+
+変更内容:
+
+- 依存関係の更新:
+    - `com.google.cloud:sdk-platform-java-config` を v3.42.0 に更新
+    - `io.opentelemetry:opentelemetry-bom` を v1.46.0 に更新
+- `googleapis/sdk-platform-java` アクションを v2.52.0 に更新
+
+#### Python
+
+##### Changes for google-cloud-logging
+
+バージョン: 3.11.4
+
+変更内容:
+
+- `write_entries` 関数が `ParseError` 発生時に `ValueError` を raise するように変更
+- Python 3.13 で `proto-plus >= 1.25` が必須に
+
+
+## Cloud Storage
+
+### Libraries
+
+#### Java
+
+##### Changes for google-cloud-storage
+
+バージョン: 2.48.0
+
+変更内容:
+
+- オブジェクト名をアトミックにリネームする `Storage#moveBlob` メソッドを追加
+- 署名付きURLのデフォルトスキームを、ストレージオプションのホストから解決するように更新
+- `ApiException` の `StorageException` 変換を更新し、エラーの詳細を含めるように改善
+- 依存関係の更新:
+    - Java コードジェネレーター (`gapic-generator-java`) を 2.51.1 に更新
+    - `com.google.cloud.opentelemetry:exporter-trace` を v0.33.0 に更新
+- `gcr.io/cloud-devrel-public-resources/storage-testbench` Docker タグを v0.52.0 に更新
+
+#### Python
+
+##### Changes for google-cloud-storage
+
+バージョン: 3.0.0
+
+変更内容:
+
+- アップロードのデフォルトチェックサム戦略が `None` から `"auto"` に変更
+- ダウンロードのデフォルトチェックサム戦略が `"md5"` から `"auto"` に変更
+- 非推奨の引数 `num_retries` と `text_mode` を削除
+- `Blob.download_to_filename()` が 404 エラー時に空の宛先ファイルを削除するように変更
+- メディア操作で、非メディア操作と同じ再試行バックオフ、タイムアウト、カスタム述語システムを使用するように変更 (デフォルトの再試行動作にわずかな影響)
+- アップロード、BLOB 削除、BLOB メタデータ更新でデフォルトで再試行が有効化
+- 新しいチェックサムオプション `"auto"` を追加し、デフォルトに設定
+- `Blob.from_string()` と `Bucket.from_string()` メソッドの名前を `from_uri()` に変更
+- 範囲読み取りの再試行の開始オフセットの計算を修正
+- `BlobReader` で `download_kwargs` をフィルタリング
+- `exceptions.py` ドキュメントの問題を修正
+
+## Google Kubernetes Engine
+
+### Changed
+
+**原文:**
+
+ Starting on February 3, 2025, GKE will create a new service agent named `service-{PROJECT_
+NUMBER}@gcp-sa-gkenode.iam.gserviceaccount.com` that the GKE system workloads that run on your worker nodes can use. This service agent will only have the minimum permissions that GKE needs to operate these nodes by default, and will help to isolate the requirements of GKE-managed workloads from the requirements of your workloads. GKE-managed system workloads will begin using this service agent in an upcoming GKE version, which we'll announce in a separate release note.
+
+**説明:**
+
+2025年2月3日から、GKEはワーカーノードで動作するGKEシステムワークロードが使用できる、 `service-{PROJECT_NUMBER}@gcp-sa-gkenode.iam.gserviceaccount.com` という名前の新しいサービスアカウントを作成します。このサービスアカウントは、デフォルトではGKEがこれらのノードを運用するために必要な最小限の権限のみを持ち、GKE管理ワークロードの要件とユーザーワークロードの要件を分離するのに役立ちます。 GKE管理システムワークロードは、今後のGKEバージョンでこのサービスアカウントの使用を開始します。これについては、別のリリースノートでお知らせします。
 
 **製品への影響有無:** 有
 
 **対処方法:** 
-* 上記バージョンを利用している場合は、延長サポートの費用と内容を確認してください。
-* 可能であれば、サポートされているバージョンへのアップグレードを検討してください。 
+
+- 2025年2月3日以降にGKEクラスタを作成する場合、GKEシステムワークロードは自動的に新しいサービスアカウントを使用します。
+- 既存のGKEクラスタについては、GKE管理システムワークロードがこの新しいサービスアカウントを使用するように移行する必要があります。移行手順については、今後のリリースノートで発表されます。
+
+
+## Secret Manager
+
+### Libraries
+
+#### Go
+
+##### Changes for secretmanager/apiv1
+
+バージョン: 1.14.4
+
+変更内容:
+
+- Markdown コメント内のリンクを修正
+- メッセージ `.google.cloud.secretmanager.v1.Secret` と `.google.cloud.secretmanager.v1.SecretVersion` 内の `customer_managed_encryption` のコメントを更新
+- メッセージ `.google.cloud.secretmanager.v1.Topic` 内の `name` のコメントを更新
+- `Replication` のコメントを更新
+- メッセージ `.google.cloud.secretmanager.v1.SecretVersion` 内の `scheduled_destroy_time` のコメントを更新
 
 # Title: January 31, 2025 
 Link: https://cloud.google.com/release-notes#January_31_2025<br>
