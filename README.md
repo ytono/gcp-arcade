@@ -1,4 +1,463 @@
 
+# Title: February 17, 2025 
+Link: https://cloud.google.com/release-notes#February_17_2025<br>
+## BigQuery - Node.js client library version 7.9.2
+
+### Changed
+
+**原文**
+
+Avoid schema field mutation when passing selectedFields opt (#1437) (27044d5)
+
+**説明**
+
+`selectedFields` オプションを渡すときにスキーマフィールドが変更されるのを防ぐ変更です。 
+
+**製品への影響有無**
+
+影響の可能性は低いですが、`selectedFields` オプションを使用している場合は注意が必要です。
+
+**対処方法**
+
+`selectedFields` オプションを利用している場合は、バージョンアップ後に動作を確認することを推奨します。
+
+## BigQuery - Java client library version 2.48.0
+
+### Changed
+
+**原文**
+
+- Implement wasNull for BigQueryResultSet (#3650) (c7ef94b)
+- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.59.0 (#3660) (3a6228b)
+- Update dependency com.google.apis:google-api-services-bigquery to v2-rev20250128-2.0.0 (#3667) (0b92af6)
+- Update dependency com.google.cloud:google-cloud-datacatalog-bom to v1.63.0 (#3661) (9bc8c01)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.43.0 (#3669) (4d9e0ff)
+- Update CONTRIBUTING.md for users without branch permissions (#3670) (009b9a2)
+
+**説明**
+
+- `BigQueryResultSet` に `wasNull` を実装しました。
+- 依存関係の更新
+    - `com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1` を v2.59.0 にアップデート
+    - `com.google.apis:google-api-services-bigquery` を v2-rev20250128-2.0.0 にアップデート
+    - `com.google.cloud:google-cloud-datacatalog-bom` を v1.63.0 にアップデート
+    - `com.google.cloud:sdk-platform-java-config` を v3.43.0 にアップデート
+- ブランチ権限のないユーザー向けに `CONTRIBUTING.md` を更新
+
+**製品への影響有無**
+
+軽微な影響がある可能性があります。
+
+**対処方法**
+
+バージョンアップ後に動作を確認することを推奨します。特に、依存関係の更新によって予期しない問題が発生する可能性があります。
+
+ 
+
+# Title: February 14, 2025 
+Link: https://cloud.google.com/release-notes#February_14_2025<br>
+## Cloud Monitoring
+
+### Changed
+
+**原文:** The **Dashboards** page of the Cloud Console has been refreshed. For more information about dashboards, see the following documents:
+
+- Dashboards overview.
+- Install a dashboard by uploading a template from GitHub.  
+- Create and manage custom dashboards.
+
+**説明:** Cloud Console のダッシュボードページが刷新されました。ダッシュボードの詳細については、記載されているドキュメントを参照してください。
+
+**影響有無:** 無
+
+**対処方法:**  特になし。
+
+
+## Compute Engine
+
+### Changed
+
+**原文:** Starting as soon as February 14, 2025, projects might start seeing a **Data protection** pane on the **Create an instance page** in the Google Cloud console. If you see the **Data protection** pane, it selects an option to automatically back up data by default, which is recommended to make sure you can recover your data if it's lost due to unforeseen events. The backup incurs additional costs according to either Backup and DR pricing or Compute Engine pricing for disk snapshots. 
+
+If desired, you can select a different backup option (or disable backups) before you finish creating an instance. You can also change which backup option your project selects by default. For more information, see Configure the default backup setting for the console.
+
+**説明:** 2025年2月14日以降、Google Cloud コンソールのインスタンス作成ページに「データ保護」ペインが表示されるようになります。このペインでは、デフォルトでデータの自動バックアップが選択され、予期せぬイベントでデータが失われた場合に備えて復元できるようにすることを推奨しています。バックアップは、Backup and DRの料金またはディスクスナップショットのCompute Engineの料金に従って追加費用が発生します。
+インスタンスの作成を完了する前に、必要に応じて別のバックアップオプションを選択したり、バックアップを無効にしたりできます。また、プロジェクトでデフォルトで選択されるバックアップオプションを変更することもできます。 
+
+**影響有無:** 有（デフォルトでバックアップが有効になるため、追加費用が発生する可能性があります）
+
+**対処方法:** 
+* インスタンス作成時にバックアップ設定を確認し、必要に応じて変更する。
+* プロジェクトのデフォルトのバックアップ設定を確認し、必要に応じて変更する。
+
+# Title: February 11, 2025 
+Link: https://cloud.google.com/release-notes#February_11_2025<br>
+### Google Kubernetes Engine
+
+#### Changed
+
+##### 原文
+> GKE cluster versions have been updated.
+> 
+> **New versions available for upgrades and new clusters.**
+>
+> The following Kubernetes versions are now available for new clusters and for opt-in control plane upgrades and node upgrades for existing clusters. For more information on versioning and upgrades, see GKE versioning and support and Upgrades.
+>
+> [GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+> [Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+
+##### 説明
+GKEクラスタバージョンが更新されました。新しいバージョンが、アップグレードと新規クラスタで利用できるようになりました。
+
+##### 影響有無
+ 無
+
+##### 対処方法
+ 特になし
+
+
+#### Changed
+
+##### 原文
+>  > **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+> 
+> - Version 1.32.1-gke.1200003 is now the default version for cluster creation in the Rapid channel.
+> - The following versions are now available in the Rapid channel:
+> 
+> - 1.29.13-gke.1169000
+> - 1.30.9-gke.1201000
+> - 1.31.5-gke.1233000
+> - 1.32.1-gke.1489001
+> 
+> - The following versions are no longer available in the Rapid channel:
+> 
+> - 1.28.15-gke.1641000
+> - 1.28.15-gke.1673000
+> - 1.28.15-gke.1720000
+> - 1.29.13-gke.1006000
+> - 1.30.9-gke.1009000
+> - 1.31.5-gke.1023000
+> - 1.32.0-gke.1448000
+> 
+> - Auto-upgrade targets are now available for the following minor versions:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.29.13-gke.1038000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.9-gke.1046000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.5-gke.1068000 with this release.
+> 
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.29.13-gke.1038000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.9-gke.1046000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.5-gke.1068000 with this release.
+> 
+> [1.32.1-gke.1200003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1321)
+> - 1.29.13-gke.1169000
+> - 1.30.9-gke.1201000
+> - 1.31.5-gke.1233000
+> - 1.32.1-gke.1489001
+> 
+> [1.29.13-gke.1169000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12913)
+> [1.30.9-gke.1201000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1309)
+> [1.31.5-gke.1233000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1315)
+> [1.32.1-gke.1489001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1321)
+> - 1.28.15-gke.1641000
+> - 1.28.15-gke.1673000
+> - 1.28.15-gke.1720000
+> - 1.29.13-gke.1006000
+> - 1.30.9-gke.1009000
+> - 1.31.5-gke.1023000
+> - 1.32.0-gke.1448000
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.29.13-gke.1038000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.9-gke.1046000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.5-gke.1068000 with this release.
+> 
+> [1.29.13-gke.1038000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12913)
+> [1.30.9-gke.1046000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1309)
+> [1.31.5-gke.1068000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1315)
+> [maintenance exclusions](https://cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions#exclusions)
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.29.13-gke.1038000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.9-gke.1046000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.5-gke.1068000 with this release.
+> 
+> [1.29.13-gke.1038000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12913)
+> [1.30.9-gke.1046000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1309)
+> [1.31.5-gke.1068000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1315)
+
+##### 説明
+RapidチャネルにおけるGKEクラスタのバージョンが更新されました。
+
+- クラスタ作成時のデフォルトバージョンが 1.32.1-gke.1200003 に変更されました。
+- 1.29.13-gke.1169000、1.30.9-gke.1201000、1.31.5-gke.1233000、1.32.1-gke.1489001 が利用可能になりました。
+- 1.28.15-gke.1641000、1.28.15-gke.1673000、1.28.15-gke.1720000、1.29.13-gke.1006000、1.30.9-gke.1009000、1.31.5-gke.1023000、1.32.0-gke.1448000 は利用できなくなりました。
+
+自動アップグレードが有効になっているクラスタの場合、以下のバージョンに自動的にアップグレードされます。
+
+- 1.28 から 1.29.13-gke.1038000
+- 1.29 から 1.30.9-gke.1046000
+- 1.30 から 1.31.5-gke.1068000
+
+メンテナンスの除外など、マイナーバージョンのアップグレードを妨げる要因があるクラスタでは、以下のパッチのみのバージョンに自動アップグレードされます。
+
+- 1.29 から 1.29.13-gke.1038000
+- 1.30 から 1.30.9-gke.1046000
+- 1.31 から 1.31.5-gke.1068000
+
+##### 影響有無
+ 有
+
+##### 対処方法
+ 自動アップグレードが無効になっているクラスタは、利用可能なバージョンを確認し、必要に応じてアップグレードを実施してください。
+
+
+#### Changed
+
+##### 原文
+>  > **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+> 
+> - Version 1.31.5-gke.1023000 is now the default version for cluster creation in the Regular channel.
+> - The following versions are now available in the Regular channel:
+> 
+> - 1.29.13-gke.1038000
+> - 1.30.9-gke.1046000
+> - 1.31.5-gke.1068000
+> - 1.32.1-gke.1200003
+> 
+> - The following versions are no longer available in the Regular channel:
+> 
+> - 1.28.15-gke.1612000
+> - 1.28.15-gke.1641000
+> - 1.29.12-gke.1270000
+> - 1.30.8-gke.1261000
+> - 1.31.4-gke.1372000
+> 
+> - Auto-upgrade targets are now available for the following minor versions:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.28 to version 1.29.13-gke.1006000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.30.9-gke.1009000 with this release.
+> 
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.29.13-gke.1006000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.30.9-gke.1009000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.31.5-gke.1023000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.32 to version 1.32.1-gke.1200003 with this release.
+> 
+> [1.31.5-gke.1023000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1315)
+> - 1.29.13-gke.1038000
+> - 1.30.9-gke.1046000
+> - 1.31.5-gke.1068000
+> - 1.32.1-gke.1200003
+> 
+> [1.29.13-gke.1038000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12913)
+> [1.30.9-gke.1046000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1309)
+> [1.31.5-gke.1068000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1315)
+> [1.32.1-gke.1200003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1321)
+> - 1.28.15-gke.1612000
+> - 1.28.15-gke.1641000
+> - 1.29.12-gke.1270000
+> - 1.30.8-gke.1261000
+> - 1.31.4-gke.1372000
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.28 to version 1.29.13-gke.1006000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.30.9-gke.1009000 with this release.
+> 
+> [1.29.13-gke.1006000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12913)
+> [1.30.9-gke.1009000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1309)
+> [maintenance exclusions](https://cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions#exclusions)
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.29.13-gke.1006000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.30.9-gke.1009000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.31.5-gke.1023000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.32 to version 1.32.1-gke.1200003 with this release.
+> 
+> [1.29.13-gke.1006000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12913)
+> [1.30.9-gke.1009000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1309)
+> [1.31.5-gke.1023000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1315)
+> [1.32.1-gke.1200003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1321)
+
+##### 説明
+RegularチャネルにおけるGKEクラスタのバージョンが更新されました。
+
+- クラスタ作成時のデフォルトバージョンが1.31.5-gke.1023000に変更されました。
+- 1.29.13-gke.1038000、1.30.9-gke.1046000、1.31.5-gke.1068000、1.32.1-gke.1200003が利用可能になりました。
+- 1.28.15-gke.1612000、1.28.15-gke.1641000、1.29.12-gke.1270000、1.30.8-gke.1261000、1.31.4-gke.1372000は利用できなくなりました。
+
+自動アップグレードが有効になっているクラスタの場合、以下のバージョンに自動的にアップグレードされます。
+
+- 1.28 から 1.29.13-gke.1006000
+- 1.29 から 1.30.9-gke.1009000
+
+メンテナンスの除外など、マイナーバージョンのアップグレードを妨げる要因があるクラスタでは、以下のパッチのみのバージョンに自動アップグレードされます。
+
+- 1.29 から 1.29.13-gke.1006000
+- 1.30 から 1.30.9-gke.1009000
+- 1.31 から 1.31.5-gke.1023000
+- 1.32 から 1.32.1-gke.1200003
+
+##### 影響有無
+ 有
+
+##### 対処方法
+自動アップグレードが無効になっているクラスタは、利用可能なバージョンを確認し、必要に応じてアップグレードを実施してください。
+
+
+#### Changed
+
+##### 原文
+>  > **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+> 
+> - Version 1.30.8-gke.1162001 is now the default version for cluster creation in the Stable channel.
+> - The following versions are now available in the Stable channel:
+> 
+> - 1.29.12-gke.1270000
+> - 1.30.8-gke.1261000
+> - 1.31.4-gke.1372000
+> 
+> - The following versions are no longer available in the Stable channel:
+> 
+> - 1.28.15-gke.1480000
+> - 1.28.15-gke.1503000
+> - 1.29.12-gke.1120001
+> - 1.30.8-gke.1128001
+> - 1.30.8-gke.1162000
+> - 1.31.4-gke.1183000
+> 
+> - Auto-upgrade targets are now available for the following minor versions:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.28 to version 1.29.12-gke.1143001 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.29 to version 1.30.8-gke.1162001 with this release.
+> 
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.29 to version 1.29.12-gke.1143001 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.30 to version 1.30.8-gke.1162001 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.31 to version 1.31.4-gke.1256000 with this release.
+> 
+> [1.30.8-gke.1162001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1308)
+> - 1.29.12-gke.1270000
+> - 1.30.8-gke.1261000
+> - 1.31.4-gke.1372000
+> 
+> [1.29.12-gke.1270000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12912)
+> [1.30.8-gke.1261000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1308)
+> [1.31.4-gke.1372000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1314)
+> - 1.28.15-gke.1480000
+> - 1.28.15-gke.1503000
+> - 1.29.12-gke.1120001
+> - 1.30.8-gke.1128001
+> - 1.30.8-gke.1162000
+> - 1.31.4-gke.1183000
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.28 to version 1.29.12-gke.1143001 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.29 to version 1.30.8-gke.1162001 with this release.
+> 
+> [1.29.12-gke.1143001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12912)
+> [1.30.8-gke.1162001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1308)
+> [maintenance exclusions](https://cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions#exclusions)
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.29 to version 1.29.12-gke.1143001 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.30 to version 1.30.8-gke.1162001 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.31 to version 1.31.4-gke.1256000 with this release.
+> 
+> [1.29.12-gke.1143001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12912)
+> [1.30.8-gke.1162001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v1308)
+> [1.31.4-gke.1256000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1314)
+
+##### 説明
+StableチャネルにおけるGKEクラスタのバージョンが更新されました。
+
+- クラスタ作成時のデフォルトバージョンが1.30.8-gke.1162001に変更されました。
+- 1.29.12-gke.1270000、1.30.8-gke.1261000、1.31.4-gke.1372000が利用可能になりました。
+- 1.28.15-gke.1480000、1.28.15-gke.1503000、1.29.12-gke.1120001、1.30.8-gke.1128001、1.30.8-gke.1162000、1.31.4-gke.1183000は利用できなくなりました。
+
+自動アップグレードが有効になっているクラスタの場合、以下のバージョンに自動的にアップグレードされます。
+
+- 1.28 から 1.29.12-gke.1143001
+- 1.29 から 1.30.8-gke.1162001
+
+メンテナンスの除外など、マイナーバージョンのアップグレードを妨げる要因があるクラスタでは、以下のパッチのみのバージョンに自動アップグレードされます。
+
+- 1.29 から 1.29.12-gke.1143001
+- 1.30 から 1.30.8-gke.1162001
+- 1.31 から 1.31.4-gke.1256000
+
+##### 影響有無
+ 有
+
+##### 対処方法
+自動アップグレードが無効になっているクラスタは、利用可能なバージョンを確認し、必要に応じてアップグレードを実施してください。
+
+
+#### Changed
+
+##### 原文
+>  > **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+> 
+> - Version 1.31.5-gke.1023000 is now the default version for cluster creation in the Extended channel.
+> - The following versions are now available in the Extended channel:
+> 
+> - 1.27.16-gke.2296000
+> - 1.27.16-gke.2387000
+> - 1.28.15-gke.1781000
+> - 1.29.13-gke.1038000
+> - 1.30.9-gke.1046000
+> - 1.31.5-gke.1068000
+> - 1.32.1-gke.1200003
+> 
+> - The following versions are no longer available in the Extended channel:
+> 
+> - 1.27.16-gke.2246000
+> - 1.27.16-gke.2342000
+> - 1.29.12-gke.1270000
+> - 1.30.8-gke.1261000
+> - 1.31.4-gke.1372000
+> 
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.27 to version 1.27.16-gke.2270000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.29 to version 1.29.13-gke.1006000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.30 to version 1.30.9-gke.1009000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.31 to version 1.31.5-gke.1023000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.32 to version 1.32.1-gke.1200003 with this release.
+> 
+> [1.31.5-gke.1023000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1315)
+> - 1.27.16-gke.2296000
+> - 1.27.16-gke.2387000
+> - 1.28.15-gke.1781000
+> - 1.29.13-gke.1038000
+> - 1.30.9-gke.1046000
+> - 1.31.5-gke.1068000
+> - 1.32.1-gke.1200003
+> 
+> [1.27.16-gke.2296000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md#v12716)
+> [1.27.16-gke.2387000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md#v12716)
+> [1.28.15-gke.1781000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815)
+> [1.29.13-gke.1038000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12913)
+> [1.30.9-gke.1046000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.
+
+# Title: February 10, 2025 
+Link: https://cloud.google.com/release-notes#February_10_2025<br>
+## BigQuery
+
+### Changes for bigquery/storage/apiv1beta1 (Changed)
+
+**原文:**
+
+- **bigquery:** Broken github.com/envoyproxy/go-control-plane/envoy dep (#11556) (e70d63b), refs #11542
+- **bigquery:** Move MaxStaleness field to table level (#10066) (164492d)
+
+**説明:**
+
+- Go用BigQuery Storage API v1beta1クライアントライブラリのバージョン1.66.2と1.66.1がリリースされました。
+    - v1.66.2では、依存関係の破損問題 (#11556) が修正されました。
+    - v1.66.1では、MaxStalenessフィールドがテーブルレベルに移動しました (#10066)。
+
+**影響有無:** 有
+
+**対処方法:**
+
+- Go用BigQuery Storage API v1beta1クライアントライブラリを使用している場合は、最新バージョン (1.66.2) にアップグレードしてください。 
+
 # Title: February 07, 2025 
 Link: https://cloud.google.com/release-notes#February_07_2025<br>
 ## Cloud Composer 
