@@ -1,3 +1,234 @@
+# Title: February 19, 2025 
+Link: https://cloud.google.com/release-notes#February_19_2025<br>
+## Apigee X
+
+### Announcement - Apigee Xバージョンアップ
+
+**原文:** On February 19, 2025, we released an updated version of Apigee (1-14-0-apigee-7).
+
+> **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to complete across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
+
+**説明:** Apigee X のバージョン 1-14-0-apigee-7 がリリースされました。本番環境へのロールアウトは2営業日以内に開始され、Google Cloudのすべてのゾーンへの展開が完了するまでに4営業日以上かかる場合があります。
+
+**製品への影響有無:**  有
+
+**対処方法:** 
+* 本番環境への適用は、リリースノート公開後2営業日から開始され、完了まで最大4営業日かかる可能性があります。 
+* 新機能や修正プログラムが利用可能になるには、ロールアウトが完了するまで待つ必要があります。
+
+
+### Security - セキュリティアップデート
+
+**原文:**  | Bug ID | Description |
+| --- | --- |
+| **391714121** | **Security fix for Apigee infrastructure.**This addresses the following vulnerability: - CVE-2024-45338  |
+- CVE-2024-45338
+
+[CVE-2024-45338](https://nvd.nist.gov/vuln/detail/CVE-2024-45338)
+
+**説明:** Apigee インフラストラクチャのセキュリティ修正が含まれています。CVE-2024-45338 の脆弱性に対応しています。
+
+**製品への影響有無:** 有
+
+**対処方法:** 特に必要ありません。自動的に適用されます。
+
+
+### Fixed - セキュリティ基盤とライブラリのアップデート
+
+**原文:** | Bug ID | Description |
+| --- | --- |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+
+**説明:** セキュリティ基盤とライブラリがアップデートされました。
+
+**製品への影響有無:**  有
+
+**対処方法:** 特に必要ありません。自動的に適用されます。
+
+
+## Artifact Registry
+
+### Issue - Workforce Identity Federation ユーザーのプッシュまたはプルで Artifact Registry が 400 エラーを返す可能性
+
+**原文:** Artifact Registry might give a 400 error on pushes or pulls for Workforce Identity Federation users. This issue is caused by Workforce Identity Federation attribute mappings in the Artifact Registry URL causing problems on the backend.
+
+[attribute mappings](https://cloud.google.com/iam/docs/workforce-identity-federation#attribute-mappings)
+ To mitigate this issue, you can push or pull from Artifact Registry without attribute mappings, or reduce the length of your attribute mappings.
+
+**説明:** Workforce Identity Federation ユーザーが Artifact Registry に対してプッシュまたはプルを実行する際に、400 エラーが発生する可能性があります。この問題は、Artifact Registry URL 内の Workforce Identity Federation 属性マッピングが原因で発生します。
+
+**製品への影響有無:**  有
+
+**対処方法:** 
+* 属性マッピングを使用せずに Artifact Registry からプッシュまたはプルを行うか、属性マッピングの長さを短縮します。 
+* 詳細については、属性マッピングのドキュメントを参照してください。 
+
+# Title: February 18, 2025 
+Link: https://cloud.google.com/release-notes#February_18_2025<br>
+## Google Kubernetes Engine (1/5)
+
+### Changed
+
+原文:
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+>
+> - Version 1.32.1-gke.1489001 is now the default version for cluster creation in the Rapid channel.
+> - The following versions are now available in the Rapid channel:
+> 
+> - 1.29.14-gke.1018000
+> - 1.30.9-gke.1231000
+> - 1.30.10-gke.1022000
+> - 1.31.6-gke.1020000
+> - 1.32.1-gke.1729000
+> 
+> - The following versions are no longer available in the Rapid channel:
+> 
+> - 1.29.13-gke.1038000
+> - 1.30.9-gke.1046000
+> - 1.30.9-gke.1127000
+> - 1.31.5-gke.1068000
+> - 1.32.1-gke.1200003
+
+説明:
+
+Rapid リリースチャネルにおいて、Kubernetes クラスタのバージョン 1.32.1-gke.1489001 がデフォルトバージョンになりました。また、複数のバージョンが利用可能になり、いくつかは利用不可になりました。
+
+影響有無:
+
+有
+
+対処方法:
+
+Rapidチャネルでクラスタを新規作成する場合、デフォルトでバージョン1.32.1-gke.1489001が使用されます。以前のバージョンを使用している場合は、アップグレードを検討してください。利用不可になったバージョンを使用している場合は、サポート対象のバージョンへのアップグレードが必要です。
+
+## Google Kubernetes Engine (2/5)
+
+### Changed
+
+原文:
+
+> - Auto-upgrade targets are now available for the following minor versions:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.29.13-gke.1109000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.9-gke.1201000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.5-gke.1169000 with this release.
+> 
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.29.13-gke.1109000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.9-gke.1201000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.5-gke.1169000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.32 to version 1.32.1-gke.1357001 with this release.
+
+説明:
+
+Rapid リリースチャネルにおいて、自動アップグレードが有効になっているクラスタは、記載されているバージョンに自動的にアップグレードされます。 
+
+影響有無:
+
+有
+
+対処方法:
+
+自動アップグレードが有効になっていない場合は、記載されているバージョンへのアップグレードを検討してください。メンテナンスの除外設定をしている場合は、自動アップグレードの対象外となるため、手動でのアップグレードが必要になる場合があります。
+
+
+## Google Kubernetes Engine (3/5)
+
+### Changed
+
+原文:
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+>
+> - Version 1.31.5-gke.1068000 is now the default version for cluster creation in the Regular channel.
+> - The following versions are now available in the Regular channel:
+> 
+> - 1.29.13-gke.1109000
+> - 1.30.9-gke.1127000
+> - 1.31.5-gke.1169000
+> - 1.32.1-gke.1357001
+> 
+> - The following versions are no longer available in the Regular channel:
+> 
+> - 1.29.13-gke.1006000
+> - 1.30.9-gke.1009000
+> - 1.31.5-gke.1023000
+
+説明:
+
+Regular リリースチャネルにおいて、Kubernetes クラスタのバージョン 1.31.5-gke.1068000 がデフォルトバージョンになりました。また、複数のバージョンが利用可能になり、いくつかは利用不可になりました。
+
+影響有無:
+
+有
+
+対処方法:
+
+Regularチャネルでクラスタを新規作成する場合、デフォルトでバージョン 1.31.5-gke.1068000 が使用されます。以前のバージョンを使用している場合は、アップグレードを検討してください。利用不可になったバージョンを使用している場合は、サポート対象のバージョンへのアップグレードが必要です。
+
+## Google Kubernetes Engine (4/5)
+
+### Changed
+
+原文:
+
+> - Auto-upgrade targets are now available for the following minor versions:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.28 to version 1.29.13-gke.1038000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.30.9-gke.1046000 with this release.
+> 
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+> 
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.29.13-gke.1038000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.30.9-gke.1046000 with this release.
+> - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.31.5-gke.1068000 with this release.
+
+説明:
+
+Regular リリースチャネルにおいて、自動アップグレードが有効になっているクラスタは、記載されているバージョンに自動的にアップグレードされます。
+
+影響有無:
+
+有
+
+対処方法:
+
+自動アップグレードが有効になっていない場合は、記載されているバージョンへのアップグレードを検討してください。メンテナンスの除外設定をしている場合は、自動アップグレードの対象外となるため、手動でのアップグレードが必要になる場合があります。
+
+## Google Kubernetes Engine (5/5)
+
+### Changed
+
+原文:
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+> 
+> - Version 1.30.8-gke.1261000 is now the default version for cluster creation in the Stable channel.
+> - The following versions are now available in the Stable channel:
+> 
+> - 1.29.13-gke.1006000
+> - 1.30.9-gke.1009000
+> - 1.31.5-gke.1023000
+> 
+> - The following versions are no longer available in the Stable channel:
+> 
+> - 1.29.12-gke.1143001
+> - 1.30.8-gke.1162001
+> - 1.31.4-gke.1256000
+
+説明:
+
+Stable リリースチャネルにおいて、Kubernetes クラスタのバージョン 1.30.8-gke.1261000 がデフォルトバージョンになりました。また、複数のバージョンが利用可能になり、いくつかは利用不可になりました。
+
+影響有無:
+
+有
+
+対処方法:
+
+Stable チャネルでクラスタを新規作成する場合、デフォルトでバージョン 1.30.8-gke.1261000 が使用されます。以前のバージョンを使用している場合は、アップグレードを検討してください。利用不可になったバージョンを使用している場合は、サポート対象のバージョンへのアップグレードが必要です。
 
 # Title: February 17, 2025 
 Link: https://cloud.google.com/release-notes#February_17_2025<br>
