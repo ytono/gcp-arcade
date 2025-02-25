@@ -1,3 +1,57 @@
+# Title: February 21, 2025 
+Link: https://cloud.google.com/release-notes#February_21_2025<br>
+## Cloud Composer
+### Deployment Manager API automatic enabling disabled
+
+**原文:** Starting April 14, 2025, **the Deployment Manager API won't be automatically enabled** when you enable Cloud Composer API because this API isn't used by the Cloud Composer service.
+
+**説明:** 2025年4月14日以降、Cloud Composer APIを有効にしても、Deployment Manager APIは自動的に有効化されなくなります。これは、Cloud ComposerサービスがDeployment Manager APIを使用しないためです。
+
+**製品への影響有無:** 無
+
+**対処方法:** 特に対応は不要です。Cloud Composerの利用に影響はありません。 Deployment Manager APIが必要な場合は、手動で有効化する必要があります。
+
+
+## Google Kubernetes Engine
+### Default value for `whenUnsatisfiable` field in GKE compute class specification changed
+
+**原文:** In GKE version 1.33 and later, if you omit the `whenUnsatisfiable` field in a new GKE compute class specification, the default value is `DoNotScaleUp`. In GKE versions earlier than 1.33, the default value is `ScaleUpAnyway`. Ensure that your compute class specifications explicitly set a value in the `whenUnsatisfiable` field after you upgrade to version 1.33. This change only affects new `ComputeClass` objects that you create that omit the `whenUnsatisfiable` field. Any existing compute classes that omit the field continue to use `ScaleUpAnyway` as the default value even after you upgrade the cluster to version 1.33 or later. To learn more about the `whenUnsatisfiable` field, see Define scaling behavior when no priority rules apply. [Define scaling behavior when no priority rules apply](https://cloud.google.com/kubernetes-engine/docs/concepts/about-custom-compute-classes#define-scaling-no-rules)
+
+**説明:** GKEバージョン1.33以降では、新しいGKE compute classの仕様で`whenUnsatisfiable`フィールドを省略した場合、デフォルト値は`DoNotScaleUp`になります。GKEバージョン1.33より前のバージョンでは、デフォルト値は`ScaleUpAnyway`でした。バージョン1.33以降にアップグレードした後は、compute classの仕様で`whenUnsatisfiable`フィールドの値を明示的に設定してください。この変更は、`whenUnsatisfiable`フィールドを省略して新しく作成した`ComputeClass`オブジェクトにのみ影響します。フィールドを省略した既存のcompute classは、クラスターをバージョン1.33以降にアップグレードした後も、デフォルト値として`ScaleUpAnyway`を使用し続けます。
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+* GKEバージョン1.33以降にアップグレードする場合は、新規にcompute classを作成する際に`whenUnsatisfiable`フィールドを明示的に設定することをお勧めします。
+* 既存のcompute classについては、アップグレード後もデフォルト値は`ScaleUpAnyway`のままですが、必要に応じて`whenUnsatisfiable`フィールドを設定することを検討してください。
+# Title: February 20, 2025 
+Link: https://cloud.google.com/release-notes#February_20_2025<br>
+# Google Kubernetes Engine
+
+## Changed
+
+**原文:**
+
+New GKE 1.27 patch versions starting with version 1.27.16-gke.2440000 are built with COS 109, because COS 105 is near the end of support. GKE makes new 1.27 patch versions available using COS 109. However, GKE won't auto-upgrade nodes across the COS milestone boundary, from a patch version using COS 105 to a patch version using COS 109.
+
+If you manually upgrade your nodes to 1.27.16-gke.2440000 or later, GKE continues node auto-upgrades as normal. Control plane upgrades are unaffected, and cluster auto-upgrades to the next minor version towards the end of extended support proceed as normal.
+
+To learn more, see Container-Optimized OS updates during the extended support period.
+
+**説明:**
+
+GKEバージョン1.27.16-gke.2440000以降では、ベースとなるContainer-Optimized OS (COS)がバージョン105から109に更新されます。ただし、GKEはCOSのメジャーバージョン間(105から109)のノード自動アップグレードは行いません。 
+
+手動でノードを1.27.16-gke.2440000以降にアップグレードした場合は、通常通りノードの自動アップグレードが継続されます。コントロールプレーンのアップグレードは影響を受けず、拡張サポートの終了に向けて次のマイナーバージョンへのクラスタの自動アップグレードも通常通り行われます。
+
+**製品への影響有無:**
+
+有
+
+**対処方法:**
+
+GKE 1.27クラスタでCOS 109を使用するには、ノードをバージョン1.27.16-gke.2440000以降に手動でアップグレードする必要があります。自動アップグレードはCOS 109が利用可能なバージョンになってから有効になります。詳細については、提供されたリンクを参照してください。 
+
 # Title: February 19, 2025 
 Link: https://cloud.google.com/release-notes#February_19_2025<br>
 ## Apigee X
