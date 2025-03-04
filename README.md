@@ -1,4 +1,83 @@
 
+# Title: February 28, 2025 
+Link: https://cloud.google.com/release-notes#February_28_2025<br>
+## Apigee X
+
+### Announcement
+
+**原文:** 
+
+On February 28, 2025, we released an updated version of Apigee (1-14-0-apigee-8).
+
+> **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to complete across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
+
+**説明:** 
+
+Apigeeのアップデートバージョン(1-14-0-apigee-8)が2025年2月28日にリリースされました。
+本番環境へのロールアウトは2営業日以内に開始され、Google Cloudのすべてのゾーンへの展開が完了するまでに4営業日以上かかる場合があります。 
+このリリースに含まれる機能や修正は、ロールアウトが完了するまで利用できない場合があります。
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+
+特に対処は不要ですが、新バージョンが完全に展開されるまで、一部の新機能や修正が利用できない可能性があります。
+
+
+### Security
+
+**原文:**
+
+| Bug ID | Description |
+| --- | --- |
+| **382883585** | **Fixed a vulnerability in the JavaCallout policy.** |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+
+**説明:**
+
+セキュリティに関するアップデートが2件含まれています。
+
+* Bug ID 382883585: JavaCalloutポリシーの脆弱性を修正しました。
+* セキュリティインフラストラクチャとライブラリに対するアップデート
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+
+JavaCalloutポリシーを使用している場合は、このリリースに含まれるセキュリティ修正によって影響を受ける可能性があります。 
+Apigee Xインスタンスを最新バージョンにアップグレードすることを推奨します。
+
+## Spanner
+
+### Libraries
+
+**原文:** 
+
+A monthly digest of client library updates from across the Cloud SDK.
+
+[Cloud SDK](https://cloud.google.com/sdk)
+## Go
+
+## Changes for spanner/admin/database/apiv1
+
+[spanner/admin/database/apiv1](https://github.com/googleapis/google-cloud-go/tree/main/spanner/admin/database/apiv1)
+
+(以下省略)
+
+**説明:** 
+
+Cloud SDK全体のクライアントライブラリの月次更新の概要です。 
+Spannerに関わる部分では、Go、Java、Node.js、Pythonの各言語のクライアントライブラリに、バグ修正、新機能の追加、パフォーマンスの改善などが含まれています。 
+
+**製品への影響有無:** 
+
+各言語のクライアントライブラリを利用している場合、変更内容に影響を受ける可能性があります。
+
+**対処方法:** 
+
+各言語のリリースノートの詳細を確認し、必要な場合はアプリケーションのコードを更新してください。 
+今回のリリースノートは、コードの変更点やバグ修正などが中心で、Spannerサービス自体への影響は記載されていません。
+
 # Title: February 26, 2025 
 Link: https://cloud.google.com/release-notes#February_26_2025<br>
 ## Cloud Monitoring
