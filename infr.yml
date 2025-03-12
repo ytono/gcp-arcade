@@ -1,0 +1,46 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: http-gateway
+  namespace: infr
+spec:
+  gatewayClassName: gke-l7-rilb
+  listeners:
+  - name: http
+    protocol: HTTP
+    port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: nginx-http-route
+  namespace: infr
+spec:
+  parentRefs:
+  - name: http-gateway
+    namespace: infr
+  rules:
+  - backendRefs:
+    - name: nginx-service
+      namespace: default
+      port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-nginx-from-infr
+  namespace: default
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    namespace: infr
+  to:
+  - group: ""
+    kind: Service
+    name: nginx-service
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infr
