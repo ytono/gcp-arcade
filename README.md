@@ -1,3 +1,21 @@
+# Title: March 11, 2025 
+Link: https://cloud.google.com/release-notes#March_11_2025<br>
+## Cloud Logging 
+
+### Changed
+
+**原文:** The API to create and manage Log Scopes is now Generally Available (GA). You can create and manage log scopes by using the Cloud Console, the Google Cloud CLI, and Terraform. For more information, see Create and manage log scopes.
+
+[Create and manage log scopes](https://cloud.google.com/logging/docs/log-scope/create-and-manage)
+
+**説明:**  ログスコープを作成、管理するためのAPIが一般公開 (GA) されました。Cloud Console、Google Cloud CLI、Terraform を使用して、ログスコープを作成および管理できるようになりました。
+
+**製品への影響有無:**  有
+
+**対処方法:** 
+
+* ログスコープ機能を利用する場合は、GAとなったAPIを利用するようにしてください。
+* 従来の方法からAPIに移行する場合は、公式ドキュメントを参照し、必要な変更を加えてください。 
 
 # Title: March 10, 2025 
 Link: https://cloud.google.com/release-notes#March_10_2025<br>
