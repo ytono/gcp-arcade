@@ -1,3 +1,921 @@
+### 1. 基本動作確認
+
+*   **目的:** 各リージョンが独立して正常に動作することを確認します。
+*   **手順:**
+    1.  **アクティブリージョン:**
+        *   外部アプリケーションロードバランサーのエンドポイントにアクセスし、nginxのデフォルトページが表示されることを確認します。
+        *   nginxにアクセスログが出力されていることを確認します。
+        *   GKEクラスタ内のPodが正常に起動し、nginxが正常に動作していることを確認します。
+    2.  **スタンバイリージョン:**
+        *   スタンバイリージョンの内部アプリケーションロードバランサーのエンドポイントにアクセスし、nginxのデフォルトページが表示されることを確認します。
+        *   nginxにアクセスログが出力されていることを確認します。
+        *   GKEクラスタ内のPodが正常に起動し、nginxが正常に動作していることを確認します。
+        *   **（重要）** 外部アプリケーションロードバランサーからは、スタンバイリージョンのPSCへのトラフィックが流れていないことを確認します。
+
+### 2. フェイルオーバー検証
+
+*   **目的:** アクティブリージョンに障害が発生した場合に、スタンバイリージョンに正常にフェイルオーバーすることを確認します。
+*   **手順:**
+    1.  **アクティブリージョンの障害模擬:**
+        *   アクティブリージョンのGKEクラスタを停止、または内部アプリケーションロードバランサーを停止します。
+        *   外部アプリケーションロードバランサーのヘルスチェックが失敗し、トラフィックがスタンバイリージョンに切り替わることを確認します。
+    2.  **スタンバイリージョンへのトラフィック確認:**
+        *   外部アプリケーションロードバランサーのエンドポイントにアクセスし、スタンバイリージョンのnginxのデフォルトページが表示されることを確認します。
+        *   スタンバイリージョンのnginxにアクセスログが出力されていることを確認します。
+    3.  **フェイルバック検証 (オプション):**
+        *   アクティブリージョンを復旧させます。
+        *   外部アプリケーションロードバランサーが自動的にアクティブリージョンにトラフィックを戻すことを確認します。
+
+### 3. パフォーマンス検証
+
+*   **目的:** 通常時およびフェイルオーバー時のパフォーマンスを測定します。
+*   **手順:**
+    1.  **通常時:**
+        *   アクティブリージョンに対して、ロードジェネレータツール (e.g., `wrk`, `hey`) を使用して負荷をかけ、レイテンシ、スループット、エラー率などを測定します。
+        *   GKEクラスタのリソース使用率 (CPU、メモリ) を監視します。
+    2.  **フェイルオーバー時:**
+        *   フェイルオーバー発生直後、およびフェイルオーバー後の安定状態において、同様に負荷をかけ、パフォーマンスを測定します。
+        *   フェイルオーバーにかかる時間 (ダウンタイム) を測定します。
+
+### 4. 構成変更の検証
+
+*   **目的:** 構成変更がサービスに影響を与えないことを確認します。
+*   **手順:**
+    1.  **アプリケーションの更新:**
+        *   nginxの設定を変更し、両方のリージョンのGKEクラスタにデプロイします。
+        *   変更が正常に反映され、サービスが中断されないことを確認します。
+    2.  **GKEクラスタのスケール:**
+        *   GKEクラスタのノード数を増減させ、サービスが正常に動作し続けることを確認します。
+
+### 5. 監視とロギングの検証
+
+*   **目的:** 監視とロギングが適切に設定され、障害発生時に迅速に対応できることを確認します。
+*   **手順:**
+    1.  **メトリクスの確認:**
+        *   Cloud Monitoringで、ロードバランサー、GKEクラスタ、Podなどのメトリクスが正常に収集されていることを確認します。
+    2.  **ログの確認:**
+        *   Cloud Loggingで、ロードバランサー、GKEクラスタ、Podなどのログが正常に収集されていることを確認します。
+        *   ログに基づいてアラートを設定し、障害発生時に通知されることを確認します。
+
+### 考慮事項
+
+*   **ヘルスチェック:** ロードバランサーのヘルスチェックが、アプリケーションの状態を正確に反映するように設定されていることを確認します。
+*   **DNS:** DNSの切り替えが必要な場合は、TTL (Time-to-Live) を適切に設定し、切り替え時間を短縮します。
+*   **データ同期:** アプリケーションがデータを保持する場合、アクティブ-スタンバイ間でデータ同期の仕組みを構築し、整合性を維持します。
+
+
+# Title: March 20, 2025 
+Link: https://cloud.google.com/release-notes#March_20_2025<br>
+## BigQuery 
+
+### Announcement
+
+**原文:** BigQuery workflows have been renamed to BigQuery pipelines in the Google Cloud console. For more information, see Introduction to BigQuery pipelines.
+
+[Introduction to BigQuery pipelines](https://cloud.google.com/bigquery/docs/workflows-introduction)
+
+**説明:** Google Cloud Console 上で、BigQuery workflows の名称が BigQuery pipelines に変更されました。詳細については、BigQuery パイプラインの紹介をご覧ください。
+
+**影響有無:** 無
+
+**対処方法:** 名称変更のみなので、対応は不要です。 
+
+## Cloud Service Mesh
+
+### Announcement
+
+**原文:** If you use the managed Cloud Service Mesh with the `ISTIOD` control plane implementation, important changes have been made to how and when you'll receive notifications of upcoming modernization. For details, see Managed control plane modernization.
+
+[Managed control plane modernization](https://cloud.google.com/service-mesh/docs/modernization#notifications-and-scheduling)
+
+**説明:** `ISTIOD` コントロールプレーン実装でマネージド Cloud Service Mesh を使用している場合、今後のモダナイゼーションに関する通知の受信方法とタイミングに変更がありました。 詳細については、マネージドコントロールプレーンのモダナイゼーションをご覧ください。
+
+**影響有無:** 有 (ISTIOD コントロールプレーン実装でマネージド Cloud Service Mesh を使用している場合)
+
+**対処方法:** マネージドコントロールプレーンのモダナイゼーションに関する情報を参照し、必要に応じて対応してください。 
+
+# Title: March 19, 2025 
+Link: https://cloud.google.com/release-notes#March_19_2025<br>
+## Google Kubernetes Engine (GKE)
+
+### 変更内容 (Changed)
+
+#### 原文
+
+GKE cluster versions have been updated.
+
+**New versions available for upgrades and new clusters.**
+
+The following Kubernetes versions are now available for new clusters and for
+opt-in control plane upgrades and node upgrades for existing clusters. For more
+information on versioning and upgrades, see GKE versioning and support
+and Upgrades.
+
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+
+#### 説明
+
+GKEクラスタのバージョンが更新されました。新しいバージョンが、アップグレードと新規クラスタ作成の両方で利用可能になりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+利用可能なバージョンを確認し、必要に応じてクラスタのアップグレードを実施してください。
+
+---
+
+### 変更内容 (Changed)
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+
+- Version 1.32.2-gke.1182001 is now the default version for cluster creation in the Rapid channel.
+- The following versions are now available in the Rapid channel:
+  - 1.29.15-gke.1017000
+  - 1.30.10-gke.1227000
+  - 1.31.6-gke.1221000
+  - 1.32.2-gke.1182001
+  - 1.32.2-gke.1400003
+  - 1.32.2-gke.1652000
+- The following versions are no longer available in the Rapid channel:
+  - 1.32.2-gke.1182000
+  - 1.32.2-gke.1400001
+- Auto-upgrade targets are now available for the following minor versions:
+  - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.32.2-gke.1182001 with this release.
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+  - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.32 to version 1.32.2-gke.1182001 with this release.
+
+[1.32.2-gke.1182001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+- 1.29.15-gke.1017000
+- 1.30.10-gke.1227000
+- 1.31.6-gke.1221000
+- 1.32.2-gke.1182001
+- 1.32.2-gke.1400003
+- 1.32.2-gke.1652000
+
+[1.29.15-gke.1017000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915)
+[1.30.10-gke.1227000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13010)
+[1.31.6-gke.1221000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1316)
+[1.32.2-gke.1182001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[1.32.2-gke.1400003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[1.32.2-gke.1652000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+- 1.32.2-gke.1182000
+- 1.32.2-gke.1400001
+
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.32.2-gke.1182001 with this release.
+
+[1.32.2-gke.1182001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[maintenance exclusions](https://cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions#exclusions)
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.32 to version 1.32.2-gke.1182001 with this release.
+
+[1.32.2-gke.1182001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+
+#### 説明
+
+Rapidチャネルのクラスタで利用可能なバージョンが更新されました。
+
+- デフォルトバージョンが 1.32.2-gke.1182001 に変更されました。
+- いくつかのバージョンが利用可能になりました。
+- いくつかのバージョンが利用不可になりました。
+- 自動アップグレードが有効になっているクラスタは、バージョン 1.31 から 1.32.2-gke.1182001、またはバージョン 1.32 から 1.32.2-gke.1182001 にアップグレードされます。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+- Rapidチャネルを利用している場合は、デフォルトバージョンが変更されたことに注意してください。
+- 自動アップグレードが有効になっている場合は、クラスタが自動的にアップグレードされます。
+- メンテナンスの除外などが設定されている場合は、自動アップグレードは行われません。
+
+---
+
+### 変更内容 (Changed)
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+
+- Version 1.32.2-gke.1182001 is now available in the Regular channel.
+- Version 1.32.2-gke.1182000 is no longer available in the Regular channel.
+
+[1.32.2-gke.1182001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+
+#### 説明
+
+Regularチャネルで、バージョン 1.32.2-gke.1182001 が利用可能になり、バージョン 1.32.2-gke.1182000 が利用不可になりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+Regularチャネルを利用していて、バージョン 1.32.2-gke.1182000 を使用している場合は、新しいバージョンへのアップグレードを検討してください。
+
+---
+
+### 変更内容 (Changed)
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+
+- The following versions are now available in the Stable channel:
+  - 1.30.10-gke.1022000
+  - 1.31.6-gke.1020000
+
+- 1.30.10-gke.1022000
+- 1.31.6-gke.1020000
+
+[1.30.10-gke.1022000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13010)
+[1.31.6-gke.1020000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1316)
+
+#### 説明
+
+Stableチャネルで、バージョン 1.30.10-gke.1022000 と 1.31.6-gke.1020000 が利用可能になりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+Stableチャネルを利用している場合は、必要に応じて新しいバージョンへのアップグレードを検討してください。
+
+---
+
+### 変更内容 (Changed)
+
+#### 原文
+
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+
+- The following versions are now available in the Extended channel:
+  - 1.27.16-gke.2573000
+  - 1.28.15-gke.2003000
+  - 1.32.2-gke.1182001
+- Version 1.32.2-gke.1182000 is no longer available in the Extended channel.
+
+- 1.27.16-gke.2573000
+- 1.28.15-gke.2003000
+- 1.32.2-gke.1182001
+
+[1.27.16-gke.2573000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md#v12716)
+[1.28.15-gke.2003000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815)
+[1.32.2-gke.1182001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+
+#### 説明
+
+Extendedチャネルで、いくつかのバージョンが利用可能になり、バージョン 1.32.2-gke.1182000 が利用不可になりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+Extendedチャネルを利用していて、バージョン 1.32.2-gke.1182000 を使用している場合は、新しいバージョンへのアップグレードを検討してください。
+
+---
+
+
+### 変更内容 (Changed)
+
+#### 原文
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+
+- The following versions are now available:
+  - 1.29.15-gke.1017000
+  - 1.30.10-gke.1227000
+  - 1.31.6-gke.1221000
+  - 1.32.2-gke.1182001
+  - 1.32.2-gke.1400003
+  - 1.32.2-gke.1652000
+
+- The following node versions are now available:
+  - 1.27.16-gke.2573000
+  - 1.28.15-gke.2003000
+  - 1.29.15-gke.1017000
+  - 1.30.10-gke.1227000
+  - 1.31.6-gke.1221000
+  - 1.32.2-gke.1182001
+  - 1.32.2-gke.1400003
+  - 1.32.2-gke.1652000
+
+- The following versions are no longer available:
+  - 1.32.2-gke.1182000
+  - 1.32.2-gke.1400001
+
+- 1.29.15-gke.1017000
+- 1.30.10-gke.1227000
+- 1.31.6-gke.1221000
+- 1.32.2-gke.1182001
+- 1.32.2-gke.1400003
+- 1.32.2-gke.1652000
+
+[1.29.15-gke.1017000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915)
+[1.30.10-gke.1227000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13010)
+[1.31.6-gke.1221000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1316)
+[1.32.2-gke.1182001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[1.32.2-gke.1400003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[1.32.2-gke.1652000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+- 1.27.16-gke.2573000
+- 1.28.15-gke.2003000
+- 1.29.15-gke.1017000
+- 1.30.10-gke.1227000
+- 1.31.6-gke.1221000
+- 1.32.2-gke.1182001
+- 1.32.2-gke.1400003
+- 1.32.2-gke.1652000
+
+[1.27.16-gke.2573000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md#v12716)
+[1.28.15-gke.2003000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815)
+[1.29.15-gke.1017000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915)
+[1.30.10-gke.1227000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13010)
+[1.31.6-gke.1221000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1316)
+[1.32.2-gke.1182001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[1.32.2-gke.1400003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[1.32.2-gke.1652000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+- 1.32.2-gke.1182000
+- 1.32.2-gke.1400001
+
+#### 説明
+
+GKEクラスタで利用可能なバージョンが更新されました。
+
+- いくつかのバージョンが利用可能になりました。
+- いくつかのノードバージョンが利用可能になりました。
+- いくつかのバージョンが利用不可になりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+利用可能なバージョンを確認し、必要に応じてクラスタのアップグレードを実施してください。
+# Title: March 18, 2025 
+Link: https://cloud.google.com/release-notes#March_18_2025<br>
+## Cloud Composer
+
+### アナウンス(Announcement)
+
+**原文:** After April 15, 2025, the database retention policy feature will be enabled by default in newly created Cloud Composer 3 environments.
+
+**説明:** 2025年4月15日以降に新規作成される Cloud Composer 3 環境では、データベース保持ポリシー機能がデフォルトで有効になります。この機能は、Airflow データベースのサイズを管理するのに役立ちます。
+
+**製品への影響有無:** 有
+
+**対処方法:** 新規環境ではデフォルトで有効化されるため、特に対応は不要です。既存の環境に対しては、データベース保持ポリシーを有効または無効にしたり、保持期間を調整したりすることができます。詳細は、提供されているリンクを参照してください。
+
+
+### 問題(Issue)
+
+**原文:** The issue with Cloud Composer 2 upgrade operations is now resolved. The upgrade operations are unblocked in all regions.
+
+**説明:** Cloud Composer 2 のアップグレード操作に関する問題は解決されました。すべてのリージョンでアップグレード操作がブロックされなくなりました。
+
+**製品への影響有無:** 無
+
+**対処方法:** 問題は解決済みのため、特に対応は不要です。3月14日のリリースノートに記載されていたアップグレードの問題は解消されています。
+
+
+## Google Kubernetes Engine
+
+### 修正(Fixed)
+
+**原文:** On GKE clusters running versions 1.32.2-gke.1182000 to 1.32.2-gke.1297000, Pods using Cloud Storage FUSE CSI driver volumes (persistent or CSI ephemeral) fail to schedule when both of the following are true:
+
+- The Pods run on the host network (`hostNetwork: true`)
+- You use a custom sidecar image built with a Cloud Storage FUSE CSI driver version earlier than v1.12.2.
+
+The fix is available on GKE cluster version 1.32.2-gke.1297001 or later.
+
+
+**説明:**  GKE クラスタバージョン 1.32.2-gke.1182000 から 1.32.2-gke.1297000 を実行している場合、Pod がホストネットワーク上で動作し (`hostNetwork: true`)、かつ v1.12.2 より前の Cloud Storage FUSE CSI ドライババージョンで構築されたカスタムサイドカーイメージを使用している場合、Cloud Storage FUSE CSI ドライバボリューム (永続または CSI エフェメラル) を使用する Pod のスケジューリングに失敗します。
+
+**製品への影響有無:** 有
+
+**対処方法:** GKE クラスタをバージョン 1.32.2-gke.1297001 以降にアップグレードしてください。 または、v1.12.2 以降の Cloud Storage FUSE CSI ドライバを使用してカスタムサイドカーイメージを再構築してください。 
+
+# Title: March 17, 2025 
+Link: https://cloud.google.com/release-notes#March_17_2025<br>
+## Apigee X
+
+### Announcement
+**原文:** On March 17, 2025, Apigee announced the GA support for DNS peering for Apigee organizations that have VPC peering disabled.
+
+**説明:**  2025年3月17日、Apigeeは、VPCピアリングが無効になっているApigee組織に対して、DNSピアリングのGAサポートを発表しました。
+
+**影響有無:** 無
+
+**対処方法:**  特になし。 
+
+## Cloud Load Balancing
+
+### Announcement
+**原文:** Google Cloud periodically renews Google-managed certificates by requesting them from certificate authorities (CAs). Certificate authorities verify domain control by checking DNS settings of the domain and in case of load balancer authorization attempting to contact the server behind the domain's IP address. The CAs that Google Cloud works with have introduced a verification method called **Multi-Perspective Issuance Corroboration**, that is becoming mandatory for all public CAs and that consists in performing the verification from multiple locations in the world. As a result, if DNS settings do not correctly and consistently resolve from all locations, the validation fails and Google-managed certificates will fail to renew.
+
+**説明:**  Google Cloudは、証明機関（CA）に要求することで、Googleが管理する証明書を定期的に更新します。証明機関は、ドメインのDNS設定を確認し、ロードバランサ認証の場合はドメインのIPアドレスの背後にあるサーバーへの接続を試みることで、ドメインの制御を検証します。 Google Cloudが連携しているCAは、すべてのパブリックCAで必須になりつつある**Multi-Perspective Issuance Corroboration**と呼ばれる検証方法を導入しました。これは、世界の複数の場所から検証を実行するというものです。そのため、DNS設定ですべての場所から正しく一貫して解決されない場合、検証は失敗し、Googleが管理する証明書の更新は失敗します。
+
+**影響有無:** 有
+
+**対処方法:**  DNS設定が、すべて の場所から正しく一貫して解決されることを確認してください。 詳細については、[Multi-perspective domain validation](https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting#multi-perspective-domain-validation) を参照してください。
+
+## Cloud Monitoring
+
+### Changed
+**原文:** You can now enable and disable uptime-checks by using the `disabled` field  in the Cloud Monitoring API. 
+
+**説明:** Cloud Monitoring APIの `disabled` フィールドを使用して、稼働時間チェックを有効または無効にできるようになりました。
+
+**影響有無:** 無
+
+**対処方法:**  特になし。 `disabled`フィールドの詳細については、[こちら](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.uptimeCheckConfigs#uptimeCheckConfig.FIELDS.disabled) を参照してください。
+
+
+## Cloud Storage
+
+### Libraries
+
+**原文:** A weekly digest of client library updates from across the Cloud SDK.
+
+**説明:** Cloud SDK全体のクライアントライブラリの更新に関する週刊ダイジェストです。
+
+**影響有無:** 無
+
+**対処方法:**  特になし。 
+
+### Go
+
+#### Changes for storage/internal/apiv2
+**原文:** 
+[storage/internal/apiv2](https://github.com/googleapis/google-cloud-go/tree/main/storage/internal/apiv2)
+[1.51.0](https://github.com/googleapis/google-cloud-go/compare/storage/v1.50.0...storage/v1.51.0)
+- **storage/append:** Support appends in w1r3. (#11483) (48bb391)
+- **storage:** Benchmark with experimental MRD. (#11501) (7b49152)
+- **storage:** Implement RetryChunkDeadline for grpc writes (#11476) (03575d7)
+- **storage:** Specify benchmark integrity check. (#11465) (da18845)
+- **storage:** Use ReadHandle for faster re-connect (#11510) (cac52f7)
+- **storage:** Wrap NotFound errors for buckets and objects (#11519) (0dd7d3d)
+...
+
+**説明:** Google Cloud Storage Goクライアントライブラリの `storage/internal/apiv2` パッケージのバージョン1.51.0がリリースされました。このリリースには、w1r3での追加のサポート、実験的なMRDを使用したベンチマーク、grpc書き込み用のRetryChunkDeadlineの実装、ベンチマーク整合性チェックの指定、高速な再接続のためのReadHandleの使用、バケットとオブジェクトのNotFoundエラーのラップなど、多くの変更と修正が含まれています。
+
+**影響有無:** 無
+
+**対処方法:**  特になし。 
+
+
+### Java
+
+#### Changes for google-cloud-storage
+**原文:** 
+[google-cloud-storage](https://github.com/googleapis/java-storage)
+[2.50.0](https://github.com/googleapis/java-storage/compare/v2.49.0...v2.50.0)
+- Next release from main branch is 2.50.0 (#2968) (4a69fcc)
+...
+
+**説明:** Google Cloud Storage Javaクライアントライブラリのバージョン 2.50.0 がリリースされました。このリリースには、Javaコードジェネレーター（gapic-generator-java）の2.55.1へのアップデート、json再開可能なアップロードの503処理の改善、String.formatの使用法のアップデートによるLocale.USの明示的な受け渡し、パフォーマンス向上のためのメッセージパブリッシュおよび受信時の過剰な文字列解析の防止などが含まれています。
+
+**影響有無:** 無
+
+**対処方法:**  特になし。 
+
+## Pub/Sub
+
+### Libraries
+
+**原文:** A weekly digest of client library updates from across the Cloud SDK.
+
+**説明:** Cloud SDK全体のクライアントライブラリの更新に関する週刊ダイジェストです。
+
+**影響有無:** 無
+
+**対処方法:** 特になし。 
+
+### Go
+
+#### Changes for pubsub/apiv1
+**原文:**
+[pubsub/apiv1](https://github.com/googleapis/google-cloud-go/tree/main/pubsub/apiv1)
+[1.48.0](https://github.com/googleapis/google-cloud-go/compare/pubsub/v1.47.0...pubsub/v1.48.0)
+- **pubsub/pstest:** Support listening on custom address (#11606) (63865a2)
+- **pubsub:** Add support for message transforms to Topic and Subscription (59fe58a)
+- **pubsub:** Deprecate `enabled` field for message transforms and add `disabled` field (dd0d1d7)
+...
+**説明:** Google Cloud Pub/Sub Goクライアントライブラリの `pubsub/apiv1` パッケージのバージョン1.48.0がリリースされました。このリリースには、カスタムアドレスでのリスニングのサポート、トピックとサブスクリプションへのメッセージ変換のサポートの追加、メッセージ変換の `enabled` フィールドの非推奨化と `disabled` フィールドの追加など、多くの変更と修正が含まれています。
+
+**影響有無:**  有
+
+**対処方法:**  メッセージ変換で`enabled`フィールドを使用している場合は、`disabled`フィールドに置き換える必要があります。
+
+### Java
+
+#### Changes for google-cloud-pubsub
+**原文:**
+[google-cloud-pubsub](https://github.com/googleapis/java-pubsub)
+[1.138.0](https://github.com/googleapis/java-pubsub/compare/v1.137.1...v1.138.0)
+- Deprecate `enabled` field for message transforms and add `disabled` field (76b2a3d)
+- Next release from main branch is 1.138.0 (#2361) (b6ba56c)
+...
+**説明:** Google Cloud Pub/Sub Javaクライアントライブラリのバージョン 1.138.0 がリリースされました。このリリースには、メッセージ変換の `enabled` フィールドが非推奨化され、 `disabled` フィールドが追加されたことが含まれています。
+
+**影響有無:** 有
+
+**対処方法:** メッセージ変換で `enabled` フィールドを使用している場合は、 `disabled` フィールドに置き換える必要があります。 
+
+# Title: March 14, 2025 
+Link: https://cloud.google.com/release-notes#March_14_2025<br>
+## Cloud Composer 
+
+### Issue 
+
+**原文:** March 18, 2025 update: The issue is resolved. [is resolved](https://cloud.google.com/composer/docs/release-notes#March_18_2025)
+Some upgrade operations for Cloud Composer 2 might lead to unhealthy environments. That is why upgrades for Cloud Composer 2 versions will be blocked until the issue is fully resolved.
+
+**説明:** 2025年3月18日 更新： Cloud Composer 2 のアップグレード処理において、環境が不安定になる問題が解決されました。この問題は解決済みのため、Cloud Composer 2 のアップグレードはブロックされなくなりました。
+
+**影響有無:** 無
+
+**対処方法:**  特に対処は不要です。Cloud Composer 2 は通常通りアップグレード可能です。 
+
+# Title: March 13, 2025 
+Link: https://cloud.google.com/release-notes#March_13_2025<br>
+## Cloud Billing
+
+### Improved consistency in resource-based committed use discount (CUD) string names across experiences.
+
+**原文:** We have improved consistency by standardizing CUD string names across the various experiences. This update helps provide a seamless experience in resource-based CUD purchase flows, recommendations, analysis, and the FinOps hub.
+
+**説明:** リソースベースのコミット済み使用割引（CUD）の文字列名が、さまざまな画面で標準化され、一貫性が向上しました。この変更により、リソースベースのCUDの購入フロー、推奨事項、分析、FinOpsハブ全体でシームレスなエクスペリエンスが提供されます。
+
+**影響有無:** 無
+
+**対処方法:** 特に対応は不要です。 
+
+# Title: March 12, 2025 
+Link: https://cloud.google.com/release-notes#March_12_2025<br>
+## Apigee X
+
+### Announcement
+
+**原文:** On March 12, 2025, we released an updated version of Apigee (1-15-0-apigee-1).
+
+> **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to complete across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
+
+**説明:** Apigeeのアップデートバージョン(1-15-0-apigee-1)がリリースされました。今後2営業日以内にプロダクションインスタンスへのロールアウトが開始され、Google Cloudのすべてのゾーンへの展開が完了するまでに4営業日以上かかる場合があります。
+
+**製品への影響有無:** 無
+
+**対処方法:**  特になし。製品の機能はロールアウトが完了するまで利用できない可能性があります。
+
+
+### Security
+
+**原文:**
+| Bug ID | Description |
+| --- | --- |
+| **396944778** | **Security fix for Apigee infrastructure.**This addresses the following vulnerabilities: - CVE-2025-23184 - CVE-2024-47554- CVE-2025-24970 - CVE-2025-25193  |
+
+[CVE-2025-23184](https://nvd.nist.gov/vuln/detail/CVE-2025-23184)
+[CVE-2024-47554](https://nvd.nist.gov/vuln/detail/CVE-2024-47554)
+[CVE-2025-24970](https://nvd.nist.gov/vuln/detail/CVE-2025-24970)
+[CVE-2025-25193](https://nvd.nist.gov/vuln/detail/CVE-2025-25193)
+
+**説明:** Apigee インフラストラクチャのセキュリティ修正が含まれています。CVE-2025-23184、CVE-2024-47554、CVE-2025-24970、CVE-2025-25193 の脆弱性に対処しています。
+
+**製品への影響有無:** 有
+
+**対処方法:** リリースノートに記載されたセキュリティ修正が適用されたバージョンへのアップグレードを検討してください。
+
+
+### Issue
+
+**原文:** **The Nimbus JOSE + JWT library may cause a java.lang.ClassCircularityError when using a JavaCallout policy.**
+For more information, see Apigee known issues.
+
+[Nimbus JOSE + JWT](https://connect2id.com/products/nimbus-jose-jwt)
+ For more information, see Apigee known issues.
+
+[Apigee known issues](https://cloud.google.com/apigee/docs/release/known-issues)
+ > **Note:** If you have a Apigee hybrid-enabled organization with a JavaCallout policy that uses the Nimbus JOSE + JWT library, **do not upgrade to hybrid versions 1.12.4, 1.13.3,  1.14.1** or later.
+
+**説明:** Nimbus JOSE + JWT ライブラリを使用する JavaCallout ポリシーを使用すると、java.lang.ClassCircularityError が発生する可能性があります。
+
+**製品への影響有無:** 有
+
+**対処方法:** Nimbus JOSE + JWT ライブラリを使用する JavaCallout ポリシーを持つ Apigee ハイブリッド対応組織の場合は、ハイブリッドバージョン 1.12.4、1.13.3、1.14.1 以降にアップグレードしないでください。
+
+
+### Fixed
+
+**原文:**
+| Bug ID | Description |
+| --- | --- |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+
+**説明:** セキュリティインフラストラクチャとライブラリに対するアップデートが含まれています。
+
+**製品への影響有無:** 無
+
+**対処方法:** 特になし。
+
+
+## BigQuery
+
+### Changed
+
+**原文:** An updated version of ODBC driver for BigQuery is now available.
+
+[ODBC driver for BigQuery](https://cloud.google.com/bigquery/docs/reference/odbc-jdbc-drivers#odbc_release_3121004)
+
+
+**説明:** BigQuery 用 ODBC ドライバーのアップデートバージョンがリリースされました。
+
+**製品への影響有無:** 無
+
+**対処方法:**  必要に応じて、最新バージョンへのアップデートを検討してください。
+
+
+## Cloud Service Mesh
+
+### Announcement
+
+**原文:** The rollout of managed Cloud Service Mesh version 1.20 to the rapid channel has completed.
+
+**説明:** マネージド Cloud Service Mesh バージョン 1.20 の Rapid チャネルへのロールアウトが完了しました。
+
+**製品への影響有無:** 無
+
+**対処方法:**  特になし。
+
+
+## Google Kubernetes Engine
+
+### Changed
+
+**原文:** GKE cluster versions have been updated.
+
+ **New versions available for upgrades and new clusters.**
+
+ The following Kubernetes versions are now available for new clusters and for
+opt-in control plane upgrades and node upgrades for existing clusters. For more
+information on versioning and upgrades, see GKE versioning and support
+and Upgrades.
+
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+
+**説明:** GKE クラスタバージョンが更新されました。新しいクラスタと、既存クラスタのオプトインによるコントロールプレーンとノードのアップグレードに新しいバージョンが利用可能です。
+
+**製品への影響有無:** 無
+
+**対処方法:** 必要に応じて、最新バージョンへのアップグレードを検討してください。
+
+### Changed - Rapid Channel
+
+**原文:**
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.32.2-gke.1182000 is now the default version for cluster creation in the Rapid channel.
+- The following versions are now available in the Rapid channel:
+
+- 1.29.14-gke.1132000
+- 1.30.10-gke.1145000
+- 1.31.6-gke.1140000
+- 1.32.2-gke.1297001
+- 1.32.2-gke.1400001
+
+- The following versions are no longer available in the Rapid channel:
+
+- 1.29.14-gke.1018000
+- 1.30.10-gke.1022000
+- 1.31.6-gke.1020000
+- 1.32.1-gke.1357001
+- 1.32.1-gke.1729000
+- 1.32.2-gke.1297000
+
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.28 to version 1.29.14-gke.1067000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.10-gke.1070000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.6-gke.1064000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.32.2-gke.1182000 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.29.14-gke.1067000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.10-gke.1070000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.6-gke.1064000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.32 to version 1.32.2-gke.1182000 with this release.
+
+**説明:** Rapid Channelのクラスタバージョンが更新されました。デフォルトバージョンが1.32.2-gke.1182000となり、いくつかのバージョンが利用可能になりました。また、いくつかのバージョンは廃止されました。自動アップグレードの対象バージョンも更新されています。
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+* Rapid Channelを利用している場合は、利用しているバージョンが廃止されていないか確認してください。
+* 自動アップグレードが有効になっている場合は、アップグレード先のバージョンを確認してください。
+* メンテナンスの除外など、マイナーバージョンのアップグレードを妨げる要因がある場合は、パッチのみのバージョン自動アップグレードの対象バージョンを確認してください。
+
+
+### Changed - Regular Channel
+
+**原文:** 
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.31.6-gke.1020000 is now the default version for cluster creation in the Regular channel.
+- The following versions are now available in the Regular channel:
+
+- 1.29.14-gke.1067000
+- 1.30.10-gke.1070000
+- 1.31.6-gke.1064000
+- 1.32.2-gke.1182000
+
+- The following versions are no longer available in the Regular channel:
+
+- 1.29.13-gke.1169000
+- 1.30.9-gke.1201000
+- 1.31.5-gke.1233000
+
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.28 to version 1.29.14-gke.1018000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.30.10-gke.1022000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.31.6-gke.1020000 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.29.14-gke.1018000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.30.10-gke.1022000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.31.6-gke.1020000 with this release.
+
+**説明:** Regular Channelのクラスタバージョンが更新されました。デフォルトバージョンが1.31.6-gke.1020000となり、いくつかのバージョンが利用可能になりました。また、いくつかのバージョンは廃止されました。自動アップグレードの対象バージョンも更新されています。
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+* Regular Channelを利用している場合は、利用しているバージョンが廃止されていないか確認してください。
+* 自動アップグレードが有効になっている場合は、アップグレード先のバージョンを確認してください。
+* メンテナンスの除外など、マイナーバージョンのアップグレードを妨げる要因がある場合は、パッチのみのバージョン自動アップグレードの対象バージョンを確認してください。
+
+
+### Changed - Stable Channel
+
+**原文:**
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.30.9-gke.1127000 is now the default version for cluster creation in the Stable channel.
+- The following versions are now available in the Stable channel:
+
+- 1.29.13-gke.1109000
+- 1.29.13-gke.1169000
+- 1.30.9-gke.1201000
+- 1.31.5-gke.1233000
+
+- The following versions are no longer available in the Stable channel:
+
+- 1.30.9-gke.1046000
+- 1.31.5-gke.1068000
+
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.29 to version 1.30.9-gke.1127000 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.30 to version 1.30.9-gke.1127000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.31 to version 1.31.5-gke.1169000 with this release.
+
+**説明:** Stable Channelのクラスタバージョンが更新されました。デフォルトバージョンが1.30.9-gke.1127000となり、いくつかのバージョンが利用可能になりました。また、いくつかのバージョンは廃止されました。自動アップグレードの対象バージョンも更新されています。
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+* Stable Channelを利用している場合は、利用しているバージョンが廃止されていないか確認してください。
+* 自動アップグレードが有効になっている場合は、アップグレード先のバージョンを確認してください。
+* メンテナンスの除外など、マイナーバージョンのアップグレードを妨げる要因がある場合は、パッチのみのバージョン自動アップグレードの対象バージョンを確認してください。
+
+
+### Changed - Extended Channel
+
+**原文:** 
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.31.6-gke.1020000 is now the default version for cluster creation in the Extended channel.
+- The following versions are now available in the Extended channel:
+
+- 1.27.16-gke.2477000
+- 1.27.16-gke.2528000
+- 1.28.15-gke.1881000
+- 1.28.15-gke.1940000
+- 1.29.14-gke.1067000
+- 1.30.10-gke.1070000
+- 1.31.6-gke.1064000
+- 1.32.2-gke.1182000
+
+- The following versions are no longer available in the Extended channel:
+
+- 1.27.16-gke.2270000
+- 1.27.16-gke.2489000
+- 1.28.15-gke.1781000
+- 1.28.15-gke.1897000
+- 1.29.13-gke.1169000
+- 1.30.9-gke.1201000
+- 1.31.5-gke.1233000
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.27 to version 1.27.16-gke.2451000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.28 to version 1.28.15-gke.1844000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.29 to version 1.29.14-gke.1018000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.30 to version 1.30.10-gke.1022000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.31 to version 1.31.6-gke.1020000 with this release.
+
+**説明:** Extended Channelのクラスタバージョンが更新されました。デフォルトバージョンが1.31.6-gke.1020000となり、いくつかのバージョンが利用可能になりました。また、いくつかのバージョンは廃止されました。自動アップグレードの対象バージョンも更新されています。
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+* Extended Channelを利用している場合は、利用しているバージョンが廃止されていないか確認してください。
+* 自動アップグレードが有効になっている場合は、アップグレード先のバージョンを確認してください。
+* メンテナンスの除外など、マイナーバージョンのアップグレードを妨げる要因がある場合は、パッチのみのバージョン自動アップグレードの対象バージョンを確認してください。
+
+
+### Changed - All Channel
+
+**原文:** 
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.31.6-gke.1020000 is now the default version for cluster creation.
+- The following versions are now available:
+
+- 1.29.13-gke.1109000
+- 1.29.14-gke.1132000
+- 1.30.10-gke.1145000
+- 1.31.6-gke.1140000
+- 1.32.2-gke.1297001
+- 1.32.2-gke.1400001
+
+- The following node versions are now available:
+
+- 1.27.16-gke.2528000
+- 1.28.15-gke.1940000
+- 1.29.14-gke.1132000
+- 1.30.10-gke.1145000
+- 1.31.6-gke.1140000
+- 1.32.2-gke.1297001
+- 1.32.2-gke.1400001
+
+- The following versions are no longer available:
+
+- 1.30.9-gke.1009000
+- 1.31.5-gke.1068000
+- 1.32.1-gke.1489001
+- 1.32.2-gke.1297000
+
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.28 to version 1.29.14-gke.1018000 with this release.
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.29 to version 1.30.9-gke.1127000 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.29 to version 1.29.14-gke.1018000 with this release.
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.30 to version 1.30.9-gke.1127000 with this release.
+- Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.31 to version 1.31.6-gke.1020000 with this release.
+
+**説明:** 全てのChannelのクラスタバージョンが更新されました。デフォルトバージョンが1.31.6-gke.1020000となり、いくつかのバージョンが利用可能になりました。また、いくつかのバージョンは廃止されました。自動アップグレードの対象バージョンも更新されています。
+
+**製品への影響有無:** 有
+
+**対処方法:** 
+* 利用しているバージョンが廃止されていないか確認してください。
+* 自動アップグレードが有効になっている場合は、アップグレード先のバージョンを確認してください。
+* メンテナンスの除外など、マイナーバージョンのアップグレードを妨げる要因がある場合は、パッチのみのバージョン自動アップグレードの対象バージョンを確認してください。
+
+**補足:** Google Kubernetes Engineのバージョン1.30を利用している場合、今回のリリースノートに記載されているバージョンへのアップグレードは必須ではありません。ただし、最新バージョンには新機能やバグ修正が含まれているため、アップグレードを検討することが推奨されます。
+
+
 # Title: March 11, 2025 
 Link: https://cloud.google.com/release-notes#March_11_2025<br>
 ## Cloud Logging 
