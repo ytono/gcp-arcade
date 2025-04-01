@@ -1,5 +1,57 @@
 ## Kubernetes v1.32.2 リリースノート解説
 
+# V1.32.3
+
+**全体的な概要:**
+
+このリリースは、主にバグ修正と安定性向上に重点を置いています。特に、v1.32 で発生したいくつかの問題が修正されています。
+
+**変更点の種類別解説:**
+
+*   **API Change (APIの変更):**
+    *   **DRA (Dynamic Resource Allocation):** 動的リソース割り当てに関連して、CEL式（設定の評価に使う数式のようなもの）の処理コストの見積もりが不正確だった問題を修正しました。これによって、不要なコスト計算がschedulerで行われるのを防ぎます。
+
+*   **Bug or Regression (バグ修正または退行):**
+
+    *   **OrderedNamespaceDeletion:** `OrderedNamespaceDeletion`という新しい機能を追加しました。（機能フラグを有効にする必要があります）この機能が有効になっていると、Namespaceを削除する際に、他のリソースよりも先にPodのリソースを削除するようになります。これは、ワークロードのセキュリティを確保するために重要です。
+    *   **register-gen:** コード生成ツールで、必要なパッケージのimport文が不足していた問題を修正しました。
+    *   **exec/attach/portforward:** Websocketクライアントを使用した場合に、exec、attach、portforwardのリクエストで接続が不安定になるというv1.30からの問題を修正しました。
+    *   **postStart hooks:** `postStart`フック（Pod起動後に実行される処理）を指定したPodが起動しないというv1.32からの問題を修正しました。
+    *   **kubelet:** kubeletの再起動後に、ノードがステータスを報告できず、証明書の更新に失敗する可能性があるというv1.32からの問題を修正しました。
+    *   **kube-apiserver:** OIDC認証と匿名認証の設定が競合する場合の検証に関する問題や、`/flagz`エンドポイントのレスポンスに関する問題を修正しました。
+    *   **kube-proxy:** UDPサービスでExternal IPまたはLoadBalancer IPを使用している場合に、kube-proxyが大量のCPUを消費していた問題を修正しました。
+    *   **kube-proxy:** 大量のUDPワークフローが存在する環境で、kube-proxyでメモリリークが発生する可能性があったv1.32からの問題を修正しました。
+    *   **Kubeadm:** 設定ファイルにUpgradeConfigurationがない場合にpanicが発生する問題を修正しました。
+    *   **ConsistentListFromCache:** Kubernetes 1.31以降で発生した、複数のnamespaceを跨いだAPIリクエストでレイテンシが増加する問題を修正しました。
+    *   **RoleにWatch権限を追加:** 以下のRoleに`Watch`権限を追加しました。これらのRoleは、Kubernetesの内部コンポーネントによって使用されます。
+        *   `system:controller:cronjob-controller`
+        *   `system:controller:endpoint-controller`
+        *   `system:controller:endpointslice-controller`
+        *   `system:controller:endpointslicemirroring-controller`
+        *   `system:controller:horizontal-pod-autoscaler`
+        *   `system:controller:node-controller`
+        *   `system:controller:pod-garbage-collector`
+        *   `system:controller:storage-version-migrator-controller`
+
+*   **Dependencies (依存関係):**
+    *   `github.com/vishvananda/netlink`というライブラリのバージョンが更新されました。
+
+**特に注目すべき点:**
+
+*   v1.32で発生したバグの修正がいくつか含まれています。v1.32にアップデートした場合は、これらの修正が適用されていることを確認してください。
+*   `OrderedNamespaceDeletion`機能は、Namespaceの削除時のセキュリティを向上させる可能性があります。必要に応じて、この機能を有効にすることを検討してください。
+
+**初心者向けの補足:**
+
+*   "Regression"（退行）とは、新しいバージョンで以前のバージョンよりも悪い動作が発生することを意味します。このリリースでは、いくつかのRegressionが修正されています。
+*   "Feature Gate" (機能フラグ)とは、新しい機能を有効または無効にするための設定です。`OrderedNamespaceDeletion`を有効にするには、Kubernetesの設定を変更する必要があります。
+*   "Role"とは、Kubernetesのリソースに対するアクセス権限を定義するものです。このリリースでは、いくつかのRoleに`Watch`権限が追加されています。`Watch`権限は、リソースの変更を監視するために使用されます。
+
+**まとめ:**
+
+このリリースは、Kubernetesの安定性と信頼性を向上させるための重要な修正を含んでいます。v1.32を使用している場合は、できるだけ早くこのバージョンにアップデートすることをお勧めします。
+
+# V1.32.2
 今回のリリース（v1.32.2）は、主にセキュリティ脆弱性の修正とバグフィックスが中心です。特に重要なのは、NodeのDoS攻撃につながるセキュリティ問題への対応です。
 
 ### 重要：セキュリティ関連情報
@@ -93,6 +145,47 @@
 **依存関係の変更**
 
 依存関係の追加、変更、削除はありません。
+
+# V1.31
+# V1.31.7
+
+**全体の概要**
+
+このリリースは、バグ修正と安定性向上に重点を置いています。 新機能の追加というよりは、既存の機能の改善と問題点の解消が主な目的です。
+
+**変更点（種類別）**
+
+*   **バグまたはリグレッション**
+
+    *   **名前空間削除の順番制御機能（OrderedNamespaceDeletion）**
+        *   新しい機能として、`OrderedNamespaceDeletion`というFeature Gateが追加されました。
+        *   これを有効にすると、名前空間を削除する際に、Pod（コンテナを動かすための最小単位）が他のリソースよりも先に削除されます。
+        *   これにより、ワークロードのセキュリティが向上します。 例えば、Podが削除される前に他のリソースが削除されてしまい、Podが孤立して悪用される、といったリスクを減らすことができます。
+    *   **WebSocketクライアントの接続安定性の問題修正**
+        *   v1.30以降で発生していた、WebSocketクライアントを使った`exec`（コンテナ内でのコマンド実行）、`attach`（コンテナへの接続）、`portforward`（ポート転送）のリクエストにおける接続安定性の問題を修正しました。
+        *   WebSocketは、リアルタイムな双方向通信に使われる技術で、kubectlなどのツールがコンテナとやり取りする際に利用しています。
+    *   **kubeadmの設定ファイルに関するパニック修正**
+        *   kubeadm（Kubernetesクラスタの構築・管理ツール）において、設定ファイル内に`UpgradeConfiguration`が見つからない場合にパニックが発生する問題を修正しました。
+    *   **/metrics/slisエンドポイントの常時利用可能化**
+        *   kubelet（各ノードで動作するエージェント）が提供する`/metrics/slis`エンドポイントが常に利用可能になるように修正しました。
+        *   このエンドポイントは、Kubernetesのサービスレベル指標（SLI）を収集するために使われます。
+    *   **キャッシュからのリスト取得に関するパフォーマンス低下の修正**
+        *   v1.31以降のデフォルト設定で発生していた、`ConsistentListFromCache`機能に関連するパフォーマンス低下を修正しました。
+        *   複数の名前空間にわたって、APIリクエスト（作成や更新）が頻繁に発生する場合に、レイテンシ（応答時間）が増加する問題が解消されました。
+
+*   **その他（クリーンアップまたは不安定なテストの修正）**
+
+    *   **Goのバージョンアップ**
+        *   Kubernetes 1.31は、Go 1.23でビルドされるようになりました。
+        *   GoはKubernetesの開発に使われているプログラミング言語で、バージョンアップによりパフォーマンスやセキュリティが向上します。
+
+*   **依存関係**
+
+    *   変更はありません。
+
+**まとめ**
+
+このリリースは、Kubernetesクラスタの安定性とパフォーマンスを向上させるための修正が含まれています。 特に、WebSocketクライアントの接続安定性や、APIリクエストのパフォーマンスに関する修正は、多くのユーザーにとってメリットがあるでしょう。 `OrderedNamespaceDeletion`機能は、セキュリティを重視する環境で役立ちます。
 
 # V1.31.6
 はい、承知いたしました。リリースノートの内容をわかりやすく解説します。
