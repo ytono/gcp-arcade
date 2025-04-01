@@ -1,68 +1,765 @@
-### 1. 基本動作確認
+# Title: March 31, 2025 
+Link: https://cloud.google.com/release-notes#March_31_2025<br>
+## AlloyDB for PostgreSQL
 
-*   **目的:** 各リージョンが独立して正常に動作することを確認します。
-*   **手順:**
-    1.  **アクティブリージョン:**
-        *   外部アプリケーションロードバランサーのエンドポイントにアクセスし、nginxのデフォルトページが表示されることを確認します。
-        *   nginxにアクセスログが出力されていることを確認します。
-        *   GKEクラスタ内のPodが正常に起動し、nginxが正常に動作していることを確認します。
-    2.  **スタンバイリージョン:**
-        *   スタンバイリージョンの内部アプリケーションロードバランサーのエンドポイントにアクセスし、nginxのデフォルトページが表示されることを確認します。
-        *   nginxにアクセスログが出力されていることを確認します。
-        *   GKEクラスタ内のPodが正常に起動し、nginxが正常に動作していることを確認します。
-        *   **（重要）** 外部アプリケーションロードバランサーからは、スタンバイリージョンのPSCへのトラフィックが流れていないことを確認します。
+### Changed
 
-### 2. フェイルオーバー検証
+#### 元のリリースノート
 
-*   **目的:** アクティブリージョンに障害が発生した場合に、スタンバイリージョンに正常にフェイルオーバーすることを確認します。
-*   **手順:**
-    1.  **アクティブリージョンの障害模擬:**
-        *   アクティブリージョンのGKEクラスタを停止、または内部アプリケーションロードバランサーを停止します。
-        *   外部アプリケーションロードバランサーのヘルスチェックが失敗し、トラフィックがスタンバイリージョンに切り替わることを確認します。
-    2.  **スタンバイリージョンへのトラフィック確認:**
-        *   外部アプリケーションロードバランサーのエンドポイントにアクセスし、スタンバイリージョンのnginxのデフォルトページが表示されることを確認します。
-        *   スタンバイリージョンのnginxにアクセスログが出力されていることを確認します。
-    3.  **フェイルバック検証 (オプション):**
-        *   アクティブリージョンを復旧させます。
-        *   外部アプリケーションロードバランサーが自動的にアクティブリージョンにトラフィックを戻すことを確認します。
+If your cluster is encrypted with a customer-managed encryption key (CMEK), and no specific CMEK key is configured for continuous or automated backups, then backups will be created with the cluster CMEK. For more information, see About CMEK  and Configure backup plans.
 
-### 3. パフォーマンス検証
+#### 説明
 
-*   **目的:** 通常時およびフェイルオーバー時のパフォーマンスを測定します。
-*   **手順:**
-    1.  **通常時:**
-        *   アクティブリージョンに対して、ロードジェネレータツール (e.g., `wrk`, `hey`) を使用して負荷をかけ、レイテンシ、スループット、エラー率などを測定します。
-        *   GKEクラスタのリソース使用率 (CPU、メモリ) を監視します。
-    2.  **フェイルオーバー時:**
-        *   フェイルオーバー発生直後、およびフェイルオーバー後の安定状態において、同様に負荷をかけ、パフォーマンスを測定します。
-        *   フェイルオーバーにかかる時間 (ダウンタイム) を測定します。
+顧客管理の暗号鍵（CMEK）を使用してAlloyDB for PostgreSQLクラスタが暗号化されている場合、継続的または自動バックアップ用に特定のCMEK鍵が構成されていないと、バックアップはクラスタCMEKを使用して作成されます。
 
-### 4. 構成変更の検証
+#### 製品への影響有無
 
-*   **目的:** 構成変更がサービスに影響を与えないことを確認します。
-*   **手順:**
-    1.  **アプリケーションの更新:**
-        *   nginxの設定を変更し、両方のリージョンのGKEクラスタにデプロイします。
-        *   変更が正常に反映され、サービスが中断されないことを確認します。
-    2.  **GKEクラスタのスケール:**
-        *   GKEクラスタのノード数を増減させ、サービスが正常に動作し続けることを確認します。
+有
 
-### 5. 監視とロギングの検証
+#### 対処方法
+ 
+CMEKを使用してAlloyDB for PostgreSQLクラスタを暗号化している場合は、継続的または自動バックアップに特定のCMEKキーを構成してください。詳細については、提供された「About CMEK」および「Configure backup plans」のドキュメントを参照ください。
 
-*   **目的:** 監視とロギングが適切に設定され、障害発生時に迅速に対応できることを確認します。
-*   **手順:**
-    1.  **メトリクスの確認:**
-        *   Cloud Monitoringで、ロードバランサー、GKEクラスタ、Podなどのメトリクスが正常に収集されていることを確認します。
-    2.  **ログの確認:**
-        *   Cloud Loggingで、ロードバランサー、GKEクラスタ、Podなどのログが正常に収集されていることを確認します。
-        *   ログに基づいてアラートを設定し、障害発生時に通知されることを確認します。
+---------------------------------------------
 
-### 考慮事項
+## Apigee X
 
-*   **ヘルスチェック:** ロードバランサーのヘルスチェックが、アプリケーションの状態を正確に反映するように設定されていることを確認します。
-*   **DNS:** DNSの切り替えが必要な場合は、TTL (Time-to-Live) を適切に設定し、切り替え時間を短縮します。
-*   **データ同期:** アプリケーションがデータを保持する場合、アクティブ-スタンバイ間でデータ同期の仕組みを構築し、整合性を維持します。
+### Announcement
 
+#### 元のリリースノート
+
+On March 31, 2025, we released an updated version of Apigee (1-15-0-apigee-2).
+
+> **Note:** Rollouts of this release to production instances will begin within two business days and may take four or more business days to complete across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
+
+#### 説明
+
+2025年3月31日、Apigeeのアップデートバージョン（1-15-0-apigee-2）がリリースされました。 本リリースのすべてのGoogle Cloudゾーンへのロールアウトは、2営業日以内に開始され、完了までに4営業日以上かかる場合があります。 ロールアウトが完了するまで、すべての機能と修正がインスタンスに適用されない場合があります。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+特に対処は必要ありませんが、すべての機能と修正がインスタンスに適用されるまで、最大で4営業日以上かかる可能性があることを認識しておく必要があります。
+
+### Fixed
+
+#### 元のリリースノート
+
+| Bug ID | Description |
+| --- | --- |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+
+#### 説明
+
+セキュリティのインフラストラクチャとライブラリに対するアップデートが行われました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+セキュリティアップデートの内容を確認し、必要があれば対応を行う必要があります。
+
+---------------------------------------------
+
+## BigQuery
+
+### Libraries
+
+#### 元のリリースノート
+
+A weekly digest of client library updates from across the Cloud SDK.
+
+#### 説明
+
+これはCloud SDK全体のクライアントライブラリの毎週の更新の概要です。
+
+#### 製品への影響有無
+
+なし
+
+#### 対処方法
+
+なし
+
+### Python
+
+#### Changes for google-cloud-bigquery
+
+##### 元のリリースノート
+
+[google-cloud-bigquery](https://github.com/googleapis/python-bigquery)
+[3.31.0](https://github.com/googleapis/python-bigquery/compare/v3.30.0...v3.31.0)
+- Add query text and total bytes processed to RowIterator (#2140) (2d5f932)
+- Add support for Python 3.13 (0842aa1)
+
+[#2140](https://github.com/googleapis/python-bigquery/issues/2140)
+[2d5f932](https://github.com/googleapis/python-bigquery/commit/2d5f9320d7103bc64c7ba496ba54bb0ef52b5605)
+[0842aa1](https://github.com/googleapis/python-bigquery/commit/0842aa10967b1d8395cfb43e52c8ea091b381870)
+- Add property setter for table constraints, #1990 (#2092) (f8572dd)
+- Allow protobuf 6.x (0842aa1)
+- Avoid "Unable to determine type" warning with JSON columns in `to_dataframe` (#1876) (968020d)
+- Remove setup.cfg configuration for creating universal wheels (#2146) (d7f7685)
+
+[#1990](https://github.com/googleapis/python-bigquery/issues/1990)
+[#2092](https://github.com/googleapis/python-bigquery/issues/2092)
+[f8572dd](https://github.com/googleapis/python-bigquery/commit/f8572dd86595361bae82c3232b2c0d159690a7b7)
+[0842aa1](https://github.com/googleapis/python-bigquery/commit/0842aa10967b1d8395cfb43e52c8ea091b381870)
+[#1876](https://github.com/googleapis/python-bigquery/issues/1876)
+[968020d](https://github.com/googleapis/python-bigquery/commit/968020d5be9d2a30b90d046eaf52f91bb2c70911)
+[#2146](https://github.com/googleapis/python-bigquery/issues/2146)
+[d7f7685](https://github.com/googleapis/python-bigquery/commit/d7f76853d598c354bfd2e65f5dde28dae97da0ec)
+- Remove Python 3.7 and 3.8 as supported runtimes (#2133) (fb7de39)
+
+[#2133](https://github.com/googleapis/python-bigquery/issues/2133)
+[fb7de39](https://github.com/googleapis/python-bigquery/commit/fb7de398cb2ad000b80a8a702d1f6539dc03d8e0)
+
+
+##### 説明
+
+Python用BigQueryクライアントライブラリ(google-cloud-bigquery)のバージョン3.31.0がリリースされました。
+
+- RowIteratorにクエリテキストと合計処理バイト数が追加されました。
+- Python 3.13のサポートが追加されました。
+- テーブル制約のプロパティセッターが追加されました。
+- protobuf 6.xが使用できるようになりました。
+- `to_dataframe` でJSON列を使用した場合に発生する"Unable to determine type"警告が回避されるようになりました。
+- ユニバーサルホイールを作成するためのsetup.cfg設定が削除されました。
+- サポートされるランタイムとしてPython 3.7と3.8が削除されました。
+
+##### 製品への影響有無
+
+有
+
+##### 対処方法
+
+Python 3.7または3.8を使用している場合は、サポートされているバージョンにアップグレードする必要があります。
+新しいライブラリバージョンを使用するには、アップグレードしてください。
+
+---------------------------------------------
+
+## Cloud Storage
+
+### Changed
+
+#### 元のリリースノート
+
+Additional functionality is now available for the bucket IP filtering feature:
+
+[bucket IP filtering](https://cloud.google.com/storage/docs/ip-filtering-overview)
+- You can use IP filtering for buckets in all regions, dual-regions, and multi-regions.
+- You can use custom organization policies to enforce IP filtering.
+
+ You can use IP filtering for buckets in all regions, dual-regions, and multi-regions.
+
+[regions](https://cloud.google.com/storage/docs/locations#location-r)
+[dual-regions](https://cloud.google.com/storage/docs/locations#location-dr)
+[multi-regions](https://cloud.google.com/storage/docs/locations#location-mr)
+ You can use custom organization policies to enforce IP filtering.
+
+[custom organization policies](https://cloud.google.com/resource-manager/docs/organization-policy/creating-managing-custom-constraints)
+
+#### 説明
+
+Cloud StorageのバケットIPフィルタリング機能に追加機能が実装されました。
+
+- すべてのリージョン、デュアルリージョン、マルチリージョンのバケットに対してIPフィルタリングを使用できるようになりました。
+- カスタム組織ポリシーを使用してIPフィルタリングを適用できるようになりました。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+必要に応じて、すべてのリージョン、デュアルリージョン、マルチリージョンのバケットに対してIPフィルタリングを構成できます。また、カスタム組織ポリシーを使用してIPフィルタリングを適用することもできます。
+
+---------------------------------------------
+
+## Compute Engine
+
+### Deprecated
+
+#### 元のリリースノート
+
+Compute Engine provides the interactive serial console for troubleshooting malfunctioning instances. The serial console SSH key endpoint is deprecated and a new serial SSH key endpoint is available. For more information, see Serial console SSH host key endpoint deprecation.
+
+#### 説明
+
+Compute Engineは、誤動作しているインスタンスのトラブルシューティングのためにインタラクティブシリアルコンソールを提供します。シリアルコンソールSSHキーのエンドポイントは非推奨となり、新しいシリアルSSHキーのエンドポイントが利用可能です。
+
+#### 製品への影響有無
+
+有
+
+#### 対処方法
+
+非推奨のシリアルコンソールSSHキーのエンドポイントを使用している場合は、新しいエンドポイントに移行する必要があります。詳細については、提供された「Serial console SSH host key endpoint deprecation」を参照してください。
+
+---------------------------------------------
+
+## Spanner
+
+### Libraries
+
+#### 元のリリースノート
+
+A monthly digest of client library updates from across the Cloud SDK.
+
+#### 説明
+
+Cloud SDK全体のクライアントライブラリの毎月の更新の概要です。
+
+#### 製品への影響有無
+
+なし
+
+#### 対処方法
+
+なし
+
+### Go
+
+#### Changes for spanner/admin/database/apiv1
+
+##### 元のリリースノート
+
+[spanner/admin/database/apiv1](https://github.com/googleapis/google-cloud-go/tree/main/spanner/admin/database/apiv1)
+[1.77.0](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.76.1...spanner/v1.77.0)
+- **spanner:** A new enum `IsolationLevel` is added (#11624) (2c4fb44)
+- **spanner:** A new field `isolation_level` is added to message `.google.spanner.v1.TransactionOptions` (2c4fb44)
+- **spanner:** Add a last field in the PartialResultSet (#11645) (794ecf7)
+- **spanner:** Add option for LastStatement in transaction (#11638) (d662a45)
+
+（中略）
+
+[1.78.0](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.77.0...spanner/v1.78.0)
+- **spanner/spansql:** Add support for tokenlist and create search index (#11522) (cd894f8)
+- **spanner:** Support multiplexed sessions for ReadWriteStmtBasedTransaction (#11852) (528d9dd)
+
+（中略）
+
+##### 説明
+
+Go用Spanner Admin Database API v1クライアントライブラリ(spanner/admin/database/apiv1)のバージョン1.77.0と1.78.0がリリースされました。
+
+- v1.77.0では、`IsolationLevel`列挙型と`.google.spanner.v1.TransactionOptions`メッセージの`isolation_level`フィールドが追加されました。また、`PartialResultSet`に`last`フィールドが追加され、トランザクションに`LastStatement`オプションが追加されました。
+- v1.78.0では、`tokenlist`と`create search index`のサポートが追加されました。また、`ReadWriteStmtBasedTransaction`で多重セッションがサポートされるようになりました。
+
+##### 製品への影響有無
+
+有
+
+##### 対処方法
+
+Go用Spanner Admin Database API v1クライアントライブラリを最新バージョンにアップグレードしてください。
+
+### Java
+
+#### Changes for google-cloud-spanner
+
+##### 元のリリースノート
+
+[google-cloud-spanner](https://github.com/googleapis/java-spanner)
+[6.88.0](https://github.com/googleapis/java-spanner/compare/v6.87.0...v6.88.0)
+- Add a last field in the PartialResultSet (7c714be)
+- Automatically set default sequence kind in JDBC and PGAdapter (#3658) (e8abf33)
+- Default authentication support for external hosts (#3656) (ace11d5)
+- **spanner:** A new enum `IsolationLevel` is added (3fd33ba)
+- **spanner:** Add instance partitions field in backup proto (3fd33ba)
+
+（中略）
+
+[6.89.0](https://github.com/googleapis/java-spanner/compare/v6.88.0...v6.89.0)
+- Enable ALTS hard bound token in DirectPath (#3645) (42cc961)
+- Next release from main branch is 6.89.0 (#3669) (7a8a29b)
+- Support isolation level REPEATABLE_READ for R/W transactions (#3670) (e62f5ab)
+
+（中略）
+
+##### 説明
+
+Java用Spannerクライアントライブラリ(google-cloud-spanner)のバージョン6.88.0と6.89.0がリリースされました。
+
+- v6.88.0では、`PartialResultSet`に`last`フィールドが追加され、JDBCとPGAdapterでデフォルトのシーケンス種別が自動的に設定されるようになりました。また、外部ホストのデフォルト認証がサポートされ、`IsolationLevel`列挙型とバックアッププロトコルにインスタンスパーティションフィールドが追加されました。
+
+- v6.89.0では、DirectPathでALTSハードバウンドトークンが有効化され、R/Wトランザクションで分離レベル`REPEATABLE_READ`がサポートされるようになりました。
+
+##### 製品への影響有無
+
+有
+
+##### 対処方法
+
+Java用Spannerクライアントライブラリを最新バージョンにアップグレードしてください。
+
+### Node.js
+
+#### Changes for @google-cloud/spanner
+
+##### 元のリリースノート
+
+[@google-cloud/spanner](https://github.com/googleapis/nodejs-spanner)
+[7.19.0](https://github.com/googleapis/nodejs-spanner/compare/v7.18.1...v7.19.0)
+- Add AddSplitPoints API (e4d389a)
+- Paging changes for bigquery (e4d389a)
+- **spanner:** A new enum `IsolationLevel` is added (#2225) (e4d389a)
+- **spanner:** A new field `isolation_level` is added to message `.google.spanner.v1.TransactionOptions` (e4d389a)
+- **spanner:** Add instance partitions field in backup proto (e4d389a)
+- **spanner:** Add support for Multiplexed Session for Read Only Tran… (#2214) (3a7a51b)
+- **x-goog-spanner-request-id:** Add bases (#2211) (0008038)
+
+（中略）
+
+[7.19.1](https://github.com/googleapis/nodejs-spanner/compare/v7.19.0...v7.19.1)
+- CreateQueryPartition with query params (91f5afd)
+
+（中略）
+
+##### 説明
+
+Node.js用Spannerクライアントライブラリ(@google-cloud/spanner)のバージョン7.19.0と7.19.1がリリースされました。
+
+- v7.19.0では、`AddSplitPoints` APIが追加され、BigQueryのページングが変更されました。また、`IsolationLevel`列挙型と`.google.spanner.v1.TransactionOptions`メッセージの`isolation_level`フィールドが追加され、バックアッププロトコルにインスタンスパーティションフィールドが追加されました。さらに、読み取り専用トランザクションでの多重セッションのサポートが追加されました。
+
+- v7.19.1では、`CreateQueryPartition`でクエリパラメータが使用できるようになりました。
+
+##### 製品への影響有無
+
+有
+
+##### 対処方法
+
+Node.js用Spannerクライアントライブラリを最新バージョンにアップグレードしてください。
+
+### Python
+
+#### Changes for google-cloud-spanner
+
+##### 元のリリースノート
+
+[google-cloud-spanner](https://github.com/googleapis/python-spanner)
+[3.53.0](https://github.com/googleapis/python-spanner/compare/v3.52.0...v3.53.0)
+- Add AddSplitPoints API (7a5afba)
+- Add Attempt, Operation and GFE Metrics (#1302) (fb21d9a)
+- Add REST Interceptors which support reading metadata (7a5afba)
+- Add support for opt-in debug logging (7a5afba)
+- Add support for reading selective GAPIC generation methods from service YAML (7a5afba)
+- Add the last statement option to ExecuteSqlRequest and ExecuteBatchDmlRequest (7a5afba)
+- Add UUID in Spanner TypeCode enum (7a5afba)
+- End to end tracing (#1315) (aa5d0e6)
+- Exposing FreeInstanceAvailability in InstanceConfig (7a5afba)
+- Exposing FreeInstanceMetadata in Instance configuration (to define the metadata related to FREE instance type) (7a5afba)
+- Exposing InstanceType in Instance configuration (to define PROVISIONED or FREE spanner instance) (7a5afba)
+- Exposing QuorumType in InstanceConfig (7a5afba)
+- Exposing storage_limit_per_processing_unit in InstanceConfig (7a5afba)
+- Snapshot isolation (#1318) (992fcae)
+- **spanner:** A new enum `IsolationLevel` is added (#1224) (7a5afba)
+
+（中略）
+
+##### 説明
+
+Python用Spannerクライアントライブラリ(google-cloud-spanner)のバージョン3.53.0がリリースされました。
+
+- `AddSplitPoints` API、Attempt、Operation、GFE Metrics、REST Interceptors、オプトインデバッグロギングのサポートが追加されました。
+- サービスYAMLから選択的なGAPIC生成メソッドを読み取るサポートが追加されました。
+- `ExecuteSqlRequest`と`ExecuteBatchDmlRequest`に最後のステートメントオプションが追加されました。
+- Spanner `TypeCode`列挙型にUUIDが追加されました。
+- エンドツーエンドのトレースが追加されました。
+- `InstanceConfig`で`FreeInstanceAvailability`が公開されました。
+- インスタンス構成で`FreeInstanceMetadata`が公開されました（FREEインスタンスタイプに関連するメタデータを定義するため）。
+- インスタンス構成で`InstanceType`が公開されました（PROVISIONEDまたはFREE Spannerインスタンスを定義するため）。
+- `InstanceConfig`で`QuorumType`が公開されました。
+- `InstanceConfig`で`storage_limit_per_processing_unit`が公開されました。
+- スナップショット分離が追加されました。
+- `IsolationLevel`列挙型が追加されました。
+
+##### 製品への影響有無
+
+有
+
+##### 対処方法
+
+Python用Spannerクライアントライブラリを最新バージョンにアップグレードしてください。
+# Title: March 27, 2025 
+Link: https://cloud.google.com/release-notes#March_27_2025<br>
+## Apigee X
+
+### Changed
+
+原文: On March 26, 2025, we released an updated version of Apigee (1-14-0-apigee-5). This Apigee version applies *only*  to organizations using the **JavaCallout** policy in production environments.
+
+説明： Apigeeのバージョン1-14-0-apigee-5がリリースされました。このバージョンは、本番環境でJavaCalloutポリシーを使用している組織のみに適用されます。
+
+影響有無： JavaCalloutポリシーを本番環境で使用している場合：有、そうでない場合：無
+
+対処方法： JavaCalloutポリシーを本番環境で使用している場合は、このリリースへのアップグレードを検討してください。
+
+### Fixed
+
+原文:| Bug ID | Description |
+| --- | --- |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+
+説明： セキュリティのインフラストラクチャとライブラリが更新されました。具体的なバグIDは記載されていません。
+
+影響有無： 有
+
+対処方法： Apigee X の最新バージョンを利用することで、セキュリティの強化が期待できます。 
+
+## Cloud Service Mesh
+
+### Announcement
+
+原文: 1.24.3-asm.6 is now available for in-cluster Cloud Service Mesh. You can now download 1.24.3-asm.6 for in-cluster Cloud Service Mesh. It includes the features of Istio 1.24.3 subject to the list of supported features. Cloud Service Mesh version 1.24.3-asm.6 uses envoy v1.32.4-dev.
+
+説明： Cloud Service Meshのバージョン1.24.3-asm.6が利用可能になりました。このバージョンはIstio 1.24.3の機能を含んでおり、envoy v1.32.4-devを使用しています。
+
+影響有無： 無
+
+対処方法： Cloud Service Mesh 1.24.3-asm.6へのアップグレードを検討してください。
+
+### Announcement
+
+原文: 1.23.5-asm.3 is now available for in-cluster Cloud Service Mesh. You can now download 1.23.5-asm.3 for in-cluster Cloud Service Mesh. It includes the features of Istio 1.23.5 subject to the list of supported features. Cloud Service Mesh version 1.23.5-asm.3 uses envoy v1.31.6-dev.
+
+説明： Cloud Service Meshのバージョン1.23.5-asm.3が利用可能になりました。このバージョンはIstio 1.23.5の機能を含んでおり、envoy v1.31.6-devを使用しています。
+
+影響有無： 無
+
+対処方法： Cloud Service Mesh 1.23.5-asm.3へのアップグレードを検討してください。
+
+### Announcement
+
+原文: 1.22.8-asm.5 is now available for in-cluster Cloud Service Mesh. You can now download 1.22.8-asm.5 for in-cluster Cloud Service Mesh. It includes the features of Istio 1.22.8 subject to the list of supported features. Cloud Service Mesh version 1.22.8-asm.5 uses envoy v1.30.10-dev.
+
+説明： Cloud Service Meshのバージョン1.22.8-asm.5が利用可能になりました。このバージョンはIstio 1.22.8の機能を含んでおり、envoy v1.30.10-devを使用しています。
+
+影響有無： 無
+
+対処方法： Cloud Service Mesh 1.22.8-asm.5へのアップグレードを検討してください。
+
+### Announcement
+
+原文: 1.21.5-asm.34 is now available for in-cluster Cloud Service Mesh. You can now download 1.21.5-asm.34 for in-cluster Cloud Service Mesh. It includes the features of Istio 1.21.5 subject to the list of supported features. Cloud Service Mesh version 1.21.5-asm.34 uses envoy v1.29.12-dev.
+
+説明： Cloud Service Meshのバージョン1.21.5-asm.34が利用可能になりました。このバージョンはIstio 1.21.5の機能を含んでおり、envoy v1.29.12-devを使用しています。
+
+影響有無： 無
+
+対処方法： Cloud Service Mesh 1.21.5-asm.34へのアップグレードを検討してください。 
+
+# Title: March 26, 2025 
+Link: https://cloud.google.com/release-notes#March_26_2025<br>
+## API Gateway
+### Announcement
+**原文:** On March 26, 2025, we released an updated version of API Gateway.
+**説明:** 2025年3月26日に、API Gatewayのアップデートバージョンがリリースされました。 
+**製品への影響有無:** 無
+**対処方法:** 特に対応は不要です。
+
+
+## Cloud Composer
+### Announcement
+**原文:** A new Cloud Composer release has started on **March 26, 2025**. Get ready for upcoming changes and features as we roll out the new release to all regions. This release is in progress at the moment. Listed changes and features might not be available in some regions yet.
+**説明:** 2025年3月26日に新しいCloud Composerのリリースが開始されました。今後、すべてのリージョンに展開される新しいリリースに伴い、変更と新機能が提供される予定です。現在リリースは進行中であり、記載されている変更点や機能の一部は、まだ一部のリージョンでは利用できない可能性があります。
+**製品への影響有無:** 無
+**対処方法:** 特に対応は不要ですが、新機能や変更点についてはリリースノートを確認してください。
+
+### Announcement
+**原文:** All Cloud Composer environment's GKE clusters are set up with **maintenance exclusions** from March 27, 2025 to April 04, 2025. For more information, see Maintenance exclusions.
+**説明:** 2025年3月27日から4月4日にかけて、Cloud Composer環境のすべてのGKEクラスタにメンテナンス除外が設定されています。詳細については、メンテナンス除外のドキュメントを参照してください。
+**製品への影響有無:**  無
+**対処方法:** 特に対応は不要です。
+
+### Fixed
+**原文:** *(Available without upgrading)* Fixed an issue with updating maintenance windows when there is an upcoming Cloud Composer 3 infrastructure operation.
+**説明:**  今後のCloud Composer 3のインフラストラクチャ運用がある場合に、メンテナンスウィンドウの更新で発生していた問題が修正されました。この修正はアップグレードせずに適用されます。
+**製品への影響有無:** 無
+**対処方法:** 特に対応は不要です。
+
+### Breaking
+**原文:** *(Airflow 2.10.2 and 2.9.3)* The `apache-airflow-providers-google` package was upgraded to version 14.0.0 in Cloud Composer 2 images and Cloud Composer 3 builds. This package is a new major version where **many previously deprecated Airflow operators are removed**. It is not possible to use these operators in your DAGs. Make sure that you update your DAGs to use up-to-date alternatives of the removed operators. For more information about removed and deprecated Airflow operators and their up-to-date alternatives, see Deprecated and removed Airflow operators. [Deprecated and removed Airflow operators](https://cloud.google.com/composer/docs/composer-2/write-dags#deprecated-operators) For more information about changes, see the apache-airflow-providers-google changelog from version 10.26.0 to version 14.0.0. [apache-airflow-providers-google changelog](https://airflow.apache.org/docs/apache-airflow-providers-google/stable/changelog.html)
+**説明:** Cloud Composer 2イメージとCloud Composer 3ビルドにおいて、`apache-airflow-providers-google`パッケージがバージョン14.0.0にアップグレードされました。このパッケージはメジャーバージョンアップであり、以前非推奨とされていたAirflowオペレーターの多くが削除されています。そのため、削除されたオペレーターはDAG内で使用できません。削除されたオペレーターの最新版へのアップグレードが必要です。削除および非推奨となったAirflowオペレーターとそれらの最新版については、提供されているリンクを参照してください。
+**製品への影響有無:**  有 (Airflow 2.10.2 および 2.9.3 を使用している場合)
+**対処方法:** DAGで削除されたAirflowオペレーターを使用している場合は、提供されているドキュメントを参考に最新版のAirflowオペレーターに更新してください。
+
+### Changed
+**原文:** *(Airflow 2.10.2 and 2.9.3)* The `apache-airflow-providers-cncf-kubernetes` package was upgraded to version 10.3.0 in Cloud Composer 2 images and Cloud Composer 3 builds. For more information about changes, see the apache-airflow-providers-cncf-kubernetes changelog from version 10.1.0 to version 10.3.0. [apache-airflow-providers-cncf-kubernetes changelog](https://airflow.apache.org/docs/apache-airflow-providers-cncf-kubernetes/stable/changelog.html)
+**説明:** Cloud Composer 2イメージとCloud Composer 3ビルドにおいて、`apache-airflow-providers-cncf-kubernetes`パッケージがバージョン10.3.0にアップグレードされました。変更点の詳細は、提供されているリンクからバージョン10.1.0からバージョン10.3.0までの変更履歴を参照してください。
+**製品への影響有無:**  有 (Airflow 2.10.2 および 2.9.3 を使用している場合)
+**対処方法:**  変更点の詳細は、提供されているリンクからバージョン10.1.0からバージョン10.3.0までの変更履歴を参照し、必要があれば対応してください。
+
+### Changed
+**原文:**  *(Airflow 2.10.2 and 2.9.3)* Changes in preinstalled packages: - `apache-airflow-providers-postgres` was upgraded to 6.1.0 from 5.14.0. - `apache-airflow-providers-smtp` was upgraded to 2.0.0 from 1.9.0. - `types-requests` was removed from preinstalled packages.
+**説明:**  Airflow 2.10.2および2.9.3のプリインストールパッケージに変更がありました。 `apache-airflow-providers-postgres`はバージョン5.14.0から6.1.0に、 `apache-airflow-providers-smtp`はバージョン1.9.0から2.0.0にアップグレードされました。また、`types-requests`はプリインストールパッケージから削除されました。
+**製品への影響有無:**  有 (Airflow 2.10.2 および 2.9.3 を使用している場合)
+**対処方法:**  `types-requests`を利用している場合は、別途インストールする必要があります。
+
+### Changed
+**原文:** New Airflow builds are available in Cloud Composer 3: [Airflow builds](https://cloud.google.com/composer/docs/composer-versions#images-composer-3)- composer-3-airflow-2.10.2-build.12 (default) - composer-3-airflow-2.9.3-build.19
+**説明:** Cloud Composer 3で新しいAirflowビルドが利用可能になりました。デフォルトはcomposer-3-airflow-2.10.2-build.12となり、composer-3-airflow-2.9.3-build.19も選択可能です。
+**製品への影響有無:** 無
+**対処方法:** 特に対応は不要です。
+
+### Changed
+**原文:** New images are available in Cloud Composer 2: [images](https://cloud.google.com/composer/docs/composer-versions#images-composer-2)- composer-2.12.0-airflow-2.10.2 (default) - composer-2.12.0-airflow-2.9.3
+**説明:** Cloud Composer 2で新しいイメージが利用可能になりました。デフォルトはcomposer-2.12.0-airflow-2.10.2となり、composer-2.12.0-airflow-2.9.3も選択可能です。
+**製品への影響有無:**  無
+**対処方法:** 特に対応は不要です。
+
+### Deprecated
+**原文:** Cloud Composer versions 2.6.4, 2.6.5, and 2.6.6 have reached their end of support period. [end of support period](https://cloud.google.com/composer/docs/composer-versioning-overview#version-deprecation-and-support)
+**説明:**  Cloud Composer バージョン 2.6.4、2.6.5、および 2.6.6 はサポート期間の終了に達しました。
+**製品への影響有無:** 有 (Cloud Composer versions 2.6.4, 2.6.5, and 2.6.6 を使用している場合)
+**対処方法:** サポートの継続が必要な場合は、サポートされているバージョンにアップグレードしてください。
+
+
+## Cloud Run
+### Changed
+**原文:**  Cloud Run services configured with Direct VPC egress now use only 2 times (2X) as many IP addresses as the number of instances for the duration of the instance plus up to 20 minutes, reduced from 4X as many IP addresses. [2 times (2X) as many IP addresses as the number of instances](https://cloud.google.com/run/docs/configuring/vpc-direct-vpc?#ip-consumption-services)
+**説明:**  ダイレクト VPC エグレスを使用するように構成された Cloud Run サービスで使用する IP アドレスの数が、インスタンスの継続時間 + 最大 20 分間、インスタンス数の 4 倍分から 2 倍分に削減されました。
+**製品への影響有無:**  無
+**対処方法:** 特に対応は不要です。
+
+
+## Google Kubernetes Engine
+### Changed
+**原文:** GKE cluster versions have been updated. **New versions available for upgrades and new clusters.** The following Kubernetes versions are now available for new clusters and for opt-in control plane upgrades and node upgrades for existing clusters. For more information on versioning and upgrades, see GKE versioning and support and Upgrades. [GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning) [Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+**説明:** GKE クラスタバージョンが更新されました。新しいバージョンがアップグレードと新しいクラスタで利用可能です。既存のクラスタに対するオプトインによるコントロールプレーンとノードのアップグレードに加え、新しいクラスタに対しても以下の Kubernetes バージョンが利用できるようになりました。バージョン管理とアップグレードの詳細については、記載されているリンクを参照してください。
+**製品への影響有無:** 無
+**対処方法:** 特に対応は不要です。
+
+### Changed
+**原文:** > **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones. - The following versions are now available in the Rapid channel: - 1.29.15-gke.1058000 - 1.30.10-gke.1227001 - 1.30.11-gke.1008001 - 1.31.6-gke.1221001 - 1.31.7-gke.1013001 - 1.32.2-gke.1652003 - 1.32.3-gke.1057001 - 1.29.15-gke.1058000 - 1.30.10-gke.1227001 - 1.30.11-gke.1008001 - 1.31.6-gke.1221001 - 1.31.7-gke.1013001 - 1.32.2-gke.1652003 - 1.32.3-gke.1057001 [1.29.15-gke.1058000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915) [1.30.10-gke.1227001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13010) [1.30.11-gke.1008001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13011) [1.31.6-gke.1221001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1316) [1.31.7-gke.1013001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1317) [1.32.2-gke.1652003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322) [1.32.3-gke.1057001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323)
+**説明:** Rapidチャネルで以下のバージョンが利用可能になりました。リリースノート公開時にはロールアウトは既に進行中ですが、Google Cloudのすべてのゾーンに展開されるまでには数日かかる場合があります。記載されているバージョンはクラスタでまだ利用できない可能性があります。
+**製品への影響有無:**  無
+**対処方法:** 特に対応は不要です。
+
+### Changed
+**原文:**  There are no new releases in the Regular channel.
+**説明:** Regularチャネルの新しいリリースはありません。
+**製品への影響有無:**  無
+**対処方法:** 特に対応は不要です。
+
+### Changed
+**原文:**  > **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones. - The following versions are now available in the Stable channel: - 1.30.10-gke.1070000 - 1.31.6-gke.1064000 - 1.32.2-gke.1182001 - 1.30.10-gke.1070000 - 1.31.6-gke.1064000 - 1.32.2-gke.1182001 [1.30.10-gke.1070000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13010) [1.31.6-gke.1064000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1316) [1.32.2-gke.1182001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+**説明:** Stableチャネルで以下のバージョンが利用可能になりました。リリースノート公開時にはロールアウトは既に進行中ですが、Google Cloudのすべてのゾーンに展開されるまでには数日かかる場合があります。記載されているバージョンはクラスタでまだ利用できない可能性があります。
+**製品への影響有無:**  無
+**対処方法:**  特に対応は不要です。
+
+### Changed
+**原文:** > **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones. - The following versions are now available in the Extended channel: - 1.27.16-gke.2595000 - 1.28.15-gke.2027000 - 1.27.16-gke.2595000 - 1.28.15-gke.2027000 [1.27.16-gke.2595000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md#v12716) [1.28.15-gke.2027000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815)
+**説明:** Extendedチャネルで以下のバージョンが利用可能になりました。リリースノート公開時にはロールアウトは既に進行中ですが、Google Cloudのすべてのゾーンに展開されるまでには数日かかる場合があります。記載されているバージョンはクラスタでまだ利用できない可能性があります。
+**製品への影響有無:**  無
+**対処方法:**  特に対応は不要です。
+
+### Changed
+**原文:**  > **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones. - The following versions are now available: - 1.29.15-gke.1058000 - 1.30.10-gke.1227001 - 1.30.11-gke.1008001 - 1.31.6-gke.1221001 - 1.31.7-gke.1013001 - 1.32.2-gke.1652003 - 1.32.3-gke.1057001 - The following node versions are now available: - 1.27.16-gke.2595000 - 1.28.15-gke.2027000 - 1.29.15-gke.1058000 - 1.30.10-gke.1227001 - 1.30.11-gke.1008001 - 1.31.6-gke.1221001 - 1.31.7-gke.1013001 - 1.32.2-gke.1652003 - 1.32.3-gke.1057001 - 1.29.15-gke.1058000 - 1.30.10-gke.1227001 - 1.30.11-gke.1008001 - 1.31.6-gke.1221001 - 1.31.7-gke.1013001 - 1.32.2-gke.1652003 - 1.32.3-gke.1057001 [1.29.15-gke.1058000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915) [1.30.10-gke.1227001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13010) [1.30.11-gke.1008001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13011) [1.31.6-gke.1221001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1316) [1.31.7-gke.1013001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1317) [1.32.2-gke.1652003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322) [1.32.3-gke.1057001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323) - 1.27.16-gke.2595000 - 1.28.15-gke.2027000 - 1.29.15-gke.1058000 - 1.30.10-gke.1227001 - 1.30.11-gke.1008001 - 1.31.6-gke.1221001 - 1.31.7-gke.1013001 - 1.32.2-gke.1652003 - 1.32.3-gke.1057001 [1.27.16-gke.2595000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md#v12716) [1.28.15-gke.2027000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815) [1.29.15-gke.1058000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915) [1.30.10-gke.1227001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13010) [1.30.11-gke.1008001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13011) [1.31.6-gke.1221001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1316) [1.31.7-gke.1013001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1317) [1.32.2-gke.1652003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322) [1.32.3-gke.1057001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323)
+**説明:** 以下のバージョンが利用可能になりました。リリースノート公開時にはロールアウトは既に進行中ですが、Google Cloudのすべてのゾーンに展開されるまでには数日かかる場合があります。記載されているバージョンはクラスタでまだ利用できない可能性があります。
+**製品への影響有無:** 無
+**対処方法:** 特に対応は不要です。
+# Title: March 25, 2025 
+Link: https://cloud.google.com/release-notes#March_25_2025<br>
+## API Gateway
+### Announcement
+**原文:** On March 25, 2025, we released an updated version of API Gateway. 
+**説明:** 2025年3月25日に、API Gatewayのアップデートバージョンがリリースされました。詳細な変更内容は記載されていません。 
+**影響有無:**  記載がないため不明
+**対処方法:**  - 
+
+## Compute Engine
+### Fixed
+**原文:** **Resolved:** Fixed the issue that caused Persistent Disks attached to VMs with `n2d-standard-64` machine types to inconsistently reach the maximum performance limit of 100,000 IOPS. 
+For more information, see Known issues.
+[Known issues](https://cloud.google.com/compute/docs/troubleshooting/known-issues#resolved_disks_attached_to_vms_with_n2d-standard-64_machine_types_dont_consistently_reach_performance_limits)
+**説明:** `n2d-standard-64` マシンタイプのVMに接続された永続ディスクが、最大パフォーマンス制限である100,000 IOPSに到達しない場合がある問題が修正されました。
+**影響有無:**  `n2d-standard-64` マシンタイプを利用しており、永続ディスクのパフォーマンス問題が発生していた場合は影響あり。
+**対処方法:**  修正済みのため、特別な対応は不要です。 
+
+# Title: March 24, 2025 
+Link: https://cloud.google.com/release-notes#March_24_2025<br>
+## Apigee X
+
+### Announcement
+**原文:** On March 24, 2025, we released an updated version of Apigee.
+
+**説明:** 2025年3月24日に、Apigeeのアップデートバージョンがリリースされました。
+
+**製品への影響有無:**  情報不足のため不明
+
+**対処方法:**  情報不足のため不明 
+
+## BigQuery
+
+### Libraries
+**原文:** A weekly digest of client library updates from across the Cloud SDK.
+
+**説明:** Cloud SDK全体のクライアントライブラリの週間更新の概要です。
+
+**製品への影響有無:** 無
+
+**対処方法:**  不要
+
+### Node.js
+#### Changes for @google-cloud/bigquery
+**原文:** 
+[@google-cloud/bigquery](https://github.com/googleapis/nodejs-bigquery)
+[7.9.3](https://github.com/googleapis/nodejs-bigquery/compare/v7.9.2...v7.9.3)
+- Make sure to pass selectedFields to tabledata.list method (#1449) (206aff9)
+
+[#1449](https://github.com/googleapis/nodejs-bigquery/issues/1449)
+[206aff9](https://github.com/googleapis/nodejs-bigquery/commit/206aff93d3d3520199388fc31314fa7ec221cee8)
+
+**説明:** Node.js用BigQueryクライアントライブラリ(@google-cloud/bigquery)のバージョン7.9.3がリリースされました。tabledata.listメソッドにselectedFieldsが渡されるように修正されました。
+
+**製品への影響有無:** 有
+
+**対処方法:** BigQueryクライアントライブラリ(@google-cloud/bigquery)をバージョン7.9.3以上にアップデートしてください。
+
+### Go
+#### Changes for bigquery/storage/apiv1beta1
+**原文:** 
+[bigquery/storage/apiv1beta1](https://github.com/googleapis/google-cloud-go/tree/main/bigquery/storage/apiv1beta1)
+[1.67.0](https://github.com/googleapis/google-cloud-go/compare/bigquery/v1.66.2...bigquery/v1.67.0)
+- **bigquery/reservation:** Add a new field `enable_gemini_in_bigquery` to `.google.cloud.bigquery.reservation.v1.Assignment` that indicates if "Gemini in BigQuery" (601e742)
+- **bigquery/reservation:** Add a new field `replication_status` to `.google.cloud.bigquery.reservation.v1.Reservation` to provide visibility into errors that could arise during Disaster Recovery(DR) replication (#11666) (601e742)
+- **bigquery/reservation:** Add the CONTINUOUS Job type to `.google.cloud.bigquery.reservation.v1.Assignment.JobType` for continuous SQL jobs (601e742)
+- **bigquery:** Support MetadataCacheMode for ExternalDataConfig (#11803) (af5174d), refs #11802
+
+**説明:**  Go用BigQuery Storageクライアントライブラリ(bigquery/storage/apiv1beta1)のバージョン1.67.0がリリースされました。主な変更点は以下の通りです。
+
+- BigQueryにおけるGeminiの使用可否を示す `enable_gemini_in_bigquery` フィールドが `.google.cloud.bigquery.reservation.v1.Assignment` に追加されました。
+- 障害復旧(DR)レプリケーション中に発生する可能性のあるエラーの可視化を提供するため、`replication_status` フィールドが `.google.cloud.bigquery.reservation.v1.Reservation` に追加されました。
+- 連続SQLジョブのために、CONTINUOUSジョブタイプが `.google.cloud.bigquery.reservation.v1.Assignment.JobType` に追加されました。
+- ExternalDataConfig に対する MetadataCacheMode のサポートが追加されました。
+
+**製品への影響有無:**  有
+
+**対処方法:** Go用BigQuery Storageクライアントライブラリ(bigquery/storage/apiv1beta1)をバージョン1.67.0以上にアップデートしてください。
+
+**原文:** 
+[1.67.0](https://github.com/googleapis/google-cloud-go/compare/bigquery/v1.66.2...bigquery/v1.67.0)
+- **bigquery:** Increase timeout for storage api test and remove usage of deprecated pkg (#11810) (f47e038), refs #11801 
+- **bigquery:** Update golang.org/x/net to 0.37.0 (1144978)
+
+**説明:**  Go用BigQuery Storageクライアントライブラリ(bigquery/storage/apiv1beta1)のバージョン1.67.0がリリースされました。主な変更点は以下の通りです。
+
+- ストレージAPIテストのタイムアウト時間が延長され、非推奨パッケージの使用が削除されました。
+- golang.org/x/net がバージョン 0.37.0 にアップデートされました。
+
+**製品への影響有無:**  有
+
+**対処方法:** Go用BigQuery Storageクライアントライブラリ(bigquery/storage/apiv1beta1)をバージョン1.67.0以上にアップデートしてください。
+
+**原文:**
+[1.67.0](https://github.com/googleapis/google-cloud-go/compare/bigquery/v1.66.2...bigquery/v1.67.0)
+- **bigquery/reservation:** Remove the section about `EDITION_UNSPECIFIED` in the comment for `slot_capacity` in `.google.cloud.bigquery.reservation.v1.Reservation` to clarify that (601e742)
+- **bigquery/reservation:** Update the `google.api.field_behavior` for the `.google.cloud.bigquery.reservation.v1.Reservation.primary_location` and `.google.cloud.bigquery.reservation.v1.Reservation.original_primary_location` fields to clarify that they are `OUTPUT_ONLY` (601e742)
+
+**説明:**  Go用BigQuery Storageクライアントライブラリ(bigquery/storage/apiv1beta1)のバージョン1.67.0がリリースされました。主な変更点は以下の通りです。
+
+- `.google.cloud.bigquery.reservation.v1.Reservation` 内の `slot_capacity` に関するコメントから、`EDITION_UNSPECIFIED` に関するセクションが削除され、記述が明確化されました。
+- `.google.cloud.bigquery.reservation.v1.Reservation.primary_location` フィールドと `.google.cloud.bigquery.reservation.v1.Reservation.original_primary_location` フィールドの `google.api.field_behavior` が `OUTPUT_ONLY` であることを明確にするために更新されました。
+
+**製品への影響有無:**  有
+
+**対処方法:** Go用BigQuery Storageクライアントライブラリ(bigquery/storage/apiv1beta1)をバージョン1.67.0以上にアップデートしてください。
+
+
+### Java
+#### Changes for google-cloud-bigquery
+**原文:** 
+[google-cloud-bigquery](https://github.com/googleapis/java-bigquery)
+[2.49.0](https://github.com/googleapis/java-bigquery/compare/v2.48.1...v2.49.0)
+- **bigquery:** Implement getArray in BigQueryResultImpl (#3693) (e2a3f2c)
+- Next release from main branch is 2.49.0 (#3706) (b46a6cc)
+
+**説明:** Java用BigQueryクライアントライブラリ(google-cloud-bigquery)のバージョン2.49.0がリリースされました。BigQueryResultImplにgetArrayが実装されました。
+
+**製品への影響有無:** 有
+
+**対処方法:** Java用BigQueryクライアントライブラリ(google-cloud-bigquery)をバージョン2.49.0以上にアップデートしてください。
+
+
+## Cloud Logging
+### Libraries
+**原文:** A weekly digest of client library updates from across the Cloud SDK.
+
+**説明:** Cloud SDK全体のクライアントライブラリの週間更新の概要です。
+
+**製品への影響有無:** 無
+
+**対処方法:**  不要
+
+
+### Java
+#### Changes for google-cloud-logging
+**原文:** 
+[google-cloud-logging](https://github.com/googleapis/java-logging)
+[3.22.0](https://github.com/googleapis/java-logging/compare/v3.21.4...v3.22.0)
+- Next release from main branch is 3.22.0 (#1776) (7736073)
+
+**説明:**  Java用Cloud Loggingクライアントライブラリ(google-cloud-logging)のバージョン3.22.0がリリースされました。
+
+**製品への影響有無:**  有
+
+**対処方法:** Java用Cloud Loggingクライアントライブラリ(google-cloud-logging)をバージョン3.22.0以上にアップデートしてください。
+
+
+## Pub/Sub
+### Libraries
+**原文:** A weekly digest of client library updates from across the Cloud SDK.
+
+**説明:** Cloud SDK全体のクライアントライブラリの週間更新の概要です。
+
+**製品への影響有無:** 無
+
+**対処方法:**  不要
+
+### Python
+#### Changes for google-cloud-pubsub
+**原文:** 
+[google-cloud-pubsub](https://github.com/googleapis/python-pubsub)
+[2.29.0](https://github.com/googleapis/python-pubsub/compare/v2.28.0...v2.29.0)
+- Add REST Interceptors which support reading metadata (4363179)
+- Add support for opt-in debug logging (4363179)
+- Deprecate `enabled` field for message transforms and add `disabled` field (4363179)
+
+**説明:** Python用Pub/Subクライアントライブラリ(google-cloud-pubsub)のバージョン2.29.0がリリースされました。主な変更点は以下の通りです。
+
+- メタデータの読み取りをサポートするRESTインターセプターが追加されました。
+- オプトインのデバッグログがサポートされました。
+- メッセージ変換の `enabled` フィールドが非推奨となり、`disabled` フィールドが追加されました。
+
+**製品への影響有無:**  有
+
+**対処方法:**  Python用Pub/Subクライアントライブラリ(google-cloud-pubsub)をバージョン2.29.0以上にアップデートしてください。メッセージ変換の `enabled` フィールドを使用している場合は、`disabled` フィールドに置き換えてください。
+# Title: March 21, 2025 
+Link: https://cloud.google.com/release-notes#March_21_2025<br>
+## Cloud Monitoring
+
+### Announcement
+
+**原文:**
+The Google-Built OpenTelemetry Collector is now available. This Collector is an open-source, production-ready build of the upstream OpenTelemetry Collector that is built with upstream OpenTelemetry Collector components. The Google-built Collector lets you send correlated OTLP traces, metrics, and logs to Cloud Observability and other backends from applications instrumented by using OpenTelemetry SDKs. The Collector also captures metadata for Google Cloud resources, so you can correlate application performance data with infrastructure telemetry data.
+
+For information about using this Collector, see Overview of the Google-Built OpenTelemetry Collector.
+
+[Overview of the Google-Built OpenTelemetry Collector](https://cloud.google.com/stackdriver/docs/instrumentation/google-built-otel)
+
+**説明:** 
+Google Cloudが提供する、OpenTelemetry Collectorが利用可能になりました。これは、OpenTelemetry Collectorのアップストリームコンポーネントを用いて構築された、本番環境に対応したオープンソースのCollectorです。Googleが構築したこのCollectorを使用すると、OpenTelemetry SDKを使用して計測されたアプリケーションから、関連付けられたOTLPトレース、メトリクス、ログをCloud Observabilityや他のバックエンドに送信できます。また、このCollectorはGoogle Cloudリソースのメタデータも取得するため、アプリケーションのパフォーマンスデータとインフラストラクチャのテレメトリデータを関連付けることができます。
+
+**製品への影響有無:** 無
+
+**対処方法:** 
+Googleが構築したOpenTelemetry Collectorを使用することで、アプリケーションのパフォーマンス監視をより詳細に行うことが可能になります。詳細については、提供されたリンクを参照してください。 
 
 # Title: March 20, 2025 
 Link: https://cloud.google.com/release-notes#March_20_2025<br>
