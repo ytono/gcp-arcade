@@ -1,3 +1,41 @@
+# Title: April 07, 2025 
+Link: https://cloud.google.com/release-notes#April_07_2025<br>
+## BigQuery
+
+### 変更点1
+
+**原文:** An updated version of JDBC driver for BigQuery is now available. 
+
+**説明:** BigQuery 用 JDBC ドライバのアップデートバージョンがリリースされました。
+
+**製品への影響有無:**  有
+
+**対処方法:** 新しいJDBCドライバーを利用する場合は、[JDBC driver for BigQuery](https://cloud.google.com/bigquery/docs/reference/odbc-jdbc-drivers#current_jdbc_driver)から最新バージョンをダウンロードして、アプリケーションに合わせて設定してください。
+
+
+### 変更点2
+
+**原文:** BigQuery ML now uses dynamic token-based batching for embedding generation requests. Dynamic token-based batching puts as many rows as possible into one request. This change boosts per-request utilization and improves scalability for any queries per minute (QPM) quota. Actual performance varies based on the embedding content length, with an average 10x improvement.
+
+**説明:** BigQuery MLの埋め込み生成リクエストで、動的なトークンベースのバッチ処理が使用されるようになりました。この変更により、1つのリクエストに可能な限り多くの行が含まれるようになり、リクエストごとの使用率が向上し、クエリ毎秒(QPM)のクォータのスケーラビリティが向上します。実際のパフォーマンスは埋め込みコンテンツの長さによって異なりますが、平均で10倍の改善が見られます。
+
+**製品への影響有無:** 有 (パフォーマンス向上)
+
+**対処方法:**  特別な対応は不要です。埋め込み生成のワークロードで、パフォーマンスとスケーラビリティの向上が見込まれます。 
+
+
+## Cloud Composer
+
+### アナウンス
+
+**原文:** All Cloud Composer environment's GKE clusters are set up with **maintenance exclusions** from March 27, 2025 to April 12, 2025. For more information, see Maintenance exclusions.
+
+**説明:**  2025年3月27日から2025年4月12日の間、すべてのCloud Composer環境のGKEクラスタでメンテナンス除外が設定されます。詳細については、メンテナンス除外に関するドキュメントを参照してください。
+
+**製品への影響有無:** 有（メンテナンス期間中はGKEクラスタの自動アップグレードなどが行われません）
+
+**対処方法:** メンテナンス除外期間中にGKEクラスタのアップグレードなどが必要な場合は、手動で対応する必要があります。メンテナンス除外について詳しくは、関連ドキュメントを参照してください。 
+
 # Title: April 04, 2025 
 Link: https://cloud.google.com/release-notes#April_04_2025<br>
 # Cloud Service Mesh
