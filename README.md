@@ -1,41 +1,379 @@
-# Title: April 07, 2025 
-Link: https://cloud.google.com/release-notes#April_07_2025<br>
+
+# Title: April 14, 2025 
+Link: https://cloud.google.com/release-notes#April_14_2025<br>
+## Apigee X
+
+### Announcement
+
+**原文:** On April 14, 2025 we released an updated version of Apigee. 
+
+**説明:**  2025年4月14日に、Apigeeのアップデートバージョンがリリースされました。
+
+**影響有無:**  情報が不足しているため、影響の有無は判断できません。 Apigeeのバージョンやアップデート内容の詳細が不明です。
+
+**対処方法:**  
+
+- リリースノートの詳細を確認し、利用中のApigeeバージョンへの影響を調査してください。
+- アップデート内容によっては、設定変更や対応が必要となる場合があります。
+# Title: April 10, 2025 
+Link: https://cloud.google.com/release-notes#April_10_2025<br>
+<h1>Apigee X</h1>
+## Announcement
+<b>原文:</b> On April 10, 2025, we released an updated version of Apigee.
+<b>説明:</b> 2025年4月10日に、Apigeeのアップデートバージョンがリリースされました。 
+<b>影響有無:</b> 情報が少なすぎて判断できません。Apigeeのバージョンやアップデート内容の詳細が不明です。
+<b>対処方法:</b> リリースノートの詳細を確認し、アップデート内容と自身の環境への影響を評価してください。必要があれば、Apigeeのドキュメントを参照するか、Google Cloudのサポートに問い合わせてください。 
+
+# Title: April 09, 2025 
+Link: https://cloud.google.com/release-notes#April_09_2025<br>
+## AlloyDB for PostgreSQL
+
+### Announcement 1
+
+**原文:**
+The `alloydb_scann` extension is updated to include the following vector search improvements. These features are generally available (GA):
+
+[GA](https://cloud.google.com/products#product-launch-stages)
+- Inline filtering enables the execution of vector search and filter evaluation through the combined use of vector and secondary indexes.  For more information, see "Inline filtering" in the documentation for AlloyDB PostgreSQL and AlloyDB Omni 15.7.1 and 16.3.0. 
+- You can let AlloyDB automatically create multiple parallel workers during index creation when the dataset grows, leading to faster build times. For more information, see "Build indexes in parallel" in the documentation for AlloyDB PostgreSQL and AlloyDB Omni 15.7.1 and 16.3.0.
+- A distribution histogram is available in the `pg_stat_ann_indexes` view, which helps you understand the distribution of vectors between partitions of your ScaNN index. For more information, including recommendations about tuning the `distributionpercentile` metric, see "Tuning metrics"  in the documentation for AlloyDB PostgreSQL, and AlloyDB Omni 15.7.1 and 16.3.0.
+- You can use a query recall evaluator to find the recall for a vector query for a given configuration, and to tune your parameters to achieve the desired vector query recall results for different vector indexes. For more information, see "Measure vector query recall"  in the documentation for AlloyDB PostgreSQL, and AlloyDB Omni 15.7.1 and 16.3.0.
+
+**説明:**
+AlloyDB for PostgreSQL の `alloydb_scann` 拡張機能がアップデートされ、ベクトル検索機能に以下の改善が加えられました。これらの機能は一般提供 (GA) されます。
+
+- インラインフィルタリング: ベクトルインデックスとセカンダリインデックスを組み合わせて使用することで、ベクトル検索とフィルタ評価を同時実行できるようになりました。
+- インデックスの並列作成: データセットの増加時に、AlloyDB がインデックス作成中に自動的に複数のパラレルワーカーを作成するようになり、ビルド時間が短縮されました。
+- 分布ヒストグラム: `pg_stat_ann_indexes` ビューで分布ヒストグラムが利用可能になりました。これは、ScaNN インデックスのパーティション間におけるベクトルの分布を理解するのに役立ちます。
+- クエリリコールエバリュエータ: 特定の構成におけるベクトルクエリの再現率を調べるために使用できるようになり、異なるベクトルインデックスに対して目的のベクトルクエリ再現率結果を達成するようにパラメータを調整できます。
+
+**製品への影響有無:** 無
+
+**対処方法:**
+- 特に対処は不要です。GAされた機能なので、必要に応じて利用してください。
+
+
+### Announcement 2
+**原文:**
+The `alloydb_scann` extension is updated to include the following vector search improvements in (Preview):
+
+[Preview](https://cloud.google.com/products#product-launch-stages)
+- You can enable auto-maintenance for your ScaNN index and let incrementally manage the index such that when your dataset grows, AlloyDB splits large outlier partitions, and tries to provide better QPS and search results. For more information, see "Maintain indexes automatically" in the documentation for AlloyDB PostgreSQL and AlloyDB Omni 15.7.1 and 16.3.0.
+- Adaptive filtering for ScaNN significantly improves the speed of filtered vector searches. Adaptive filtering automatically selects the most efficient filtering method at runtime. For more information, see "Filtered vector search" and "Adaptive filtering" in the documentation for AlloyDB for PostgreSQL and AlloyDB Omni 15.7.1 and 16.3.0. 
+- You can enable index auto maintenance and adaptive inline filtering together using the `scann.enable_preview_features` Grand Unified Configuration (GUC) parameters. For more information, see "AlloyDB flags" for AlloyDB for PostgreSQL and AlloyDB Omni 15.7.1 and 16.3.0.
+
+**説明:**
+AlloyDB for PostgreSQL の `alloydb_scann` 拡張機能がアップデートされ、ベクトル検索機能に以下の改善が加えられました。これらの機能はプレビュー段階です。
+
+- ScaNN インデックスの自動メンテナンス: ScaNN インデックスの自動メンテナンスを有効化できるようになりました。データセットの増加に伴い、AlloyDB が大きな外れ値パーティションを分割し、より良い QPS と検索結果を提供しようとします。
+- ScaNN の適応フィルタリング:  フィルタリングされたベクトル検索の速度が大幅に向上しました。適応フィルタリングは、実行時に最も効率的なフィルタリング方法を自動的に選択します。
+- インデックスの自動メンテナンスと適応型インラインフィルタリングの同時有効化:  `scann.enable_preview_features` Grand Unified Configuration (GUC) パラメータを使用して、インデックスの自動メンテナンスと適応型インラインフィルタリングを同時に有効化できます。
+
+**製品への影響有無:** 無
+
+**対処方法:**
+- プレビュー機能を試したい場合は、`scann.enable_preview_features` GUC パラメータを有効化してください。
+
+
 ## BigQuery
 
-### 変更点1
+### Changed 1
 
-**原文:** An updated version of JDBC driver for BigQuery is now available. 
+**原文:**
+Updated pricing, packaging, and setup guidance is now available for Gemini in BigQuery.
 
-**説明:** BigQuery 用 JDBC ドライバのアップデートバージョンがリリースされました。
+**説明:**
+BigQuery での Gemini の料金、パッケージ、セットアップに関するガイダンスが更新されました。
 
-**製品への影響有無:**  有
+**製品への影響有無:** 有
 
-**対処方法:** 新しいJDBCドライバーを利用する場合は、[JDBC driver for BigQuery](https://cloud.google.com/bigquery/docs/reference/odbc-jdbc-drivers#current_jdbc_driver)から最新バージョンをダウンロードして、アプリケーションに合わせて設定してください。
+**対処方法:** 
+- Gemini in BigQuery を利用している場合は、料金、パッケージ、セットアップの変更点を確認してください。
+ [Gemini in BigQuery](https://cloud.google.com/gemini/docs/bigquery/set-up-gemini) 
 
 
-### 変更点2
+### Changed 2
 
-**原文:** BigQuery ML now uses dynamic token-based batching for embedding generation requests. Dynamic token-based batching puts as many rows as possible into one request. This change boosts per-request utilization and improves scalability for any queries per minute (QPM) quota. Actual performance varies based on the embedding content length, with an average 10x improvement.
+**原文:**
+ *Analytics Hub* has been renamed *BigQuery sharing*. You'll see this new name in the documentation set and the marketing collateral. The product functionality and endpoints remain the same. For more information, see Introduction to data governance in BigQuery.
 
-**説明:** BigQuery MLの埋め込み生成リクエストで、動的なトークンベースのバッチ処理が使用されるようになりました。この変更により、1つのリクエストに可能な限り多くの行が含まれるようになり、リクエストごとの使用率が向上し、クエリ毎秒(QPM)のクォータのスケーラビリティが向上します。実際のパフォーマンスは埋め込みコンテンツの長さによって異なりますが、平均で10倍の改善が見られます。
+**説明:**
+*Analytics Hub* は *BigQuery sharing* に名称変更されました。ドキュメントセットとマーケティング資料で、この新しい名称が表示されます。製品の機能とエンドポイントは変わりません。
 
-**製品への影響有無:** 有 (パフォーマンス向上)
+**製品への影響有無:** 無
 
-**対処方法:**  特別な対応は不要です。埋め込み生成のワークロードで、パフォーマンスとスケーラビリティの向上が見込まれます。 
+**対処方法:**
+- 名称変更のみなので、特に対処は不要です。
+
+
+### Announcement
+
+**原文:**
+ *Dataplex Catalog* has been renamed *BigQuery universal catalog*. You'll see this new name in the product page of the Google Cloud console, the documentation set, and the marketing collateral. Universal catalog brings together the data catalog capabilities of Dataplex Catalog and the runtime metastore capabilities of BigQuery metastore. For more information, see Introduction to data governance in BigQuery.
+
+**説明:**
+*Dataplex Catalog* は *BigQuery universal catalog* に名称変更されました。Google Cloud コンソールの製品ページ、ドキュメントセット、マーケティング資料で、この新しい名称が表示されます。Universal catalog は、Dataplex Catalog のデータカタログ機能と BigQuery metastore のランタイムメタストア機能を統合したものです。
+
+**製品への影響有無:**  無
+
+**対処方法:**
+- 名称変更のみなので、特に対処は不要です。
 
 
 ## Cloud Composer
 
-### アナウンス
+### Issue
 
-**原文:** All Cloud Composer environment's GKE clusters are set up with **maintenance exclusions** from March 27, 2025 to April 12, 2025. For more information, see Maintenance exclusions.
+**原文:**
+The Airflow web server in Cloud Composer 3 requires at least 2 GB of memory when an environment is created or updated. This might lead to longer operation times or failures to perform these operations.
 
-**説明:**  2025年3月27日から2025年4月12日の間、すべてのCloud Composer環境のGKEクラスタでメンテナンス除外が設定されます。詳細については、メンテナンス除外に関するドキュメントを参照してください。
+As a workaround, when you create a new Cloud Composer 3 environment or upgrade an existing environment, provide at least 2 GB of memory (default value) to the Airflow web server.
 
-**製品への影響有無:** 有（メンテナンス期間中はGKEクラスタの自動アップグレードなどが行われません）
+**説明:**
+Cloud Composer 3 の Airflow Web サーバーは、環境の作成時または更新時に少なくとも 2 GB のメモリを必要とします。このため、これらの操作に時間がかかったり、操作が失敗したりする可能性があります。
 
-**対処方法:** メンテナンス除外期間中にGKEクラスタのアップグレードなどが必要な場合は、手動で対応する必要があります。メンテナンス除外について詳しくは、関連ドキュメントを参照してください。 
+**製品への影響有無:** 有
 
+**対処方法:**
+- 新しい Cloud Composer 3 環境を作成するか、既存の環境をアップグレードする場合は、Airflow Web サーバーに少なくとも 2 GB のメモリ (デフォルト値) を割り当ててください。
+
+# Title: April 08, 2025 
+Link: https://cloud.google.com/release-notes#April_08_2025<br>
+# Google Kubernetes Engine
+## Changed
+### 原文
+GKE cluster versions have been updated.
+
+**New versions available for upgrades and new clusters.**
+
+ The following Kubernetes versions are now available for new clusters and for
+opt-in control plane upgrades and node upgrades for existing clusters. For more
+information on versioning and upgrades, see GKE versioning and support
+and Upgrades.
+
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+### 説明
+GKEクラスタバージョンが更新されました。新しいバージョンが、アップグレードと新規クラスタ作成に利用できるようになりました。詳細については、GKEのバージョニングとサポート、アップグレードに関するドキュメントを参照してください。
+### 影響有無
+無し
+### 対処方法
+- 特に対処は不要です。 
+
+## Changed
+### 原文
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available in the Rapid channel:
+
+- 1.29.15-gke.1134000
+- 1.30.11-gke.1093000
+- 1.31.7-gke.1149000
+- 1.32.2-gke.1182003
+- 1.32.3-gke.1440000
+
+- 1.29.15-gke.1134000
+- 1.30.11-gke.1093000
+- 1.31.7-gke.1149000
+- 1.32.2-gke.1182003
+- 1.32.3-gke.1440000
+
+[1.29.15-gke.1134000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915)
+[1.30.11-gke.1093000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13011)
+[1.31.7-gke.1149000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1317)
+[1.32.2-gke.1182003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[1.32.3-gke.1440000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323)
+### 説明
+Rapidチャネルで以下のバージョンが利用可能になりました。リリースノート公開時、これらのバージョンはすべてのGoogle Cloudゾーンへの展開が進行中であり、完了までに数日かかる可能性があります。利用可能なバージョンは1.29.15-gke.1134000、1.30.11-gke.1093000、1.31.7-gke.1149000、1.32.2-gke.1182003、1.32.3-gke.1440000です。各バージョンへの変更点は、記載されたリンクを参照してください。
+### 影響有無
+無し
+### 対処方法
+- 特に対処は不要です。 
+
+
+## Changed
+### 原文
+There are no new releases in the Regular channel.
+### 説明
+Regularチャネルの新しいリリースはありません。
+### 影響有無
+無し
+### 対処方法
+- 特に対処は不要です。 
+
+## Changed
+### 原文
+There are no new releases in the Stable channel.
+### 説明
+Stableチャネルの新しいリリースはありません。
+### 影響有無
+無し
+### 対処方法
+- 特に対処は不要です。 
+
+## Changed
+### 原文
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available in the Extended channel:
+
+- 1.27.16-gke.2650000
+- 1.28.15-gke.2097000
+
+- 1.27.16-gke.2650000
+- 1.28.15-gke.2097000
+
+[1.27.16-gke.2650000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md#v12716)
+[1.28.15-gke.2097000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815)
+### 説明
+Extendedチャネルで以下のバージョンが利用可能になりました。リリースノート公開時、これらのバージョンはすべてのGoogle Cloudゾーンへの展開が進行中であり、完了までに数日かかる可能性があります。利用可能なバージョンは1.27.16-gke.2650000、1.28.15-gke.2097000です。各バージョンへの変更点は、記載されたリンクを参照してください。
+### 影響有無
+無し
+### 対処方法
+- 特に対処は不要です。 
+
+## Changed
+### 原文
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available:
+
+- 1.29.15-gke.1134000
+- 1.30.11-gke.1093000
+- 1.31.7-gke.1149000
+- 1.32.2-gke.1182003
+- 1.32.3-gke.1440000
+
+- The following node versions are now available:
+
+- 1.27.16-gke.2650000
+- 1.28.15-gke.2097000
+- 1.29.15-gke.1134000
+- 1.30.11-gke.1093000
+- 1.31.7-gke.1149000
+- 1.32.2-gke.1182003
+- 1.32.3-gke.1440000
+
+- 1.29.15-gke.1134000
+- 1.30.11-gke.1093000
+- 1.31.7-gke.1149000
+- 1.32.2-gke.1182003
+- 1.32.3-gke.1440000
+
+[1.29.15-gke.1134000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915)
+[1.30.11-gke.1093000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13011)
+[1.31.7-gke.1149000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1317)
+[1.32.2-gke.1182003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[1.32.3-gke.1440000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323)
+- 1.27.16-gke.2650000
+- 1.28.15-gke.2097000
+- 1.29.15-gke.1134000
+- 1.30.11-gke.1093000
+- 1.31.7-gke.1149000
+- 1.32.2-gke.1182003
+- 1.32.3-gke.1440000
+
+[1.27.16-gke.2650000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md#v12716)
+[1.28.15-gke.2097000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815)
+[1.29.15-gke.1134000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915)
+[1.30.11-gke.1093000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13011)
+[1.31.7-gke.1149000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1317)
+[1.32.2-gke.1182003](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+[1.32.3-gke.1440000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323)
+### 説明
+リリースノート公開時、これらのバージョンはすべてのGoogle Cloudゾーンへの展開が進行中であり、完了までに数日かかる可能性があります。
+
+以下のバージョンが利用可能になりました。
+- 1.29.15-gke.1134000
+- 1.30.11-gke.1093000
+- 1.31.7-gke.1149000
+- 1.32.2-gke.1182003
+- 1.32.3-gke.1440000
+
+以下のノードバージョンが利用可能になりました。
+- 1.27.16-gke.2650000
+- 1.28.15-gke.2097000
+- 1.29.15-gke.1134000
+- 1.30.11-gke.1093000
+- 1.31.7-gke.1149000
+- 1.32.2-gke.1182003
+- 1.32.3-gke.1440000
+
+各バージョンへの変更点は、記載されたリンクを参照してください。
+### 影響有無
+無し
+### 対処方法
+- 特に対処は不要です。 
+
+# Title: April 07, 2025 
+Link: https://cloud.google.com/release-notes#April_07_2025<br>
+## BigQuery
+
+###  JDBC driver for BigQuery のアップデート 
+原文：An updated version of JDBC driver for BigQuery is now available.
+
+説明：BigQuery 用の JDBC ドライバのアップデートバージョンが利用可能になりました。
+
+影響有無：有
+
+対処方法：JDBCドライバーを最新バージョンに更新することを推奨します。
+
+### BigQuery ML の embedding generation での動的トークンベースのバッチ処理
+
+原文：BigQuery ML now uses dynamic token-based batching for embedding generation requests. Dynamic token-based batching puts as many rows as possible into one request. This change boosts per-request utilization and improves scalability for any queries per minute (QPM) quota. Actual performance varies based on the embedding content length, with an average 10x improvement.
+
+説明：BigQuery ML の embedding generation リクエストで、動的トークンベースのバッチ処理が使用されるようになりました。これにより、可能な限り多くの行が1つのリクエストにまとめられます。この変更により、リクエストごとの使用率が向上し、クエリ/分（QPM）のクォータのスケーラビリティが向上します。実際のパフォーマンスは埋め込みコンテンツの長さによって異なりますが、平均で10倍の改善が見られます。
+
+影響有無：有
+
+対処方法：特に対処は必要ありません。embedding generation のパフォーマンス向上が見込めます。
+
+
+## Cloud Composer
+
+### Cloud Composer 環境の GKE クラスタに対するメンテナンス除外期間について
+
+原文：All Cloud Composer environment's GKE clusters are set up with **maintenance exclusions** from March 27, 2025 to April 12, 2025. 
+
+説明：2025年3月27日から2025年4月12日にかけて、全てのCloud Composer環境のGKEクラスタに対してメンテナンス除外期間が設定されます。この期間中は、GKEクラスタに対する計画メンテナンスは実施されません。
+
+影響有無：有
+
+対処方法：メンテナンス除外期間中は、GKEクラスタのアップグレードやセキュリティパッチの適用などが行われません。そのため、この期間の前後にGKEクラスタのメンテナンスウィンドウを計画することを推奨します。
+
+
+## Pub/Sub
+
+### Cloud SDK のクライアントライブラリの週間更新サマリー
+
+原文：A weekly digest of client library updates from across the Cloud SDK.
+
+説明：これは Cloud SDK 全体のクライアントライブラリのアップデートに関する週間サマリーです。個別の変更点はリンク先を参照する必要があります。
+
+影響有無：具体的な変更内容によるため不明
+
+対処方法：利用しているライブラリがある場合は、変更内容を確認し、必要な対応を行う必要があります。 
+
+
+### pubsub/apiv1 Go ライブラリの更新
+
+原文：Changes for pubsub/apiv1 [pubsub/apiv1](https://github.com/googleapis/google-cloud-go/tree/main/pubsub/apiv1) [1.48.1](https://github.com/googleapis/google-cloud-go/compare/pubsub/v1.48.0...pubsub/v1.48.1) - **pubsub/pstest:** Message ordering issue (#11603) (1d6ffc0) - **pubsub:** Update golang.org/x/net to 0.37.0 (1144978) [#11603](https://github.com/googleapis/google-cloud-go/issues/11603) [1d6ffc0](https://github.com/googleapis/google-cloud-go/commit/1d6ffc02cd211368eabbc8e4f02392952c603703) [1144978](https://github.com/googleapis/google-cloud-go/commit/11449782c7fb4896bf8b8b9cde8e7441c84fb2fd) - **pubsub:** Update documentation for JavaScriptUDF to indicate that the `message_id` metadata field is optional instead of required (f437f08) [f437f08](https://github.com/googleapis/google-cloud-go/commit/f437f0871a88abbeb918ce7364d0299a513cc311) 
+
+説明：Go 用の Pub/Sub クライアントライブラリ (pubsub/apiv1) のバージョン 1.48.1 がリリースされました。
+
+- メッセージ順序に関する問題の修正 (#11603)
+- golang.org/x/net のバージョンが 0.37.0 にアップデート
+- JavaScriptUDF のドキュメントが更新され、`message_id` メタデータフィールドが必須ではなくオプションであることが明記
+
+影響有無：有
+
+対処方法：Go 用の Pub/Sub クライアントライブラリを使用している場合は、バージョン 1.48.1 にアップデートすることを推奨します。特に、メッセージの順序に関する問題 (#11603) が修正されているため、該当する場合はアップデートが必須となります。 
 # Title: April 04, 2025 
 Link: https://cloud.google.com/release-notes#April_04_2025<br>
 # Cloud Service Mesh
