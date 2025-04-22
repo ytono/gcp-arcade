@@ -1,3 +1,287 @@
+# Title: April 21, 2025 
+Link: https://cloud.google.com/release-notes#April_21_2025<br>
+## BigQuery
+
+### Libraries
+
+#### Node.js
+
+#### Changes for @google-cloud/bigquery
+
+原文: 
+
+* MergeSchemaWithRows can be called with empty schema if result set is empty (#1455) (e608601)
+
+説明：
+
+* 結果セットが空の場合、MergeSchemaWithRowsは空のスキーマで呼び出すことができるようになりました。
+
+影響有無： 無
+
+対処方法：
+
+* 特に対応は不要です。
+
+
+### Announcement
+
+#### BigQuery now provides spend-based committed use discounts
+
+原文:
+
+* BigQuery now provides spend-based committed use discounts (CUDs). Spend-based committed use discounts provide a discount in exchange for your commitment to spend a minimum amount per hour on PAYG compute resources listed here. You can purchase CUDs with a one or three year commitment period.
+
+説明：
+
+* BigQueryは、新たに消費ベースのコミットメント使用割引(CUD)を提供するようになりました。この割引は、記載されているPAYGコンピューティングリソースに対して、1時間あたりの最低消費額をコミットメントすることで適用されます。CUDは、1年間または3年間のコミットメント期間で購入することができます。
+
+影響有無： 有
+
+対処方法：
+
+* BigQueryの使用料金を削減するために、CUDの利用を検討してください。詳細については、提供されているリンク先を参照してください。
+
+
+## Cloud Logging
+
+### Libraries
+
+#### Python
+
+#### Changes for google-cloud-logging
+
+原文：
+
+* Add REST Interceptors which support reading metadata (681bcc5)
+* Add support for opt-in debug logging (681bcc5)
+* Added flushes/close functionality to logging handlers (#917) (d179304)
+* Allow protobuf 6.x (#977) (6757890)
+* **deps:** Require google-cloud-audit-log >= 0.3.1 (#979) (1cc00ec)
+* Fix typing issue with gRPC metadata when key ends in -bin (681bcc5)
+* Added documentation on log_level and excluded_loggers params in setup_logging (#971) (70d9d25)
+* Update README to break infinite redirect loop (#972) (52cd907)
+
+説明：
+
+* メタデータの読み取りをサポートするRESTインターセプターが追加されました。
+* オプトインによるデバッグログのサポートが追加されました。
+* ロギングハンドラにフラッシュ/クローズ機能が追加されました。
+* protobuf 6.xのサポートが追加されました。
+* google-cloud-audit-logのバージョンが0.3.1以上に変更されました。
+* キーが-binで終わる場合のgRPCメタデータの型付けの問題が修正されました。
+* setup_loggingのlog_levelパラメータとexcluded_loggersパラメータに関するドキュメントが追加されました。
+* 無限リダイレクトループを解消するためにREADMEが更新されました。
+
+影響有無： 有
+
+対処方法：
+
+* google-cloud-loggingを使用している場合は、最新バージョン(3.12.0)にアップグレードしてください。
+* google-cloud-audit-logを使用している場合は、バージョン0.3.1以降を使用していることを確認してください。
+# Title: April 18, 2025 
+Link: https://cloud.google.com/release-notes#April_18_2025<br>
+## Google Kubernetes Engine
+
+### Changed
+
+原文: 
+> GKE cluster versions have been updated.
+> 
+> **New versions available for upgrades and new clusters.**
+> 
+> The following Kubernetes versions are now available for new clusters and for opt-in control plane upgrades and node upgrades for existing clusters. For more information on versioning and upgrades, see GKE versioning and support and Upgrades.
+> 
+> [GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+> [Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+
+説明: 
+GKEクラスタバージョンが更新されました。新規クラスタおよび既存クラスタのオプトインコントロールプレーンアップグレードとノードアップグレードで利用可能な Kubernetes バージョンが提供開始されました。
+
+影響有無: 無
+
+対処方法:  特になし。 
+
+
+### Changed
+原文:
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+>
+> - Version 1.32.2-gke.1182003 is now the default version for cluster creation in the Rapid channel.
+> - The following versions are now available in the Rapid channel:
+>   - 1.29.15-gke.1170000
+>   - 1.30.11-gke.1131000
+>   - 1.31.6-gke.1099001
+>   - 1.31.7-gke.1212000
+>   - 1.32.2-gke.1297002
+>   - 1.32.3-gke.1717000
+> - The following versions are no longer available in the Rapid channel:
+>   -  (省略)
+> - Auto-upgrade targets are now available for the following minor versions:
+>   - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.6-gke.1064001 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.32.2-gke.1182003 with this release.
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+>   - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.6-gke.1064001 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.32 to version 1.32.2-gke.1182003 with this release.
+> 
+> (リンク省略)
+
+
+説明: 
+Rapidチャネルで、クラスタ作成時のデフォルトバージョンが 1.32.2-gke.1182003 に更新されました。また、Rapidチャネルで利用可能なバージョンと、利用できなくなったバージョンが更新されました。自動アップグレードが有効になっているクラスタは、1.30 から 1.31.6-gke.1064001、1.31 から 1.32.2-gke.1182003 にアップグレードされます。メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタ向けに、パッチのみのバージョン自動アップグレードターゲットが利用可能です。
+
+影響有無: 有
+
+対処方法: 
+- リリースノートに記載されている利用可能なバージョンと利用できなくなったバージョンを確認し、必要があれば対応してください。
+- 自動アップグレードが有効になっているクラスタは、アップグレードが自動的に行われるため、影響範囲を確認してください。
+- メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタについては、パッチのみのバージョン自動アップグレードターゲットを適用するかどうか検討してください。
+
+
+### Changed
+原文:
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+> 
+> - Version 1.32.2-gke.1182003 is now the default version for cluster creation in the Regular channel.
+> - The following versions are now available in the Regular channel:
+>   - 1.31.6-gke.1064001
+>   - 1.32.2-gke.1182003
+> - The following versions are no longer available in the Regular channel:
+>   - (省略)
+> - Auto-upgrade targets are now available for the following minor versions:
+>   - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.30.10-gke.1070000 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.31.6-gke.1064001 with this release.
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+>   - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.30.10-gke.1070000 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.31.6-gke.1064001 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.32 to version 1.32.2-gke.1182003 with this release.
+> 
+> (リンク省略)
+
+説明: 
+Regular チャネルで、クラスタ作成時のデフォルトバージョンが 1.32.2-gke.1182003 に更新されました。また、Regular チャネルで利用可能なバージョンと、利用できなくなったバージョンが更新されました。自動アップグレードが有効になっているクラスタは、1.29 から 1.30.10-gke.1070000、1.30 から 1.31.6-gke.1064001 にアップグレードされます。メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタ向けに、パッチのみのバージョン自動アップグレードターゲットが利用可能です。
+
+影響有無: 有
+
+対処方法: 
+- リリースノートに記載されている利用可能なバージョンと利用できなくなったバージョンを確認し、必要があれば対応してください。
+- 自動アップグレードが有効になっているクラスタは、アップグレードが自動的に行われるため、影響範囲を確認してください。
+- メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタについては、パッチのみのバージョン自動アップグレードターゲットを適用するかどうか検討してください。
+
+
+### Changed
+原文:
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+> 
+> - Version 1.31.6-gke.1064001 is now the default version for cluster creation in the Stable channel.
+> - The following versions are now available in the Stable channel:
+>   - 1.31.6-gke.1064001
+>   - 1.32.2-gke.1182003
+> - The following versions are no longer available in the Stable channel:
+>   - (省略)
+> - Auto-upgrade targets are now available for the following minor versions:
+>   - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.29 to version 1.30.10-gke.1070000 with this release.
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+>   - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.30 to version 1.30.10-gke.1070000 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.31 to version 1.31.6-gke.1064001 with this release.
+> 
+> (リンク省略)
+
+説明: 
+Stableチャネルで、クラスタ作成時のデフォルトバージョンが 1.31.6-gke.1064001 に更新されました。また、Stableチャネルで利用可能なバージョンと、利用できなくなったバージョンが更新されました。自動アップグレードが有効になっているクラスタは、1.29 から 1.30.10-gke.1070000 にアップグレードされます。メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタ向けに、パッチのみのバージョン自動アップグレードターゲットが利用可能です。
+
+影響有無: 有
+
+対処方法: 
+- リリースノートに記載されている利用可能なバージョンと利用できなくなったバージョンを確認し、必要があれば対応してください。
+- 自動アップグレードが有効になっているクラスタは、アップグレードが自動的に行われるため、影響範囲を確認してください。
+- メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタについては、パッチのみのバージョン自動アップグレードターゲットを適用するかどうか検討してください。
+
+
+### Changed
+原文:
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+> 
+> - Version 1.32.2-gke.1182003 is now the default version for cluster creation in the Extended channel.
+> - The following versions are now available in the Extended channel:
+>   - 1.27.16-gke.2664000
+>   - 1.28.15-gke.2121000
+>   - 1.31.6-gke.1064001
+>   - 1.32.2-gke.1182003
+> - The following versions are no longer available in the Extended channel:
+>   - (省略)
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+>   - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.27 to version 1.27.16-gke.2595000 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.28 to version 1.28.15-gke.2027000 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.30 to version 1.30.10-gke.1070000 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.31 to version 1.31.6-gke.1064001 with this release.
+>   - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.32 to version 1.32.2-gke.1182003 with this release.
+> 
+> (リンク省略)
+
+説明: 
+Extendedチャネルで、クラスタ作成時のデフォルトバージョンが 1.32.2-gke.1182003 に更新されました。また、Extendedチャネルで利用可能なバージョンと、利用できなくなったバージョンが更新されました。メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタ向けに、パッチのみのバージョン自動アップグレードターゲットが利用可能です。
+
+影響有無: 有
+
+対処方法: 
+- リリースノートに記載されている利用可能なバージョンと利用できなくなったバージョンを確認し、必要があれば対応してください。
+- 自動アップグレードが有効になっているクラスタは、アップグレードが自動的に行われるため、影響範囲を確認してください。
+- メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタについては、パッチのみのバージョン自動アップグレードターゲットを適用するかどうか検討してください。
+
+### Changed
+原文:
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+> 
+> - Version 1.32.2-gke.1182003 is now the default version for cluster creation.
+> - The following versions are now available:
+>   - (省略)
+> - The following node versions are now available:
+>   - (省略)
+> - The following versions are no longer available:
+>   - (省略)
+> - Auto-upgrade targets are now available for the following minor versions:
+>   - Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.29 to version 1.30.10-gke.1070000 with this release.
+> - The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+>   - Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.30 to version 1.30.10-gke.1070000 with this release.
+>   - Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.31 to version 1.31.6-gke.1064001 with this release.
+>   - Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.32 to version 1.32.2-gke.1182003 with this release.
+> 
+> (リンク省略)
+
+説明: 
+GKE クラスタのバージョンが更新され、クラスタ作成時のデフォルトバージョンが 1.32.2-gke.1182003 に更新されました。利用可能なバージョンと、利用できなくなったバージョンが更新されました。自動アップグレードが有効になっているクラスタは、1.29 から 1.30.10-gke.1070000 にアップグレードされます。メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタ向けに、パッチのみのバージョン自動アップグレードターゲットが利用可能です。
+
+影響有無: 有
+
+対処方法: 
+- リリースノートに記載されている利用可能なバージョンと利用できなくなったバージョンを確認し、必要があれば対応してください。
+- 自動アップグレードが有効になっているクラスタは、アップグレードが自動的に行われるため、影響範囲を確認してください。
+- メンテナンス除外などが原因でマイナーバージョンアップグレードができないクラスタについては、パッチのみのバージョン自動アップグレードターゲットを適用するかどうか検討してください。
+
+
+## Google Cloud Composer2
+
+### 該当なし
+Google Cloud Composer2 (Compoer version 2.7.1、Airflow version 2.7.3)に関するリリースノートは、提供されたリリースノートに含まれていません。
+# Title: April 16, 2025 
+Link: https://cloud.google.com/release-notes#April_16_2025<br>
+## Cloud Service Mesh 
+
+### Announcement
+
+#### 原文
+In-cluster Cloud Service Mesh 1.21 is no longer supported. For more information and to view the earliest end-of-life dates for other versions, see Supported versions.
+
+[Supported versions](https://cloud.google.com/service-mesh/docs/supported-features-in-cluster#supported_versions)
+
+#### 説明
+Cloud Service Mesh のバージョン 1.21 はサポートが終了しました。サポートされているバージョンを確認するには、記載された Supported versions のリンクを参照してください。
+
+#### 影響有無
+有
+
+#### 対処方法
+Cloud Service Mesh 1.21 を使用している場合は、サポートされているバージョンにアップグレードする必要があります。サポートされているバージョンについては、提供されたリンク先を参照してください。 
 
 # Title: April 14, 2025 
 Link: https://cloud.google.com/release-notes#April_14_2025<br>
