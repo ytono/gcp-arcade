@@ -1,3 +1,82 @@
+
+# Title: April 25, 2025 
+Link: https://cloud.google.com/release-notes#April_25_2025<br>
+# Cloud Load Balancing
+## Deprecated
+**原文**
+Starting April 28, 2025, the Global external Application Load Balancer and the Classic Application Load Balancer will no longer allow the use of custom request headers that reference connection-specific hop-by-hop headers.
+
+This change applies only to HTTP/1.1 traffic. Connection-specific hop-by-hop headers are already disallowed by the HTTP/2 and HTTP/3 protocols.
+
+This change is in accordance with RFC 2616 which states that these connection-specific hop-by-hop headers headers are meaningful only for a single transport-level connection and should not be forwarded by proxies.
+
+[RFC 2616](https://datatracker.ietf.org/doc/html/rfc2616#section-13.5.1)
+ The impacted hop-by-hop headers are: `Connection`, `Keep-Alive`, `TE`, `Trailer`, `Transfer-Encoding`, and `Upgrade`.
+
+ Starting April 28, 2025, connection-specific hop-by-hop headers that were configured by using custom headers will no longer be applied. These headers will only be set by the load balancer during normal connection handling.
+
+ Starting June 30, 2025, any configuration changes that reference the connection-specific hop-by-hop custom headers will no longer be accepted.
+
+ **What you need to do**
+
+ If you are an HTTP/1.1 user affected by this change, complete the following steps:
+
+- Determine if your application depends on the values of any hop-by-hop headers configured as custom headers. If any dependencies are found, replace them with an allowed custom header and modify your application accordingly.
+- Review your backend service and URL map `headerAction` configuration to remove any references to connection-specific hop-by-hop headers.
+
+ Determine if your application depends on the values of any hop-by-hop headers configured as custom headers. If any dependencies are found, replace them with an allowed custom header and modify your application accordingly.
+
+ Review your backend service and URL map `headerAction` configuration to remove any references to connection-specific hop-by-hop headers.
+
+**説明**
+2025年4月28日以降、グローバル外部アプリケーションロードバランサーとクラシックアプリケーションロードバランサーにおいて、接続固有のホップバイホップヘッダーを参照するカスタムリクエストヘッダーの使用は許可されなくなります。
+
+この変更は、HTTP/1.1トラフィックのみに適用されます。HTTP/2およびHTTP/3プロトコルでは、接続固有のホップバイホップヘッダーは既に許可されていません。
+
+この変更は、RFC 2616に準拠したものです。RFC 2616では、これらの接続固有のホップバイホップヘッダーは、単一のトランスポートレベル接続に対してのみ意味があり、プロキシによって転送されるべきではないと記載されています。
+
+影響を受けるホップバイホップヘッダーは次のとおりです。`Connection`, `Keep-Alive`, `TE`, `Trailer`, `Transfer-Encoding`, and `Upgrade`.
+
+2025年4月28日以降、カスタムヘッダーを使用して設定された接続固有のホップバイホップヘッダーは適用されなくなります。これらのヘッダーは、通常の接続処理中にロードバランサーによってのみ設定されます。
+
+2025年6月30日以降、接続固有のホップバイホップカスタムヘッダーを参照する設定変更は受け入れられなくなります。
+
+**製品への影響有無**
+有 
+
+**対処方法**
+HTTP/1.1を使用しており、この変更の影響を受ける場合は、次の手順を実行してください。
+
+- アプリケーションが、カスタムヘッダーとして設定されたホップバイホップヘッダーの値に依存しているかどうかを確認します。依存関係が見つかった場合は、許可されたカスタムヘッダーに置き換え、それに応じてアプリケーションを変更します。
+- バックエンドサービスとURLマップの`headerAction`設定を確認し、接続固有のホップバイホップヘッダーへの参照をすべて削除します。
+# Title: April 24, 2025 
+Link: https://cloud.google.com/release-notes#April_24_2025<br>
+## Cloud Composer
+
+### 変更点
+
+**原文:** Starting from June 2025, the default version for new Cloud Composer environments changes from Cloud Composer 2 to Cloud Composer 3. New environments will use the latest default Airflow build (`composer-3-airflow-2`). Currently, the default version is `composer-2-airflow-2`.
+
+**説明:** 2025年6月以降に作成されるCloud Composer環境のデフォルトバージョンが、Cloud Composer 2 から Cloud Composer 3 に変更されます。新しい環境は、最新のデフォルトAirflowビルド(`composer-3-airflow-2`)を使用します。現在のデフォルトバージョンは `composer-2-airflow-2` です。
+
+**製品への影響有無:** 有
+
+**対処方法:** 2025年6月以降もCloud Composer 2 を使用したい場合は、明示的にバージョンを指定して環境を作成する必要があります。また、既存のCloud Composer 2 環境は引き続き動作しますが、将来的には Cloud Composer 3 への移行を検討する必要があります。
+
+---
+
+## Google Kubernetes Engine
+
+### 非推奨
+
+**原文:** Saxml on GKE is de-prioritized beginning April 24, 2025. This means the project won't get further updates. Existing Saxml deployments will continue to function as is without disruption. We *strongly suggest* that you migrate to JetStream, Google's up to date open source inference framework for high-performance LLM serving on TPUs and GPUs. JetStream offers continuous batching and quantization for better throughput and memory efficiency. For a migration example, see Serve Gemma using TPUs on GKE with JetStream.
+
+**説明:**  2025年4月24日以降、Saxml on GKE は非推奨となり、今後のアップデートは提供されません。既存の Saxml デプロイメントは、中断なく引き続き機能します。ただし、TPU および GPU での高性能 LLM 配信のための Google の最新のオープンソース推論フレームワークである JetStream に移行することを強くお勧めします。JetStream は、スループットとメモリ効率を向上させるために、継続的なバッチ処理と量子化を提供します。移行の例については、JetStream を使用した GKE での TPU を使用した Gemma の提供を参照してください。
+
+**製品への影響有無:** 有 (Saxml on GKEを利用している場合)
+
+**対処方法:**  Googleは、TPUおよびGPUでの高性能LLMサービスのための最新のオープンソース推論フレームワークであるJetStreamへの移行を推奨しています。JetStreamは、スループットとメモリ効率を向上させるために、継続的なバッチ処理と量子化を提供します。移行例については、JetStreamを使用したGKEでのTPUを使用したGemmaの提供を参照してください。
+
 # Title: April 21, 2025 
 Link: https://cloud.google.com/release-notes#April_21_2025<br>
 ## BigQuery
