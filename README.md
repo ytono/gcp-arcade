@@ -1,3 +1,354 @@
+# Title: May 09, 2025 
+Link: https://cloud.google.com/release-notes#May_09_2025<br>
+## Google Kubernetes Engine
+
+### Changed
+
+#### 元文
+> GKE cluster versions have been updated.
+> 
+> **New versions available for upgrades and new clusters.**
+> 
+> The following Kubernetes versions are now available for new clusters and for
+> opt-in control plane upgrades and node upgrades for existing clusters. For more
+> information on versioning and upgrades, see GKE versioning and support
+> and Upgrades.
+> 
+> [GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+> [Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+
+#### 説明
+GKE クラスタバージョンが更新され、新しいバージョンがアップグレードと新規クラスタ作成に利用可能になりました。詳細については、GKEのバージョニングとサポート、アップグレードに関するドキュメントを参照してください。
+
+#### 製品への影響有無
+有
+
+#### 対処方法
+GKEクラスタのアップグレードを検討してください。新しいクラスタを作成する場合は、これらの新しいバージョンを使用できます。
+# Title: May 08, 2025 
+Link: https://cloud.google.com/release-notes#May_08_2025<br>
+## Cloud SQL for PostgreSQL
+
+### Server Certificate Authority Mode Changed for New Instances
+
+**Original Release Note:**
+
+If you create an instance using the Google Cloud Console, then the per-instance CA (`GOOGLE_MANAGED_INTERNAL_CA`) option is now the default server certificate authority (CA) mode for your Cloud SQL instance. For users of the Cloud SQL Auth Proxy: 
+
+- If the Cloud SQL instance to which you're connecting is using shared certificate authority (CA) for its `serverCaMode` setting, then on the client side, you must use Cloud SQL Auth Proxy version 2.13.0 or later.
+- If the Cloud SQL instance to which you're connecting is using customer-managed CA for its `serverCaMode` setting, then on the client side, you must use Cloud SQL Auth Proxy version 2.14.3 or later.
+
+**説明:**
+
+Google Cloud Console から Cloud SQL for PostgreSQL インスタンスを作成する場合、デフォルトのサーバー証明書認証局(CA)モードがインスタンス単位の CA (`GOOGLE_MANAGED_INTERNAL_CA`) に変更されました。
+
+Cloud SQL Auth Proxy を使用する場合は、接続先の Cloud SQL インスタンスの `serverCaMode` 設定に応じて、以下のバージョン以降の Cloud SQL Auth Proxy を使用してください。
+
+- `serverCaMode` が共有 CA の場合: Cloud SQL Auth Proxy バージョン 2.13.0 以降
+- `serverCaMode` が顧客管理の CA の場合: Cloud SQL Auth Proxy バージョン 2.14.3 以降
+
+**製品への影響有無:** 有
+
+**対処方法:**
+
+- Google Cloud Console から新規に Cloud SQL for PostgreSQL インスタンスを作成する場合、デフォルトでインスタンス単位の CA が有効になります。
+- 既存のインスタンスや、異なる方法でインスタンスを作成する場合は、今回の変更による影響はありません。
+- Cloud SQL Auth Proxy を使用している場合は、接続先の Cloud SQL インスタンスの `serverCaMode` 設定に応じて、必要なバージョンにアップグレードしてください。 
+
+# Title: May 07, 2025 
+Link: https://cloud.google.com/release-notes#May_07_2025<br>
+## Cloud Composer
+
+### Announcement
+
+#### 元文
+A new Cloud Composer release has started on **May 07, 2025**. Get ready for upcoming changes and features as we roll out the new release to all regions. This release is in progress at the moment. Listed changes and features might not be available in some regions yet.
+
+#### 説明
+2025年5月7日から、新しい Cloud Composer のリリースが開始されました。段階的に展開されるため、すべてのリージョンで利用可能になるまで時間がかかります。記載されている変更点や新機能の一部は、まだ利用できない場合があります。
+
+#### 製品への影響有無
+ 無（今後影響が出る可能性はあり） 
+
+#### 対処方法
+特になし。今後の変更に注意してください。
+
+
+### Changed
+
+#### 元文
+For newly created Cloud Composer 3 environments, the minimum amount of memory is changed to 2 GB. 
+
+#### 説明
+新規作成される Cloud Composer 3 環境のメモリ最小容量が 2GB に変更されました。
+
+#### 製品への影響有無
+有（新規にCloud Composer 3環境を作成する場合）
+
+#### 対処方法
+Cloud Composer 3 環境を新規作成する際は、2 GB 以上のメモリ容量を確保してください。
+
+
+### Changed
+
+#### 元文
+ For newly created environments, database retention policy is now enabled by default in Google Cloud CLI, API, and Terraform. Before this change, it was enabled by default only in Google Cloud Console.
+ 
+ [database retention policy](https://cloud.google.com/composer/docs/composer-3/configure-db-retention)
+
+#### 説明
+新規作成される Cloud Composer 環境において、データベース保持ポリシーが、Google Cloud CLI、API、Terraform でデフォルトで有効化されるようになりました。以前は Google Cloud Console でのみデフォルトで有効化されていました。
+
+#### 製品への影響有無
+有（新規にCloud Composer環境を作成する場合）
+
+#### 対処方法
+データベース保持ポリシーの設定を確認し、必要があれば変更してください。
+
+
+### Changed
+
+#### 元文
+ Improved the environment liveness monitoring. This change addresses some cases of transient failures that caused "Liveness probe failed" warnings in the environment's logs.
+
+#### 説明
+環境の稼働状況監視が改善されました。この変更により、環境のログに「Liveness probe failed」という警告が発生する一時的な障害の発生を防ぎます。
+
+#### 製品への影響有無
+無
+
+#### 対処方法
+特になし。
+
+
+### Changed
+
+#### 元文
+*(Airflow 2.10.5)* The `apache-airflow-providers-google` package was upgraded to version 15.1.0 in Cloud Composer 2 images and Cloud Composer 3 builds.
+
+For more information about changes, see the apache-airflow-providers-google changelog from version 14.0.0 to version 15.1.0.
+
+[apache-airflow-providers-google changelog](https://airflow.apache.org/docs/apache-airflow-providers-google/stable/changelog.html)
+
+#### 説明
+Cloud Composer 2 イメージと Cloud Composer 3 ビルドにおいて、`apache-airflow-providers-google` パッケージがバージョン 15.1.0 にアップグレードされました。変更点の詳細は、バージョン 14.0.0 から 15.1.0 までの apache-airflow-providers-google の変更履歴を参照してください。
+
+#### 製品への影響有無
+有（ Airflow 2.10.5 を利用している場合）
+
+#### 対処方法
+`apache-airflow-providers-google` パッケージの変更内容を確認し、必要があれば対応してください。
+
+
+### Changed
+
+#### 元文
+*(Airflow 2.10.5)* Changes in preinstalled packages:
+
+- `apache-airflow-providers-standard` was upgraded to 1.0.0 from 0.4.0.
+- `aiosqlite` was removed from preinstalled packages.
+- `json-merge-patch` was removed from preinstalled packages.
+- `time-machine` was removed from preinstalled packages.
+
+#### 説明
+Airflow 2.10.5 のプリインストールパッケージの変更:
+
+- `apache-airflow-providers-standard` がバージョン 0.4.0 から 1.0.0 にアップグレードされました。
+- `aiosqlite` がプリインストールパッケージから削除されました。
+- `json-merge-patch` がプリインストールパッケージから削除されました。
+- `time-machine` がプリインストールパッケージから削除されました。
+
+#### 製品への影響有無
+有（ Airflow 2.10.5 を利用している場合）
+
+#### 対処方法
+削除されたパッケージを利用している場合は、別途インストールする必要があります。
+
+
+### Changed
+
+#### 元文
+ The default version of Airflow is changed to 2.10.5.
+
+#### 説明
+Airflow のデフォルトバージョンが 2.10.5 に変更されました。
+
+#### 製品への影響有無
+有（ Airflow の旧バージョンを利用している場合）
+
+#### 対処方法
+Airflow 2.10.5 の変更点を確認し、必要があれば対応してください。
+
+
+### Changed
+
+#### 元文
+ Airflow 2.10.2 is no longer included in Cloud Composer images and builds.
+
+#### 説明
+Airflow 2.10.2 は、Cloud Composer のイメージやビルドに含まれなくなりました。
+
+#### 製品への影響有無
+有（ Airflow 2.10.2 を利用している場合）
+
+#### 対処方法
+Airflow 2.10.2 を利用している場合は、サポートされているバージョンへのアップグレードが必要です。
+
+
+### Changed
+
+#### 元文
+New Airflow builds are available in Cloud Composer 3:
+
+[Airflow builds](https://cloud.google.com/composer/docs/composer-versions#images-composer-3)
+- composer-3-airflow-2.10.5-build.2 (default)
+- composer-3-airflow-2.9.3-build.22
+
+#### 説明
+Cloud Composer 3 で、以下の新しい Airflow ビルドが利用可能になりました。
+
+- composer-3-airflow-2.10.5-build.2 (デフォルト)
+- composer-3-airflow-2.9.3-build.22
+
+#### 製品への影響有無
+無
+
+#### 対処方法
+特になし。
+
+
+### Changed
+
+#### 元文
+New images are available in Cloud Composer 2:
+
+[images](https://cloud.google.com/composer/docs/composer-versions#images-composer-2)
+- composer-2.13.0-airflow-2.10.5 (default)
+- composer-2.13.0-airflow-2.10.2
+
+#### 説明
+Cloud Composer 2 で、以下の新しいイメージが利用可能になりました。
+
+- composer-2.13.0-airflow-2.10.5 (デフォルト)
+- composer-2.13.0-airflow-2.10.2
+
+#### 製品への影響有無
+無
+
+#### 対処方法
+特になし。
+
+
+### Deprecated
+
+#### 元文
+ Cloud Composer versions 2.7.0 and 2.7.1 have reached their end of support period.
+
+[end of support period](https://cloud.google.com/composer/docs/composer-versioning-overview#version-deprecation-and-support)
+
+#### 説明
+Cloud Composer バージョン 2.7.0 および 2.7.1 はサポート終了になりました。
+
+#### 製品への影響有無
+有（ Cloud Composer バージョン 2.7.0, 2.7.1 を利用している場合）
+
+#### 対処方法
+サポートされているバージョンにアップグレードしてください。
+
+
+## Cloud Monitoring
+
+### Issue
+
+#### 元文
+Version 2.56.0 of the Ops Agent using the Prometheus receiver can fail to send metrics and report negative start times. To resolve this issue, downgrade to version 2.55.0. For more information, see Known issue: Ops Agent version 2.56.0 fails to send metrics.
+
+[Known issue: Ops Agent version 2.56.0 fails to send metrics](https://cloud.google.com/stackdriver/docs/solutions/agents/ops-agent/troubleshoot-run-ingest#known-2.56.0-issue)
+
+#### 説明
+Prometheus receiver を使用した Ops Agent のバージョン 2.56.0 では、メトリクスの送信に失敗し、負の開始時刻が報告されることがあります。この問題を解決するには、バージョン 2.55.0 にダウングレードしてください。詳細については、「既知の問題：Ops Agent バージョン 2.56.0 でメトリクスが送信されない」を参照してください。
+
+#### 製品への影響有無
+有（ Ops Agent バージョン 2.56.0 を利用している場合）
+
+#### 対処方法
+Ops Agent をバージョン 2.55.0 にダウングレードしてください。 
+
+# Title: May 06, 2025 
+Link: https://cloud.google.com/release-notes#May_06_2025<br>
+## Apigee X
+
+### Announcement
+
+**原文:** On May 6, 2025, we released a new Apigee REST resource for debug sessions.
+
+**説明:** 2025年5月6日、デバッグセッション用の新しい Apigee REST リソースがリリースされました。
+
+**製品への影響有無:** 無
+
+**対処方法:** 特になし
+
+
+## BigQuery
+
+### Changed
+
+**原文:** In the Google Cloud console, Analytics Hub has been renamed BigQuery sharing (Analytics Hub). [BigQuery sharing (Analytics Hub)](https://cloud.google.com/bigquery/docs/analytics-hub-introduction)
+
+**説明:** Google Cloud コンソールで、Analytics Hub が BigQuery sharing (Analytics Hub) に名称変更されました。
+
+**製品への影響有無:** 無
+
+**対処方法:** 特になし。ただし、Analytics Hubを利用している場合は、名称変更に留意してください。
+
+
+## Cloud Composer
+
+### Changed
+
+**原文:** The Deployment Manager API is no longer automatically enabled when you enable Cloud Composer API because this API isn't used by the Cloud Composer service. Environments with Cloud Composer versions 2.0.* still rely on the Deployment Manager API for updates, upgrades, and environment deletion. It won't be possible to perform these operations if this API is disabled. We recommend to upgrade your 2.0.* environments to a later version to remove this dependency.
+
+**説明:** Cloud Composer APIを有効にしても、Deployment Manager APIは自動的に有効にならなくなりました。これは、Cloud ComposerサービスでこのAPIが使用されなくなったためです。ただし、Cloud Composerバージョン2.0.*の環境は、更新、アップグレード、環境削除にDeployment Manager APIを引き続き使用します。このAPIが無効になっていると、これらの操作を実行できません。この依存関係を削除するには、2.0.*環境を新しいバージョンにアップグレードすることをお勧めします。
+
+**製品への影響有無:** 有
+
+**対処方法:** Cloud Composerバージョン2.0.*を利用している場合は、Deployment Manager APIが有効になっていることを確認してください。Deployment Manager APIが無効になっていると、環境の更新、アップグレード、削除ができなくなります。新しいバージョンへのアップグレードを検討してください。
+
+
+## Cloud Service Mesh
+
+### Announcement
+
+**原文:** The following images are now rolling out for managed Cloud Service Mesh: - 1.21.5-asm.42 is rolling out to the rapid release channel. - 1.20.8-asm.33 is rolling out to the regular release channel. - 1.19.10-asm.33 is rolling out to the stable release channel.
+
+**説明:** マネージドCloud Service Meshについて、以下のイメージがロールアウトされます。 - 1.21.5-asm.42 が Rapid リリースチャネルにロールアウトされます。 - 1.20.8-asm.33 が Regular リリースチャネルにロールアウトされます。 - 1.19.10-asm.33 が Stable リリースチャネルにロールアウトされます。
+
+**製品への影響有無:** 無
+
+**対処方法:** 特になし。各リリースチャネルの更新内容については、リリースノートの詳細をご確認ください。
+
+### Announcement
+
+**原文:** A behavioral change regarding user-provided credentials (private key and certificate) for TLS termination at ingress is now rolling out to the Rapid release channel. Subsequent announcements will appear for additional release channels. 
+[user-provided credentials (private key and certificate) for TLS termination](https://cloud.google.com/service-mesh/docs/operate-and-maintain/gateway-tls-termination)
+The Kubernetes Secrets denoted by `Gateway.servers.port.tls.credentialName` will be read by each ingress gateway pod directly instead of the Control Plane. This change enhances security because the user-provided secret is read directly by the workloads instead of passing any managed component. This change is compatible with previous behavior aside from the propagation speed of the updated secrets. Previously, updated secrets would propagate immediately. Now, updated secrets will propagate within 60 minutes. If you need immediate secret rotation, restart the gateway pods. Each gateway pod reads Kubernetes secrets, so the number of the gateway pods becomes a scalability factor. We recommend the following maximum number of gateway pods:
+- If the GKE cluster is regional, 1500 or fewer pods
+- If the GKE cluster is zonal or using autopilot, 500 or fewer pods
+If this change in behavior doesn't work for you, consider using the deployment with mounted credentials. 
+[deployment with mounted credentials](https://cloud.google.com/service-mesh/docs/operate-and-maintain/gateway-tls-termination#deployment_without_mounted_credentials)
+This change only affects clusters using Traffic Director and version 1.21.5-asm.42 or later. 
+
+**説明:** Ingress での TLS 終端に使用されるユーザー指定の認証情報 (秘密鍵と証明書) に関する動作の変更が、Rapid リリースチャネルにロールアウトされます。 後日、他のリリースチャネルについてもアナウンスがあります。
+`Gateway.servers.port.tls.credentialName` で指定された Kubernetes Secrets は、コントロールプレーンではなく、各イングレスゲートウェイポッドによって直接読み取られるようになります。 この変更により、ユーザーが指定したシークレットは、管理対象コンポーネントを経由せずにワークロードによって直接読み取られるため、セキュリティが強化されます。 この変更は、更新されたシークレットの伝播速度を除いて、以前の動作と互換性があります。 以前は、更新されたシークレットはすぐに伝播されました。 今後、更新されたシークレットは 60 分以内に伝播されます。 シークレットのローテーションをすぐに反映する必要がある場合は、ゲートウェイポッドを再起動してください。 各ゲートウェイポッドは Kubernetes Secrets を読み取るため、ゲートウェイポッドの数はスケーラビリティの要因になります。 ゲートウェイポッドの最大数は、以下を推奨します。
+- GKE クラスタがリージョン単位の場合: 1500 ポッド以下
+- GKE クラスタがゾーン単位または Autopilot を使用している場合: 500 ポッド以下
+この動作変更が適さない場合は、マウントされた認証情報を使用したデプロイメントを検討してください。
+この変更は、Traffic Director とバージョン 1.21.5-asm.42 以降を使用するクラスタにのみ影響します。
+
+**製品への影響有無:** 有
+
+**対処方法:**  TLS終端にユーザー指定の認証情報を使用している場合、更新されたシークレットが反映されるまでに最大60分かかる可能性があります。 シークレットの即時ローテーションが必要な場合は、ゲートウェイポッドの再起動が必要になる場合があります。 また、ゲートウェイポッドの数はスケーラビリティに影響を与えるため、推奨される最大数以下にするようにしてください。 上記の変更が適さない場合は、マウントされた認証情報を使用したデプロイメントを検討してください。 
+
 # Title: May 05, 2025 
 Link: https://cloud.google.com/release-notes#May_05_2025<br>
 # BigQuery
