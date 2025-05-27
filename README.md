@@ -1,3 +1,428 @@
+
+# Title: May 23, 2025 
+Link: https://cloud.google.com/release-notes#May_23_2025<br>
+# Google Kubernetes Engine
+
+## Changed
+原文: GKE cluster versions have been updated.
+
+**New versions available for upgrades and new clusters.**
+
+The following Kubernetes versions are now available for new clusters and for
+opt-in control plane upgrades and node upgrades for existing clusters. For more
+information on versioning and upgrades, see GKE versioning and support
+and Upgrades.
+
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+説明:
+GKEクラスタのバージョンが更新され、新しいKubernetesバージョンが提供開始されました。これらのバージョンは、新規クラスタの作成、既存クラスタのコントロールプレーンおよびノードのアップグレードで選択可能になります。
+
+影響有無: 影響あり
+利用中のGKEクラスタがバージョン1.31の場合、新しいマイナーバージョンやパッチバージョンへのアップグレードパスが提供される可能性があります。これにより、より新しい機能やセキュリティ修正の恩恵を受けられます。
+
+対処方法:
+クラスタのバージョンアップグレード計画を確認し、必要に応じて新しいバージョンへのアップグレードを検討してください。自動アップグレードが有効な場合は、メンテナンスウィンドウの確認が必要です。
+
+## Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.32.4-gke.1236006 is now the default version for cluster creation in the Rapid channel.
+- The following versions are now available in the Rapid channel:
+
+- 1.30.12-gke.1151000
+- 1.31.9-gke.1005000
+- 1.32.4-gke.1236006
+- 1.32.4-gke.1353000
+- 1.33.0-gke.2248000
+
+- The following versions are no longer available in the Rapid channel:
+
+- 1.30.12-gke.1033000
+- 1.31.7-gke.1390000
+- 1.31.8-gke.1045000
+- 1.32.3-gke.1927002
+- 1.32.4-gke.1106000
+- 1.32.4-gke.1236000
+- 1.33.0-gke.1552000
+- 1.33.0-gke.1712000
+
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.12-gke.1086000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.8-gke.1113000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.32.4-gke.1236006 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.12-gke.1086000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.8-gke.1113000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.32 to version 1.32.4-gke.1236006 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.33 to version 1.33.0-gke.1868000 with this release.
+
+[1.32.4-gke.1236006](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+- 1.30.12-gke.1151000
+- 1.31.9-gke.1005000
+- 1.32.4-gke.1236006
+- 1.32.4-gke.1353000
+- 1.33.0-gke.2248000
+
+[1.30.12-gke.1151000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.9-gke.1005000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1319)
+[1.32.4-gke.1236006](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+[1.32.4-gke.1353000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+[1.33.0-gke.2248000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md#v1330)
+- 1.30.12-gke.1033000
+- 1.31.7-gke.1390000
+- 1.31.8-gke.1045000
+- 1.32.3-gke.1927002
+- 1.32.4-gke.1106000
+- 1.32.4-gke.1236000
+- 1.33.0-gke.1552000
+- 1.33.0-gke.1712000
+
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.12-gke.1086000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.31.8-gke.1113000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.32.4-gke.1236006 with this release.
+
+[1.30.12-gke.1086000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.8-gke.1113000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1318)
+[1.32.4-gke.1236006](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+[maintenance exclusions](https://cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions#exclusions)
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.12-gke.1086000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.31 to version 1.31.8-gke.1113000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.32 to version 1.32.4-gke.1236006 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.33 to version 1.33.0-gke.1868000 with this release.
+
+[1.30.12-gke.1086000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.8-gke.1113000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1318)
+[1.32.4-gke.1236006](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+[1.33.0-gke.1868000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md#v1330)
+説明:
+Rapidチャネルにおいて、新しいGKEバージョンが利用可能になり、一部の旧バージョンが利用不可になりました。
+Rapidチャネルの新規クラスタ作成時のデフォルトバージョンは1.32.4-gke.1236006に変更されました。
+また、自動アップグレードのターゲットバージョンが更新されました。特に、Rapidチャネルでバージョン1.31を利用しているクラスタは、バージョン1.32.4-gke.1236006へのマイナーバージョンアップグレードの対象となります。メンテナンス除外設定があるクラスタでも、パッチバージョン1.31.8-gke.1113000への自動アップグレードの対象となります。
+
+影響有無: 影響あり
+利用中のGKEクラスタがRapidチャネルのバージョン1.31を使用しており、自動アップグレードが有効になっている場合、クラスタは自動的に1.32系のバージョンへアップグレードされる可能性があります。Kubernetesのマイナーバージョンアップグレードは、APIの変更や非推奨機能の削除など、アプリケーションの互換性に影響を与えるBreaking Changeを含む場合があります。
+
+対処方法:
+1.  **影響確認:** 現在のGKEクラスタがRapidチャネルに属しているか確認してください。
+2.  **互換性テスト:** バージョン1.32へのアップグレード前に、アプリケーションがKubernetes 1.32と互換性があることを十分にテストしてください。特に、非推奨のAPIを使用していないか確認が必要です。
+3.  **メンテナンスウィンドウ/除外の確認:** 自動アップグレードのタイミングを制御するため、メンテナンスウィンドウや除外設定を確認し、必要に応じて調整してください。
+4.  **手動アップグレードの検討:** アプリケーションの互換性テストが完了次第、手動で計画的にアップグレードを実施することも推奨されます。
+
+## Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.32.3-gke.1927009 is now the default version for cluster creation in the Regular channel.
+- The following versions are now available in the Regular channel:
+
+- 1.30.12-gke.1033000
+- 1.31.8-gke.1045000
+- 1.32.3-gke.1927009
+- 1.32.4-gke.1106006
+
+- The following versions are no longer available in the Regular channel:
+
+- 1.30.11-gke.1157000
+- 1.31.7-gke.1265000
+- 1.32.3-gke.1785003
+- 1.32.3-gke.1927002
+
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.30.11-gke.1217000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.31.7-gke.1390000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.32.3-gke.1927009 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.30.11-gke.1217000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.31.7-gke.1390000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.32 to version 1.32.3-gke.1927009 with this release.
+
+[1.32.3-gke.1927009](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323)
+- 1.30.12-gke.1033000
+- 1.31.8-gke.1045000
+- 1.32.3-gke.1927009
+- 1.32.4-gke.1106006
+
+[1.30.12-gke.1033000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.8-gke.1045000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1318)
+[1.32.3-gke.1927009](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323)
+[1.32.4-gke.1106006](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+- 1.30.11-gke.1157000
+- 1.31.7-gke.1265000
+- 1.32.3-gke.1785003
+- 1.32.3-gke.1927002
+
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.30.11-gke.1217000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.31.7-gke.1390000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.32.3-gke.1927009 with this release.
+
+[1.30.11-gke.1217000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13011)
+[1.31.7-gke.1390000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1317)
+[1.32.3-gke.1927009](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323)
+[maintenance exclusions](https://cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions#exclusions)
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.30.11-gke.1217000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.31.7-gke.1390000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.32 to version 1.32.3-gke.1927009 with this release.
+
+[1.30.11-gke.1217000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13011)
+[1.31.7-gke.1390000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1317)
+[1.32.3-gke.1927009](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1323)
+説明:
+Regularチャネルにおいても、新しいGKEバージョンが利用可能になり、一部の旧バージョンが利用不可になりました。
+Regularチャネルの新規クラスタ作成時のデフォルトバージョンは1.32.3-gke.1927009に変更されました。
+自動アップグレードのターゲットも更新され、Regularチャネルでバージョン1.31を利用しているクラスタは、バージョン1.32.3-gke.1927009へのマイナーバージョンアップグレードの対象となります。メンテナンス除外設定があるクラスタでも、パッチバージョン1.31.7-gke.1390000への自動アップグレードの対象となります。
+
+影響有無: 影響あり
+利用中のGKEクラスタがRegularチャネルのバージョン1.31を使用しており、自動アップグレードが有効になっている場合、クラスタは自動的に1.32系のバージョンへアップグレードされる可能性があります。Kubernetesのマイナーバージョンアップグレードは、APIの変更や非推奨機能の削除など、アプリケーションの互換性に影響を与えるBreaking Changeを含む場合があります。
+
+対処方法:
+1.  **影響確認:** 現在のGKEクラスタがRegularチャネルに属しているか確認してください。
+2.  **互換性テスト:** バージョン1.32へのアップグレード前に、アプリケーションがKubernetes 1.32と互換性があることを十分にテストしてください。
+3.  **メンテナンスウィンドウ/除外の確認:** 自動アップグレードのタイミングを制御するため、メンテナンスウィンドウや除外設定を確認し、必要に応じて調整してください。
+4.  **手動アップグレードの検討:** アプリケーションの互換性テストが完了次第、手動で計画的にアップグレードを実施することも推奨されます。
+
+## Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- Version 1.32.2-gke.1297002 is now the default version for cluster creation in the Stable channel.
+- The following versions are now available in the Stable channel:
+
+- 1.30.11-gke.1157000
+- 1.31.7-gke.1265000
+
+- The following versions are no longer available in the Stable channel:
+
+- 1.30.10-gke.1070000
+- 1.31.6-gke.1064001
+- 1.32.2-gke.1182003
+
+- Auto-upgrade targets are now available for the following minor versions:
+
+- Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.29 to version 1.30.11-gke.1131000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.30 to version 1.31.7-gke.1212000 with this release.
+
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+
+- Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.30 to version 1.30.11-gke.1131000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.31 to version 1.31.7-gke.1212000 with this release.
+- Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.32 to version 1.32.2-gke.1297002 with this release.
+
+[1.32.2-gke.1297002](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1322)
+- 1.30.11-gke.1157000
+- 1.31.7-gke.1265000
+
+[1.30.11-gke.1157000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13011)
+[1.31.7-gke.1
+# Title: May 22, 2025 
+Link: https://cloud.google.com/release-notes#May_22_2025<br>
+承知いたしました。Google Cloudのリリースノートに基づき、各製品の変更点、影響、および推奨される対処方法についてご説明します。
+
+---
+
+# Apigee X
+
+## Announcement
+原文: On May 22, 2025, we released an updated version of Apigee.
+説明: 2025年5月22日にApigeeの更新版がリリースされました。具体的な変更内容は、このアナウンスでは明記されていません。
+影響有無: **影響なし**。このアナウンス自体は情報提供であり、既存のApigee環境に即座の機能的な変更や互換性の問題を引き起こすものではありません。今後の詳細なリリースノートを確認する必要があります。
+対処方法: 特に対処は不要です。今後のApigeeに関する詳細なリリースノート（特に新機能、変更、非推奨、非互換性のある変更に関するもの）に注意を払い、利用中のApigeeバージョンと照らし合わせて互換性や推奨事項を確認してください。
+
+---
+
+# BigQuery
+
+## Changed
+原文: Starting September 15 2025, the `bigquery.datasets.getIamPolicy` IAM permission is required to view a dataset's access controls and to query the `INFORMATION_SCHEMA.OBJECT_PRIVILEGES` view. The `bigquery.datasets.setIamPolicy` permission is required to update a dataset's access controls or to create a dataset with access controls using the API. For more information on this change and how to opt into early enforcement, see Changes to dataset-level access controls.
+説明: 2025年9月15日より、BigQueryのデータセットのアクセス制御に関するIAMパーミッション要件が変更されます。
+*   データセットのアクセス制御の表示、および `INFORMATION_SCHEMA.OBJECT_PRIVILEGES` ビューのクエリには、`bigquery.datasets.getIamPolicy` IAMパーミッションが必須となります。
+*   データセットのアクセス制御の更新、またはAPIを使用してアクセス制御付きデータセットを作成する際には、`bigquery.datasets.setIamPolicy` パーミッションが必須となります。
+早期適用オプションも利用可能です。
+影響有無: **影響あり**。
+現在、これらのパーミッションが付与されていない状態でデータセットのアクセス制御の表示・更新、またはアクセス制御付きデータセットの作成を行っているアプリケーションやユーザーがいる場合、2025年9月15日以降（または早期適用した場合）に動作しなくなる可能性があります。特に、`INFORMATION_SCHEMA.OBJECT_PRIVILEGES` をクエリしてデータセットの権限情報を取得しているサービスアカウントやユーザーは影響を受けます。
+対処方法:
+1.  BigQueryデータセットのアクセス制御の表示、更新、またはアクセス制御付きデータセットの作成を行っているサービスアカウント、グループ、ユーザーのIAMポリシーを確認してください。
+2.  これらの操作を行う必要があるエンティティに対し、それぞれ適切なIAMパーミッション (`bigquery.datasets.getIamPolicy` または `bigquery.datasets.setIamPolicy`) が付与されていることを確認し、必要に応じて追加または修正してください。
+3.  `INFORMATION_SCHEMA.OBJECT_PRIVILEGES` を利用している場合は、クエリを実行するアカウントに `bigquery.datasets.getIamPolicy` が付与されているか確認してください。
+4.  可能であれば、変更による影響を早期にテストするために、早期適用オプションを検討してください。
+用語説明:
+*   **IAM (Identity and Access Management)**: Google Cloudのリソースに対するアクセス権を管理するサービスです。誰がどのリソースに対してどのような操作ができるかを定義します。
+*   **`bigquery.datasets.getIamPolicy`**: BigQueryデータセットのIAMポリシー（アクセス制御設定）を取得するために必要なパーミッションです。
+*   **`bigquery.datasets.setIamPolicy`**: BigQueryデータセットのIAMポリシー（アクセス制御設定）を設定・更新するために必要なパーミッションです。
+*   **`INFORMATION_SCHEMA.OBJECT_PRIVILEGES`**: BigQueryのINFORMATION_SCHEMAビューの一つで、データセットやテーブルなどのオブジェクトに対するアクセス権限情報を表示します。
+
+---
+
+# Google Kubernetes Engine
+
+## Fixed
+原文: The May 13, 2025 issue in which GKE Autopilot clusters failed to update the `cgroup_mode` field is fixed in all GKE versions.
+説明: 2025年5月13日に報告された、GKE Autopilotクラスタにおいて`cgroup_mode`フィールドの更新が失敗する問題が、全てのGKEバージョンで修正されました。
+影響有無: **直接的な影響なし**。このリリースは既存の問題に対する修正であり、新たな設定や挙動の変更を導入するものではありません。現在GKE 1.31を使用されており、もしAutopilotクラスタを使用しておりこの問題に遭遇していた場合、クラスタの安定性が向上する恩恵を受けられます。Standardクラスタをご利用の場合は、この修正は直接関連しません。
+対処方法: 特に対処は不要です。GKE Autopilotクラスタを使用しており、過去に`cgroup_mode`の更新に起因する問題に遭遇していた場合は、問題が解消されているか確認してください。
+用語説明:
+*   **GKE Autopilot**: Google Kubernetes Engineの運用モードの一つで、ノードのプロビジョニング、スケーリング、パッチ適用などをGoogleが自動的に管理するため、ユーザーのインフラ管理負担を大幅に削減できます。
+*   **`cgroup_mode`**: Linuxカーネルのcgroup（control group）機能に関連する設定です。cgroupは、プロセスやプロセスグループが利用できるリソース（CPU、メモリなど）を制限・監視するために使用されます。Kubernetesでは、コンテナのリソース管理にcgroupが利用されます。
+# Title: May 21, 2025 
+Link: https://cloud.google.com/release-notes#May_21_2025<br>
+# BigQuery
+## Changed
+原文: You can now perform supervised tuning on a BigQuery ML remote model based on a Vertex AI `gemini-2.0-flash-001` or `gemini-2.0-flash-lite-001` model.
+[supervised tuning](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-remote-model#supervised_tuning)
+[remote model](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-remote-model)
+説明: BigQuery MLにおいて、Vertex AIの生成AIモデルである`gemini-2.0-flash-001`または`gemini-2.0-flash-lite-001`をベースにしたリモートモデルに対して、教師ありチューニング（ファインチューニング）を実行できるようになりました。これにより、特定のタスクやデータセットに合わせてこれらのモデルをBigQuery ML内でさらに最適化することが可能になります。
+影響有無: 新機能の追加であり、既存のBigQuery MLのワークロードには直接的な影響はありません。この機能を利用することで、より高精度な生成AIモデルをBigQuery MLから利用できるようになります。
+対処方法: 特になし。この新機能を利用したい場合は、BigQuery MLのリモートモデル作成時に`SUPERVISED_TUNING`オプションを設定してください。
+用語説明:
+*   **BigQuery ML**: Google BigQueryの機能の一つで、SQLクエリを使用してBigQuery内で機械学習モデルを作成、トレーニング、評価、デプロイできる機能です。
+*   **リモートモデル (Remote Model)**: BigQuery MLのモデルタイプの一つで、BigQueryの外部にあるAI/MLサービス（この場合はVertex AI）でホストされているモデルをBigQueryから呼び出して推論を行うための参照モデルです。これにより、BigQueryから外部サービスをシームレスに利用できます。
+*   **教師ありチューニング (Supervised Tuning)**: 事前学習済みのモデルを、特定のタスクやユーザーのデータセットに合わせてさらに微調整（ファインチューニング）するプロセスです。教師ありデータ（入力と期待される出力のペア）を用いてモデルを学習させ、性能を向上させます。
+*   **Vertex AI Gemini**: Google Cloudの生成AIモデルファミリー。`gemini-2.0-flash-001`と`gemini-2.0-flash-lite-001`は、高速性と効率性を重視したGeminiモデルのバリアントです。
+
+# Cloud Service Mesh
+## Announcement
+原文: **1.25.2-asm.3 is now available for in-cluster Cloud Service Mesh.**
+You can now download 1.25.2-asm.3 for in-cluster Cloud Service Mesh. It includes the features of Istio 1.25.2 subject to the list of supported features. Cloud Service Mesh version 1.25.2-asm.3 uses envoy v1.33.1-dev..
+[Istio 1.25.2](https://istio.io/latest/news/releases/1.25.x/announcing-1.25.2/)
+[supported features](https://cloud.google.com/service-mesh/docs/supported-features-in-cluster)
+For details on upgrading Cloud Service Mesh, see Upgrade Cloud Service Mesh.
+[Upgrade Cloud Service Mesh](https://cloud.google.com/service-mesh/docs/upgrade/upgrade)
+説明: 自己管理型（in-cluster）のCloud Service Meshのバージョン1.25.2-asm.3がリリースされました。このバージョンはIstio 1.25.2の機能を含み、Envoyプロキシのバージョンv1.33.1-devを使用しています。
+影響有無: Cloud Service Meshを運用している場合、この新しいバージョンへのアップグレードを検討する機会となります。既存の構成への直接的な影響はありませんが、最新の機能、バグ修正、セキュリティパッチの恩恵を受けることができます。提供されたGKEバージョン1.31は新しいバージョンであり、このCloud Service Meshのバージョンと互換性がある可能性が高いです。
+対処方法: 現在Cloud Service Meshを運用している場合、計画的なアップグレードを推奨します。特にセキュリティ修正が含まれる可能性があるため、Istio 1.25.2のリリースノートを確認し、アップグレードガイドに従って実施してください。
+
+## Announcement
+原文: **1.24.5-asm.3 is now available for in-cluster Cloud Service Mesh.**
+You can now download 1.24.5-asm.3 for in-cluster Cloud Service Mesh. It includes the features of Istio 1.24.5 subject to the list of supported features. Cloud Service Mesh version 1.24.5-asm.3 uses envoy v1.32.6-dev.
+[Istio 1.24.5](https://istio.io/latest/news/releases/1.24.x/announcing-1.24.5/)
+[supported features](https://cloud.google.com/service-mesh/v1.24/docs/supported-features-in-cluster)
+For details on upgrading Cloud Service Mesh, see Upgrade Cloud Service Mesh.
+[Upgrade Cloud Service Mesh](https://cloud.google.com/service-mesh/v1.24/docs/upgrade/upgrade)
+説明: 自己管理型（in-cluster）のCloud Service Meshのバージョン1.24.5-asm.3がリリースされました。このバージョンはIstio 1.24.5の機能を含み、Envoyプロキシのバージョンv1.32.6-devを使用しています。
+影響有無: 上記の1.25.2-asm.3と同様に、Cloud Service Meshを運用している場合、このバージョンへのアップグレードを検討する機会となります。既存の構成への直接的な影響はありませんが、最新の機能、バグ修正、セキュリティパッチの恩恵を受けることができます。
+対処方法: 現在Cloud Service Meshを運用しており、1.24.x系を利用している場合は、計画的なアップグレードを推奨します。Istio 1.24.5のリリースノートを確認し、アップグレードガイドに従って実施してください。
+
+## Announcement
+原文: **1.23.6-asm.3 is now available for in-cluster Cloud Service Mesh.**
+You can now download 1.23.6-asm.3 for in-cluster Cloud Service Mesh. It includes the features of Istio 1.23.6 subject to the list of supported features. Cloud Service Mesh version 1.23.6-asm.3 uses envoy v1.31.6.
+[Istio 1.23.6](https://istio.io/latest/news/releases/1.23.x/announcing-1.23.6/)
+[supported features](https://cloud.google.com/service-mesh/v1.23/docs/supported-features-in-cluster)
+For details on upgrading Cloud Service Mesh, see Upgrade Cloud Service Mesh.
+[Upgrade Cloud Service Mesh](https://cloud.google.com/service-mesh/v1.23/docs/upgrade/upgrade)
+説明: 自己管理型（in-cluster）のCloud Service Meshのバージョン1.23.6-asm.3がリリースされました。このバージョンはIstio 1.23.6の機能を含み、Envoyプロキシのバージョンv1.31.6を使用しています。
+影響有無: 上記の各バージョンと同様に、Cloud Service Meshを運用している場合、このバージョンへのアップグレードを検討する機会となります。既存の構成への直接的な影響はありませんが、最新の機能、バグ修正、セキュリティパッチの恩恵を受けることができます。
+対処方法: 現在Cloud Service Meshを運用しており、1.23.x系を利用している場合は、計画的なアップグレードを推奨します。Istio 1.23.6のリリースノートを確認し、アップグレードガイドに従って実施してください。
+
+## Announcement
+原文: In-cluster Cloud Service Mesh 1.22 is no longer supported. For more information and to view the earliest end-of-life dates for other versions, see Supported versions.
+[Supported versions](https://cloud.google.com/service-mesh/docs/supported-features-in-cluster#supported_versions)
+説明: 自己管理型（in-cluster）のCloud Service Meshのバージョン1.22が、サポート対象外となりました。
+影響有無: **重大な影響があります。** 現在Cloud Service Meshバージョン1.22を使用している場合、Google Cloudからの技術サポート、バグ修正、セキュリティパッチの提供が停止されます。これにより、運用中の環境がセキュリティリスクに晒されたり、問題が発生した場合の解決が困難になったりする可能性があります。
+対処方法: **直ちに、サポート対象の新しいバージョン（1.23.x、1.24.x、または1.25.xなど）へのアップグレードを計画し、実行する必要があります。** リンク先の「Supported versions」ドキュメントを参照し、サポート終了日と推奨されるアップグレードパスを確認してください。
+用語説明:
+*   **サポート終了 (End of Support / EOL)**: ソフトウェアやサービスの特定のバージョンに対して、ベンダーがバグ修正、セキュリティパッチ、技術サポートの提供を停止すること。EOLに達したバージョンを使い続けることは、セキュリティリスクや運用上の問題を引き起こす可能性が高いため、サポートされているバージョンへの移行が強く推奨されます。
+*   **Cloud Service Mesh (in-cluster)**: Google Kubernetes Engine (GKE) クラスタ内にIstioコントロールプレーンをデプロイし、GKEのワークロードのトラフィック管理、セキュリティ、可観測性を提供するサービスメッシュソリューションです。
+# Title: May 19, 2025 
+Link: https://cloud.google.com/release-notes#May_19_2025<br>
+はい、Google Cloudのインフラエンジニアとして、BigQueryクライアントライブラリのリリースノートについて影響調査を行います。
+
+---
+
+# BigQuery Go Client Library (v1.68.0)
+
+## Changed / Added Features / Performance Improvement
+
+原文:
+- **bigquery/analyticshub:** Support new feature Sharing Cloud Pubsub Streams via AH (GA) and Subscriber Email logging feature (#11908) (a21d596)
+- **bigquery/storage:** Increased the number of partitions can be written in a single request (43bc515)
+- **bigquery:** Add performance insights (#12101) (aef68ab)
+- **bigquery:** Add some missing fields to BigQuery stats (#12212) (77b08e8)
+- **bigquery:** Add WriteTruncateData write disposition (#12013) (b1124a3)
+- **bigquery:** New client(s) (#12228) (f229bd9)
+- **bigquery:** Support managed iceberg tables (#11931) (35e0774)
+- **bigquery:** Support per-job reservation assignment (#12078) (c9cebcc)
+- **bigquery:** Cache total rows count (#12230) (202dce0), refs #11874 #11873
+- **bigquery:** Parse timestamps with timezone info (#11950) (530d522)
+- **bigquery:** Update google.golang.org/api to 0.229.0 (3319672)
+- **bigquery:** Upgrade gRPC service registration func (7c01015)
+- **bigquery/storage:** Updated the number of partitions (from 100 to 900) can be inserted, updated and deleted in a single request (43bc515)
+
+説明：
+BigQuery Goクライアントライブラリのバージョン1.68.0における更新です。主な変更点として、BigQuery Analytics HubにおけるPub/Subストリーム共有とサブスクライバーメールロギングのGAサポート、BigQuery Storage APIでの単一リクエストにおけるパーティション書き込み・挿入・更新・削除数の大幅な増加（100から900へ）、パフォーマンスインサイトの追加、`WriteTruncateData`書き込みディスポジションの追加、マネージドIcebergテーブルのサポート、ジョブごとの予約割り当てサポート、合計行数カウントのキャッシュ、タイムゾーン情報を含むタイムスタンプの解析改善が含まれます。また、依存ライブラリの更新（`google.golang.org/api`）とgRPCサービス登録関数のアップグレードが行われています。
+
+影響有無：
+*   **なし**
+    *   ほとんどの変更は、既存機能の拡張、新機能の追加、または内部的なパフォーマンス改善です。
+    *   `WriteTruncateData`は新しい書き込みディスポジションであり、明示的に利用しない限り既存の動作には影響しません。
+    *   BigQuery Storage APIのパーティション数増加はパフォーマンス向上に寄与し、既存のワークロードにプラスの影響を与える可能性があります。
+*   **軽微な影響の可能性**
+    *   `Parse timestamps with timezone info`の変更は、タイムゾーン情報を含むタイムスタンプの処理ロジックが改善されたことを示します。これにより、厳密なタイムゾーン処理を必要とする既存のアプリケーションで、より正確な動作が期待できますが、既存の動作で意図しない解釈が行われていた場合は、修正された動作が期待値と異なる可能性があります。しかし、通常はより堅牢な処理となるため、問題となるケースは稀でしょう。
+
+対処方法：
+*   **不要**
+    *   既存のシステムへの直接的なBreaking Changeはありません。
+*   **推奨**
+    *   GKE上で稼働するアプリケーションでBigQuery Goクライアントライブラリを利用している場合、これらの新機能やパフォーマンス改善の恩恵を受けるためには、アプリケーションの依存ライブラリをバージョンアップすることを推奨します。バージョンアップの際には、影響がないことを確認するためにテストを実施してください。
+    *   `Parse timestamps with timezone info`の変更に関しては、念のためタイムゾーンを含むタイムスタンプデータを処理するロジックについて回帰テストを実施することを検討してください。
+
+用語説明：
+*   **BigQuery Analytics Hub:** データ共有と交換を目的としたサービスで、組織内外のデータプロバイダーとデータコンシューマーが安全かつ効率的にデータをやり取りできるプラットフォームです。
+*   **BigQuery Storage API:** BigQueryテーブルからデータを読み書きするための高性能なAPIで、大量のデータを高速に転送するのに最適化されています。
+*   **WriteTruncateData:** BigQueryのデータロードジョブやDML文における`WRITE_TRUNCATE`ディスポジションと同様に、ターゲットテーブルの既存データを上書き（truncate）して新しいデータを書き込むモードを示す可能性のある新しい書き込みディスポジションです。
+*   **Managed Iceberg Tables:** Icebergはオープンソースのテーブルフォーマットであり、BigQueryがそのテーブルの管理をサポートすることで、より柔軟なデータ管理と分析が可能になります。
+
+---
+
+# BigQuery Python Client Library (v3.32.0)
+
+## Changed / Added Features / Performance Improvement / Announcment
+
+原文:
+- Add dataset access policy version attribute (#2169) (b7656b9)
+- Adds preview support for incremental results (#2145) (22b80bb)
+- Add WRITE_TRUNCATE_DATA enum (#2166) (4692747)
+- Adds condition class and assoc. unit tests (#2159) (a69d6b7)
+- Support BigLakeConfiguration (managed Iceberg tables) (#2162) (a1c8e9a)
+- Update the AccessEntry class with a new condition attribute and unit tests (#2163) (7301667)
+- `query()` now warns when `job_id` is set and the default `job_retry` is ignored (#2167) (ca1798a)
+- Empty record dtypes (#2147) (77d7173)
+- Table iterator should not use bqstorage when page_size is not None (#2154) (e89a707)
+
+説明：
+BigQuery Pythonクライアントライブラリのバージョン3.32.0における更新です。主な変更点として、データセットのアクセスポリシーにバージョン属性が追加され、増分結果のプレビューサポート、`WRITE_TRUNCATE_DATA`列挙型の追加、マネージドIcebergテーブル（BigLakeConfiguration経由）のサポート、`AccessEntry`クラスの更新による新しい条件属性の追加が含まれます。また、`query()`メソッドにおいて、`job_id`が設定され、かつデフォルトの`job_retry`が無視される場合に警告を発するようになりました。その他、内部的な最適化（テーブルイテレータの改善）とバグ修正（空のレコードデータ型）が含まれます。
+
+影響有無：
+*   **なし**
+    *   ほとんどの変更は、新機能の追加、既存機能の拡張、または内部的な改善です。
+    *   増分結果、`WRITE_TRUNCATE_DATA`、Icebergテーブルのサポートなどは、明示的に利用しない限り既存の動作には影響しません。
+*   **軽微な影響の可能性**
+    *   `query()`メソッドにおける警告の追加: Google Cloud Composer2でBigQueryと連携するDAGが、`query()`メソッドで`job_id`を明示的に設定し、かつデフォルトのリトライ動作を意図せず無視している場合に、ログに警告が出力される可能性があります。これは動作そのものの変更ではなく、ユーザーへの注意喚起です。
+
+対処方法：
+*   **Google Cloud Composer2の場合:**
+    *   Composer環境の基盤イメージにインストールされる`google-cloud-bigquery`ライブラリのバージョンが自動的に更新される可能性があります。
+    *   DAGのログに`query()`メソッドに関する新しい警告が出力されるようになった場合、警告の内容を確認し、`job_id`と`job_retry`の利用方法を見直すことを検討してください。通常、警告は無視しても機能に影響はありませんが、潜在的な設定不備を示唆している可能性があります。
+*   **Google Kubernetes Engineの場合:**
+    *   GKE上で稼働するアプリケーションでBigQuery Pythonクライアントライブラリを利用している場合、これらの新機能やパフォーマンス改善の恩恵を受けるためには、アプリケーションの依存ライブラリをバージョンアップすることを推奨します。
+    *   バージョンアップの際には、特に`query()`メソッドの警告が出力されないか、既存の処理が正常に動作するかを十分にテストしてください。
+
+用語説明：
+*   **Incremental Results (増分結果):** クエリが実行中に部分的な結果を返す機能で、大規模なクエリにおいてユーザーがより早く結果の一部を確認できるようになることで、対話性を向上させます。現状はプレビュー機能です。
+*   **BigLakeConfiguration:** BigQueryが外部データソース（Cloud Storageなど）に保存されたデータをテーブルとして扱う際に利用する構成で、マネージドIcebergテーブルのサポートはこのBigLake機能の一部として提供されます。
+*   **WriteTruncateData:** Goクライアントライブラリと同様に、BigQueryのロードジョブやDMLにおける`WRITE_TRUNCATE`ディスポジションと同様に、ターゲットテーブルを上書きする書き込みモードを示す新しい列挙型です。
+*   **job_id:** BigQueryジョブを一意に識別するためのIDです。通常、ジョブが送信される際に自動的に生成されますが、ユーザーが明示的に指定することも可能です。
+*   **job_retry:** クエリジョブが一時的なエラーで失敗した場合に、自動的に再試行するメカニズムです。
+
 # Title: May 16, 2025 
 Link: https://cloud.google.com/release-notes#May_16_2025<br>
 ## Cloud Load Balancing 
