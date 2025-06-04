@@ -1,3 +1,642 @@
+# Title: June 03, 2025 
+Link: https://cloud.google.com/release-notes#June_03_2025<br>
+Google Cloud インフラエンジニアとして、指定されたリリースノートに基づき、貴社サービスへの影響調査結果をご報告いたします。
+
+---
+
+# Apigee X
+## Announcement
+原文: On June 3, 2025, we released an updated version of Apigee.
+説明: 2025年6月3日にApigeeの更新バージョンがリリースされる予定である、というアナウンスです。原文の"released"は過去形ですが、日付が未来であることから「リリースされる予定である」という告知と解釈されます。このアナウンス自体には、具体的な変更内容や新機能、既存機能への影響に関する詳細は含まれていません。
+影響有無: 現時点（2024年6月）では、このアナウンスが指すリリースはまだ行われていないため、**直接的な影響はございません。** これは、将来のリリースに関する事前告知であり、現在のApigee X環境にすぐに変更や機能追加が適用されるものではありません。
+対処方法: 現時点での即座の対応は不要です。しかし、2025年6月3日以降にリリースされるであろうApigeeの更新バージョンに関する詳細情報（例: リリースノート、非互換性のある変更、新機能、アップグレードパスなど）が公開された際には、その内容を確認し、貴社Apigee X環境への影響を再評価する必要があります。必要に応じて、更新バージョンの検証計画を立てることを推奨します。
+用語説明:
+*   **Apigee X**: Google Cloud が提供するAPI管理プラットフォームです。APIの設計、セキュアな公開、デプロイ、監視、スケーリングといったライフサイクル全般を管理します。
+*   **Announcement**: 公式な発表や告知のことです。今回は将来のリリースに関する予告として使用されています。
+*   **Updated version**: 既存のソフトウェアやサービスの改善、新機能追加、バグ修正などが行われた新しいバージョンを指します。
+# Title: June 02, 2025 
+Link: https://cloud.google.com/release-notes#June_02_2025<br>
+Google Cloud リリースノートの調査結果について、製品ごとにお知らせいたします。
+
+---
+
+# Apigee X
+
+## Announcement
+原文: On June 2, 2025, we released an updated version of Apigee (1-15-0-apigee-5).
+> **Note:** Rollouts of this release began today and may take four or more business days to be completed across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
+
+説明: Apigee X の新バージョン (1-15-0-apigee-5) が2025年6月2日にリリースされました。このロールアウトは本日開始され、すべてのGoogle Cloudゾーンで完了するまでに4営業日以上かかる場合があります。ロールアウトが完了するまで、お客様のインスタンスで新機能や修正が利用できない可能性があります。
+
+影響有無: 影響はありません。Apigee X はGoogle Cloudが管理するマネージドサービスであるため、バージョンアップはGoogle側で自動的に適用されます。既存のAPIプロキシやAPIプロダクトの動作に破壊的な変更をもたらすものではなく、主に機能改善やバグ修正が含まれています。新機能や修正はロールアウト完了後に利用可能となります。
+
+対処方法: 特段の対処は不要です。ロールアウトが完了するのを待ち、新機能や修正の恩恵を受けることができます。
+
+## Fixed
+原文:
+| Bug ID | Description |
+| --- | --- |
+| **410670597** | **Fixed the proxy response count metric (`proxy/response_count`) for EventFlow-enabled streaming proxies.** |
+| **375360455** | **Resolved issues with connection termination when using HTTP streaming** Added automatic retries for connection reset due to upstream services. |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+Added automatic retries for connection reset due to upstream services.
+
+説明:
+以下のバグが修正されました。
+*   EventFlow が有効なストリーミングプロキシにおいて、プロキシの応答回数メトリック (`proxy/response_count`) の表示が修正されました。
+*   HTTP ストリーミングを使用する際の接続終了に関する問題が解決され、アップストリームサービスからの接続リセットに対する自動リトライ機能が追加されました。
+*   セキュリティインフラストラクチャとライブラリが更新されました。
+
+影響有無: 影響はありません。これらの修正はバグの改善とセキュリティの強化、および接続安定性の向上を目的としており、既存のサービス動作に負の影響を与えることはありません。特に、HTTPストリーミングを利用している場合は接続の安定性が向上し、セキュリティ関連の更新はセキュリティ体制の強化に繋がります。
+
+対処方法: 特段の対処は不要です。既存のサービスに対してポジティブな影響が期待されます。
+
+---
+
+# BigQuery
+
+## Libraries
+### Node.js
+原文:
+## Changes for @google-cloud/bigquery
+[@google-cloud/bigquery](https://github.com/googleapis/nodejs-bigquery)
+[8.1.0](https://github.com/googleapis/nodejs-bigquery/compare/v8.0.0...v8.1.0)
+- Job creation mode GA (#1480) (b51359a)
+- Support per-job reservation assignment (#1477) (8151e72)
+
+説明: BigQuery Node.js クライアントライブラリのバージョン 8.1.0 がリリースされました。
+*   BigQuery ジョブ作成モードがGA (General Availability) になりました。
+*   ジョブごとのリザベーション割り当てがサポートされました。
+
+影響有無: 影響はありません。Node.js クライアントライブラリの更新であり、既存のアプリケーションが明示的にこれらの新機能を利用するようにコードを変更しない限り、既存の動作に影響はありません。これらの機能は主に開発者向けの機能強化であり、安定版として利用できるようになりました。
+お客様の環境ではGoogle Cloud Composer2 (Pythonベース) やGoogle Kubernetes Engine (Go, Java, Node.js, Pythonなど多様な言語を利用可能) をご利用とのことですが、Node.jsアプリケーションをBigQueryと連携させている場合にのみ関連します。
+
+対処方法: Node.jsアプリケーションで BigQuery のジョブ作成モードやジョブごとのリザベーション割り当ての新機能を利用したい場合、クライアントライブラリをバージョン 8.1.0 にアップグレードすることを検討してください。
+
+### Go
+原文:
+## Changes for bigquery/storage/apiv1beta1
+[bigquery/storage/apiv1beta1](https://github.com/googleapis/google-cloud-go/tree/main/bigquery/storage/apiv1beta1)
+[1.69.0](https://github.com/googleapis/google-cloud-go/compare/bigquery/v1.68.0...bigquery/v1.69.0)
+- **bigquery/analyticshub:** Add support for Analytics Hub & Marketplace Integration (2aaada3)
+- **bigquery/analyticshub:** Adding allow_only_metadata_sharing to Listing resource (2aaada3)
+- **bigquery/analyticshub:** Adding CommercialInfo message to the Listing and Subscription resources (2aaada3)
+- **bigquery/analyticshub:** Adding delete_commercial and revoke_commercial to DeleteListingRequest and RevokeSubscriptionRequest (2aaada3)
+- **bigquery/analyticshub:** Adding DestinationDataset to the Subscription resource (2aaada3)
+- **bigquery/analyticshub:** Adding routine field to the SharedResource message (2aaada3)
+- **bigquery:** Add support for dataset view and update modes (#12290) (7c1f961)
+- **bigquery:** Job creation mode GA (#12225) (1d8990d)
+
+説明: BigQuery Go クライアントライブラリのバージョン 1.69.0 がリリースされました。
+*   BigQuery Analytics Hub & Marketplace との連携機能が追加されました。
+*   データセットのビューと更新モードのサポートが追加されました。
+*   BigQuery ジョブ作成モードがGA (General Availability) になりました。
+
+影響有無: 影響はありません。Go クライアントライブラリの更新であり、既存のアプリケーションが明示的にこれらの新機能を利用するようにコードを変更しない限り、既存の動作に影響はありません。Go言語で BigQuery を操作するアプリケーションをご利用の場合にのみ関連します。
+
+対処方法: Goアプリケーションで BigQuery Analytics Hub やデータセットビュー・更新モード、GA化されたジョブ作成モードの新機能を利用したい場合、クライアントライブラリをバージョン 1.69.0 にアップグレードすることを検討してください。
+
+### Python
+原文:
+## Changes for google-cloud-bigquery
+[google-cloud-bigquery](https://github.com/googleapis/python-bigquery)
+[3.34.0](https://github.com/googleapis/python-bigquery/compare/v3.33.0...v3.34.0)
+- Job creation mode GA (#2190) (64cd39f)
+- **deps:** Update all dependencies (#2184) (12490f2)
+- Update query.py (#2192) (9b5ee78)
+- Use query_and_wait in the array parameters sample (#2202) (28a9994)
+
+説明: BigQuery Python クライアントライブラリのバージョン 3.34.0 がリリースされました。
+*   BigQuery ジョブ作成モードがGA (General Availability) になりました。
+*   すべての依存関係が更新されました。
+*   `query.py` が更新され、配列パラメータのサンプルで `query_and_wait` が使用されるようになりました。
+
+影響有無: 影響は低いですが、依存関係の更新が含まれるため、既存のワークロードでまれに影響がある可能性があります。Google Cloud Composer2 (Airflow) は Python 環境で動作しており、BigQuery との連携にこのライブラリを使用している可能性があります。GA 化は機能の安定性を示し、ポジティブな変更です。依存関係の更新は通常、バグ修正やセキュリティパッチ、パフォーマンス改善を含みますが、意図しない挙動の変更がないか、アップグレード前にテスト環境での確認を推奨します。
+
+対処方法: Google Cloud Composer の Airflow DAGs やその他の Python アプリケーションで `google-cloud-bigquery` ライブラリを直接利用している場合、ライブラリのアップグレードを検討する前に、開発環境やテスト環境で既存のワークロードが正常に動作することを確認することを推奨します。新しいGA機能を利用したい場合はアップグレードが必要です。
+
+---
+
+# Pub/Sub
+
+## Libraries
+### Python
+原文:
+## Changes for google-cloud-pubsub
+[google-cloud-pubsub](https://github.com/googleapis/python-pubsub)
+[2.29.1](https://github.com/googleapis/python-pubsub/compare/v2.29.0...v2.29.1)
+- Remove setup.cfg configuration for creating universal wheels (#1376) (60639c4)
+- **sample:** Add samples for topic and subscription SMTs (#1386) (4d072e0)
+- Update documentation for JavaScriptUDF to indicate that the `message_id` metadata field is optional instead of required (#1380) (be90054)
+- Update readme links (#1409) (77ba05d)
+
+説明: Pub/Sub Python クライアントライブラリのバージョン 2.29.1 がリリースされました。
+*   ユニバーサルホイール作成のための `setup.cfg` 設定が削除されました。
+*   トピックおよびサブスクリプションのSMT (Server-side Message Transformations) 用のサンプルが追加されました。
+*   JavaScriptUDF のドキュメントが更新され、`message_id` メタデータフィールドが必須ではなくオプションであることが示されました。
+*   READMEのリンクが更新されました。
+
+影響有無: 影響はありません。これらの変更は、ライブラリのビルド設定、ドキュメントの更新、サンプルコードの追加が主であり、既存のAPIの挙動や機能に直接的な影響を与えるものではありません。Google Cloud Composer の Airflow DAGs で Pub/Sub を利用している場合でも、既存のコードに修正は不要です。
+
+対処方法: 特段の対処は不要です。
+
+---
+
+# Spanner
+
+## Libraries
+### Go
+原文:
+## Changes for spanner/admin/database/apiv1
+[spanner/admin/database/apiv1](https://github.com/googleapis/google-cloud-go/tree/main/spanner/admin/database/apiv1)
+[1.81.0](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.80.0...spanner/v1.81.0)
+- **spanner/spansql:** Add support for DROP SEARCH INDEX and ALTER SEARCH INDEX (#11961) (952cd7f)
+- **spanner:** Row mismatch in SelectAll using custom type (#12222) (ce6a23a)
+[1.81.1](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.81.0...spanner/v1.81.1)
+- **spanner:** Add support of AFE and GRPC metrics in client-side metrics (#12067) (7b77038)
+[1.82.0](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.81.1...spanner/v1.82.0)
+- **spanner/admin/database:** Add throughput_mode to UpdateDatabaseDdlRequest to be used by Spanner Migration Tool. See https (#12287) (2a9d8ee)
+
+説明: Spanner Go クライアントライブラリがバージョン 1.81.0、1.81.1、1.82.0 に更新されました。
+*   Spanner SQL において、検索インデックスの `DROP SEARCH INDEX` および `ALTER SEARCH INDEX` がサポートされました。
+*   カスタム型を使用した `SelectAll` での行の不一致バグが修正されました。
+*   クライアントサイドメトリクスに AFE (Application Front End) および gRPC メトリクスのサポートが追加されました。
+*   `UpdateDatabaseDdlRequest` に `throughput_mode` が追加され、Spanner Migration Tool で使用できるようになりました。
+
+影響有無: 影響はありません。これらの変更は、Spannerの新機能への対応やバグ修正、メトリクス追加が主であり、既存のGoアプリケーションの動作に破壊的な変更をもたらすものではありません。
+
+対処方法: GoアプリケーションでSpannerの新しいSQL機能やメトリクスを利用したい場合、クライアントライブラリのバージョンアップを検討してください。
+
+### Java
+原文:
+## Changes for google-cloud-spanner
+[google-cloud-spanner](https://github.com/googleapis/java-spanner)
+[6.92.0](https://github.com/googleapis/java-spanner/compare/v6.91.1...v6.92.0)
+- **spanner:** Do not export metrics during shutdown if prev export was less than 30 seconds ago (#12266) (8ad7511)
+- **spanner:** Fix invalid trace in case of skipping trailers (#12235) (e54c439)
+### Changes for google-cloud-spanner
+#### 6.94.0 (2025-05-21)
+[google-cloud-spanner](https://github.com/googleapis/java-spanner)
+[6.94.0](https://github.com/googleapis/java-spanner/compare/v6.93.0...v6.94.0)
+- [Internal] client-side metrics for afe latency and connectivity error (#3819) (a8dba0a)
+- Support begin with AbortedException for manager interface (#3835) (5783116)
+- Add throughput_mode to UpdateDatabaseDdlRequest to be used by Spanner Migration Tool. See https://github.com/GoogleCloudPlatform/spanner-migration-tool (3070f1d)
+- Enable AFE and gRPC metrics for DP (#3852) (203baae)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.56.2 (11bfd90)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.58.0 (3070f1d)
+- Remove trailing semicolons in DDL (#3879) (ca3a67d)
+- Change server timing duration attribute to float as per w3c (#3851) (da8dd8d)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.57.0 (23b985c)
+- Non-ASCII Unicode characters in code (#3844) (85a0820)
+- Only close and return sessions once (#3846) (32b2373)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.46.2 (#3836) (2ee7f97)
+[6.93.0](https://github.com/googleapis/java-spanner/compare/v6.92.0...v6.93.0)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.48.0 (#3869) (afa17f7)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.48.0 (#3880) (f3b00b6)
+- Update dependency com.google.cloud.opentelemetry:exporter-metrics to v0.34.0 (#3861) (676b14f)
+- Update dependency commons-io:commons-io to v2.19.0 (#3863) (80a6af8)
+- Update dependency io.opentelemetry:opentelemetry-bom to v1.50.0 (#3865) (ae63050)
+- Update googleapis/sdk-platform-java action to v2.58.0 (#3870) (d1e45fa)
+- Update opentelemetry.version to v1.50.0 (#3866) (f7e09b8)
+- Add samples for unnamed (positional) parameters (#3849) (035cadd)
+
+説明: Spanner Java クライアントライブラリがバージョン 6.92.0、6.93.0、6.94.0 に更新されました。
+*   シャットダウン時のメトリクスエクスポートやトレースに関するバグが修正されました。
+*   AFEレイテンシや接続エラーに関するクライアントサイドメトリクスのサポートが追加・改善されました。
+*   `UpdateDatabaseDdlRequest` に `throughput_mode` が追加され、Spanner Migration Tool で使用できるようになりました。
+*   各種依存関係が更新されました。
+*   DDLの末尾のセミコロンの削除や、サーバータイミングの属性変更など、細かな改善が行われました。
+*   セッションのクローズと返却に関するロジックが修正されました。
+*   名前なし（位置指定）パラメータのサンプルが追加されました。
+
+影響有無: 影響はありません。これらの変更はバグ修正、パフォーマンス改善、機能追加、依存関係の更新が主であり、既存のJavaアプリケーションの動作に破壊的な変更をもたらすものではありません。Spannerとの連携において安定性や監視性が向上します。
+
+対処方法: JavaアプリケーションでSpannerのこれらの改善や新機能を利用したい場合、クライアントライブラリのバージョンアップを検討してください。
+
+### Node.js
+原文:
+## Changes for @google-cloud/spanner
+[@google-cloud/spanner](https://github.com/googleapis/nodejs-spanner)
+[8.0.0](https://github.com/googleapis/nodejs-spanner/compare/v7.21.0...v8.0.0)
+- remove the arrify package (#2292)
+- migrate to Node 18 (#2271)
+- Add promise based signatures for createQueryPartitions (#2284) (255d8a6)
+- Add promise based signatures on createReadPartitions (#2300) (7b8a1f7)
+- Support promise based signatures for execute method (#2301) (bb857e1)
+- **deps:** Update dependency @google-cloud/kms to v5 (#2289) (1ccb505)
+- **deps:** Update dependency @google-cloud/precise-date to v5 (#2290) (44f7575)
+- **deps:** Update dependency big.js to v7 (#2286) (0911297)
+- Migrate to Node 18 (#2271) (cab3f22)
+- Remove the arrify package (#2292) (e8f5ca1)
+
+説明: Spanner Node.js クライアントライブラリがバージョン 8.0.0 に更新されました。これは**メジャーバージョンアップ**です。
+*   `arrify` パッケージが削除されました。
+*   Node.js 18 への移行が行われました。
+*   `createQueryPartitions`、`createReadPartitions`、`execute` メソッドに Promise ベースのシグネチャが追加されました。
+*   `@google-cloud/kms`、`@google-cloud/precise-date`、`big.js` などの依存関係が更新されました。
+
+影響有無: 影響があります。本バージョンはメジャーバージョンアップ（8.0.0）であり、特に「`migrate to Node 18`」の記載から、Node.js 18より古いバージョンで動作するアプリケーションでは互換性の問題が発生する可能性があります。Google Kubernetes Engine (GKE) 上で Node.js アプリケーションが Spanner クライアントライブラリを使用している場合、アプリケーションの Node.js ランタイムバージョンと互換性を確認する必要があります。新しい Promise ベースのシグネチャは新機能であるため、既存のコールバックベースのコードに直接影響はありませんが、ライブラリの内部的な変更や依存関係の更新によって予期せぬ挙動が発生する可能性も考慮すべきです。
+
+対処方法: Spanner Node.js クライアントライブラリをバージョン 8.0.0 にアップグレードする前に、以下の対応を強く推奨します。
+1.  **Node.js ランタイムの確認**: アプリケーションが動作している Node.js のバージョンが 18 以降であることを確認してください。もし古いバージョンの場合は、Node.js 18へのアップグレードを検討し、アプリケーションの互換性テストを実施してください。
+2.  **テスト環境での十分な検証**: メジャーバージョンアップであるため、既存のアプリケーションが正常に動作するかどうかを、テスト環境で徹底的に検証してください。
+3.  **変更点の確認**: `arrify` パッケージの削除など、内部的な変更がアプリケーションに影響しないかを確認
+# Title: May 30, 2025 
+Link: https://cloud.google.com/release-notes#May_30_2025<br>
+Google Cloud リリースノートに関する影響調査結果を報告します。
+
+---
+
+# Apigee X
+
+## Announcement
+原文: On May 30, 2025 we released an updated version of Apigee.
+説明: Apigeeの更新版が2025年5月30日にリリースされたというアナウンスです。現時点では、具体的な変更内容や新機能、互換性に関する詳細情報は含まれていません。
+影響有無: **影響なし (現時点では)**
+理由: このアナウンスは将来のリリースに関するものであり、具体的な変更内容が明示されていません。したがって、現在稼働中のApigeeサービスに直接的な影響はありません。
+対処方法: 現時点での対処は不要です。2025年5月30日以降に公開される詳細なリリースノートやドキュメントを確認し、互換性、新機能、非推奨事項などを評価する必要があります。
+
+---
+
+# Google Kubernetes Engine
+
+## Changed
+原文: GKE cluster versions have been updated.
+**New versions available for upgrades and new clusters.**
+The following Kubernetes versions are now available for new clusters and for opt-in control plane upgrades and node upgrades for existing clusters. For more information on versioning and upgrades, see GKE versioning and support and Upgrades.
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+説明: GKEクラスタのKubernetesバージョンが更新されました。新しいクラスタの作成、および既存クラスタのコントロールプレーンとノードの手動アップグレード向けに、新しいバージョンが利用可能になりました。詳細については、GKEのバージョン管理とサポート、およびアップグレードに関するドキュメントを参照してください。
+影響有無: **影響あり (間接的)**
+理由: GKEクラスタの利用可能なバージョンが更新されたことを示します。現在利用中のGKE 1.31クラスタのオートアップグレードの挙動や、将来のアップグレード計画に影響を与える可能性があります。
+対処方法:
+1.  現在のGKEクラスタがどのリリースチャネル（Stable, Regular, Rapid, Extended）を利用しているか確認してください。
+2.  オートアップグレードを有効にしている場合、設定されているメンテナンスウィンドウとメンテナンス除外期間を考慮し、今後どのバージョンにアップグレードされる可能性があるかを確認してください。
+3.  利用可能な新しいGKEパッチバージョンへのアップグレードを計画し、アプリケーションの互換性を事前にテストすることを推奨します。
+
+## Changed
+原文: The insecure kubelet read-only port (`10255`) is disabled by default in all new clusters that run GKE version 1.32 and later. If you created your cluster using a GKE version earlier than 1.32, we recommend that you disable the insecure kubelet read-only port. For more information see Disable the kubelet read-only port in GKE clusters.
+[Disable the kubelet read-only port in GKE clusters](https://cloud.google.com/kubernetes-engine/docs/how-to/disable-kubelet-readonly-port)
+説明: GKEバージョン1.32以降で作成される新しいクラスタでは、セキュアでないkubeletの読み取り専用ポート（10255番）がデフォルトで無効化されます。GKEバージョン1.32より前に作成されたクラスタを使用している場合でも、この非セキュアなポートを無効にすることが推奨されています。
+影響有無: **影響あり (推奨されるセキュリティ改善)**
+理由: 現在のGKEクラスタがバージョン1.31であるため、この変更の直接的な影響は受けません。しかし、セキュリティのベストプラクティスとして、非セキュアなポートを無効にすることが推奨されています。
+対処方法:
+1.  既存のGKE 1.31クラスタでkubeletの読み取り専用ポート（10255番）が有効になっているか確認してください。
+2.  このポートに依存する監視ツールやカスタムアプリケーションがないか確認してください。
+3.  依存関係がない場合、推奨されるセキュリティ強化策としてポートを無効化することを検討してください。詳細な手順は、提供されたドキュメント「Disable the kubelet read-only port in GKE clusters」を参照してください。
+
+## Changed
+原文: There are no version updates for 2025-R21.
+説明: 2025-R21リリースでは、バージョン更新がないことを示しています。
+影響有無: **影響なし**
+理由: 特定のリリースにおいてバージョン更新がないという情報であり、現在の運用に直接的な影響はありません。
+対処方法: なし。
+
+## Changed (Stable Channel)
+原文: (Note: Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.)
+- The following versions are now available in the Stable channel:
+    - 1.30.11-gke.1217000
+    - 1.31.7-gke.1390000
+- The following versions are no longer available in the Stable channel:
+    - 1.30.11-gke.1131000
+    - 1.31.7-gke.1212000
+- Auto-upgrade targets are now available for the following minor versions:
+    - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.29 to version 1.30.11-gke.1157000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.30 to version 1.31.7-gke.1265000 with this release.
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+    - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.30 to version 1.30.11-gke.1157000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Stable channel will be upgraded from version 1.31 to version 1.31.7-gke.1265000 with this release.
+説明: Stableチャネルで利用可能なGKEバージョンが更新されました。1.30および1.31の新しいパッチバージョンが利用可能になり、古いパッチバージョンは利用不可になりました。また、オートアップグレードのターゲットバージョンも更新され、特に1.31クラスタは1.31.7-gke.1265000へのパッチアップグレードが予定されています。
+影響有無: **影響あり (自動アップグレードの可能性)**
+理由: 現在のGKEクラスタがバージョン1.31であり、Stableチャネルを利用している場合、オートアップグレードが有効であれば、コントロールプレーンとノードが新しいパッチバージョン（1.31.7-gke.1265000）へアップグレードされる可能性があります。
+対処方法:
+1.  現在のGKEクラスタがStableチャネルを使用しているか確認してください。
+2.  クラスタのオートアップグレード設定（メンテナンスウィンドウ、除外期間など）を確認し、計画外のアップグレードが発生しないよう注意してください。
+3.  新しいパッチバージョンへのアップグレードに備え、アプリケーションの互換性を事前にテストすることを推奨します。
+
+## Changed (Regular Channel)
+原文: (Note: Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.)
+- Version 1.32.4-gke.1106006 is now the default version for cluster creation in the Regular channel.
+- The following versions are now available in the Regular channel:
+    - 1.30.12-gke.1086000
+    - 1.31.8-gke.1113000
+    - 1.32.4-gke.1236006
+- The following versions are no longer available in the Regular channel:
+    - 1.30.11-gke.1217000
+    - 1.31.7-gke.1390000
+    - 1.32.3-gke.1927009
+- Auto-upgrade targets are now available for the following minor versions:
+    - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.29 to version 1.30.12-gke.1033000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.31.8-gke.1045000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.32.4-gke.1106006 with this release.
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+    - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.30 to version 1.30.12-gke.1033000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.31 to version 1.31.8-gke.1045000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Regular channel will be upgraded from version 1.32 to version 1.32.4-gke.1106006 with this release.
+説明: Regularチャネルで利用可能なGKEバージョンが更新されました。新規クラスタのデフォルトバージョンが1.32.4-gke.1106006になりました。1.30、1.31、1.32の新しいパッチバージョンが利用可能になり、古いバージョンは利用不可になりました。オートアップグレードのターゲットも更新され、特に1.31クラスタは1.31.8-gke.1045000へのパッチアップグレード、または1.32.4-gke.1106006へのマイナーバージョンアップグレードが予定されています。
+影響有無: **影響あり (自動アップグレードの可能性)**
+理由: 現在のGKEクラスタがバージョン1.31であり、Regularチャネルを利用している場合、オートアップグレードが有効であれば、コントロールプレーンとノードが新しいパッチバージョン（1.31.8-gke.1045000）へ、またはマイナーバージョンアップグレードとして1.32.4-gke.1106006へアップグレードされる可能性があります。
+対処方法:
+1.  現在のGKEクラスタがRegularチャネルを使用しているか確認してください。
+2.  クラスタのオートアップグレード設定（メンテナンスウィンドウ、除外期間など）を確認し、計画外のアップグレードが発生しないよう注意してください。
+3.  新しいパッチバージョンまたはマイナーバージョンへのアップグレードに備え、アプリケーションの互換性を事前にテストすることを強く推奨します。特にマイナーバージョンアップグレードはKubernetes APIの非互換変更を含む可能性があるため、十分な検証が必要です。
+
+## Changed (Rapid Channel)
+原文: (Note: Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.)
+- Version 1.33.0-gke.2248000 is now the default version for cluster creation in the Rapid channel.
+- The following versions are now available in the Rapid channel:
+    - 1.30.12-gke.1168000
+    - 1.31.9-gke.1044000
+    - 1.32.4-gke.1415000
+    - 1.33.1-gke.1107000
+- The following versions are no longer available in the Rapid channel:
+    - 1.30.12-gke.1086000
+    - 1.31.9-gke.1005000
+    - 1.33.0-gke.1868000
+- Auto-upgrade targets are now available for the following minor versions:
+    - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.29 to version 1.30.12-gke.1151000 with this release.
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+    - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.30 to version 1.30.12-gke.1151000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Rapid channel will be upgraded from version 1.33 to version 1.33.0-gke.2248000 with this release.
+説明: Rapidチャネルで利用可能なGKEバージョンが更新されました。新規クラスタのデフォルトバージョンが1.33.0-gke.2248000になりました。1.30、1.31、1.32、1.33の新しいパッチバージョンが利用可能になり、古いバージョンは利用不可になりました。オートアップグレードのターゲットも更新されています。
+影響有無: **影響なし (間接的)**
+理由: 現在のGKEクラスタがバージョン1.31であり、Rapidチャネルは通常、本番環境での利用が推奨されないため、直接的な影響は小さいと考えられます。しかし、将来のバージョンアップグレードの傾向を把握するために参考になります。
+対処方法: 現時点での対処は不要ですが、将来的なアップグレードパスの検討材料として情報を把握しておくことが推奨されます。
+
+## Changed (General Availability / Default)
+原文: (Note: Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.)
+- Version 1.32.4-gke.1106006 is now the default version for cluster creation.
+- The following versions are now available:
+    - 1.30.12-gke.1168000
+    - 1.31.9-gke.1044000
+    - 1.32.4-gke.1415000
+- The following node versions are now available:
+    - 1.27.16-gke.2820000
+    - 1.28.15-gke.2303000
+    - 1.29.15-gke.1415000
+    - 1.30.12-gke.1168000
+    - 1.31.9-gke.1044000
+    - 1.32.4-gke.1415000
+- The following versions are no longer available:
+    - 1.30.11-gke.1131000
+    - 1.31.7-gke.1212000
+    - 1.31.9-gke.1005000
+    - 1.32.3-gke.1785003
+    - 1.32.4-gke.1106000
+- Auto-upgrade targets are now available for the following minor versions:
+    - Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.29 to version 1.30.12-gke.1033000 with this release.
+    - Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.30 to version 1.31.7-gke.1265000 with this release.
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+    - Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.30 to version 1.30.12-gke.1033000 with this release.
+    - Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.31 to version 1.31.7-gke.1265000 with this release.
+    - Control planes and nodes with auto-upgrade enabled will be upgraded from version 1.32 to version 1.32.4-gke.1106006 with this release.
+説明: GKEクラスタ作成のデフォルトバージョンが1.32.4-gke.1106006になりました。広範なGKEバージョンとノードバージョンが更新され、利用可能になったバージョンと利用不可になったバージョンが示されています。オートアップグレードのターゲットも更新され、特に1.31クラスタは1.31.7-gke.1265000へのパッチアップグレードが予定されています。
+影響有無: **影響あり (自動アップグレードの可能性)**
+理由: 現在のGKEクラスタがバージョン1.31であり、オートアップグレードが有効な場合、コントロールプレーンとノードが新しいパッチバージョン（1.31.7-gke.1265000）へアップグレードされる可能性があります。また、新規クラスタのデフォルトバージョン変更は、今後の環境構築に影響します。
+対処方法:
+1.  クラスタのオートアップグレード設定を確認し、計画外のアップグレードが発生しないよう注意してください。
+2.  新しいパッチバージョンへのアップグレードに備え、アプリケーションの互換性を事前にテストすることを推奨します。
+3.  今後のGKEクラスタ新規作成時は、デフォルトバージョンが1.32系になることを認識し、計画に含めてください。
+
+## Changed (Extended Channel)
+原文: (Note: Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.)
+- Version 1.32.4-gke.1106006 is now the default version for cluster creation in the Extended channel.
+- The following versions are now available in the Extended channel:
+    - 1.27.16-gke.2771000
+    - 1.27.16-gke.2820000
+    - 1.28.15-gke.2239000
+    - 1.28.15-gke.2303000
+    - 1.29.15-gke.1325000
+    - 1.29.15-gke.1415000
+    - 1.30.12-gke.1086000
+    - 1.31.8-gke.1113000
+    - 1.32.4-gke.1236006
+- The following versions are no longer available in the Extended channel:
+    - 1.27.16-gke.2703000
+    - 1.27.16-gke.2810000
+    - 1.28.15-gke.2169000
+    - 1.28.15-gke.2287000
+    - 1.29.15-gke.1240000
+    - 1.29.15-gke.1395000
+    - 1.30.11-gke.1217000
+    - 1.31.7-gke.1390000
+    - 1.32.3-gke.1927009
+- Auto-upgrade targets are now available for the following minor versions:
+    - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.27 to version 1.28.15-gke.2192000 with this release.
+- The following patch-only version auto-upgrade targets are now available for clusters with maintenance exclusions or other factors preventing minor version upgrades:
+    - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.27 to version 1.27.16-gke.2732000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.28 to version 1.28.15-gke.2192000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.29 to version 1.29.15-gke.1274000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.30 to version 1.30.12-gke.1033000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.31 to version 1.31.8-gke.1045000 with this release.
+    - Control planes and nodes with auto-upgrade enabled in the Extended channel will be upgraded from version 1.32 to version 1.32.4-gke.1106006 with this release.
+説明: Extendedチャネルで利用可能なGKEバージョンが更新されました。新規クラスタのデフォルトバージョンが1.32.4-gke.1106006になりました。複数のGKEバージョンが利用可能になり、古いバージョンは利用不可になりました。オートアップグレードのターゲットも更新され、特に1.31クラスタは1.31.8-gke.1045000へのパッチアップグレードが予定されています。
+影響有無: **影響なし (間接的)**
+理由: 現在のGKEクラスタがバージョン1.31であり、Extendedチャネルを利用していない場合は直接的な影響はありません。ただし、GKEクラスタがこのチャネルに切り替わる場合、オートアップグレードの対象となる可能性があります。
+対処方法: 現時点での対処は不要ですが、将来的にExtendedチャネルの利用を検討する場合は、その動向を把握しておくことが推奨されます。
+
+---
+
+**用語説明:**
+
+*   **Google Cloud Composer2 (Compoer version 2.7.1, Airflow version 2.7.3)**: Google Cloud上でApache Airflowをマネージドサービスとして実行するためのプラットフォーム。指定されたバージョンは、Composerのメジャーバージョンと、その内部で実行されるAirflowのバージョンを示します。
+*   **Google Kubernetes Engine (GKE) 1.31**: Google Cloud上でKubernetesクラスタをマネージドサービスとして提供するGKEの特定のバージョン。1.31はKubernetesのマイナーバージョンを指し、安定性や新機能に影響します。
+*   **リリースチャネル (Release Channel)**: GKEクラスタのKubernetesバージョンが提供される頻度と安定性を決定する設定。主にRapid、Regular、Stable、Extendedチャネルがあり、新しい機能の早期アクセスと安定性のバランスを選択できます。
+    *   **Rapid Channel**: 最新のKubernetesバージョンが最も早く提供されるが、安定性は保証されない。開発環境や新機能の検証向け。
+    *   **Regular Channel**: 新機能と安定性のバランスが取れたチャネル。デフォルトで推奨されることが多い。
+    *   **Stable Channel**: テストと検証が最も行われた、安定性の高いバージョンが提供される。本番環境で推奨されることが多い。
+    *   **Extended Channel**: Stableチャネルよりも長期サポートが提供されるチャネル。特定の要件を持つ場合に選択される。
+*   **オートアップグレード (Auto-upgrade)**: GKEクラスタのコントロールプレーンおよびノードが、Google Cloudによって自動的に新しいバージョンにアップグレードされる機能。メンテナンスウィンドウや除外期間を設定することで、アップグレードのタイミングを制御できます。
+*   **kubelet read-only port (10255)**: Kubernetesノード上で動作するkubeletエージェントが提供する、監視や診断のための読み取り専用ポート。セキュリティ上の理由から、このポートは非推奨となり、デフォルトで無効化される傾向にあります。
+*   **メンテナンスウィンドウ (Maintenance Window)**: GKEクラスタの自動アップグレードやその他のメンテナンス活動が行われることを許可する時間帯。
+*   **メンテナンス除外 (Maintenance Exclusions)**: GKEクラスタの自動アップグレードを特定の期間、一時的に停止する設定。重要なイベント期間や、アプリケーションのデプロイ期間中にアップグレードを回避するために使用されます。
+# Title: May 29, 2025 
+Link: https://cloud.google.com/release-notes#May_29_2025<br>
+はい、承知いたしました。Google Cloud のインフラエンジニアとして、提供されたリリースノートに基づき、構築済みのサービスへの影響有無を調査し、簡潔に回答いたします。
+
+---
+
+# Apigee X
+
+## Announcement
+**原文:** On May 29, 2025 we announced the shutdown schedule for the Apigee Classic UI.
+**説明:** Apigee の旧UI (Apigee Classic UI) のシャットダウン計画が発表されました。これは、Apigee 管理機能がGoogle Cloud Consoleに完全に移行されるためです。
+**影響有無:** 直接的な機能の変更ではありませんが、将来的にApigee Classic UIを利用している場合は管理インターフェースの変更が必要になります。
+**対処方法:** 後述のDeprecationの項目で詳細をご確認ください。
+**用語説明:**
+*   **Apigee Classic UI:** Google Cloud Consoleに統合される前の、従来のApigee管理画面を指します。
+
+## Announcement
+**原文:** On May 29, 2025, we released an updated version of Apigee.
+**説明:** Apigee の更新版がリリースされました。
+**影響有無:** このアナウンス単体では、具体的な機能や互換性への直接的な影響は特定できません。一般的に、更新版のリリースは機能改善やバグ修正が含まれますが、現在の構成に即座に影響を与えるような破壊的変更は、通常、別途明確にアナウンスされます。
+**対処方法:** 特にこのアナウンス項目に対する直接的な対処は不要です。詳細な変更内容については、別途Apigeeのリリースノートやドキュメントで確認することをお勧めします。
+**用語説明:** なし
+
+## Deprecated
+**原文:**
+The Apigee Classic UI will be shutdown as of August 29, 2025.
+This is the final phase of moving Apigee to the Google Cloud console. Apigee in the Google Cloud console gives you the ability to manage all of your Apigee functionality in one place.
+To prepare for the shutdown of the Apigee Classic UI, familiarize yourself with the new Apigee UI in Google Cloud console by reviewing UI overview.
+[UI overview](https://cloud.google.com/apigee/docs/api-platform/fundamentals/ui-overview)
+See Apigee Classic UI shutdown for details on shutdown dates and exception request.
+[Apigee Classic UI shutdown](https://cloud.google.com/apigee/docs/deprecations/apigee-classic-ui)
+
+**説明:** Apigee の従来のUI (Apigee Classic UI) が、**2025年8月29日**をもってシャットダウンされます。これにより、Apigee の全ての管理機能がGoogle Cloud Console上の新しいApigee UIに統合され、一元的に管理できるようになります。利用者は、シャットダウンに備えて新しいUIに慣れておくよう推奨されています。シャットダウンに関する詳細な情報や例外申請については、提供されたリンク先のドキュメントを参照してください。
+
+**影響有無:** **重大な影響あり。** 現在Apigee Classic UIを利用してApigeeインスタンスの管理や運用を行っている場合、2025年8月29日以降はClassic UIにアクセスできなくなり、機能の操作ができなくなります。Apigeeの機能自体は引き続きGoogle Cloud Console経由で利用可能ですが、管理・運用方法の変更が必要となります。
+
+**対処方法:**
+1.  **利用状況の確認:** 現在Apigee Classic UIを使用しているかどうかを確認してください。特に、定期的な運用業務や特定の設定変更作業でClassic UIに依存していないか洗い出してください。
+2.  **新しいUIへの移行準備:** Google Cloud Console内の新しいApigee UIの操作に慣れるための準備を開始してください。
+    *   新しいUIの概要に関するドキュメントを確認する: [UI overview](https://cloud.google.com/apigee/docs/api-platform/fundamentals/ui-overview)
+3.  **シャットダウン詳細の確認:** Apigee Classic UIのシャットダウンに関する詳細なドキュメントを確認し、シャットダウンの正確な日時、および組織の状況に応じた例外申請の可能性について理解してください。
+    *   詳細ドキュメント: [Apigee Classic UI shutdown](https://cloud.google.com/apigee/docs/deprecations/apigee-classic-ui)
+4.  **内部プロセスの見直し:** 新しいUIでの管理・運用プロセスをチーム内で共有し、必要に応じて既存のドキュメントやトレーニングを更新してください。
+
+**用語説明:**
+*   **Deprecated (非推奨):** 今後、その機能やサービスが廃止される予定であること、または利用が推奨されなくなることを意味します。通常、代替手段が提供されます。
+*   **Google Cloud Console:** Google Cloudの各種サービス（Compute Engine, Cloud Storage, Apigeeなど）をウェブブラウザ上で一元的に管理・設定するためのグラフィカルユーザーインターフェースです。
+*   **UI (User Interface):** ユーザーがシステムやソフトウェアとやり取りするための視覚的、操作的な要素のことです。
+# Title: May 26, 2025 
+Link: https://cloud.google.com/release-notes#May_26_2025<br>
+以下、Google Cloudのリリースノートに対する影響調査結果です。
+
+---
+
+# BigQuery
+## Libraries
+原文: A weekly digest of client library updates from across the Cloud SDK.
+説明: Cloud SDKに含まれるクライアントライブラリの週間更新の概要です。
+
+## Changed (Java)
+原文:
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.48.0 (#3790) (206f06d)
+- Update netty.version to v4.2.1.final (#3780) (6dcd858)
+- **bigquery:** Update TableResult.getTotalRows() docstring (#3785) (6483588)
+説明: BigQueryのJavaクライアントライブラリ `google-cloud-bigquery` のバージョン2.50.1への更新です。内部依存ライブラリ (`sdk-platform-java-config`, `netty`) のバージョンアップと、`TableResult.getTotalRows()` メソッドのドキュメント文字列の修正が含まれています。
+影響有無: なし。
+理由: これはJavaクライアントライブラリの内部的な依存関係の更新とドキュメントの修正であり、BigQueryサービス自体や既存のJavaアプリケーションの動作に直接的な変更を強制するものではありません。
+対処方法: JavaアプリケーションでBigQueryクライアントライブラリの特定のバージョンを固定している場合、新機能の利用や潜在的なバグ修正のために更新を検討できます。
+
+## Changed (Python)
+原文:
+- Add ability to set autodetect_schema query param in update_table (#2171) (57f940d)
+- Add dtype parameters to to_geodataframe functions (#2176) (ebfd0a8)
+- Support job reservation (#2186) (cb646ce)
+- Ensure AccessEntry equality and repr uses the correct `entity_type` (#2182) (0217637)
+- Ensure SchemaField.field_dtype returns a string (#2188) (7ec2848)
+説明: BigQueryのPythonクライアントライブラリ `google-cloud-bigquery` のバージョン3.33.0への更新です。`update_table` メソッドでの `autodetect_schema` クエリパラメータ設定機能の追加、`to_geodataframe` 関数への `dtype` パラメータ追加、ジョブ予約のサポート、および `AccessEntry` と `SchemaField` の動作に関する内部的な修正が含まれています。
+影響有無: なし。
+理由: これはPythonクライアントライブラリの新機能追加と内部的な修正であり、BigQueryサービス自体や既存のPythonアプリケーションの動作に直接的な変更を強制するものではありません。
+対処方法: Pythonアプリケーションで新しい機能（例: ジョブ予約、スキーマ自動検出の指定）を利用したい場合は、クライアントライブラリを更新してください。既存のコードに影響はないと考えられますが、更新前にテスト環境での動作確認を推奨します。
+
+---
+
+# Cloud Composer
+利用中のバージョン: Google Cloud Composer2 (Compoer version 2.7.1、Airflow version 2.7.3)
+
+## Announcement
+原文: A new Cloud Composer release has started on May 26, 2025. Get ready for upcoming changes and features as we roll out the new release to all regions. This release is in progress at the moment. Listed changes and features might not be available in some regions yet.
+説明: 2025年5月26日よりCloud Composerの新しいリリースが開始されたとのアナウンスです。新機能や変更が全リージョンに展開中であり、一部リージョンではまだ利用できない可能性があるとのことです。
+影響有無: なし。
+理由: これはリリース開始のアナウンスであり、具体的な変更内容は後続のセクションで示されます。現在の環境が自動的にアップデートされるわけではありません。
+対処方法: 後続の具体的な変更内容を注視し、自身の環境への影響がないか確認します。
+
+## Fixed (Cloud Composer 3)
+原文: (Cloud Composer 3) It's now possible to override the default scopes of access tokens in all regions supported by Cloud Composer 3. This fix was announced previously and has finished gradually rolling out.
+説明: Cloud Composer 3において、アクセストークンのデフォルトスコープを上書きできるようになった修正が、全リージョンで展開完了したとのことです。
+影響有無: なし。
+理由: これはCloud Composer 3に関する修正であり、現在の環境はCloud Composer 2 (2.7.1) のため直接的な影響はありません。
+対処方法: なし。
+
+## Changed (Airflow 2.10.5 and 2.9.3)
+原文: (Airflow 2.10.5 and 2.9.3) The `apache-airflow-providers-cncf-kubernetes` package was upgraded to version 10.4.3 from version 10.1.0.
+説明: Airflow 2.10.5および2.9.3において、Kubernetesプロバイダーパッケージ `apache-airflow-providers-cncf-kubernetes` がバージョン10.1.0から10.4.3にアップグレードされました。
+影響有無: 可能性あり。
+理由: 現在のAirflowバージョンは2.7.3であるため、この変更による直接的な影響はありません。しかし、将来的にCloud Composer 2環境をAirflow 2.9.3または2.10.5にアップグレードした場合、GKE関連のDAG (例: KubernetesPodOperatorを使用している場合) に影響が出る可能性があります。
+対処方法: 将来的にAirflowバージョン2.9.3または2.10.5へのアップグレードを検討する際に、`apache-airflow-providers-cncf-kubernetes` の変更ログ（リンク参照）を確認し、GKE上で動作するDAGの互換性テストを実施してください。
+
+## Changed (New Airflow builds are available in Cloud Composer 3)
+原文:
+- composer-3-airflow-2.10.5-build.4 (default)
+- composer-3-airflow-2.9.3-build.24
+説明: Cloud Composer 3向けの新しいAirflowビルドイメージ (`composer-3-airflow-2.10.5-build.4` と `composer-3-airflow-2.9.3-build.24`) が利用可能になりました。
+影響有無: なし。
+理由: これはCloud Composer 3向けの新しいイメージであり、現在の環境はCloud Composer 2のため直接的な影響はありません。
+対処方法: なし。
+
+## Changed (New images are available in Cloud Composer 2)
+原文:
+- composer-2.13.2-airflow-2.10.5 (default)
+- composer-2.13.2-airflow-2.9.3
+説明: Cloud Composer 2向けの新しいイメージ (`composer-2.13.2-airflow-2.10.5` と `composer-2.13.2-airflow-2.9.3`) が利用可能になりました。
+影響有無: なし（現在のバージョンでは）。将来的に可能性あり。
+理由: 現在のCloud Composerのバージョンは2.7.1、Airflowは2.7.3です。今回リリースされたイメージは `composer-2.13.2` であり、現在の環境が自動的にこの新しいイメージにアップグレードされるわけではありません。そのため、現在の運用には直接的な影響はありません。
+対処方法: 将来的にComposer環境をこれらの新しいイメージにアップグレードを検討する際は、Airflowのバージョンアップ（2.7.3から2.9.3または2.10.5へ）に伴うDAGの互換性確認と、前述の `apache-airflow-providers-cncf-kubernetes` パッケージの変更（Cloud Composer 2.13.2イメージに含まれる可能性があります）による影響がないか、十分にテストしてください。
+
+---
+
+# Cloud Logging
+## Announcement
+原文: Cloud Logging begins enforcement of the new volume-based regional quotas. These quotas replace the single, global quota for the number of calls to write log entries. For more information, see Logging API quotas and limits.
+説明: Cloud Loggingが、ログエントリ書き込みAPI呼び出しに対する新しいボリュームベースのリージョンクォータの適用を開始しました。これにより、従来の単一のグローバルクォータは置き換えられます。
+影響有無: 可能性あり。
+理由: ロギングのクォータ体系が変更されるため、特定のリージョンで大量のログを書き込んでいるワークロードがある場合、新しいリージョンごとのクォータに抵触する可能性があります。既存のグローバルクォータでは問題なかったが、リージョンクォータに分割されることで影響を受けるケースが考えられます。
+対処方法:
+1.  [Logging API quotas and limits](https://cloud.google.com/logging/quotas#api-limits) のドキュメントを確認し、新しいリージョンクォータの詳細を把握してください。
+2.  Cloud Loggingのクォータ使用状況をモニタリングし、特にログ書き込みが多いリージョンでの使用量を確認してください。
+3.  必要に応じて、ログの生成量を最適化するか、クォータの引き上げリクエストを検討してください。
+
+## Libraries
+原文: A weekly digest of client library updates from across the Cloud SDK.
+説明: Cloud SDKに含まれるクライアントライブラリの週間更新の概要です。
+
+## Changed (Java)
+原文:
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.58.0 (45b4878)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.48.0 (#1808) (6327c51)
+- Update googleapis/sdk-platform-java action to v2.58.0 (#1806) (b94da77)
+説明: Cloud LoggingのJavaクライアントライブラリ `google-cloud-logging` のバージョン3.22.4への更新です。Javaコードジェネレータや内部依存ライブラリ (`sdk-platform-java-config`) のバージョンアップが含まれています。
+影響有無: なし。
+理由: これはJavaクライアントライブラリの内部的な依存関係の更新であり、Cloud Loggingサービス自体や既存のJavaアプリケーションの動作に直接的な変更を強制するものではありません。
+対処方法: JavaアプリケーションでCloud Loggingクライアントライブラリの特定のバージョンを固定している場合、新機能の利用や潜在的なバグ修正のために更新を検討できます。
+
+---
+
+# Pub/Sub
+## Libraries
+原文: A weekly digest of client library updates from across the Cloud SDK.
+説明: Cloud SDKに含まれるクライアントライブラリの週間更新の概要です。
+
+## Changed (Go)
+原文: pubsub/apiv1
+説明: Pub/SubのGoクライアントライブラリ (`pubsub/apiv1`) の更新情報が提供されていますが、具体的な変更内容は記載されていません。
+影響有無: なし（現時点では不明確）。
+理由: リリースノートに具体的な変更内容が記載されていないため、現時点での影響を評価することはできません。一般的に、クライアントライブラリの更新は後方互換性を保ちつつ、バグ修正やパフォーマンス改善、新機能の追加が行われます。
+対処方法: Goクライアントライブラリを使用してPub/Subにアクセスしている場合、提供されているリンク（`pubsub/apiv1`）からGitHubリポジトリの変更履歴を確認し、自身のワークロードに関連する変更がないか確認してください。必要に応じて、ライブラリの更新を検討し、テスト環境での動作確認を推奨します。
+
+---
+
+**用語説明:**
+
+*   **Cloud SDK (Google Cloud SDK)**: Google Cloud とやり取りするためのツールセットです。コマンドラインツール (gcloud CLI) やクライアントライブラリなどが含まれます。
+*   **クライアントライブラリ (Client Library)**: Google Cloud のサービスをプログラムから利用するためのSDK (Software Development Kit) の一部です。特定のプログラミング言語 (Java, Python, Goなど) で利用しやすいように、API呼び出しを抽象化して提供します。
+*   **依存関係 (Dependency)**: プログラムやライブラリが正しく機能するために必要な、他のライブラリやコンポーネントのことです。
+*   **Docstring (Documentation String)**: Pythonなどの言語で、関数、クラス、モジュールなどの目的や使い方を説明するために書かれる文字列のことです。他の言語ではJavadocsのようにドキュメントコメントとして機能します。
+*   **autodetect_schema**: BigQueryにおいて、データをロードする際にテーブルのスキーマを自動的に推測する機能です。
+*   **GeoDataFrame**: Pythonのpandasライブラリを拡張したGeoPandasライブラリで用いられるデータ構造で、地理空間データを扱うためのDataFrameです。
+*   **ジョブ予約 (Job Reservation)**: BigQueryのオンデマンド料金モデルではなく、専用のスロット（計算リソース）を確保してクエリを実行する料金モデル（BigQuery Reservations）を利用するための機能です。
+*   **AccessEntry**: BigQueryのテーブルやデータセットに対するアクセス制御エントリで、誰がどのような権限を持つかを定義します。
+*   **SchemaField**: BigQueryのテーブルスキーマを構成する個々のフィールド（カラム）の定義です。
+*   **Cloud Composer**: Google Cloud 上で動作するマネージドなApache Airflowサービスです。ワークフローのオーケストレーションに使用されます。
+*   **Apache Airflow**: プログラムによってワークフローを作成、スケジュール、監視するためのプラットフォームです。
+*   **apache-airflow-providers-cncf-kubernetes**: Apache Airflowのプロバイダーパッケージの一つで、Kubernetes関連の機能（例: KubernetesPodOperator）を提供します。
+*   **Airflow Image**: Cloud Composer環境を構築するために使用される、Airflowと必要な依存関係が事前にバンドルされた仮想マシンイメージです。
+*   **アクセストークン (Access Token)**: 認証が成功した後に発行されるセキュリティトークンで、APIへのアクセスを許可するために使用されます。
+*   **スコープ (Scope)**: アクセストークンが許可するリソースや操作の範囲を定義するものです。
+*   **リージョンクォータ (Regional Quota)**: Google Cloud のサービスが特定のリージョン（地域）ごとに設定する使用量の上限です。これに対し、グローバルクォータは全リージョンで共通の全体使用量の上限です。
+*   **ボリュームベース (Volume-based)**: 使用量やデータ量に基づいて課金または制限が適用される方式です。
 
 # Title: May 23, 2025 
 Link: https://cloud.google.com/release-notes#May_23_2025<br>
