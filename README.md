@@ -1,3 +1,349 @@
+
+# Title: June 09, 2025 
+Link: https://cloud.google.com/release-notes#June_09_2025<br>
+Google Cloud のリリースノートに基づく、各製品への影響調査結果を以下の通りご報告いたします。
+
+---
+
+# API Gateway
+## Announcement
+原文: On June 9, 2025, we released an updated version of API Gateway.
+説明: API Gateway の更新版が2025年6月9日にリリースされるという将来のアナウンスです。現時点での具体的な機能変更や影響については触れられていません。
+影響有無: **影響なし**
+理由: このアナウンスは将来（2025年6月9日）のリリースについて言及しており、現時点での既存システムへの直接的な影響はありません。具体的な変更内容が不明なため、現時点では影響を評価できません。
+対処方法: 現時点での対応は不要です。2025年6月9日以降にリリースされるAPI Gatewayの更新内容について、改めて公式ドキュメントやリリースノートを確認し、ご利用中のAPI Gateway構成に影響がないか評価してください。特に非互換性のある変更（Breaking Change）や料金体系の変更に注意が必要です。
+
+---
+
+# BigQuery
+## Libraries
+### Java Client Library Updates
+原文:
+- **bigquery:** Job creation mode GA (#3804) (a21cde8)
+- **bigquery:** Support Fine Grained ACLs for Datasets (#3803) (bebf1c6)
+- Rollback netty.version to v4.1.119.Final (#3827) (94c71a0)
+- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.65.0 (#3787) (0574ecc)
+- Update dependency com.google.apis:google-api-services-bigquery to v2-rev20250511-2.0.0 (#3794) (d3bf724)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.49.0 (#3811) (2c5ede4)
+
+説明: BigQuery の Java クライアントライブラリ `google-cloud-bigquery` のバージョン 2.51.0 における更新です。主な変更点は以下の通りです。
+*   **Job creation mode GA**: ジョブ作成モードが一般提供（GA）になりました。これは以前からプレビュー版として提供されていた機能の正式リリースを意味します。
+*   **Fine Grained ACLs for Datasets**: データセットに対するきめ細かいアクセス制御リスト（ACL）のサポートが追加されました。
+*   **内部依存関係の更新**: `netty.version` のロールバックや、その他の内部依存ライブラリのバージョンアップが行われました。これらはライブラリの安定性や互換性の改善を目的としています。
+影響有無: **影響なし**
+理由:
+*   **機能追加**: `Job creation mode GA` と `Fine Grained ACLs for Datasets` は新機能の追加やGA化であり、既存のBigQueryの動作や設定に直接的な非互換性のある変更をもたらすものではありません。これらの新機能を利用したい場合にメリットがあります。
+*   **ライブラリ内部変更**: 依存ライブラリの更新は、クライアントライブラリ内部の変更であり、通常、アプリケーションのコードに直接影響を与えるものではありません。
+*   **前提サービスへの影響**:
+    *   **Google Cloud Composer2**: Composerは主にPythonベースのAirflowを使用しており、BigQueryとの連携にはPythonクライアントライブラリが利用されることが一般的です。今回のJavaクライアントライブラリの更新がComposerのAirflow環境に直接影響を与える可能性は低いと考えられます。ただし、もしComposer上でカスタムのJavaアプリケーションや、BigQuery Javaクライアントライブラリに依存するカスタムPythonライブラリを構築・実行している場合は、影響範囲を個別に評価する必要があります。
+    *   **Google Kubernetes Engine 1.31**: GKE上で動作するアプリケーションがBigQuery Javaクライアントライブラリを明示的に使用している場合、このライブラリを新しいバージョンに更新すると、内部的な安定性やパフォーマンスの改善が期待できます。既存のコードへの非互換性のある変更は含まれていません。
+対処方法: 現行システムへの直接的な影響はないため、特段の対応は不要です。BigQueryのジョブ作成やアクセス制御において、より高度な要件がある場合に、GA化されたジョブ作成モードやきめ細かいACLの利用を検討してください。GKE上のJavaアプリケーションでBigQueryクライアントライブラリを利用している場合は、計画的にバージョンアップを検討してください。
+用語説明:
+*   **GA (General Availability)**: 一般提供。サービスや機能が安定版として広く利用可能になり、通常SLA（Service Level Agreement）が適用される状態。
+*   **Fine-Grained ACLs**: きめ細かいアクセス制御リスト。リソースへのアクセス権限を、より詳細な粒度（例: データセット内の一部のテーブルや列）で設定できる機能。
+
+---
+
+# Cloud Logging
+## Libraries
+### Java Client Library Updates
+原文:
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.59.0 (f2362fb)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.49.0 (#1813) (c15da84)
+
+説明: Cloud Logging の Java クライアントライブラリ `google-cloud-logging` のバージョン 3.22.5 における更新です。Java コードジェネレータ（`gapic-generator-java`）のバージョンアップと、その他の内部依存ライブラリの更新が行われました。
+影響有無: **影響なし**
+理由:
+*   **ライブラリ内部変更**: これらはクライアントライブラリ内部の依存関係の更新であり、既存のCloud Loggingの機能や動作に直接的な非互換性のある変更をもたらすものではありません。
+*   **前提サービスへの影響**:
+    *   **Google Cloud Composer2**: Composerは主にPythonベースのAirflowを使用しており、Pythonクライアントライブラリが利用されることが一般的です。今回のJavaクライアントライブラリの更新がComposerのAirflow環境に直接影響を与える可能性は低いと考えられます。
+    *   **Google Kubernetes Engine 1.31**: GKE上で動作するアプリケーションがCloud Logging Javaクライアントライブラリを明示的に使用している場合、このライブラリを新しいバージョンに更新すると、内部的な安定性やパフォーマンスの改善が期待できます。
+対処方法: 現行システムへの直接的な影響はないため、特段の対応は不要です。GKE上のJavaアプリケーションでCloud Loggingクライアントライブラリを利用している場合は、計画的にバージョンアップを検討してください。
+用語説明:
+*   **GAPIC (Google API Client Libraries)**: GoogleのAPIをプログラムから利用するためのクライアントライブラリを自動生成するフレームワーク。API定義（Protobufなど）から、さまざまなプログラミング言語のクライアントライブラリを生成します。
+
+---
+
+# Cloud Storage
+## Libraries
+### Java Client Library Updates
+原文:
+- Expose BucketInfo.getProject as a BigInteger (#3119) (64bbb60), closes #3023
+- **storagecontrol:** Add Anywhere cache control APIs (06572b7)
+- **storagecontrol:** Add Client Libraries Storage IntelligenceConfig (06572b7)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.58.0 (06572b7)
+- Update dependency com.google.apis:google-api-services-storage to v1-rev20250521-2.0.0 (#3118) (e1be49e)
+- Update dependency com.google.apis:google-api-services-storage to v1-rev20250524-2.0.0 (#3127) (2a4499d)
+- Update sdk-platform-java dependencies (#3129) (31cd058)
+- Add explicit Optional annotations to fields that have always been treated as optional (53b6927)
+- Add note that Bucket.project output format is always project number format (53b6927)
+- Add note that managedFolders are supported for GetIamPolicy and SetIamPolicy (53b6927)
+
+説明: Cloud Storage の Java クライアントライブラリ `google-cloud-storage` のバージョン 2.53.0 における更新です。主な変更点は以下の通りです。
+*   **BucketInfo.getProject の戻り値変更**: `BucketInfo.getProject()` メソッドが、プロジェクトIDを文字列ではなく `BigInteger` 型として公開するようになりました。
+*   **Anywhere Cache Control API の追加**: Anywhere Cache 機能をプログラムから制御するためのAPIが追加されました。
+*   **Storage IntelligenceConfig の追加**: Storage Intelligence 機能をプログラムから利用するための設定が追加されました。
+*   **ドキュメンテーションと内部改善**: オプションフィールドへの明示的な`Optional`アノテーションの追加、`Bucket.project`の出力フォーマットに関する注記の追加、`managedFolders`のIAMポリシーサポートに関する注記の追加、および内部依存ライブラリの更新が含まれます。
+影響有無: **要確認 (限定的)**
+理由:
+*   **BucketInfo.getProject の戻り値変更**: `BucketInfo.getProject()` メソッドを直接呼び出しているJavaアプリケーションがある場合、その戻り値の型が `String` から `BigInteger` に変更されたため、コンパイルエラーや実行時エラーが発生する可能性があります。既存のコードがこの変更を考慮して記述されていない場合、修正が必要です。
+*   **機能追加**: Anywhere Cache Control APIとStorage IntelligenceConfigの追加は新機能であり、既存の機能に直接影響を与えません。これらの新機能を利用する際に恩恵があります。
+*   **ドキュメンテーション・内部改善**: その他の変更は、ライブラリの使いやすさや内部的な安定性向上を目的としており、既存の動作に非互換性のある影響を与える可能性は低いです。
+*   **前提サービスへの影響**:
+    *   **Google Cloud Composer2**: Composerは主にPythonベースであり、Cloud Storageとの連携にもPythonクライアントライブラリが使われることが一般的です。今回のJavaクライアントライブラリの更新がComposerのAirflow環境に直接影響を与える可能性は低いと考えられます。ただし、もしComposer上でカスタムのJavaアプリケーションや、Cloud Storage Javaクライアントライブラリに依存するカスタムPythonライブラリを構築・実行しており、かつ `BucketInfo.getProject()` を使用している場合は影響を評価する必要があります。
+    *   **Google Kubernetes Engine 1.31**: GKE上で動作するJavaアプリケーションがCloud Storage Javaクライアントライブラリを明示的に使用し、かつ `BucketInfo.getProject()` メソッドを呼び出している場合、このライブラリを新しいバージョンに更新する際にコード修正が必要となる可能性があります。それ以外の機能は影響ありません。
+対処方法:
+1.  **影響範囲の特定**: ご利用のJavaアプリケーションでCloud Storage Javaクライアントライブラリを使用しているか確認してください。特に `BucketInfo.getProject()` メソッドを呼び出している箇所がないかコードレビューを行ってください。
+2.  **コード修正**: もし `BucketInfo.getProject()` を使用している場合、戻り値が `BigInteger` 型になることを考慮し、必要に応じて型変換（例: `BigInteger.toString()`）などを行うようコードを修正してください。
+3.  **テストとデプロイ**: 修正後は十分にテストを行い、問題がないことを確認してから本番環境へデプロイしてください。
+用語説明:
+*   **BigInteger**: Javaのクラスで、標準の`int`や`long`の範囲を超える、任意の精度の整数を表現するために使用されます。非常に大きな数値を扱う場合に利用されます。
+*   **Optional**: Java 8で導入されたクラスで、値が存在しない可能性のある変数を表現するために使用されます。`null`ポインタ例外を回避し、コードの可読性を高めるのに役立ちます。
+*   **Anywhere Cache**: Google Cloud Storageのデータに低レイテンシでアクセスできるよう、グローバルなエッジロケーションにキャッシュを配置する機能。
+*   **Storage Intelligence**: Cloud Storageの利用状況、コスト、パフォーマンスに関する洞察を提供するサービス。
+# Title: June 06, 2025 
+Link: https://cloud.google.com/release-notes#June_06_2025<br>
+# Cloud Service Mesh
+## Changed
+原文: This change affects clusters using both the `TRAFFIC_DIRECTOR` and `ISTIOD` control plane implementations.
+
+When using Cloud Service Mesh with Istio APIs, configuring an unsupported field or value in an Istio Custom Resources will be reflected as an error in the Mesh status API.
+
+[unsupported field](https://cloud.google.com/service-mesh/docs/onboarding/unsupported-istio-apis)
+In some cases, the validation webhook will also reject unsupported API usage with an error message indicating the specific unsupported API. For more information, see Common webhook error messages. You can mitigate these issues by amending the Istio Custom Resource to remove the specified unsupported API configuration.
+
+[Common webhook error messages](https://cloud.google.com/service-mesh/docs/troubleshooting/troubleshoot-webhook#common_webhook_error_messages)
+
+説明:
+この変更は、`TRAFFIC_DIRECTOR`と`ISTIOD`の両方のコントロールプレーン実装を使用しているクラスタに影響します。
+Cloud Service MeshでIstio APIを使用している場合、Istio Custom Resources（CR）内でサポートされていないフィールドや値が設定されていると、Mesh status APIにエラーとして表示されるようになります。
+また、場合によっては、KubernetesのValidation WebhookがサポートされていないAPIの使用を拒否し、具体的なエラーメッセージを表示することがあります。
+これらの問題は、該当するIstio Custom Resourceから、サポートされていないAPI設定を削除または修正することで緩和できます。詳細については、関連するドキュメントを参照してください。
+
+影響有無: あり
+現在、Cloud Service Meshを使用しており、Istio Custom Resources (CR) にIstioのサポート対象外のフィールドや値を設定している場合、影響があります。
+この変更により、これまで暗黙的に無視されていた、あるいは明示的なエラーとして表面化しなかった不正な設定が、Mesh status APIにエラーとして報告されるようになり、またValidation Webhookによってデプロイや更新が拒否される可能性があります。
+これは、既存の運用中の設定に問題がある場合に、その問題が顕在化するという意味で影響があります。
+特に、Google Kubernetes Engine (GKE) 1.31上でCloud Service Meshを構築している場合、この変更の対象となります。Google Cloud Composerは直接的な影響を受けませんが、ComposerがGKEクラスタ上で実行されており、そのクラスタがCloud Service Meshを使用している場合は、間接的に影響を受ける可能性があります。
+
+対処方法:
+1.  **Mesh status APIの確認**: Mesh status APIを定期的に監視し、報告されるエラーがないかを確認します。
+2.  **ログの監視**: GKEクラスタのログ、特にAdmission Webhook関連のログを監視し、Istio関連のValidation Webhookによる拒否エラーがないか確認します。
+3.  **Istio Custom Resourcesの見直し**: エラーが報告された場合、または潜在的な問題を特定するために、現在デプロイされているIstio Custom Resources (VirtualService, Gateway, DestinationRuleなど) の設定内容を精査し、[サポートされていないフィールド](https://cloud.google.com/service-mesh/docs/onboarding/unsupported-istio-apis)が含まれていないかを確認します。
+4.  **修正**: サポートされていない設定が発見された場合は、該当するフィールドや値を削除またはIstioがサポートする形式に修正し、再デプロイします。
+
+用語説明:
+*   **Cloud Service Mesh**: Google Cloudが提供する、Istioベースのマネージドなサービスメッシュプラットフォームです。マイクロサービス間のトラフィック管理、セキュリティ、観測性を提供します。
+*   **TRAFFIC_DIRECTOR**: Google Cloudが提供するマネージドなトラフィックディレクターで、GKE環境におけるサービスメッシュのコントロールプレーンの一つとして機能します。Envoyプロキシにトラフィックルーティングルールを構成します。
+*   **ISTIOD**: Istioのコントロールプレーンの主要コンポーネントです。Istioデータプレーン（Envoyプロキシ）を構成し、トラフィック管理、ポリシー、テレメトリ収集などを担当します。
+*   **Istio Custom Resources (CR)**: KubernetesのCustom Resources Definition (CRD) を使用してIstioの設定を記述するためのリソースです。`VirtualService`、`Gateway`、`DestinationRule`などがこれにあたります。これらを介してサービスメッシュの振る舞いを定義します。
+*   **Mesh status API**: Cloud Service Meshの現在の状態や、デプロイされている設定の有効性に関する情報を提供するAPIです。
+*   **Validation Webhook**: KubernetesのAdmission Controllerの一種で、APIサーバーに送られてくるリソースオブジェクトがクラスタに永続化される前に、特定のルールに基づいてそのオブジェクトの内容を検証（変更はしない）します。Istioはこれを利用して、不正な設定が適用されるのを防ぎます。
+# Title: June 05, 2025 
+Link: https://cloud.google.com/release-notes#June_05_2025<br>
+# Cloud Storage
+## Changed
+原文: The limit for the maximum number of prefixes and suffixes when using matchesPrefix and matchesSuffix lifecycle conditions across all rules on a bucket is increased from 50 to 1,000. For more information, see Quotas and limits.
+
+[matchesPrefix and matchesSuffix lifecycle conditions](https://cloud.google.com/storage/docs/lifecycle#matchesprefix-suffix)
+[Quotas and limits](https://cloud.google.com/storage/quotas#buckets)
+
+説明:
+Cloud Storageのバケットライフサイクル管理において、`matchesPrefix`および`matchesSuffix`条件で使用できるプレフィックスとサフィックスの合計数の上限が、バケット内の全てのルールを通じて50から1,000に引き上げられました。
+
+影響有無:
+影響なし。これは既存の制限を緩和する変更（上限の引き上げ）であり、現在稼働しているサービスや設定に悪影響を与えることはありません。むしろ、より多くのプレフィックス/サフィックスを指定できるようになり、柔軟なライフサイクル管理が可能になります。
+
+対処方法:
+現状の運用に影響がないため、必須の対処はありません。
+もしこれまで50の制限に抵触し、複雑なライフサイクルルールを設定していた場合は、この上限緩和を活用してルールを統合・簡素化することを検討できます。
+
+用語説明:
+*   **Cloud Storage ライフサイクル管理 (Lifecycle Management):** Cloud Storageのオブジェクトのストレージクラスの変更、削除などのアクションを自動化する機能です。指定した条件（オブジェクトの経過日数、作成日、バージョン数、オブジェクト名など）に基づいて自動的にアクションを実行します。
+*   **matchesPrefix / matchesSuffix:** Cloud Storageのライフサイクルルールで利用できる条件の一つです。オブジェクト名が特定のプレフィックス（前方一致）またはサフィックス（後方一致）に合致する場合にのみ、ルールを適用するかどうかを判断します。
+*   **プレフィックス (Prefix):** ファイル名やオブジェクト名の先頭部分を指します。例えば、`logs/app_server/` はプレフィックスとして使われることがあります。
+*   **サフィックス (Suffix):** ファイル名やオブジェクト名の末尾部分を指します。例えば、`.json` や `.gz` はサフィックスとして使われることがあります。
+*   **クォータと上限 (Quotas and limits):** Google Cloudリソースの利用量や速度に設定されている上限値です。サービスの安定性やリソースの公平な利用を保証するために設定されています。
+# Title: June 04, 2025 
+Link: https://cloud.google.com/release-notes#June_04_2025<br>
+はい、承知いたしました。BigQueryのリリースノートに基づき、構築済みのサービスへの影響を調査し、簡潔に回答いたします。
+
+---
+
+# BigQuery
+## Changed
+原文: The organization-level configuration settings for `default_sql_dialect_option` and `query_runtime` are unsupported.
+[configuration settings](https://cloud.google.com/bigquery/docs/default-configuration)
+
+**説明:**
+BigQueryの組織レベルの設定において、これまで提供されていた `default_sql_dialect_option`（デフォルトのSQL方言設定）および `query_runtime`（クエリ実行ランタイム設定）の2つの構成設定が、サポート対象外となりました。これは、組織全体に適用されるこれらの設定が、今後機能しなくなるか、または推奨されないことを意味します。
+
+**影響有無:**
+**影響あり。**
+もし、貴社の環境でBigQueryの組織レベルの設定として `default_sql_dialect_option` または `query_runtime` のいずれかを明示的に使用している場合、これらの設定は今後適用されなくなるか、予期せぬ動作を引き起こす可能性があります。これにより、BigQueryクエリの動作（特にSQL方言の解釈や実行環境）が意図せず変更される可能性があり、既存のワークロードに影響を与える可能性があります。これは、既存機能の動作変更であり、非互換性のある変更（Breaking Change）と見なすべきです。
+
+**対処方法:**
+1.  **現状確認:** まず、現在BigQueryの組織レベルで `default_sql_dialect_option` や `query_runtime` が設定されているかを確認してください。これらの設定は通常、組織ポリシーやBigQuery Admin APIなどを通じて構成されます。
+2.  **依存関係の特定:** もし設定されている場合は、それらの設定に依存して動作しているBigQueryクエリやデータパイプラインがないかを確認してください。
+3.  **代替手段の検討と移行:**
+    *   **SQL方言:** `default_sql_dialect_option` の代わりに、クエリの先頭に `#standardSQL` や `#legacySQL` と明示的に記述するか、プログラムからクエリを実行する際にAPI/クライアントライブラリでSQL方言を指定してください。
+    *   **クエリランタイム:** `query_runtime` に対応する代替機能があるかは、BigQueryの最新ドキュメントを確認する必要があります。もし特定のランタイム要件がある場合は、今後のBigQueryの機能拡張や推奨される実行オプションを参照し、個別クエリやプロジェクトレベルでの設定を検討してください。
+    *   **プロジェクト/ユーザーレベルでの設定:** 組織レベルでの設定が不要な場合は、BigQueryのプロジェクトレベルやユーザーレベルで同様の設定ができないか検討し、必要に応じて移行してください。
+4.  **動作確認:** 設定変更後、影響を受ける可能性のあるBigQueryクエリやワークロードが期待通りに動作するかを十分にテストしてください。
+公式ドキュメント ([https://cloud.google.com/bigquery/docs/default-configuration](https://cloud.google.com/bigquery/docs/default-configuration)) を参照し、これらの設定の代替手段や推奨される構成方法について最新の情報を確認することを強く推奨します。
+
+**用語説明:**
+*   **`default_sql_dialect_option`:** BigQueryでクエリを実行する際にデフォルトで適用されるSQL方言（例: Google標準SQL、レガシーSQL）を設定するオプションです。
+*   **`query_runtime`:** BigQueryクエリの実行環境やランタイムに関する設定です。特定の実行環境（例: Spanner互換ランタイムなど、将来的な拡張を含む）を指定するために使用される可能性があったオプションです。
+*   **組織レベル設定 (Organization-level configuration settings):** Google Cloudの組織全体に適用される設定のことです。これらはプロジェクトやフォルダよりも上位の階層で、一貫したポリシーやデフォルト値を組織全体に強制するために使用されます。
+*   **Unsupported (サポート対象外):** その機能がGoogle Cloudによって積極的に開発、維持、保証されなくなった状態を指します。既存の機能は動作し続けるかもしれないが、将来的に削除されたり、予期しない動作をする可能性があり、新しい実装では使用を避けるべきです。
+# Title: June 03, 2025 
+Link: https://cloud.google.com/release-notes#June_03_2025<br>
+承知いたしました。Google Cloudのリリースノートを元に、構築済みのサービスへの影響調査結果を報告します。
+
+---
+
+# Apigee X
+## Announcement
+原文: On June 3, 2025, we released an updated version of Apigee.
+
+説明：
+Apigee Xの新しいバージョンが2025年6月3日にリリースされたというアナウンスです。このアナウンス自体には、具体的な機能追加、変更、修正、非推奨化、あるいは料金体系の変更に関する詳細は含まれていません。単に新しいバージョンが利用可能になったことを通知しています。
+
+影響有無：
+**無し**
+このアナウンスは、特定の機能変更やサービス動作に直接的な影響を与える情報を含んでいないため、現在のApigee Xの運用に即座の影響はありません。しかし、Apigee Xのバージョンアップが行われたことを示しており、今後の詳細なリリースノートや変更履歴を確認し、新バージョンで導入された変更点を把握する必要があります。
+
+対処方法：
+現時点では具体的な対処は不要です。しかし、以下の対応を推奨します。
+*   **詳細情報の確認**: 今後のApigee Xの詳細なリリースノートや、Google Cloudの公式ドキュメント、Apigeeのリリースノートページ（[Google Cloud Apigee のリリースノート](https://cloud.google.com/apigee/docs/release-notes)などを参照）を継続的に確認してください。
+*   **変更点の把握**: 新バージョンで導入された具体的な変更点（新機能、非推奨機能、APIの変更、パフォーマンスの改善または劣化、セキュリティパッチ、料金体系の変更、Breaking Changeなど）を把握し、利用中のApigeeプロキシやAPI管理戦略への影響を評価してください。
+*   **テストと移行計画**: もし新バージョンで重要な変更やBreaking Changeが含まれる場合は、本番環境への適用前にテスト環境で影響を評価し、必要に応じて移行計画を策定してください。
+
+用語説明：
+*   **Apigee X**: Google Cloudが提供するエンタープライズ向けのAPI管理プラットフォームです。APIの設計、セキュリティ、デプロイ、監視、収益化などを一元的に行い、デジタルエクスペリエンスを迅速に提供できるようにします。
+*   **更新されたバージョン (Updated Version)**: ソフトウェアやサービスの新しい版を指します。通常、バグ修正、パフォーマンス改善、新機能の追加、セキュリティ脆弱性の対処などが含まれます。
+*   **Breaking Change**: 既存の互換性を損なう変更のことです。この変更が導入されると、既存のコードや設定が動作しなくなる可能性があります。APIやライブラリのバージョンアップ時に特に注意が必要です。
+# Title: June 02, 2025 
+Link: https://cloud.google.com/release-notes#June_02_2025<br>
+## Apigee X
+### Announcement
+原文: On June 2, 2025, we released an updated version of Apigee (1-15-0-apigee-5).
+> Note: Rollouts of this release began today and may take four or more business days to be completed across all Google Cloud zones. Your instances may not have the features and fixes available until the rollout is complete.
+
+説明: Apigeeの新しいバージョン `1-15-0-apigee-5` が2025年6月2日にリリースされました。このリリースは現在、全てのGoogle Cloudゾーンへの展開が進行中であり、完了まで4営業日以上かかる場合があります。展開が完了するまでは、一部の機能や修正が利用できない可能性があります。
+
+影響有無: 影響なし。
+Apigee X はマネージドサービスであるため、Googleによって自動的にアップデートされます。お客様側で直接的な操作は不要ですが、新機能や修正が環境に適用されるまでタイムラグが発生する可能性があります。
+
+対処方法: 特になし。展開完了までお待ちください。
+必要に応じて、環境への影響がないか基本的な動作監視を継続してください。
+
+### Fixed
+原文:
+| Bug ID | Description |
+| --- | --- |
+| **410670597** | **Fixed the proxy response count metric (`proxy/response_count`) for EventFlow-enabled streaming proxies.** |
+| **375360455** | **Resolved issues with connection termination when using HTTP streaming** Added automatic retries for connection reset due to upstream services. |
+| **N/A** | **Updates to security infrastructure and libraries.** |
+| **N/A** | **`x-b3` trace headers will be sent only when distributed tracing is enabled.** In previous releases Apigee was sending `x-b3` trace headers even when distributed tracing was disabled. This was an unexpected behavior which is fixed in this release. |
+Added automatic retries for connection reset due to upstream services.
+
+説明:
+1.  **EventFlow対応ストリーミングプロキシのメトリック修正**: EventFlowを有効にしたストリーミングプロキシにおける`proxy/response_count`メトリックの正確性が向上しました。
+2.  **HTTPストリーミング接続終了問題の解決と自動リトライ追加**: HTTPストリーミング使用時の接続終了に関する問題が解決され、アップストリームサービスによる接続リセット時に自動リトライが追加されました。
+3.  **セキュリティインフラストラクチャとライブラリの更新**: 基盤となるセキュリティインフラストラクチャとライブラリが更新され、全体的なセキュリティが強化されました。
+4.  **`x-b3`トレースヘッダーの送信条件修正**: 分散トレーシングが無効な場合でも`x-b3`トレースヘッダーが送信される不適切な動作が修正され、今後は分散トレーシングが有効な場合にのみ送信されます。
+
+影響有無: 影響なし。
+上記はいずれも修正または改善であり、既存のシステム動作に負の影響を与えるものではありません。
+-   メトリックの正確性向上は監視データに好影響をもたらします。
+-   HTTPストリーミングの安定性向上は、関連するワークロードの可用性を高めます。
+-   セキュリティ更新は、システムの堅牢性を強化します。
+-   `x-b3`ヘッダーの修正は、分散トレーシングを無効にしている環境において、意図しないヘッダーの送信が停止されることで、より期待通りの動作になります。
+
+対処方法: 特になし。
+分散トレーシングを無効にしている環境で、過去に`x-b3`ヘッダーの存在に依存するようなカスタムロジックを実装していた場合は、その影響を確認してください（通常そのような実装は推奨されません）。
+
+用語説明:
+*   **EventFlow**: Apigeeのデータプレーン機能の一部で、プロキシのリクエスト/レスポンスフローを詳細に分析するための機能。
+*   **`proxy/response_count` metric**: Apigee APIプロキシが処理したレスポンスの総数を表すメトリック。
+*   **`x-b3` trace headers**: 分散トレーシングにおいて、リクエストのトレーシングコンテキストをサービス間で伝播するために使用されるHTTPヘッダーの一種。主にZipkinトレーシングシステムで利用される。
+*   **Distributed Tracing (分散トレーシング)**: マイクロサービスアーキテクチャのような分散システムにおいて、単一のリクエストが複数のサービスを横断する際の処理経路とパフォーマンスを追跡・可視化する技術。
+
+---
+
+## BigQuery
+### Libraries
+説明: BigQueryのNode.js, Go, Pythonクライアントライブラリが更新されました。これらの更新には新機能の追加や改善が含まれます。
+
+影響有無: 影響なし。
+これらの変更はクライアントライブラリの更新であり、BigQueryサービス本体の動作に影響を与えるものではありません。現在使用しているアプリケーションがこれらのライブラリバージョンを使用していない限り、直接的な影響はありません。新機能を利用したい場合は、アプリケーションで利用しているクライアントライブラリをアップデートする必要があります。破壊的変更（Breaking Change）は含まれていません。
+
+対処方法: 特になし。
+新機能の利用や、ライブラリの最新の改善点を取り込みたい場合は、利用中の言語のBigQueryクライアントライブラリのアップグレードを検討してください。
+
+#### Node.js
+原文:
+## Node.js
+## Changes for @google-cloud/bigquery
+[@google-cloud/bigquery](https://github.com/googleapis/nodejs-bigquery)
+[8.1.0](https://github.com/googleapis/nodejs-bigquery/compare/v8.0.0...v8.1.0)
+- Job creation mode GA (#1480) (b51359a)
+- Support per-job reservation assignment (#1477) (8151e72)
+
+説明: BigQuery Node.jsクライアントライブラリ `8.1.0` の変更点です。ジョブ作成モードがGA（一般提供）となり、ジョブごとのリザベーション割り当てがサポートされました。
+
+#### Go
+原文:
+## Go
+## Changes for bigquery/storage/apiv1beta1
+[bigquery/storage/apiv1beta1](https://github.com/googleapis/google-cloud-go/tree/main/bigquery/storage/apiv1beta1)
+[1.69.0](https://github.com/googleapis/google-cloud-go/compare/bigquery/v1.68.0...bigquery/v1.69.0)
+- **bigquery/analyticshub:** Add support for Analytics Hub & Marketplace Integration (2aaada3)
+- **bigquery/analyticshub:** Adding allow_only_metadata_sharing to Listing resource (2aaada3)
+- **bigquery/analyticshub:** Adding CommercialInfo message to the Listing and Subscription resources (2aaada3)
+- **bigquery/analyticshub:** Adding delete_commercial and revoke_commercial to DeleteListingRequest and RevokeSubscriptionRequest (2aaada3)
+- **bigquery/analyticshub:** Adding DestinationDataset to the Subscription resource (2aaada3)
+- **bigquery/analyticshub:** Adding routine field to the SharedResource message (2aaada3)
+- **bigquery:** Add support for dataset view and update modes (#12290) (7c1f961)
+- **bigquery:** Job creation mode GA (#12225) (1d8990d)
+
+説明: BigQuery Goクライアントライブラリ `1.69.0` の変更点です。Analytics HubとMarketplaceの統合機能のサポートが追加され、データセットのビューおよび更新モード、ジョブ作成モードのGA化がサポートされました。
+
+#### Python
+原文:
+## Python
+## Changes for google-cloud-bigquery
+[google-cloud-bigquery](https://github.com/googleapis/python-bigquery)
+[3.34.0](https://github.com/googleapis/python-bigquery/compare/v3.33.0...v3.34.0)
+- Job creation mode GA (#2190) (64cd39f)
+- **deps:** Update all dependencies (#2184) (12490f2)
+- Update query.py (#2192) (9b5ee78)
+- Use query_and_wait in the array parameters sample (#2202) (28a9994)
+
+説明: BigQuery Pythonクライアントライブラリ `3.34.0` の変更点です。ジョブ作成モードがGAとなり、全ての依存関係が更新されました。また、`query.py`の更新と、配列パラメータサンプルにおける`query_and_wait`の使用例が更新されました。
+
+用語説明:
+*   **Cloud SDK**: Google Cloud Platformのサービスをコマンドラインから操作したり、開発したりするためのツールキット群。クライアントライブラリも含まれる。
+*   **GA (General Availability)**: 特定の機能やサービスが一般提供され、全てのユーザーが本番環境で利用できるようになった状態。サポート体制も整っている。
+
+---
+
+## Cloud Composer
+**現在の環境: Cloud Composer 2 (Compoer version 2.7.1, Airflow version 2.7.3)**
+
+### Announcement
+原文: A new Cloud Composer release has started on **June 02, 2025**. Get ready for upcoming changes and features as we roll out the new release to all regions. This release is in progress at the moment. Listed changes and features might not be available in some regions yet.
+
+説明: Cloud Composerの新しいリリースが2025年6月2日に開始されました。新機能や変更は全ての
+
+
+
+=======================================================================
+
+
+
 # Title: June 03, 2025 
 Link: https://cloud.google.com/release-notes#June_03_2025<br>
 Google Cloud インフラエンジニアとして、指定されたリリースノートに基づき、貴社サービスへの影響調査結果をご報告いたします。
