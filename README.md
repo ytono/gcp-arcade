@@ -1,3 +1,28 @@
+
+# Title: June 13, 2025 
+Link: https://cloud.google.com/release-notes#June_13_2025<br>
+# Identity and Access Management
+## Changed
+原文: Conditions that check the tags for a resource can also check other attributes, such as the resource name of the timestamp of the request. This feature is available in Preview. For more information, see Resource tags.
+
+[Resource tags](https://cloud.google.com/iam/docs/conditions-attribute-reference#resource-tags)
+
+説明:
+Google Cloud IAMの条件（Conditions）において、リソースに付与されたタグの確認に加えて、リソース名やリクエストのタイムスタンプなどの他の属性も条件として利用できるようになりました。この機能は現在プレビュー版として提供されています。これにより、よりきめ細やかなアクセス制御ポリシーを定義することが可能になります。
+
+影響有無:
+影響はありません。これは既存のIAM Conditions機能に新しい属性（リソース名、リクエストのタイムスタンプなど）を追加するものであり、既存のIAMポリシーの動作を変更するものではありません。積極的にこの新しい機能を利用しない限り、既存のGoogle Cloud Composer 2およびGKE 1.31環境のIAM設定に変化は生じません。
+
+対処方法:
+緊急の対処は不要です。より詳細かつ動的なアクセス制御が必要な場合、プレビュー機能として本機能の利用を検討してください。本番環境での利用は、プレビュー版の特性（将来的な変更の可能性など）を考慮し、慎重に評価してください。
+
+用語説明:
+*   **Identity and Access Management (IAM)**: Google Cloud のリソースに対するアクセス権限を管理するためのサービスです。誰が（Principal）どのリソースに対して（Resource）何をできるか（Role）を定義します。
+*   **IAM Conditions**: IAMポリシーに追加できる条件式で、特定の属性（リソースタグ、時間、IPアドレスなど）に基づいてアクセス許可を動的に適用することを可能にします。これにより、より詳細なアクセス制御が実現します。
+*   **Resource tags**: Google Cloudのリソースにキーと値のペアで付与できるメタデータです。リソースの分類、整理、課金分析、そしてIAM Conditionsでの利用などに役立ちます。
+*   **Preview**: Google Cloud の新機能が一般公開される前に、ユーザーがテストし、フィードバックを提供できるようにする段階です。プレビュー機能は変更される可能性があり、本番環境での利用は推奨されない場合があります。
+
+
 # Title: June 10, 2025 
 Link: https://cloud.google.com/release-notes#June_10_2025<br>
 Google Cloudインフラエンジニアとして、ご提示いただいたリリースノートについて、構築済みのサービスへの影響有無を調査し、以下の通りご回答いたします。
