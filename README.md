@@ -1,4 +1,69 @@
+# Title: June 16, 2025 
+Link: https://cloud.google.com/release-notes#June_16_2025<br>
+# Cloud Composer
+## Announcement
+原文:
+We're planning to phase out the APIs that aren't required by Cloud Composer 3.
 
+- Starting **February 27, 2026**, the following APIs will **become fully detachable**. Deactivating these APIs won't cause the deactivation of the Cloud Composer API:
+
+- artifactregistry.googleapis.com
+- cloudbuild.googleapis.com
+- container.googleapis.com
+- pubsub.googleapis.com
+- sqladmin.googleapis.com
+
+- Starting **May 27, 2026**, these APIs **will no longer be enabled automatically** when you enable the Cloud Composer API. To create Cloud Composer 2 environments in new projects, the group of detached APIs must be enabled manually.
+
+ Existing Cloud Composer 3 and Cloud Composer 2 environments in projects where the Cloud Composer API is already enabled will not be impacted. You can do the following:
+
+- After **February 27, 2026**, if your project has only Cloud Composer 3 environments, then you can manually disable the detached APIs.
+- After **February 27, 2026**, if your project has Cloud Composer 2 environments, then we recommend keeping these APIs enabled because disabling them might lead to environment's malfunction.
+- After **May 27, 2026**, if you use automation scripts to provision Cloud Composer 2 environments, then make sure that the listed APIs are enabled in addition to the Cloud Composer API.
+
+説明：
+Cloud Composer 3では不要となる一部のGoogle Cloud APIについて、段階的に変更を行うというアナウンスです。
+
+1.  **2026年2月27日以降**:
+    *   `artifactregistry.googleapis.com`, `cloudbuild.googleapis.com`, `container.googleapis.com`, `pubsub.googleapis.com`, `sqladmin.googleapis.com` の各APIが「完全に分離可能 (fully detachable)」になります。これは、これらのAPIを無効化してもCloud Composer APIが自動的に無効化されることはなくなるという意味です。
+    *   **既存のCloud Composer 2環境があるプロジェクトでは、これらのAPIを有効のままにしておくことが推奨されます。無効化すると環境が正しく動作しなくなる可能性があります。**
+    *   Cloud Composer 3環境のみのプロジェクトでは、これらのAPIを手動で無効化できるようになります。
+
+2.  **2026年5月27日以降**:
+    *   Cloud Composer APIを有効にした際に、上記のAPIが**自動的に有効化されなくなります**。
+    *   **新しいプロジェクトでCloud Composer 2環境を作成する場合、Cloud Composer APIに加えて、上記のAPIも手動で有効化する必要があります。**
+    *   Cloud Composer 2環境のプロビジョニングに自動化スクリプトを使用している場合、スクリプトがこれらのAPIを有効にするように修正・確認する必要があります。
+
+既存のCloud Composer 2およびCloud Composer 3環境には影響はありません。
+
+影響有無：
+**影響あり（将来的な新規プロビジョニングおよび運用方針）**
+
+*   **現在の稼働中のComposer 2 (2.7.1) 環境**: 直接的な影響はありません。現在稼働している環境は引き続き正常に動作します。
+*   **将来的なComposer 2環境の新規プロビジョニング**: 2026年5月27日以降、新しいプロジェクトでCloud Composer 2環境を構築する際には、これまで自動で有効化されていた関連APIを明示的に手動で有効化する必要があります。自動化スクリプトを利用している場合は、スクリプトの修正が必要になります。
+*   **既存Composer 2環境の運用方針**: 2026年2月27日以降に、リソース最適化などの目的でこれらのAPIを無効化しようとした場合、既存のComposer 2環境が誤動作する可能性があるため、無効化は非推奨となります。
+
+対処方法：
+
+*   **既存のCloud Composer 2環境**:
+    *   特に追加の対処は不要です。
+    *   ただし、2026年2月27日以降も、記載されているAPI (`artifactregistry.googleapis.com`, `cloudbuild.googleapis.com`, `container.googleapis.com`, `pubsub.googleapis.com`, `sqladmin.googleapis.com`) は**無効化しない**でください。これらを無効化すると、Cloud Composer 2環境が誤動作する可能性があります。
+
+*   **将来的にCloud Composer 2環境を新規でプロビジョニングする可能性がある場合（2026年5月27日以降）**:
+    *   **手動で環境を構築する場合**: Cloud Composer APIを有効化するだけでなく、上記の5つのAPIも明示的に有効化する手順を計画に含めてください。
+    *   **自動化スクリプト（例: Terraform, gcloudコマンドスクリプト）で環境を構築する場合**: 2026年5月27日以降に、これらのAPIを有効化するステップがスクリプトに含まれているか確認し、必要に応じて修正してください。具体的には、`gcloud services enable` コマンドでこれらのAPIを有効化する行を追加するなどです。
+
+*   **長期的な視点**:
+    *   Cloud Composer 3への移行を計画することで、より効率的なAPI利用が可能になります。このアナウンスは、Cloud Composer 3への移行を促すメッセージとも捉えられます。
+
+用語説明：
+*   **Cloud Composer API**: Google Cloud上でApache Airflowをマネージドサービスとして利用するためのAPIです。このAPIを有効にすることで、Composer環境の作成や管理が可能になります。
+*   **fully detachable**: 「完全に分離可能」という意味で、あるサービスAPI（この場合はCloud Composer API）の有効/無効とは連動しなくなり、独立して有効/無効を切り替えられる状態を指します。
+*   **artifactregistry.googleapis.com**: Google CloudのArtifact Registryサービスを操作するためのAPIです。DockerイメージやMavenパッケージなどを管理し、Cloud ComposerではAirflowイメージの保存などに利用されます。
+*   **cloudbuild.googleapis.com**: Google Cloud Buildサービスを操作するためのAPIです。CI/CDパイプラインを構築し、Cloud Composer環境のデプロイやアップデートプロセスの一部で使用されることがあります。
+*   **container.googleapis.com**: Google Kubernetes Engine (GKE) サービスを操作するためのAPIです。Cloud Composerは内部的にGKEクラスタ上で動作しており、このAPIはComposer環境の基盤となるGKEクラスタの管理に不可欠です。
+*   **pubsub.googleapis.com**: Google Cloud Pub/Subサービスを操作するためのAPIです。非同期メッセージングサービスであり、Cloud ComposerではAirflowのタスクログ転送やイベント通知などに利用されることがあります。
+*   **sqladmin.googleapis.com**: Google Cloud SQL Admin APIです。Cloud SQLインスタンスの管理に使用され、Cloud ComposerではAirflowメタデータデータベースとしてCloud SQLが利用されるため、このAPIも Composer環境の動作に必須です。
 # Title: June 13, 2025 
 Link: https://cloud.google.com/release-notes#June_13_2025<br>
 # Identity and Access Management
@@ -8,20 +73,20 @@ Link: https://cloud.google.com/release-notes#June_13_2025<br>
 [Resource tags](https://cloud.google.com/iam/docs/conditions-attribute-reference#resource-tags)
 
 説明:
-Google Cloud IAMの条件（Conditions）において、リソースに付与されたタグの確認に加えて、リソース名やリクエストのタイムスタンプなどの他の属性も条件として利用できるようになりました。この機能は現在プレビュー版として提供されています。これにより、よりきめ細やかなアクセス制御ポリシーを定義することが可能になります。
+Google Cloud IAM Conditionsにおいて、リソースに付与されたタグだけでなく、リソース名やリクエストのタイムスタンプといった他の属性も条件として利用できるようになりました。この機能は現在プレビュー版として提供されており、より詳細な属性ベースのアクセス制御が可能になります。
 
 影響有無:
-影響はありません。これは既存のIAM Conditions機能に新しい属性（リソース名、リクエストのタイムスタンプなど）を追加するものであり、既存のIAMポリシーの動作を変更するものではありません。積極的にこの新しい機能を利用しない限り、既存のGoogle Cloud Composer 2およびGKE 1.31環境のIAM設定に変化は生じません。
+**影響なし。**
+これはIAM Conditionsの機能拡張であり、「Preview」段階の機能であるため、既存のIAMポリシーの動作を変更するものではありません。現在構築されているGoogle Cloud Composer 2やGKE 1.31環境のIAMポリシーは、この変更によって自動的に挙動が変わることはありません。明示的にこの新機能を利用しない限り、既存のワークロードに影響はありません。
 
 対処方法:
-緊急の対処は不要です。より詳細かつ動的なアクセス制御が必要な場合、プレビュー機能として本機能の利用を検討してください。本番環境での利用は、プレビュー版の特性（将来的な変更の可能性など）を考慮し、慎重に評価してください。
+**対応不要。**
+既存の環境への直接的な影響はないため、現時点での対処は必要ありません。将来的により詳細なアクセス制御を実装する際に、この機能を活用することを検討してください。
 
 用語説明:
-*   **Identity and Access Management (IAM)**: Google Cloud のリソースに対するアクセス権限を管理するためのサービスです。誰が（Principal）どのリソースに対して（Resource）何をできるか（Role）を定義します。
-*   **IAM Conditions**: IAMポリシーに追加できる条件式で、特定の属性（リソースタグ、時間、IPアドレスなど）に基づいてアクセス許可を動的に適用することを可能にします。これにより、より詳細なアクセス制御が実現します。
-*   **Resource tags**: Google Cloudのリソースにキーと値のペアで付与できるメタデータです。リソースの分類、整理、課金分析、そしてIAM Conditionsでの利用などに役立ちます。
-*   **Preview**: Google Cloud の新機能が一般公開される前に、ユーザーがテストし、フィードバックを提供できるようにする段階です。プレビュー機能は変更される可能性があり、本番環境での利用は推奨されない場合があります。
-
+*   **IAM Conditions (Identity and Access Management Conditions):** Google CloudのIAMポリシーに設定できる条件であり、特定の属性（例：リソースのタイプ、リクエストのIPアドレス、リソースタグなど）が満たされた場合にのみ、アクセスを許可または拒否する機能です。これにより、よりきめ細やかなアクセス制御（Attribute-Based Access Control: ABAC）を実現します。
+*   **Preview:** Google Cloudにおけるソフトウェアのリリース段階の一つです。この段階の機能は一般公開（GA: General Availability）前であり、機能が変更される可能性や、本番環境での利用には推奨されない場合があります。主にテストやフィードバック収集のために提供されます。
+*   **Resource tags (リソースタグ):** Google Cloudリソースに付与できるキーと値のペアからなるメタデータです。タグはリソースの識別、整理、そしてIAM Conditionsでのアクセス制御などに利用できます。これまでのリソースタグは、組織やフォルダレベルで定義され、リソースへのアクセス制御に利用されていました。今回の更新で、リソース名やタイムスタンプといったさらに詳細な属性と組み合わせることが可能になります。
 
 # Title: June 10, 2025 
 Link: https://cloud.google.com/release-notes#June_10_2025<br>
