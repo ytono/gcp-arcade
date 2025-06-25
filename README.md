@@ -1,3 +1,113 @@
+
+# Title: June 24, 2025 
+Link: https://cloud.google.com/release-notes#June_24_2025<br>
+## Google Kubernetes Engine
+
+### Changed
+原文: Starting on September 1, 2025, GKE version upgrades can proceed even if existing resources violate custom organization policy constraints. GKE allows upgrade-only operations to occur as long as the operation doesn't introduce new policy violations.
+
+説明:
+この変更は2025年9月1日から適用されます。既存のGoogle Kubernetes Engine (GKE) クラスタのリソースがカスタム組織ポリシー制約に違反している場合でも、GKEのバージョンアップグレードが実行できるようになります。ただし、アップグレード操作自体が新たに組織ポリシー違反を発生させない場合に限ります。これまでのGKEアップグレードでは、既存のポリシー違反がアップグレードをブロックする要因となるケースがありましたが、この変更により、既存の違反があるクラスタでもスムーズにアップグレードを進めることが可能になり、クラスタの最新化を促進することを目的としています。
+
+影響有無:
+*   **影響なし（むしろ好影響）**
+*   **理由**: 現在、組織ポリシー違反が存在するためにGKEクラスタのバージョンアップグレードが阻害されているケースがある場合、2025年9月1日以降はアップグレードが可能になるため、クラスタのライフサイクル管理が容易になります。これにより、セキュリティパッチの適用や新機能の利用が促進され、運用面でのメリットが期待されます。既存の違反は解消されないままアップグレードが完了するため、ポリシー遵守の取り組みは引き続き必要です。
+
+対処方法:
+*   **直接的な対処は不要**: この変更はGKEのアップグレード動作の緩和であり、お客様側で設定変更などの直接的な対処は必要ありません。
+*   **推奨事項**: GKEクラスタがカスタム組織ポリシーに違反している場合は、この変更によってアップグレードが可能になったとしても、引き続きポリシーを遵守するよう是正措置を講じることを強く推奨します。GKEのバージョンアップグレードが容易になることで、これまでポリシー違反が原因でアップグレードを躊躇していたクラスタについても、最新バージョンへの更新計画を立て直す良い機会となります。
+
+用語説明:
+*   **組織ポリシー制約 (Organization Policy Constraints)**: Google Cloudの組織全体にわたって、リソースの作成や設定に特定のルールや制限を設けるための機能です。これにより、セキュリティ、コンプライアンス、コスト管理などの目的で、一貫性のあるリソース構成を強制できます。例えば、「特定のリージョンにのみリソースをデプロイ可能にする」といった制約を設定できます。
+*   **GKEバージョンアップグレード**: Google Kubernetes Engine (GKE) クラスタのKubernetesバージョンを新しいバージョンに更新するプロセスです。セキュリティ脆弱性の修正、新機能の導入、パフォーマンスの向上などが含まれます。GKEは自動アップグレード機能も提供していますが、手動でのアップグレードも可能です。
+# Title: June 23, 2025 
+Link: https://cloud.google.com/release-notes#June_23_2025<br>
+ご担当者様
+
+Google Cloudのリリースノートに関するお問い合わせ、ありがとうございます。
+Cloud Storage のクライアントライブラリの更新について、構築済みのサービスへの影響を調査いたしました。
+
+---
+
+# Cloud Storage
+
+## Libraries - Java
+
+### Changed
+
+原文:
+- Cancel the future in RemoteStorageHelper#forceDelete when TimeoutException happens (#3136) (e6007d5)
+- **deps:** Update the Java code generator (gapic-generator-java) to 2.59.0 (7dba9f0)
+- Update dependency com.google.apis:google-api-services-storage to v1-rev20250605-2.0.0 (#3143) (17a80d8)
+- Update sdk-platform-java dependencies (#3152) (2f78192)
+
+説明：
+Google Cloud Storage Java クライアントライブラリ (`google-cloud-storage`) バージョン 2.53.1 の更新です。
+この更新には以下の変更が含まれます：
+1.  `RemoteStorageHelper#forceDelete` メソッドにおいて、`TimeoutException` が発生した際に Future オブジェクトが適切にキャンセルされないバグが修正されました。これにより、リソースリークや予期せぬ動作を防ぎます。
+2.  Java コードジェネレータ (gapic-generator-java) および `com.google.apis:google-api-services-storage`、`sdk-platform-java` などの内部依存ライブラリのバージョンが更新されました。
+
+影響有無：
+**影響は低い可能性がありますが、GKE上のJavaアプリケーションでは考慮が必要です。**
+*   **Google Cloud Composer2**: Composer は主に Python ベースであり、通常 Java ライブラリを直接利用しないため、直接的な影響はほぼありません。
+*   **Google Kubernetes Engine (GKE)**: GKE 上で稼働している Java アプリケーションが `google-cloud-storage` ライブラリを使用している場合、この更新の影響を受ける可能性があります。特に `RemoteStorageHelper#forceDelete` メソッドを使用しており、タイムアウト時の挙動に問題が発生していた場合は、この修正により改善が見込まれます。依存ライブラリの更新は、通常は後方互換性が保たれますが、稀に既存のアプリケーションとの予期せぬ挙動や依存関係の競合を引き起こす可能性も考慮する必要があるため、更新時には互換性テストが推奨されます。
+
+対処方法：
+*   GKE 上で Java アプリケーションが `google-cloud-storage` ライブラリを使用しており、上記バグ（特に `RemoteStorageHelper#forceDelete` のタイムアウト問題）に該当する、またはライブラリの最新化を図る場合は、アプリケーションで使用している `google-cloud-storage` ライブラリを最新バージョン (2.53.1 以降) に更新することを検討してください。
+*   更新に際しては、開発環境やステージング環境で十分な機能テストと性能テストを実施し、既存のアプリケーションに影響がないことを確認してください。
+
+用語説明：
+*   **Future**: Java の並行処理において、非同期に実行される処理の結果を表現するオブジェクトです。処理の完了を待機したり、結果を取得したりするために使用されます。
+*   **TimeoutException**: 設定された時間内に処理が完了しなかった場合にスローされる例外です。
+*   **GAPIC Generator (Google API Client Library Generator)**: Google Cloud の API のためのクライアントライブラリのコードを、API 定義から自動生成するためのツールです。これにより、開発者は API を簡単に利用できます。
+
+## Libraries - Python
+
+### Changed
+
+原文:
+- Add a check for partial response data (#1487) (7e0412a)
+- Add trove classifier for Python 3.13 (0100916)
+- **deps:** Require google-crc32c >= 1.1.3 (0100916)
+- **deps:** Require protobuf >= 3.20.2, < 7.0.0 (0100916)
+- **deps:** Require requests >= 2.22.0 (0100916)
+- Remove setup.cfg configuration for creating universal wheels (#1448) (d3b6b3f)
+- Resolve issue where pre-release versions of dependencies are installed (0100916)
+- Segmentation fault in tink while writing data (#1490) (2a46c0b)
+- Move quickstart to top of readme (#1451) (53257cf)
+- Update README to break infinite redirect loop (#1450) (03f1594)
+
+説明：
+Google Cloud Storage Python クライアントライブラリ (`google-cloud-storage`) バージョン 3.1.1 の更新です。
+この更新には以下の主要な変更が含まれます：
+1.  部分的なレスポンスデータに対するチェックが追加され、堅牢性が向上しました。
+2.  Python 3.13 のサポートを示す Trove Classifier が追加されました。
+3.  以下の依存ライブラリのバージョン要件が更新されました: `google-crc32c >= 1.1.3`, `protobuf >= 3.20.2, < 7.0.0`, `requests >= 2.22.0`。
+4.  依存関係のプレリリースバージョンが誤ってインストールされる問題が解決されました。
+5.  データ書き込み中に内部で使用される `tink` ライブラリでセグメンテーション違反が発生する深刻なバグが修正されました。
+6.  ユニバーサルホイール作成のためのビルド設定の削除、および README ドキュメントの改善が行われました。
+
+影響有無：
+**Composer および GKE 上のPythonアプリケーションで、特にデータ書き込み処理を行っている場合に影響がある可能性があります。**
+*   **Google Cloud Composer2 (Compoer version 2.7.1、Airflow version 2.7.3)**: Composer は Python ベースであり、Airflow DAG やカスタムプラグインで `google-cloud-storage` ライブラリを頻繁に利用します。もし現在の環境でデータ書き込み処理においてセグメンテーション違反の問題に遭遇している場合、この更新は非常に重要です。また、依存関係のバージョン要件（特に `protobuf` の範囲指定）の変更は、Airflow 環境内にインストールされている他のライブラリとの間で依存関係の競合を引き起こす可能性があるため、注意深い確認が必要です。
+*   **Google Kubernetes Engine (GKE)**: GKE 上で稼働している Python アプリケーションが `google-cloud-storage` ライブラリを使用している場合、この更新の影響を受けます。特に、データ書き込み時にセグメンテーション違反が発生していた場合は、この修正により問題が解決される可能性があります。依存関係のバージョン要件の変更は、アプリケーション全体の依存ライブラリの整合性を確認するきっかけとなる場合があります。
+
+対処方法：
+*   Google Cloud Composer の Airflow DAG や GKE 上の Python アプリケーションで `google-cloud-storage` ライブラリを使用している場合、最新バージョン (3.1.1 以降) への更新を強く検討してください。
+*   特に、データ書き込み時にセグメンテーション違反の問題に遭遇している場合は、この更新を優先的に実施することを推奨します。
+*   Composer 環境の場合、DAG の `requirements.txt` ファイル内で `google-cloud-storage` のバージョンを更新し、デプロイ前に他の依存ライブラリとの間でバージョン競合がないか、または互換性があるかを `pip check` やテスト環境での十分な検証を通じて確認してください。
+*   GKE 上のアプリケーションの場合も、コンテナイメージを再ビルドし、テスト環境で互換性と機能の検証を実施してください。
+
+用語説明：
+*   **Trove classifier**: Python パッケージのメタデータの一部で、PyPI (Python Package Index) にアップロードされる際に、そのパッケージがサポートする Python のバージョン、オペレーティングシステム、ライセンスなどの情報を示す分類子です。
+*   **google-crc32c**: CRC32C (Cyclic Redundancy Check 32-bit for Castagnoli polynomial) チェックサムを計算するための Python ライブラリです。Google Cloud Storage では、アップロードされたデータの整合性を検証するために使用されることがあります。
+*   **protobuf (Protocol Buffers)**: Google が開発した、構造化されたデータをシリアライズするための言語に依存しない、プラットフォームに依存しない、拡張可能なメカニズムです。データ通信やデータ保存に用いられます。
+*   **requests**: Python で最も広く使われている HTTP クライアントライブラリの一つです。ウェブサービスへのリクエスト送信などを容易に行うことができます。
+*   **Segmentation fault**: プログラムが許可されていないメモリ領域にアクセスしようとしたときに発生する、深刻な実行時エラーです。通常、プログラムのクラッシュにつながります。
+*   **tink**: Google が開発したオープンソースのクロスプラットフォームな暗号化ライブラリです。`google-cloud-storage` ライブラリが内部的に暗号化関連の処理で利用している可能性があります。
+
+---
+
 # Title: June 16, 2025 
 Link: https://cloud.google.com/release-notes#June_16_2025<br>
 # Cloud Composer
