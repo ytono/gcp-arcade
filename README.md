@@ -1,4 +1,424 @@
 
+# Title: June 30, 2025 
+Link: https://cloud.google.com/release-notes#June_30_2025<br>
+ご担当者様
+
+Google Cloudのリリースノートに基づき、構築済みのサービスへの影響調査結果を以下にご報告いたします。貴社環境として、Google Cloud Composer 2 (Compoer version 2.7.1, Airflow version 2.7.3) および Google Kubernetes Engine 1.31 をご利用とのことですが、今回のリリースノートは主に各言語のクライアントライブラリの更新に関するものです。これらの更新は、貴社が開発・運用しているアプリケーションが該当言語（Java/Go）のクライアントライブラリを直接利用している場合に影響があります。Google Cloud Composer や Google Kubernetes Engine のサービス基盤自体への直接的な影響はございません。
+
+---
+
+# Cloud Storage
+
+## Changed
+
+原文:
+A weekly digest of client library updates from across the Cloud SDK.
+**Java**
+**Changes for google-cloud-storage**
+[google-cloud-storage](https://github.com/googleapis/java-storage)
+[2.53.2](https://github.com/googleapis/java-storage/compare/v2.53.1...v2.53.2)
+- Fix Journaling BlobWriteSessionConfig to properly handle multiple consecutive retries (#3166) (895bfbd)
+- Update dependency com.google.cloud.opentelemetry:exporter-trace to v0.36.0 (#3162) (41a1030)
+- Update sdk-platform-java dependencies (#3164) (c22a131)
+
+説明:
+Cloud StorageのJavaクライアントライブラリ `google-cloud-storage` バージョン2.53.2がリリースされました。このバージョンでは、`BlobWriteSessionConfig` における連続するリトライ処理の不具合が修正され、信頼性が向上しています。また、OpenTelemetryのトレースエクスポーターやSDKプラットフォームのJava依存関係のアップデートが含まれています。
+
+影響有無:
+*   **影響有無**: 軽微な影響あり（主に改善）
+*   **理由**: このアップデートは主にバグ修正と依存ライブラリの更新であり、既存のAPIや機能に非互換な変更は含まれていません。Javaクライアントライブラリを使用してCloud Storageへの書き込みを行い、特に`BlobWriteSessionConfig`における連続リトライ処理の問題に直面していたアプリケーションにとっては、安定性向上の恩恵があります。Google Cloud ComposerはPythonベースであるため直接的な影響はありません。Google Kubernetes Engine上で稼働するJavaアプリケーションがこのライブラリを使用している場合は、安定性向上のメリットを享受できます。
+
+対処方法:
+*   JavaでCloud Storageを操作するアプリケーションを開発・運用している場合、このライブラリのバージョンへのアップデートを検討してください。特に、上記のリトライ問題に遭遇している場合は、アップデートにより問題が解決する可能性があります。
+*   アップデート実施の際は、常にテスト環境での十分な検証を実施することを推奨します。
+
+用語説明:
+*   **BlobWriteSessionConfig**: Google Cloud Storageにオブジェクト（Blob）を書き込む際のセッション設定を管理するクラスです。特に大容量ファイルのアップロードなどで使用されます。
+*   **Journaling**: システムの変更履歴を記録するプロセスです。ここでは、Cloud Storageへの書き込み操作の進行状況を記録し、障害発生時やリトライ時に整合性を保つためのメカニズムを指します。
+*   **OpenTelemetry**: クラウドネイティブなソフトウェアのための、ベンダーに依存しないオブザーバビリティ（可観測性）データ（トレース、メトリクス、ログ）の収集およびエクスポートを目的としたオープンソースプロジェクトです。アプリケーションの動作を監視・分析するために利用されます。
+
+---
+
+# Spanner
+
+## Changed (Go Client Library)
+
+原文:
+A monthly digest of client library updates from across the Cloud SDK.
+**Go**
+**Changes for spanner/admin/database/apiv1**
+[spanner/admin/database/apiv1](https://github.com/googleapis/google-cloud-go/tree/main/spanner/admin/database/apiv1)
+[1.83.0](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.82.0...spanner/v1.83.0)
+- **spanner/spansql:** Add support for TOKENIZE_JSON. (#12338) (72225a5)
+- **spanner/spansql:** Support EXISTS in query parsing (#12439) (f5cb67b)
+- **spanner:** Add new change_stream.proto (40b60a4)
+- **spanner:** Add option for how to call BeginTransaction (#12436) (2cba13b)
+- **spanner:** Wrap proto mutation (#12497) (e655889)
+- **spanner:** Pointer type custom struct decoder (#12496) (ac3cafb)
+
+説明:
+SpannerのGoクライアントライブラリ `spanner/admin/database/apiv1` バージョン1.83.0がリリースされました。このバージョンでは、Spanner SQLにおける`TOKENIZE_JSON`関数のサポート、`EXISTS`句のクエリ解析サポートといった機能拡張が含まれます。また、新しい`change_stream.proto`の追加、`BeginTransaction`呼び出しオプションの追加、およびカスタム構造体デコーダーの改善も行われています。
+
+影響有無:
+*   **影響有無**: 軽微な影響あり（新機能追加）
+*   **理由**: これらの変更は主に新機能の追加や既存機能の拡張であり、既存のAPIやアプリケーションの動作に非互換な変更をもたらすものではありません。Google Cloud ComposerはPythonベースであるため直接的な影響はありません。Google Kubernetes Engine上でGo言語のアプリケーションを運用している場合、これらの新しいSpanner SQL機能やAPIの恩恵を受けることができます。
+
+対処方法:
+*   GoでSpannerを操作するアプリケーションを開発・運用しており、追加された新機能（例: `TOKENIZE_JSON`、`EXISTS`句など）の利用を検討する際は、このライブラリのバージョンへのアップデートを実施してください。
+*   既存のアプリケーションの動作に影響を与える可能性は低いですが、依存関係の更新を行う際は、テスト環境での十分な検証を推奨します。
+
+用語説明:
+*   **TOKENIZE_JSON**: Spanner SQLでJSONデータをより詳細に解析・検索するための新しい関数であると推測されます。具体的には、JSON文字列を構成要素（トークン）に分解し、特定の条件に基づいて処理することを可能にする可能性があります。
+*   **EXISTS句**: SQLにおいて、サブクエリが任意の行を返すかどうかをテストするために使用される述語です。`EXISTS`句のサポートにより、Goクライアントライブラリを使用したSpannerクエリの表現力が向上します。
+*   **Change Streams**: Spannerデータベースのデータ変更イベントをほぼリアルタイムでキャプチャし、Google Cloud Pub/Subなどの他のサービスにストリーミングする機能です。データの同期、監査、分析パイプラインの構築に利用されます。
+
+## Changed (Java Client Library)
+
+原文:
+**Java**
+**Changes for google-cloud-spanner**
+[google-cloud-spanner](https://github.com/googleapis/java-spanner)
+[6.95.0](https://github.com/googleapis/java-spanner/compare/v6.94.0...v6.95.0)
+- Enable ALTS hard bound token in DirectPath (#3904) (2b0f2ff)
+- Enable grpc and afe metrics (#3896) (706f794)
+- Last statement sample (#3830) (2f62816)
+- **spanner:** Add new change_stream.proto (f385698)
+- Directpath_enabled attribute (#3897) (53bc510)
+- Update dependency io.opentelemetry:opentelemetry-bom to v1.50.0 (#3887) (94b879c)
+[6.95.1](https://github.com/googleapis/java-spanner/compare/v6.95.0...v6.95.1)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.49.0 (#3909) (3de8502)
+- Update googleapis/sdk-platform-java action to v2.59.0 (#3910) (aed8bd6)
+[6.96.0](https://github.com/googleapis/java-spanner/compare/v6.95.1...v6.96.0)
+- Allow JDBC to configure directpath for connection (#3929) (d754f1f)
+- Support getOrNull and getOrDefault in Struct (#3914) (1dc5a3e)
+- Use multiplexed sessions for read-only transactions (#3917) (37fdc27)
+- Allow zero durations to be set for connections (#3916) (43ea4fa)
+- Add snippet for Repeatable Read configuration at client and transaction (#3908) (ff3d212)
+- Update SpannerSample.java to align with best practices (#3625) (7bfc62d)
+
+説明:
+SpannerのJavaクライアントライブラリ `google-cloud-spanner` バージョン6.95.0, 6.95.1, 6.96.0 が立て続けにリリースされました。
+これらのリリースには、DirectPathにおけるALTSハードバウンドトークンの有効化によるセキュリティ強化、gRPCおよびAFEメトリクス有効化による監視機能の強化、新しい`change_stream.proto`の追加、JDBC経由でのDirectPath接続設定の許可、`Struct`クラスにおける`getOrNull`および`getOrDefault`メソッドのサポートなどが含まれます。また、読み取り専用トランザクションでの多重化セッションの利用により、パフォーマンス向上が期待できます。
+
+影響有無:
+*   **影響有無**: 軽微な影響あり（機能強化、パフォーマンス改善、セキュリティ強化）
+*   **理由**: これらの変更は、主に既存機能の安定性、パフォーマンス、セキュリティ、監視機能、および利便性を向上させるものであり、既存のアプリケーションの動作に非互換な変更をもたらす可能性は低いと考えられます。読み取り専用トランザクションで多重化セッションが利用されるようになることで、既存のワークロードにおいてもパフォーマンスの改善が期待できます。Google Cloud ComposerはPythonベースであるため直接的な影響はありません。Google Kubernetes Engine上でJavaアプリケーションを運用している場合は、これらの機能強化やパフォーマンス改善の恩恵を享受できます。
+
+対処方法:
+*   JavaでSpannerを操作するアプリケーションを開発・運用している場合、セキュリティ強化、パフォーマンス改善、監視機能の恩恵を受けるために、このライブラリの最新バージョンへのアップデートを強く推奨します。
+*   特に、DirectPathを利用している環境や、読み取り専用トランザクションのパフォーマンスがボトルネックになっている場合、アップデートによる改善が期待できます。
+*   アップデート実施の際は、テスト環境での十分な検証を推奨します。
+
+用語説明:
+*   **ALTS (Application Layer Transport Security)**: Google独自の認証・認可・暗号化プロトコルであり、Googleのインフラストラクチャ内でサービス間の通信セキュリティを強化するために設計されています。
+*   **DirectPath**: Google Cloudのサービスへのアクセスパスの一つで、従来のロードバランサやプロキシを介さず、クライアントから直接バックエンドサービスに接続することで、低レイテンシと高スループットを実現します。
+*   **gRPC**: Googleが開発したオープンソースの高性能Remote Procedure Call (RPC) フレームワークです。SpannerのクライアントライブラリはgRPCを基盤としています。
+*   **AFE (Application Front End)**: Googleのグローバルなネットワークインフラストラクチャにおける最前線に位置するサービスで、リクエストのルーティング、負荷分散、DDoS防御、SSLオフロードなどの機能を提供します。
+*   **Multiplexed Sessions (多重化セッション)**: 複数のデータベース操作やトランザクションを単一の物理的なネットワーク接続やセッション上で並行して実行する技術です。これにより、リソースの利用効率が向上し、接続の確立にかかるオーバーヘッドが削減され、レイテンシが低減される可能性があります。
+# Title: June 27, 2025 
+Link: https://cloud.google.com/release-notes#June_27_2025<br>
+## Google Cloud Composer2 (Compoer version 2.7.1、Airflow version 2.7.3)
+今回のリリースノートには、Google Cloud Composerに関する変更は含まれておりません。したがって、現在のサービスへの影響はありません。
+
+## Cloud Billing
+### Changed
+原文: **New fields added to Cloud Billing data exports to BigQuery**
+
+To prepare for expanding the spend-based committed use discounts (CUD)s program, we added new data fields to the schema for Cloud Billing standard and detailed data exports to BigQuery. These new fields add more information about the prices charged for your Google Cloud usage and consumption models.
+
+To learn more, see Billing data and SKU updates for spend-based CUDs.
+
+[Billing data and SKU updates for spend-based CUDs](https://cloud.google.com/billing/docs/resources/multiprice-cuds)
+
+説明: コミット済み利用割引（CUDs）プログラムの拡張に備え、Google Cloudの課金データをBigQueryへエクスポートする際の標準および詳細データのエクスポートスキーマに新しいデータフィールドが追加されました。これらの新しいフィールドは、Google Cloudの利用料金や消費モデルに関する追加情報を提供します。
+
+影響有無: 軽微な影響。
+既存のBigQueryテーブルのスキーマに新しいカラムが追加されますが、これは非破壊的な変更です。現在BigQueryに課金データをエクスポートしている場合、既存のクエリやデータ処理パイプラインに直接的なエラーは発生しません。しかし、新しいフィールドを活用してより詳細なコスト分析を行う場合は、クエリやレポートを更新する必要があります。
+
+対処方法:
+1.  現在BigQueryで課金データを利用している場合は、新しいフィールドの追加による影響がないことを確認してください。通常、既存のクエリは新しいフィールドを無視するため問題ありません。
+2.  追加された新しいフィールド（例えば、料金や消費モデルに関する詳細）を利用して、より詳細なコスト分析や最適化を行いたい場合は、BigQueryのクエリやデータ処理パイプラインを更新することを検討してください。詳細については、関連ドキュメント[Billing data and SKU updates for spend-based CUDs](https://cloud.google.com/billing/docs/resources/multiprice-cuds)を参照してください。
+
+用語説明:
+*   **Committed Use Discounts (CUDs)**: コミット済み利用割引。特定のGoogle Cloudサービスについて、一定期間（通常1年または3年）の最小利用量にコミットすることで得られる割引です。これにより、オンデマンド料金よりも大幅に低い料金でサービスを利用できます。
+*   **BigQuery**: Google Cloudが提供する、フルマネージドでスケーラブルなエンタープライズデータウェアハウスサービスです。ペタバイト規模のデータも高速に分析できます。
+*   **スキーマ (Schema)**: データベースやデータウェアハウスにおけるデータの構造を定義するものです。テーブルにおけるカラム名、データ型、制約などを指します。
+
+## Google Kubernetes Engine
+### Changed
+原文: GKE cluster versions have been updated.
+
+**New versions available for upgrades and new clusters.**
+
+The following Kubernetes versions are now available for new clusters and for
+opt-in control plane upgrades and node upgrades for existing clusters. For more
+information on versioning and upgrades, see GKE versioning and support
+and Upgrades.
+
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+
+説明: GKEクラスターの新しいバージョンがリリースされ、新規クラスターの作成や既存クラスターのコントロールプレーンおよびノードのアップグレードで選択できるようになりました。
+
+影響有無: 影響なし（機会の提供）。
+既存のGKEクラスター（バージョン1.31）に自動的に変更が適用されるものではありません。新しいバージョンが利用可能になったことを通知するものであり、クラスターの運用に直接的な影響はありませんが、将来的なアップグレードの選択肢が増えました。
+
+対処方法:
+現在のGKEクラスターはバージョン1.31です。この変更は、新しいバージョンの提供を知らせるものです。既存のクラスターの自動アップグレード設定を確認し、必要に応じて新しいマイナーバージョンまたはパッチバージョンへのアップグレードを計画することを推奨します。アップグレードの際は、公式ドキュメントの[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)および[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)を参照し、アプリケーションの互換性を十分にテストしてください。
+
+用語説明:
+*   **GKE (Google Kubernetes Engine)**: Google Cloudが提供する、Kubernetesをフルマネージドで実行できるサービスです。コンテナ化されたアプリケーションのデプロイ、管理、スケーリングを容易にします。
+*   **Control Plane (コントロールプレーン)**: Kubernetesクラスターの頭脳部分にあたるコンポーネント群（APIサーバー、スケジューラー、コントローラーマネージャーなど）です。クラスターの状態を管理し、操作を調整します。
+*   **Node (ノード)**: Kubernetesクラスターにおいて、コンテナ化されたアプリケーションを実行するワーカーマシン（VMインスタンスなど）です。
+
+---
+
+### Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available in the Rapid channel:
+
+- 1.30.12-gke.1320000
+- 1.31.9-gke.1287000
+- 1.32.4-gke.1767000
+- 1.33.1-gke.1959000
+- 1.33.2-gke.1043000
+
+- 1.30.12-gke.1320000
+- 1.31.9-gke.1287000
+- 1.32.4-gke.1767000
+- 1.33.1-gke.1959000
+- 1.33.2-gke.1043000
+
+[1.30.12-gke.1320000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.9-gke.1287000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1319)
+[1.32.4-gke.1767000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+[1.33.1-gke.1959000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md#v1331)
+[1.33.2-gke.1043000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md#v1332)
+
+説明: Rapidリリースチャネルにおいて、新しいGKEバージョンが利用可能になりました。これにはKubernetes 1.30、1.31、1.32、1.33のパッチバージョンが含まれます。リリースノート公開時点でロールアウトが進行中であり、全ゾーンへの展開には数日かかる場合があります。
+
+影響有無: 軽微な影響。
+現在のGKEクラスターがバージョン1.31であり、**Rapidチャネル**を使用している場合、新しいパッチバージョンである1.31.9-gke.1287000へのアップグレードが利用可能になります。自動アップグレードが有効になっているクラスターでは、今後このバージョンに更新される可能性があります。
+
+対処方法:
+Rapidチャネルを利用しているクラスターの場合、自動アップグレード設定によっては、このバージョンに更新される可能性があります。事前にアプリケーションの互換性テストを行い、必要に応じてアップグレードを計画してください。Rapidチャネルは新機能や修正が最も早く提供されますが、安定性には注意が必要です。
+
+用語説明:
+*   **GKE Release Channels (リリースチャネル)**: GKEクラスターのバージョンと機能のリリース頻度と安定性を制御する設定です。`Rapid`、`Regular`、`Stable`、`Extended`などのチャネルがあります。`Rapid`チャネルは最も早く新機能やパッチを提供しますが、予期せぬ変更や非互換性が含まれる可能性が最も高いチャネルです。
+
+---
+
+### Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available in the Stable channel:
+
+- 1.30.12-gke.1168000
+- 1.31.9-gke.1044001
+- 1.32.4-gke.1415000
+
+- 1.30.12-gke.1168000
+- 1.31.9-gke.1044001
+- 1.32.4-gke.1415000
+
+[1.30.12-gke.1168000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.9-gke.1044001](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1319)
+[1.32.4-gke.1415000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+
+説明: Stableリリースチャネルにおいて、新しいGKEバージョンが利用可能になりました。これにはKubernetes 1.30、1.31、1.32のパッチバージョンが含まれます。リリースノート公開時点でロールアウトが進行中であり、全ゾーンへの展開には数日かかる場合があります。
+
+影響有無: 軽微な影響。
+現在のGKEクラスターがバージョン1.31であり、**Stableチャネル**を使用している場合、新しいパッチバージョンである1.31.9-gke.1044001へのアップグレードが利用可能になります。自動アップグレードが有効になっているクラスターでは、今後このバージョンに更新される可能性があります。
+
+対処方法:
+Stableチャネルを利用しているクラスターの場合、自動アップグレード設定によっては、このバージョンに更新される可能性があります。事前にアプリケーションの互換性テストを行い、計画的にアップグレードを進めてください。Stableチャネルは、より高い安定性が期待されるチャネルです。
+
+用語説明:
+*   **Stable Channel**: GKEリリースチャネルの一つで、広範なテストと検証が行われたバージョンが提供されます。本番環境での利用に適しています。
+
+---
+
+### Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available in the Extended channel:
+
+- 1.28.15-gke.2445000
+- 1.29.15-gke.1594000
+- 1.30.12-gke.1246000
+- 1.31.9-gke.1176000
+- 1.32.4-gke.1603000
+- 1.33.1-gke.1584000
+
+- The following versions are no longer available in the Extended channel:
+
+- 1.27.16-gke.2820000
+- 1.27.16-gke.2853000
+- 1.27.16-gke.2894000
+
+- 1.28.15-gke.2445000
+- 1.29.15-gke.1594000
+- 1.30.12-gke.1246000
+- 1.31.9-gke.1176000
+- 1.32.4-gke.1603000
+- 1.33.1-gke.1584000
+
+[1.28.15-gke.2445000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815)
+[1.29.15-gke.1594000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915)
+[1.30.12-gke.1246000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.9-gke.1176000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1319)
+[1.32.4-gke.1603000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+[1.33.1-gke.1584000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md#v1331)
+- 1.27.16-gke.2820000
+- 1.27.16-gke.2853000
+- 1.27.16-gke.2894000
+
+説明: Extendedリリースチャネルにおいて、新しいGKEバージョンが利用可能になりました。これにはKubernetes 1.28、1.29、1.30、1.31、1.32、1.33のパッチバージョンが含まれます。同時に、以前のいくつかの1.27.16-gke.xバージョンは利用できなくなりました。リリースノート公開時点でロールアウトが進行中であり、全ゾーンへの展開には数日かかる場合があります。
+
+影響有無: 軽微な影響。
+現在のGKEクラスターがバージョン1.31であり、**Extendedチャネル**を使用している場合、新しいパッチバージョンである1.31.9-gke.1176000へのアップグレードが利用可能になります。自動アップグレードが有効になっているクラスターでは、今後このバージョンに更新される可能性があります。現在1.27.xを使用していないため、利用不可になったバージョンによる直接的な影響はありません。
+
+対処方法:
+Extendedチャネルを利用しているクラスターの場合、自動アップグレード設定によっては、このバージョンに更新される可能性があります。事前にアプリケーションの互換性テストを行い、計画的にアップグレードを進めてください。
+
+用語説明:
+*   **Extended Channel**: GKEリリースチャネルの一つで、他のチャネルよりも長期間のサポートが提供されるバージョンが利用可能です。通常、保守的なアップグレードスケジュールを好むユーザー向けです。
+
+---
+
+### Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available:
+
+- 1.30.12-gke.1320000
+- 1.31.9-gke.1287000
+- 1.32.4-gke.1767000
+- 1.33.1-gke.1959000
+
+- The following node versions are now available:
+
+- 1.28.15-gke.2445000
+- 1.29.15-gke.1594000
+- 1.30.12-gke.1320000
+- 1.31.9-gke.1287000
+- 1.32.4-gke.1767000
+- 1.33.1-gke.1959000
+- 1.33.2-gke.1043000
+
+- 1.30.12-gke.1320000
+- 1.31.9-gke.1287000
+- 1.32.4-gke.1767000
+- 1.33.1-gke.1959000
+
+[1.30.12-gke.1320000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.9-gke.1287000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1319)
+[1.32.4-gke.1767000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+[1.33.1-gke.1959000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md#v1331)
+- 1.28.15-gke.2445000
+- 1.29.15-gke.1594000
+- 1.30.12-gke.1320000
+- 1.31.9-gke.1287000
+- 1.32.4-gke.1767000
+- 1.33.1-gke.1959000
+- 1.33.2-gke.1043000
+
+[1.28.15-gke.2445000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md#v12815)
+[1.29.15-gke.1594000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.29.md#v12915)
+[1.30.12-gke.1320000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.9-gke.1287000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1319)
+[1.32.4-gke.1767000](https://github.cloud.google.com/kubernetes-engine/versioning)
+[1.33.1-gke.1959000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md#v1331)
+[1.33.2-gke.1043000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md#v1332)
+
+説明: GKEのコントロールプレーンおよびノードの新しいバージョンが、どのリリースチャネルに属するかに関わらず一般的に利用可能になりました。これにはKubernetes 1.30、1.31、1.32、1.33のコントロールプレーンバージョンと、1.28から1.33までのノードバージョンが含まれます。
+
+影響有無: 軽微な影響。
+現在のGKEクラスターがバージョン1.31であるため、コントロールプレーンとノードの両方で1.31.9-gke.1287000が利用可能になったことを意味します。これはアップグレードの選択肢が増えることを示します。自動アップグレードが有効なクラスターは、設定されたリリースチャネルに応じてこれらのバージョンに更新される可能性があります。
+
+対処方法:
+クラスターのリリースチャネル設定と自動アップグレードのポリシーを確認し、必要に応じてアップグレードを計画してください。特にノードのバージョンアップグレードは、ワークロードへの影響を最小限に抑えるため、計画的に実施することが重要です。
+
+---
+
+### Changed
+原文: > **Note:** Your clusters might not have these versions available. Rollouts are already in progress
+  when we publish the release notes, and can take multiple days to complete across all Google Cloud
+  zones.
+
+- The following versions are now available in the Regular channel:
+
+- 1.30.12-gke.1246000
+- 1.31.9-gke.1176000
+- 1.32.4-gke.1603000
+- 1.33.1-gke.1584000
+
+- 1.30.12-gke.1246000
+- 1.31.9-gke.1176000
+- 1.32.4-gke.1603000
+- 1.33.1-gke.1584000
+
+[1.30.12-gke.1246000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.30.md#v13012)
+[1.31.9-gke.1176000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.31.md#v1319)
+[1.32.4-gke.1603000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.32.md#v1324)
+[1.33.1-gke.1584000](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.33.md#v1331)
+
+説明: Regularリリースチャネルにおいて、新しいGKEバージョンが利用可能になりました。これにはKubernetes 1.30、1.31、1.32、1.33のパッチバージョンが含まれます。リリースノート公開時点でロールアウトが進行中であり、全ゾーンへの展開には数日かかる場合があります。
+
+影響有無: 軽微な影響。
+現在のGKEクラスターがバージョン1.31であり、**Regularチャネル**を使用している場合、新しいパッチバージョンである1.31.9-gke.1176000へのアップグレードが利用可能になります。自動アップグレードが有効になっているクラスターでは、今後このバージョンに更新される可能性があります。
+
+対処方法:
+Regularチャネルを利用しているクラスターの場合、自動アップグレード設定によっては、このバージョンに更新される可能性があります。事前にアプリケーションの互換性テストを行い、計画的にアップグレードを進めてください。Regularチャネルは、Rapidチャネルよりも安定性が高く、Stableチャネルよりも早く新機能が提供されるバランスの取れたチャネルです。
+
+用語説明:
+*   **Regular Channel**: GKEリリースチャネルの一つで、迅速なパッチ適用と新機能の提供がありつつ、ある程度の安定性が確保されたバージョンが提供されます。多くの本番環境で推奨されるチャネルです。
+# Title: June 25, 2025 
+Link: https://cloud.google.com/release-notes#June_25_2025<br>
+以下にGoogle Cloudのリリースノートに関する調査結果を報告いたします。
+
+---
+
+# Artifact Registry
+
+## Announcement
+
+**原文:**
+Artifact Registry generic repositories are now generally available.
+
+[generally available](https://cloud.google.com/products?#product-launch-stages)
+Generic repositories store versioned, immutable artifacts that don't have to adhere to any specific package format in Artifact Registry. You can store and manage arbitrary files such as archives, binaries, and media files with no package specifications or management clients.
+
+To get started with generic repositories, see the quickstart.
+
+[quickstart](https://cloud.google.com/artifact-registry/docs/generic/store-generic)
+
+**説明:**
+Artifact Registry において、特定のパッケージ形式に縛られない「ジェネリックリポジトリ (generic repositories)」が正式リリース（Generally Available: GA）されました。この新機能により、Artifact Registry を使用して、アーカイブファイル、バイナリ、メディアファイルなど、任意の種類のファイルをバージョン管理された不変のアーティファクトとして保存および管理できるようになります。これにより、これまでは対応していなかった多様なビルド成果物やプロジェクト資産を、Artifact Registryで一元的に管理するパスが提供されます。
+
+**影響有無:**
+**影響なし。**
+この変更は、既存のArtifact Registryの機能に対する追加であり、お客様が現在ご利用中のサービスや設定に直接的な変更や非互換性をもたらすものではありません。Google Cloud ComposerやGoogle Kubernetes Engine (GKE) は、通常、DockerイメージやPythonパッケージなどの特定のパッケージ形式のアーティファクトをArtifact Registryから利用しますが、今回の「ジェネリックリポジトリ」のGAは、それらの既存のワークロードに影響を与えるものではありません。
+
+**対処方法:**
+**現時点での対応は不要です。**
+この新機能は、既存の運用に影響を与えるものではなく、任意で活用できるものです。もし、CI/CDパイプラインにおいて、特定のパッケージ形式に属さない任意のファイル（例：Terraformモジュール、シェルスクリプト、静的アセット、カスタム設定ファイルなど）をバージョン管理し、集中管理したいという要件がある場合に、本機能の導入を検討してください。
+
+**用語説明:**
+*   **Artifact Registry:** Google Cloudが提供するユニバーサルパッケージマネージャサービスです。Dockerイメージ、Maven、npm、Python、Go、Debian、RPMなど、さまざまなパッケージ形式のアーティファクトを一元的に保存、管理、配布できます。セキュリティ、スケーラビリティ、可用性に優れています。
+*   **Generic repositories (ジェネリックリポジトリ):** Artifact Registry の一種で、特定のパッケージ形式の制約を受けずに、任意のファイル（アーカイブ、バイナリ、メディアファイルなど）を保存・バージョン管理できるリポジトリタイプです。これにより、より広範なアーティファクト管理のニーズに対応できます。
+*   **Generally Available (GA):** Google Cloudの製品ライフサイクルにおけるステージの一つです。この段階に達した製品や機能は、本番環境での利用が推奨され、安定性、機能、サービスレベル契約 (SLA) が保証されます。通常、この段階以降で大幅な変更や非推奨化が行われることは稀です。
+*   **Immutable artifacts (不変のアーティファクト):** 一度作成またはデプロイされた後に変更ができない、あるいは変更が推奨されないアーティファクトを指します。これにより、デプロイの再現性が保証され、意図しない変更による問題を防ぐことができます。これは、セキュアで信頼性の高いソフトウェア開発ライフサイクルにおいて重要な概念です。
+
 # Title: June 24, 2025 
 Link: https://cloud.google.com/release-notes#June_24_2025<br>
 ## Google Kubernetes Engine
