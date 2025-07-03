@@ -1,3 +1,234 @@
+# Title: July 02, 2025 
+Link: https://cloud.google.com/release-notes#July_02_2025<br>
+# Cloud Composer
+## Changed
+原文: Cloud Composer 1 and Cloud Composer 2 environments with version 2.0.x are **approaching their end of life**. We're planning to deprecate them in the following way:
+
+- Starting **September 15, 2025**, you will no longer be able to create new Cloud Composer 1 environments.
+- On **September 15, 2026**, all Cloud Composer 1 and Cloud Composer 2 version 2.0.x environments will reach their planned end of life, and you **won't be able to use them**.
+
+Cloud Composer 2 environments with versions later than 2.1.0 and all Cloud Composer 3 environments are not affected by this deprecation.
+
+We recommend planning
+migration to Cloud Composer 3
+or upgrading your Cloud Composer 2 environments to a later version.
+
+[migration to Cloud Composer 3](https://cloud.google.com/composer/docs/latest/migrate-composer-1-to-3)
+
+説明：
+Cloud Composer 1 および Cloud Composer 2 のバージョン 2.0.x が、サポート終了（End of Life: EoL）に近づいていることがアナウンスされました。
+
+*   **2025年9月15日**以降、新規のCloud Composer 1 環境は作成できなくなります。
+*   **2026年9月15日**には、すべてのCloud Composer 1 環境とCloud Composer 2 のバージョン 2.0.x 環境がEoLに達し、これらの環境は利用できなくなります。
+
+一方で、Cloud Composer 2 のバージョン 2.1.0 以降の環境、およびすべてのCloud Composer 3 環境は、この非推奨化の影響を受けません。Google Cloud は、Cloud Composer 3 への移行、または既存のCloud Composer 2 環境をより新しいバージョンにアップグレードすることを推奨しています。詳細は、[Cloud Composer 3 への移行](https://cloud.google.com/composer/docs/latest/migrate-composer-1-to-3)ドキュメントを参照してください。
+
+影響有無：
+**影響なし。**
+お客様が現在ご利用のCloud Composer 2 環境のバージョンは2.7.1であり、これは非推奨化対象である2.0.xバージョンではなく、リリースノートに明確に記載されている通り2.1.0以降のバージョンに該当するため、この非推奨化による直接的な影響はありません。
+
+対処方法：
+この非推奨化に対する直接的な対処は不要です。
+Google Cloud のベストプラクティスに従い、今後も継続して安定した運用を行うため、定期的なComposer環境のアップグレードや、将来的なCloud Composer 3 への移行計画については、中長期的な視点で検討を続けることを推奨します。
+
+用語説明：
+*   **End of Life (EoL)**: ソフトウェアやハードウェア製品のサポートライフサイクルが終了する日付。EoLを過ぎると、通常、バグ修正、セキュリティパッチの提供、技術サポートが終了し、製品の利用が推奨されなくなります。
+*   **Deprecation (非推奨化)**: ある機能、API、または製品バージョンが、将来的に利用不可となる予定があることを事前にユーザーに通知するプロセス。非推奨化された項目は、通常、一定期間は引き続き利用可能ですが、新しいプロジェクトでの利用は推奨されず、代替手段への移行が促されます。
+
+# Title: June 30, 2025 
+Link: https://cloud.google.com/release-notes#June_30_2025<br>
+# BigQuery
+## Changed
+原文:
+```
+- **bigquery:** Integrate Otel in client lib (#3747) (6e3e07a)
+- **bigquery:** Integrate Otel into retries, jobs, and more (#3842) (4b28c47)
+- **bigquery:** Add MY_VIEW_DATASET_NAME*TEST* to resource clean up sample (#3838) (b1962a7)
+- Remove version declaration of open-telemetry-bom (#3855) (6f9f77d)
+- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.66.0 (#3835) (69be5e7)
+- Update dependency com.google.api.grpc:proto-google-cloud-bigqueryconnection-v1 to v2.68.0 (#3858) (d4ca353)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.49.2 (#3853) (cf864df)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.50.0 (#3861) (eb26dee)
+- Update dependency io.opentelemetry:opentelemetry-bom to v1.51.0 (#3840) (51321c2)
+- Update ossf/scorecard-action action to v2.4.2 (#3810) (414f61d)
+```
+説明：
+BigQueryのJavaクライアントライブラリ `google-cloud-bigquery` のバージョン2.52.0への更新です。主な変更点は以下の通りです。
+*   OpenTelemetryとの連携が強化され、クライアントライブラリ内部でのリトライ処理やジョブ実行におけるテレメトリデータ（トレース、メトリクス）の収集が可能になりました。
+*   リソースクリーンアップのサンプルコードに新しいビューデータセット名が追加されました。
+*   OpenTelemetry BOM (Bill of Materials) のバージョン宣言が削除され、依存関係の管理が改善されました。
+*   BigQuery Connection APIおよびGoogle Cloud SDKプラットフォームのJava設定、OpenTelemetry BOMなど、各種依存ライブラリのバージョンが更新されました。
+
+影響有無：
+影響なし。
+本変更はBigQueryのJavaクライアントライブラリの機能追加と依存関係の更新です。
+*   Google Cloud Composer 2 (Airflow 2.7.3) はPythonベースであるため、このJavaクライアントライブラリの変更による直接的な影響はありません。BigQueryとの連携にはPythonクライアントライブラリが使用されます。
+*   Google Kubernetes Engine (GKE) 1.31上で稼働しているアプリケーションが、BigQueryとの連携にこのJavaクライアントライブラリを明示的に使用している場合、新機能（OpenTelemetry連携強化など）を利用するためにはライブラリのバージョンアップが必要です。既存のアプリケーションの動作に破壊的な変更は含まれていません。機能追加であるため、パフォーマンスやセキュリティに対するネガティブな影響もありません。
+
+対処方法：
+新機能であるOpenTelemetry連携を利用したい場合、または最新の依存関係に更新したい場合は、BigQuery Javaクライアントライブラリのバージョンアップをご検討ください。既存のアプリケーションに影響を与えないため、緊急の対応は不要です。
+
+用語説明：
+*   **OpenTelemetry (Otel)**: アプリケーションやサービスからテレメトリデータ（トレース、メトリクス、ログ）を収集するためのオープンソースの標準仕様およびツール群です。これにより、分散システムにおける観測可能性（Observability）が向上します。
+*   **BOM (Bill of Materials)**: Java Mavenプロジェクトで依存関係のバージョンを一元的に管理するための特別なPOMファイルです。複数の依存関係のバージョン間の互換性を保証しやすくなります。
+*   **GAPIC (Google API Client Libraries)**: GoogleのAPI定義から自動生成されるクライアントライブラリのフレームワークです。
+
+---
+
+# Cloud Logging
+## Changed
+原文:
+```
+- Regenerate gapic yaml and service yaml for logging by augmentation configs (9023895)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.50.0 (#1821) (af4edc5)
+- Update googleapis/sdk-platform-java action to v2.60.0 (#1822) (0a96dd5)
+```
+説明：
+Cloud LoggingのJavaクライアントライブラリ `google-cloud-logging` のバージョン3.22.6への更新です。主な変更点は以下の通りです。
+*   GAPIC YAMLとサービスYAMLが、拡張設定（augmentation configs）に基づいて再生成されました。これはAPI定義の内部的な更新であり、クライアントライブラリの生成プロセスを改善するものです。
+*   Google Cloud SDKプラットフォームのJava設定およびgoogleapis/sdk-platform-java actionなど、各種依存ライブラリのバージョンが更新されました。
+
+影響有無：
+影響なし。
+本変更はCloud LoggingのJavaクライアントライブラリの内部的な更新と依存関係の更新です。
+*   Google Cloud Composer 2 (Airflow 2.7.3) はPythonベースであるため、このJavaクライアントライブラリの変更による直接的な影響はありません。
+*   Google Kubernetes Engine (GKE) 1.31上で稼働しているアプリケーションが、Cloud Loggingへの連携にこのJavaクライアントライブラリを明示的に使用している場合でも、内部的な改善が主であるため、既存のアプリケーションの動作に破壊的な変更は含まれていません。パフォーマンスやセキュリティに対するネガティブな影響もありません。
+
+対処方法：
+既存のアプリケーションに影響を与えないため、緊急の対応は不要です。安定性の向上や最新の依存関係を利用したい場合は、Cloud Logging Javaクライアントライブラリのバージョンアップをご検討ください。
+
+用語説明：
+*   **GAPIC YAML / サービスYAML**: Google APIのインターフェース定義やサービス固有の設定を記述するYAMLファイルです。これらのファイルからクライアントライブラリのコードが自動生成されます。
+*   **Augmentation Configs**: GAPIC生成プロセスにおいて、追加の設定や修正を適用するための設定ファイルです。
+
+---
+
+# Cloud Storage
+## Changed
+原文:
+```
+- Fix Journaling BlobWriteSessionConfig to properly handle multiple consecutive retries (#3166) (895bfbd)
+- Update dependency com.google.cloud.opentelemetry:exporter-trace to v0.36.0 (#3162) (41a1030)
+- Update sdk-platform-java dependencies (#3164) (c22a131)
+```
+説明：
+Cloud StorageのJavaクライアントライブラリ `google-cloud-storage` のバージョン2.53.2への更新です。主な変更点は以下の通りです。
+*   `Journaling BlobWriteSessionConfig` における、複数連続リトライの適切な処理に関するバグが修正されました。これにより、ジャーナリングを使用したBLOB書き込みセッションの信頼性が向上します。
+*   OpenTelemetryトレースエクスポーターおよびSDKプラットフォームのJava依存関係が更新されました。
+
+影響有無：
+影響なし（またはポジティブな影響）。
+本変更はCloud StorageのJavaクライアントライブラリのバグ修正と依存関係の更新です。
+*   Google Cloud Composer 2 (Airflow 2.7.3) はPythonベースであるため、このJavaクライアントライブラリの変更による直接的な影響はありません。
+*   Google Kubernetes Engine (GKE) 1.31上で稼働しているJavaアプリケーションが、`Journaling BlobWriteSessionConfig` を使用してCloud StorageへのBLOB書き込みを行っており、かつ複数連続リトライの問題に直面していた場合、この更新を適用することで問題が解決され、安定性が向上します。この修正はバグ修正であり、既存の動作に破壊的な変更をもたらすものではありません。
+
+対処方法：
+もしアプリケーションが `Journaling BlobWriteSessionConfig` を使用しており、複数リトライ時の問題に遭遇している場合は、Cloud Storage Javaクライアントライブラリのバージョンアップを強く推奨します。それ以外の場合でも、安定性向上のため、バージョンアップを検討しても良いでしょう。
+
+用語説明：
+*   **Journaling BlobWriteSessionConfig**: Cloud Storageへの大きなオブジェクト（BLOB）を書き込む際に、ジャーナリング機構を利用して書き込み処理の信頼性や整合性を高めるための設定です。書き込みの途中で障害が発生した場合でも、以前の状態に復元したり、中断したところから再開したりするのに役立ちます。
+
+---
+
+# Pub/Sub
+## Changed
+原文:
+```
+- Update dependency com.google.cloud:google-cloud-bigquery to v2.51.0 (#2457) (d74215a)
+- Update dependency com.google.cloud:google-cloud-core to v2.58.0 (#2443) (d4599d9)
+- Update dependency com.google.cloud:google-cloud-storage to v2.53.1 (#2452) (b4af237)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.50.0 (#2461) (715916a)
+- Update dependency com.google.cloud.opentelemetry:exporter-trace to v0.36.0 (#2440) (50a3eb9)
+- Update dependency com.google.protobuf:protobuf-java-util to v4.31.1 (#2442) (a0be1bb)
+- Update dependency org.easymock:easymock to v5.6.0 (#2069) (5f144a4)
+- Update googleapis/sdk-platform-java action to v2.60.0 (#2462) (ee8e5c7)
+- Update googleapis/sdk-platform-java action to v2.60.0 (#2464) (7a0af37)
+```
+説明：
+Pub/SubのJavaクライアントライブラリ `google-cloud-pubsub` のバージョン1.140.2への更新です。主な変更点は以下の通りです。
+*   BigQuery、Cloud Storage、Google Cloud Coreライブラリ、SDKプラットフォームのJava設定、OpenTelemetryトレースエクスポーター、Protobufユーティリティ、Easymockなど、複数の依存ライブラリのバージョンが更新されました。
+
+影響有無：
+影響なし。
+本変更はPub/SubのJavaクライアントライブラリの依存関係の更新のみです。
+*   Google Cloud Composer 2 (Airflow 2.7.3) はPythonベースであるため、このJavaクライアントライブラリの変更による直接的な影響はありません。
+*   Google Kubernetes Engine (GKE) 1.31上で稼働しているアプリケーションが、Pub/Subとの連携にこのJavaクライアントライブラリを明示的に使用している場合、依存関係の更新が含まれます。通常、依存関係の更新は互換性の向上やセキュリティ修正が目的であり、既存のアプリケーションの動作に破壊的な変更は含まれていません。
+
+対処方法：
+既存のアプリケーションに影響を与えないため、緊急の対応は不要です。最新の依存関係を利用したい場合は、Pub/Sub Javaクライアントライブラリのバージョンアップをご検討ください。
+
+用語説明：
+*   **Protobuf (Protocol Buffers)**: Googleが開発した、構造化データをシリアライズするための言語に依存しない、プラットフォームに依存しない、拡張可能なメカニズムです。RPC（Remote Procedure Call）やデータ永続化によく使用されます。
+*   **Easymock**: Javaでモックオブジェクトを作成するためのライブラリです。単体テストなどで依存するコンポーネントの振る舞いをシミュレートするために使用されます。
+
+---
+
+# Spanner
+## Changed
+原文:
+```
+**Go Client Library (spanner/admin/database/apiv1)**
+- **spanner/spansql:** Add support for TOKENIZE_JSON. (#12338) (72225a5)
+- **spanner/spansql:** Support EXISTS in query parsing (#12439) (f5cb67b)
+- **spanner:** Add new change_stream.proto (40b60a4)
+- **spanner:** Add option for how to call BeginTransaction (#12436) (2cba13b)
+- **spanner:** Wrap proto mutation (#12497) (e655889)
+- **spanner:** Pointer type custom struct decoder (#12496) (ac3cafb)
+
+**Java Client Library (google-cloud-spanner)**
+- Enable ALTS hard bound token in DirectPath (#3904) (2b0f2ff)
+- Enable grpc and afe metrics (#3896) (706f794)
+- Last statement sample (#3830) (2f62816)
+- **spanner:** Add new change_stream.proto (f385698)
+- Directpath_enabled attribute (#3897) (53bc510)
+- Update dependency io.opentelemetry:opentelemetry-bom to v1.50.0 (#3887) (94b879c)
+- Update dependency com.google.cloud:sdk-platform-java-config to v3.49.0 (#3909) (3de8502)
+- Update googleapis/sdk-platform-java action to v2.59.0 (#3910) (aed8bd6)
+- Allow JDBC to configure directpath for connection (#3929) (d754f1f)
+- Support getOrNull and getOrDefault in Struct (#3914) (1dc5a3e)
+- Use multiplexed sessions for read-only transactions (#3917) (37fdc27)
+- Allow zero durations to be set for connections (#3916) (43ea4fa)
+- Add snippet for Repeatable Read configuration at client and transaction (#3908) (ff3d212)
+- Update SpannerSample.java to align with best practices (#3625) (7bfc62d)
+```
+説明：
+SpannerのGoクライアントライブラリ `spanner/admin/database/apiv1` とJavaクライアントライブラリ `google-cloud-spanner` の複数のバージョン更新です。
+
+**Goクライアントライブラリ (バージョン1.83.0):**
+*   Spanner SQLの解析機能が強化され、`TOKENIZE_JSON` 関数および `EXISTS` 句のサポートが追加されました。
+*   Spanner Change Streams機能に関連する `change_stream.proto` が追加されました。
+*   `BeginTransaction` 呼び出しのオプションが追加され、Proto mutationのラップやポインタ型カスタム構造体デコーダが改善されました。
+
+**Javaクライアントライブラリ (バージョン6.95.0, 6.95.1, 6.96.0):**
+*   DirectPath接続におけるセキュリティ強化（ALTS hard bound token）と、gRPCおよびAFE（Application Frontend）に関するメトリクス収集機能が有効化されました。
+*   Spanner Change Streams機能に関連する `change_stream.proto` が追加され、DirectPath関連の属性が追加されました。
+*   JDBCドライバ経由でのDirectPath接続設定が可能になり、`Struct` オブジェクトで `getOrNull` および `getOrDefault` メソッドがサポートされました。
+*   読み取り専用トランザクションでマルチプレックスセッションを使用する機能が導入され、パフォーマンス向上が期待されます。
+*   接続設定におけるゼロ継続時間の指定が許可され、`Repeatable Read` トランザクション設定に関するサンプルコードが追加・更新されました。
+*   OpenTelemetry BOM、SDKプラットフォームのJava設定など、各種依存ライブラリのバージョンが更新されました。
+
+影響有無：
+影響なし（またはポジティブな影響）。
+本変更はSpannerのGoおよびJavaクライアントライブラリにおける機能追加、改善、および依存関係の更新が主です。
+*   Google Cloud Composer 2 (Airflow 2.7.3) はPythonベースであるため、これらのJava/Goクライアントライブラリの変更による直接的な影響はありません。
+*   Google Kubernetes Engine (GKE) 1.31上で稼働しているアプリケーションが、Spannerとの連携にこれらのJavaまたはGoクライアントライブラリを明示的に使用している場合、以下の影響が考えられます。
+    *   **機能追加**: `TOKENIZE_JSON`、`EXISTS`、Change Streams、DirectPath関連の強化、`Struct` メソッドの追加など、多くの新機能が追加されています。これらは既存のアプリケーションの動作に破壊的な変更をもたらすものではなく、これらの新機能を利用したい場合にライブラリのバージョンアップが必要です。
+    *   **パフォーマンス向上**: 読み取り専用トランザクションでのマルチプレックスセッション使用やDirectPathの改善は、アプリケーションのSpannerとの通信パフォーマンスにプラスの影響を与える可能性があります。
+    *   **セキュリティ強化**: DirectPathにおけるALTS hard bound tokenの有効化はセキュリティ面での改善です。
+    *   **依存関係更新**: 通常、互換性の向上やセキュリティ修正が目的であり、既存のアプリケーションの動作に破壊的な影響はありません。
+
+対処方法：
+Spannerの新しいSQL関数やChange Streamsなどの新機能を活用したい場合、またはパフォーマンスやセキュリティの改善を享受したい場合は、利用しているGoまたはJavaクライアントライブラリのバージョンアップをご検討ください。既存のアプリケーションの動作には影響を与えないため、緊急の対応は不要です。
+
+用語説明：
+*   **DirectPath**: Google Cloudサービスのバックエンドに直接接続するための高帯域幅、低レイテンシの通信パスです。通常、内部的に使用され、アプリケーションのパフォーマンスを向上させます。
+*   **ALTS (Application Layer Transport Security)**: Googleが開発した認証および暗号化プロトコルで、アプリケーション層でセキュアな通信を確立します。`hard bound token` は、トークンを特定のネットワーク接続に厳密に紐付けることでセキュリティを強化する仕組みです。
+*   **gRPC**: Googleが開発した、高パフォーマンスなオープンソースのRPC（Remote Procedure Call）フレームワークです。
+*   **AFE (Application Frontend)**: Google Cloudのサービスへのリクエストを処理するフロントエンドシステムです。負荷分散、認証、APIルーティングなどを担当します。
+*   **Spanner Change Streams**: Spannerデータベースのデータ変更をリアルタイムでキャプチャし、Pub/Subなどの他のサービスにストリーミングする機能です。データ同期、監査、分析などに利用されます。
+*   **Multiplexed Sessions**: データベース接続において、複数のトランザクションやクエリを単一の物理的な接続上で並行して処理する技術です。これにより、接続のオーバーヘッドを削減し、スループットとレイテンシを改善します。
+*   **Repeatable Read**: データベースのトランザクション分離レベルの一つで、トランザクションの実行中に同じデータを複数回読み取った場合に、常に同じ結果が返されることを保証します。
+
 
 # Title: June 30, 2025 
 Link: https://cloud.google.com/release-notes#June_30_2025<br>
