@@ -190,6 +190,68 @@ Google Cloud のベストプラクティスに従い、今後も継続して安�
 *   **End of Life (EoL)**: ソフトウェアやハードウェア製品のサポートライフサイクルが終了する日付。EoLを過ぎると、通常、バグ修正、セキュリティパッチの提供、技術サポートが終了し、製品の利用が推奨されなくなります。
 *   **Deprecation (非推奨化)**: ある機能、API、または製品バージョンが、将来的に利用不可となる予定があることを事前にユーザーに通知するプロセス。非推奨化された項目は、通常、一定期間は引き続き利用可能ですが、新しいプロジェクトでの利用は推奨されず、代替手段への移行が促されます。
 
+# Title: July 01, 2025 
+Link: https://cloud.google.com/release-notes#July_01_2025<br>
+Google Cloud のリリースノート調査結果を以下の通り報告いたします。
+
+# Cloud Composer
+
+## Announcement
+原文: A new Cloud Composer release has started on **July 1, 2025**. This release is in progress at the moment. Listed changes might not be available in some regions yet.
+説明: Cloud Composerの新しいリリースが2025年7月1日に開始されるというアナウンスです。現在、リリースの展開が進行中であり、記載された変更内容がすべてのリージョンで利用可能になるまでには時間がかかる可能性があることを示しています。
+影響有無: **影響なし**
+理由: これは将来のリリース開始日に関するアナウンスであり、現在のCloud Composer 2.7.1環境に直接的な影響はありません。情報提供を目的としたものです。
+対処方法: 特になし。今後のCloud Composerの更新に関する情報として認識してください。
+用語説明:
+*   **リリースサイクル (Release Cycle)**: ソフトウェア製品のバージョンアップや新機能の提供が定期的に行われる期間やプロセスを指します。
+
+## Changed
+原文: This release includes internal infrastructure improvements to Cloud Composer. There are no user-visible changes.
+説明: このリリースには、Cloud Composerの内部インフラストラクチャに対する改善が含まれています。これらの変更はユーザーから直接見えるものではなく、既存のワークロードや設定に影響を与えるものではありません。
+影響有無: **影響なし**
+理由: リリースノートに「ユーザー可視な変更なし (no user-visible changes)」と明記されているため、既存のCloud Composer 2.7.1環境の動作や利用方法に変更はありません。これにより、プラットフォームの安定性や効率が向上する可能性があります。
+対処方法: 特になし。自動的に適用される基盤改善であり、特別な対応は不要です。
+用語説明:
+*   **内部インフラストラクチャ (Internal Infrastructure)**: サービスを動作させるための基盤となるネットワーク、コンピューティングリソース、ストレージ、データベースなどのシステム内部構成を指します。ユーザーが直接操作するAPIやUIではなく、その下層で動作する部分です。
+*   **ユーザー可視な変更 (User-visible changes)**: ユーザーが操作するインターフェース、機能、設定、APIなど、直接利用者が認識できる変更のことです。
+
+## Changed
+原文: New Airflow builds are available in Cloud Composer 3:
+[Airflow builds](https://cloud.google.com/composer/docs/composer-versions#images-composer-3)
+- composer-3-airflow-2.10.5-build.8 (default)
+- composer-3-airflow-2.9.3-build.28
+[composer-3-airflow-2.10.5-build.8](https://cloud.google.com/composer/docs/versions-packages#composer-3-airflow-2-10-5-build-8)
+[composer-3-airflow-2.9.3-build.28](https://cloud.google.com/composer/docs/versions-packages#composer-3-airflow-2-9-3-build-28)
+説明: Cloud Composer 3環境向けに、新しいAirflowビルドイメージ（`composer-3-airflow-2.10.5-build.8`と`composer-3-airflow-2.9.3-build.28`）が利用可能になったことを示しています。`composer-3-airflow-2.10.5-build.8`がデフォルトとして提供されます。
+影響有無: **影響なし**
+理由: 現在利用されている環境はCloud Composer 2 (Composer version 2.7.1) であるため、Cloud Composer 3向けの変更は直接適用されません。
+対処方法: 特になし。将来的にCloud Composer 3への移行を検討する際の参考情報となります。
+用語説明:
+*   **Airflowビルド (Airflow Build)**: 特定のCloud ComposerバージョンとAirflowバージョンの組み合わせで提供される環境イメージを指します。Google Cloudによって最適化され、必要な依存関係が組み込まれています。
+*   **Composer 3**: Cloud Composerの主要なメジャーバージョンアップグレードであり、基盤となるインフラストラクチャや機能がCloud Composer 2から大きく変更されています。
+
+## Changed
+原文: New images are available in Cloud Composer 2:
+[images](https://cloud.google.com/composer/docs/composer-versions#images-composer-2)
+- composer-2.13.6-airflow-2.10.5 (default)
+- composer-2.13.6-airflow-2.9.3
+[composer-2.13.6-airflow-2.10.5](https://cloud.google.com/composer/docs/versions-packages#composer-2-13-5-airflow-2-10-5)
+[composer-2.13.6-airflow-2.9.3](https://cloud.google.com/composer/docs/versions-packages#composer-2-13-5-airflow-2-9-3)
+説明: Cloud Composer 2環境向けに、新しいイメージが利用可能になったことを示しています。具体的には、Composer 2.13.6 と Airflow 2.10.5 の組み合わせ (`composer-2.13.6-airflow-2.10.5`) と、Composer 2.13.6 と Airflow 2.9.3 の組み合わせ (`composer-2.13.6-airflow-2.9.3`) です。`composer-2.13.6-airflow-2.10.5` がデフォルトとして提供されます。
+影響有無: **間接的な影響あり（アップグレードの検討推奨）**
+理由: 現在利用中のCloud Composer環境は `Composer version 2.7.1, Airflow version 2.7.3` です。リリースノートに記載されている新しいイメージは `Composer 2.13.6, Airflow 2.10.5 / 2.9.3` であり、現行バージョンよりも新しいバージョンです。これらの新しいイメージは、Airflowの新しい機能、バグ修正、セキュリティパッチを含んでいる可能性があります。既存の環境が自動的にアップグレードされることはありませんが、最新の機能やセキュリティ恩恵を受けるためには、計画的なアップグレードの検討が推奨されます。
+対処方法:
+1.  **アップグレード計画の検討**: 現行のCloud Composer 2.7.1環境を新しいイメージバージョン（特に `composer-2.13.6-airflow-2.10.5`）へアップグレードすることを計画してください。
+2.  **互換性確認**: Airflow 2.7.3からAirflow 2.10.5へのアップグレードには、DAG (Directed Acyclic Graph) やカスタムプラグインの互換性確認が必要です。Airflowの公式ドキュメントでバージョン間の変更点、特に非互換な変更（Breaking Change）を確認してください。
+3.  **テスト環境での検証**: 本番環境に適用する前に、必ずステージング環境や開発環境で十分なテストを実施し、DAGの正常動作、依存パッケージの動作、パフォーマンスへの影響などを検証してください。
+4.  **アップグレード手順の確認**: Google Cloudの公式ドキュメントに記載されているCloud Composerのアップグレード手順に従い、慎重に実施してください。
+用語説明:
+*   **Composer イメージ (Composer Image)**: Cloud Composer環境を構築するための、OS、Airflow本体、Python、各種ライブラリ、およびCloud Composer固有のコンポーネションが含まれる定義済みのテンプレートです。
+*   **Airflow バージョン (Airflow Version)**: Apache AirflowというOSSのワークフロー管理ツール自体のバージョンです。
+*   **後方互換性 (Backward Compatibility)**: 新しいバージョンのソフトウェアが、古いバージョンのソフトウェアで作成されたデータやコードを問題なく処理できる性質のことです。
+*   **非互換性 (Breaking Change)**: ソフトウェアの新しいバージョンが、古いバージョンで動作していたコードやデータとの互換性を失う変更のことです。これにより、既存のアプリケーションやワークフローが動作しなくなる可能性があります。
+*   **DAG (Directed Acyclic Graph)**: Airflowにおけるワークフローの定義で、タスクとその実行順序をグラフ形式で表現したものです。
+  
 # Title: June 30, 2025 
 Link: https://cloud.google.com/release-notes#June_30_2025<br>
 # BigQuery
