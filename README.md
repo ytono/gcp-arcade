@@ -1,3 +1,158 @@
+# Title: July 08, 2025 
+Link: https://cloud.google.com/release-notes#July_08_2025<br>
+Google Cloudのインフラエンジニアとして、リリースノートの調査結果をご報告いたします。
+
+---
+
+# BigQuery
+## Announcement
+**原文**: Starting August 1, 2025, GoogleSQL will become the default dialect for queries run from the command line interface (CLI) or API. To use LegacySQL, you will need to explicitly specify it in your requests or set the configuration setting `default_sql_dialect_option` to `'default_legacy_sql'` at the project or organization level.
+
+[set the configuration setting](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_project_set_options_statement)
+
+**説明**:
+2025年8月1日より、BigQueryのコマンドラインインターフェース（CLI）またはAPI経由で実行されるクエリのデフォルトのSQL方言が、GoogleSQLに変更されます。もし現在Legacy SQLを使用しており、引き続きLegacy SQLを利用したい場合は、以下のいずれかの対応が必要になります。
+1.  クエリを送信する際に明示的にLegacy SQLを指定する。
+2.  プロジェクトまたは組織レベルで`default_sql_dialect_option`設定を`'default_legacy_sql'`に設定する。
+
+**影響有無**:
+*   **影響あり**：現在、CLIまたはAPI経由でBigQueryに対してLegacy SQLクエリを実行している場合は、2025年8月1日以降、デフォルトの変更によりクエリが失敗する可能性があります。
+*   **影響なし**：
+    *   Web UI（BigQueryコンソール）からクエリを実行している場合。
+    *   既にCLIやAPI経由でもGoogleSQLをデフォルトで利用している場合。
+    *   2025年8月1日より前に、Legacy SQLを使用するCLI/APIクエリがない場合。
+*   この変更は将来の日付であり、猶予期間が十分に設けられています。
+
+**対処方法**:
+現在、CLIまたはAPI経由でBigQueryに対してLegacy SQLを利用しているかどうかを確認してください。
+Legacy SQLを利用している場合は、2025年8月1日までに以下のいずれかの対応を検討してください。
+1.  **既存のLegacy SQLクエリをGoogleSQLに移行する。** これが長期的に推奨されるアプローチです。
+2.  **CLIまたはAPIからクエリを実行する際に、明示的にLegacy SQLを指定するようコードを変更する。** 例えば、`bq query --use_legacy_sql 'SELECT ...'`のように指定します。
+3.  **プロジェクトまたは組織レベルでデフォルトのSQL方言設定を変更する。** リンク先のドキュメントを参照し、`ALTER PROJECT SET OPTIONS (default_sql_dialect_option = 'default_legacy_sql');`のような形で設定を適用します。これにより、プロジェクト内のすべてのCLI/APIクエリでLegacy SQLがデフォルトとして扱われます。
+
+**用語説明**:
+*   **GoogleSQL**: BigQueryで推奨されている標準SQL方言です。SQL標準に準拠しており、より多くの機能と最適化が提供されます。
+*   **Legacy SQL**: BigQueryの初期に提供されていた独自のSQL方言です。現在ではGoogleSQLへの移行が推奨されています。
+*   **CLI (Command Line Interface)**: コマンドラインからサービスを操作するためのインターフェースです。BigQueryでは`bq`コマンドが該当します。
+*   **API (Application Programming Interface)**: プログラムからサービスを操作するためのインターフェースです。
+*   **default_sql_dialect_option**: BigQueryのプロジェクトまたは組織レベルで設定できるオプションで、デフォルトのSQL方言を指定します。
+
+---
+
+# Google Cloud Armor
+## Changed
+**原文**: Cloud Armor preconfigured WAF rules can now inspect up to the first 64kB (either 8kB, 16kB, 32kB, 48kB, or 64kB) of the POST or PATCH request body content in Preview.
+
+[preconfigured WAF rules](https://cloud.google.com/armor/docs/waf-rules)
+[request body content](https://cloud.google.com/armor/docs/security-policy-overview#post-body)
+
+**説明**:
+Google Cloud Armorの事前構成済みWAFルールにおいて、POSTまたはPATCHリクエストのボディ内容の検査対象サイズが、最大64KB（8KB、16KB、32KB、48KB、64KBのいずれか）まで拡張されました。この機能は現在、Preview（プレビュー）段階で提供されています。
+
+**影響有無**:
+*   **影響なし（機能追加）**：これはCloud Armorの機能拡張であり、既存のWAFルールの動作を変更するものではありません。既存のCloud Armorポリシーに直接的な変更や影響はありません。
+*   **メリット**：より大きなリクエストボディを持つアプリケーションに対するWAF保護を強化できるオプションが増えました。
+*   **留意点**：この機能は「Preview」段階であるため、本番環境での利用には注意が必要です。
+
+**対処方法**:
+即座の対処は不要です。
+もし、現在POSTやPATCHリクエストのボディサイズが大きく、従来のWAF検査範囲では不十分だと感じている場合、この新機能を評価することを検討してください。
+*   Cloud Armorセキュリティポリシーの設定を見直し、より大きなリクエストボディの検査が必要なユースケースがあるか確認します。
+*   この機能を利用する場合は、Preview機能であることを理解した上で、十分なテストを実施し、その効果と副作用（例えば、パフォーマンスへの影響など）を評価してください。
+
+**用語説明**:
+*   **Google Cloud Armor**: Google Cloud上で実行されるWebアプリケーションやサービスを、DDoS攻撃やOWASP Top 10などのWebアプリケーション攻撃から保護するセキュリティサービスです。
+*   **WAF (Web Application Firewall)**: Webアプリケーションへの不正なアクセスや攻撃を検出・ブロックするファイアウォールです。
+*   **事前構成済みWAFルール (Preconfigured WAF rules)**: 一般的なWebアプリケーションの脆弱性（SQLインジェクション、クロスサイトスクリプティングなど）に対応するためにCloud Armorが事前に用意しているルールセットです。
+*   **POST/PATCH request body content**: HTTPリクエストメソッドのPOSTまたはPATCHでクライアントからサーバーに送信される、リクエストの本体（ペイロード）部分です。通常、フォームデータやJSON、XMLなどのアプリケーションデータが含まれます。
+*   **Preview**: Google Cloudにおける機能の公開ステータスの一つです。一般公開（GA: General Availability）前の段階であり、機能が変更される可能性や、SLAが提供されない場合があります。テストや評価目的での利用が推奨されます。
+# Title: July 02, 2025 
+Link: https://cloud.google.com/release-notes#July_02_2025<br>
+Google Cloud のリリースノート調査結果を以下の通りご報告いたします。
+
+---
+
+# Cloud Composer
+
+## Changed
+原文: Cloud Composer 1 and Cloud Composer 2 environments with version 2.0.x are **approaching their end of life**. We're planning to deprecate them in the following way:
+- Starting **September 15, 2025**, you will no longer be able to create new Cloud Composer 1 environments.
+- On **September 15, 2026**, all Cloud Composer 1 and Cloud Composer 2 version 2.0.x environments will reach their planned end of life, and you **won't be able to use them**.
+Cloud Composer 2 environments with versions later than 2.1.0 and all Cloud Composer 3 environments are not affected by this deprecation.
+We recommend planning migration to Cloud Composer 3 or upgrading your Cloud Composer 2 environments to a later version.
+[migration to Cloud Composer 3](https://cloud.google.com/composer/docs/latest/migrate-composer-1-to-3)
+
+説明: Cloud Composer 1 および Cloud Composer 2 のバージョン 2.0.x が、2026年9月15日をもってサポート終了（End of Life: EoL）となり、使用できなくなることが発表されました。Cloud Composer 1 の新規環境作成は2025年9月15日からできなくなります。バージョン 2.1.0 以降の Cloud Composer 2 およびすべての Cloud Composer 3 環境は、このサポート終了の影響を受けません。対象バージョンをご利用の場合、Cloud Composer 3 への移行、または Cloud Composer 2 のより新しいバージョンへのアップグレードが推奨されています。
+
+影響有無: **影響なし**
+理由: 現在ご利用の Cloud Composer2 のバージョンは 2.7.1 であり、リリースノートで示されている EoL の対象バージョン（2.0.x）よりも新しいバージョン（2.1.0 以降）に該当するため、このサポート終了の影響は受けません。
+
+対処方法:
+直ちに対処は不要です。ただし、GCPサービスは継続的なアップデートが行われるため、将来的な安定性と最新機能の利用のため、定期的なバージョンアップグレード計画の検討を推奨します。
+
+用語説明:
+*   **End of Life (EoL)**: 製品やサービスのサポートが終了し、利用が推奨されなくなる、または利用できなくなる状態を指します。セキュリティアップデートやバグ修正が提供されなくなるため、対象バージョンからの移行が必要になります。
+
+---
+
+# Google Kubernetes Engine
+
+## Changed
+原文:
+> **Note:** Your clusters might not have these versions available. Rollouts are already in progress when we publish the release notes, and can take multiple days to complete across all Google Cloud zones.
+
+- The following versions are now available in the Extended channel:
+    - 1.28.15-gke.2456000
+    - 1.29.15-gke.1607000
+    - 1.30.12-gke.1279000
+    - 1.31.9-gke.1218000
+    - 1.32.4-gke.1698000
+    - 1.33.1-gke.1744000
+- The following versions are now available:
+    - 1.30.12-gke.1333000
+    - 1.31.10-gke.1021000
+    - 1.32.6-gke.1013000
+    - 1.33.2-gke.1043000
+    - 1.33.2-gke.1111000
+- The following node versions are now available:
+    - 1.28.15-gke.2456000
+    - 1.29.15-gke.1607000
+    - 1.30.12-gke.1333000
+    - 1.31.10-gke.1021000
+    - 1.32.6-gke.1013000
+    - 1.33.2-gke.1111000
+- The following versions are now available in the Rapid channel:
+    - 1.30.12-gke.1333000
+    - 1.31.10-gke.1021000
+    - 1.32.6-gke.1013000
+    - 1.33.2-gke.1111000
+- The following versions are now available in the Regular channel:
+    - 1.30.12-gke.1279000
+    - 1.31.9-gke.1218000
+    - 1.32.4-gke.1698000
+    - 1.33.1-gke.1744000
+- The following versions are now available in the Stable channel:
+    - 1.30.12-gke.1208000
+    - 1.31.9-gke.1119000
+- GKE cluster versions have been updated.
+**New versions available for upgrades and new clusters.**
+The following Kubernetes versions are now available for new clusters and for opt-in control plane upgrades and node upgrades for existing clusters. For more information on versioning and upgrades, see GKE versioning and support and Upgrades.
+[GKE versioning and support](https://cloud.google.com/kubernetes-engine/versioning)
+[Upgrades](https://cloud.google.com/kubernetes-engine/upgrades)
+
+説明: 各GKEリリースチャネル（Extended, Rapid, Regular, Stable）およびノードバージョンにおいて、新しいGKEバージョンが利用可能になったことがアナウンスされました。これらは新規クラスターの作成や既存クラスターのコントロールプレーンおよびノードのアップグレードに利用できます。現行のバージョン 1.31 に対しても、1.31.9-gke.xxxx や 1.31.10-gke.xxxx などの新しいマイナーバージョンが提供されています。
+
+影響有無: **直接的な影響なし**
+理由: これは既存のクラスターに対して自動的に適用される変更ではなく、新しいGKEバージョンが利用可能になったという通知です。現在稼働中のGKE 1.31 クラスターの機能や動作に直ちに影響を与えるものではありません。
+
+対処方法:
+直ちに対処は不要です。ただし、セキュリティパッチの適用や新機能の利用、サポート期間の延長などのメリットを享受するため、定期的なGKEクラスターのバージョンアップグレード計画を検討し、これらの新しいバージョンへのアップグレードを推奨します。アップグレードの際は、GKEのバージョンアップグレードに関するベストプラクティス（ステージング環境でのテスト、ロールアウト戦略など）に従ってください。
+
+用語説明:
+*   **GKE リリースチャネル (Release Channels)**: GKE クラスターのバージョンアップグレードの頻度と安定性を制御するための設定です。`Stable` (安定性重視、リリース頻度低)、`Regular` (一般的な推奨、バランス型)、`Rapid` (最新機能、リリース頻度高)、``Extended` (長期サポート、特定のバージョンを長期で利用) などがあります。
+*   **コントロールプレーン (Control Plane)**: Kubernetes クラスターの脳に当たる部分で、API サーバー、スケジューラー、コントローラーマネージャーなどが含まれます。クラスターの状態を管理し、操作を受け付けます。
+*   **ノード (Node)**: Kubernetes クラスター内でワークロード（Pod）が実際に実行される仮想マシンまたは物理マシンです。
+
 # Title: July 02, 2025 
 Link: https://cloud.google.com/release-notes#July_02_2025<br>
 # Cloud Composer
