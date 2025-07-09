@@ -1,3 +1,188 @@
+========================================================================================
+# main.tf
+
+# Configure the Google Cloud provider
+provider "google" {
+  project = var.project_id
+  # プロバイダのデフォルトリージョンは設定せず、モジュール内で各クラスタのリージョンを指定します
+}
+
+# Data source to get the full network self_link
+data "google_compute_network" "vpc_network" {
+  name    = var.network_name
+  project = var.project_id
+}
+
+# clusters.yaml ファイルからクラスタ定義を読み込みます
+locals {
+  cluster_definitions = yamldecode(file("${path.module}/clusters.yaml")).clusters
+  primary_clusters    = { for k, v in local.cluster_definitions : k => v if v.type == "primary" }
+  secondary_clusters  = { for k, v in local.cluster_definitions : k => v if v.type == "secondary" }
+
+  # すべてのクラスタのインスタンスをフラットなリストに変換
+  all_instances = flatten([
+    for cluster_key, cluster_def in local.cluster_definitions : [
+      for instance_def in cluster_def.instances : {
+        cluster_key        = cluster_key
+        cluster_id         = cluster_def.cluster_id
+        region             = cluster_def.region
+        instance_id        = instance_def.instance_id
+        display_name       = instance_def.display_name
+        instance_type      = instance_def.instance_type
+        cpu_count          = lookup(instance_def, "cpu_count", 2) # デフォルト値を提供
+        # プライマリクラスタのoutputsからcluster_nameを取得するために、後で参照できるようにする
+        source_cluster_name_output_key = cluster_key
+      }
+    ]
+  ])
+
+  # インスタンスを for_each で使用できるようにマップに変換
+  # キーは `cluster_key-instance_id` の形式で一意性を確保
+  instances_map = { for inst in local.all_instances : "${inst.cluster_key}-${inst.instance_id}" => inst }
+}
+
+# プライマリAlloyDBクラスタのモジュール
+# clusters.yaml で定義されたすべてのプライマリクラスタに対してループします
+module "primary_clusters" {
+  source = "./modules/alloydb_cluster"
+  for_each = local.primary_clusters
+
+  project_id           = var.project_id
+  region               = each.value.region
+  cluster_id           = each.value.cluster_id
+  cluster_display_name = each.value.display_name
+  network              = data.google_compute_network.vpc_network.self_link
+  database_version     = var.database_version
+  user_password        = var.alloydb_user_password
+
+  # これはプライマリクラスタなので、ソースIDは指定しません
+  secondary_cluster_source_id   = null
+  secondary_cluster_source_region = null
+}
+
+# セカンダリAlloyDBクラスタのモジュール
+# clusters.yaml で定義されたすべてのセカンダリクラスタに対してループします
+# このモジュールは、レプリケーションを確立するためにプライマリクラスタモジュールの出力に依存します。
+module "secondary_clusters" {
+  source = "./modules/alloydb_cluster"
+  for_each = local.secondary_clusters
+
+  project_id           = var.project_id
+  region               = each.value.region
+  cluster_id           = each.value.cluster_id
+  cluster_display_name = each.value.display_name
+  network              = data.google_compute_network.vpc_network.self_link # セカンダリクラスタは同じネットワークを使用します
+  database_version     = var.database_version
+  user_password        = var.alloydb_user_password
+
+  # レプリケーションのためにプライマリクラスタのIDをソースIDとして設定します
+  secondary_cluster_source_id   = module.primary_clusters[each.value.source_cluster_key].cluster_id
+  secondary_cluster_source_region = each.value.source_cluster_region # ソースプライマリクラスタのリージョン
+
+  # 明示的な依存関係を定義します（出力による暗黙的な依存関係も機能しますが、明確化のため）
+  # これにより、プライマリクラスタが完全に作成されてからセカンダリの作成が試行されます。
+  depends_on = [
+    module.primary_clusters[each.value.source_cluster_key]
+  ]
+}
+
+# AlloyDBインスタンスのモジュール
+# clusters.yaml で定義されたすべてのインスタンスに対してループします
+module "alloydb_instances" {
+  source = "./modules/alloydb_instance"
+  for_each = local.instances_map
+
+  project_id      = var.project_id
+  region          = each.value.region
+  cluster_id      = each.value.cluster_id
+  instance_id     = each.value.instance_id
+  instance_display_name = each.value.display_name
+  instance_type   = each.value.instance_type
+  cpu_count       = each.value.cpu_count
+
+  # インスタンスが属するクラスタが作成された後にのみインスタンスを作成するように依存関係を設定します。
+  # プライマリクラスタのインスタンスの場合
+  depends_on = [
+    try(module.primary_clusters[each.value.source_cluster_name_output_key], null),
+    try(module.secondary_clusters[each.value.source_cluster_name_output_key], null)
+  ]
+}
+
+
+output "all_cluster_names" {
+  description = "A map of all created AlloyDB cluster names by their logical key."
+  value = merge(
+    { for k, v in module.primary_clusters : k => v.cluster_name },
+    { for k, v in module.secondary_clusters : k => v.cluster_name }
+  )
+}
+
+output "all_instance_names" {
+  description = "A map of all created AlloyDB instance names by their logical key."
+  value       = { for k, v in module.alloydb_instances : k => v.instance_name }
+}
+========================================================================================
+# clusters.yaml
+# 複数のAlloyDBクラスタとインスタンスの定義
+
+clusters:
+  # プライマリクラスタの例 (us-central1)
+  primary_us_central:
+    type: primary
+    region: us-central1
+    cluster_id: my-primary-us-central-cluster
+    display_name: "US Central Primary AlloyDB Cluster"
+    instances:
+      - instance_id: my-primary-us-central-instance-1
+        display_name: "US Central Primary Instance 1"
+        instance_type: PRIMARY
+        cpu_count: 2
+      - instance_id: my-primary-us-central-instance-read-pool
+        display_name: "US Central Read Pool Instance"
+        instance_type: READ_POOL
+        cpu_count: 4
+
+  # セカンダリクラスタの例 (us-east1)
+  # source_cluster_key と source_cluster_region でプライマリクラスタにリンクします
+  secondary_us_east:
+    type: secondary
+    region: us-east1
+    cluster_id: my-secondary-us-east-cluster
+    display_name: "US East Secondary AlloyDB Cluster"
+    source_cluster_key: primary_us_central # 上記のプライマリクラスタの論理キー
+    source_cluster_region: us-central1 # ソースプライマリクラスタのリージョン
+    instances:
+      - instance_id: my-secondary-us-east-instance-1
+        display_name: "US East Secondary Instance 1"
+        instance_type: PRIMARY # セカンダリクラスタにもプライマリインスタンスが必要です
+        cpu_count: 2
+
+  # 別のプライマリクラスタの例 (europe-west1)
+  primary_europe_west:
+    type: primary
+    region: europe-west1
+    cluster_id: my-primary-europe-west-cluster
+    display_name: "Europe West Primary AlloyDB Cluster"
+    instances:
+      - instance_id: my-primary-europe-west-instance-1
+        display_name: "Europe West Primary Instance 1"
+        instance_type: PRIMARY
+        cpu_count: 2
+
+  # 別のセカンダリクラスタの例 (europe-west2)
+  secondary_europe_west_2:
+    type: secondary
+    region: europe-west2
+    cluster_id: my-secondary-europe-west-2-cluster
+    display_name: "Europe West 2 Secondary AlloyDB Cluster"
+    source_cluster_key: primary_europe_west # 上記のプライマリクラスタの論理キー
+    source_cluster_region: europe-west1 # ソースプライマリクラスタのリージョン
+    instances:
+      - instance_id: my-secondary-europe-west-2-instance-1
+        display_name: "Europe West 2 Secondary Instance 1"
+        instance_type: PRIMARY
+        cpu_count: 2
+========================================================================================
 # modules/alloydb_cluster/variables.tf
 
 variable "project_id" {
@@ -17,17 +202,6 @@ variable "cluster_id" {
 
 variable "cluster_display_name" {
   description = "The display name of the AlloyDB cluster."
-  type        = string
-  default     = null
-}
-
-variable "instance_id" {
-  description = "The ID of the primary AlloyDB instance within the cluster."
-  type        = string
-}
-
-variable "instance_display_name" {
-  description = "The display name of the primary AlloyDB instance."
   type        = string
   default     = null
 }
@@ -59,9 +233,7 @@ variable "secondary_cluster_source_region" {
   type        = string
   default     = null
 }
-
-===========================================================================================================================
-
+========================================================================================
 # modules/alloydb_cluster/main.tf
 
 resource "google_alloydb_cluster" "alloydb_cluster" {
@@ -100,34 +272,7 @@ resource "google_alloydb_cluster" "alloydb_cluster" {
   # Deletion protection is recommended for production clusters
   deletion_protection = false # Set to true for production environments
 }
-
-resource "google_alloydb_instance" "primary_instance" {
-  project      = var.project_id
-  location     = var.region
-  cluster      = google_alloydb_cluster.alloydb_cluster.cluster_id
-  instance_id  = var.instance_id
-  display_name = var.instance_display_name
-
-  instance_type = "PRIMARY" # This instance will be the primary instance
-
-  machine_config {
-    cpu_count = 2 # Adjust CPU count as needed
-  }
-
-  # Add labels for better organization
-  labels = {
-    environment = "dev"
-    managed_by  = "terraform"
-    type        = "primary"
-  }
-
-  # Deletion protection for the instance
-  deletion_protection = false # Set to true for production environments
-
-  # Ensure the instance is created only after the cluster is ready
-  depends_on = [google_alloydb_cluster.alloydb_cluster]
-}
-===========================================================================================================================
+========================================================================================
 # modules/alloydb_cluster/outputs.tf
 
 output "cluster_id" {
@@ -149,7 +294,7 @@ output "cluster_state" {
   description = "The current state of the AlloyDB cluster."
   value       = google_alloydb_cluster.alloydb_cluster.state
 }
-===========================================================================================================================
+========================================================================================
 # variables.tf
 
 variable "project_id" {
@@ -173,132 +318,89 @@ variable "alloydb_user_password" {
   type        = string
   sensitive   = true
 }
-===========================================================================================================================
-# main.tf
+========================================================================================
+# modules/alloydb_instance/variables.tf
 
-# Configure the Google Cloud provider
-provider "google" {
-  project = var.project_id
-  # プロバイダのデフォルトリージョンは設定せず、モジュール内で各クラスタのリージョンを指定します
+variable "project_id" {
+  description = "The ID of the Google Cloud project."
+  type        = string
 }
 
-# Data source to get the full network self_link
-data "google_compute_network" "vpc_network" {
-  name    = var.network_name
-  project = var.project_id
+variable "region" {
+  description = "The region where the AlloyDB instance will be created."
+  type        = string
 }
 
-# clusters.yaml ファイルからクラスタ定義を読み込みます
-locals {
-  cluster_definitions = yamldecode(file("${path.module}/clusters.yaml")).clusters
-  primary_clusters    = { for k, v in local.cluster_definitions : k => v if v.type == "primary" }
-  secondary_clusters  = { for k, v in local.cluster_definitions : k => v if v.type == "secondary" }
+variable "cluster_id" {
+  description = "The ID of the AlloyDB cluster to which this instance belongs."
+  type        = string
 }
 
-# プライマリAlloyDBクラスタのモジュール
-# clusters.yaml で定義されたすべてのプライマリクラスタに対してループします
-module "primary_clusters" {
-  source = "./modules/alloydb_cluster"
-  for_each = local.primary_clusters
-
-  project_id           = var.project_id
-  region               = each.value.region
-  cluster_id           = each.value.cluster_id
-  cluster_display_name = each.value.display_name
-  instance_id          = each.value.instance_id
-  instance_display_name = each.value.display_name # インスタンスの表示名もクラスタの表示名と同じに設定
-  network              = data.google_compute_network.vpc_network.self_link
-  database_version     = var.database_version
-  user_password        = var.alloydb_user_password
-
-  # これはプライマリクラスタなので、ソースIDは指定しません
-  secondary_cluster_source_id   = null
-  secondary_cluster_source_region = null
+variable "instance_id" {
+  description = "The ID of the AlloyDB instance."
+  type        = string
 }
 
-# セカンダリAlloyDBクラスタのモジュール
-# clusters.yaml で定義されたすべてのセカンダリクラスタに対してループします
-# このモジュールは、レプリケーションを確立するためにプライマリクラスタモジュールの出力に依存します。
-module "secondary_clusters" {
-  source = "./modules/alloydb_cluster"
-  for_each = local.secondary_clusters
-
-  project_id           = var.project_id
-  region               = each.value.region
-  cluster_id           = each.value.cluster_id
-  cluster_display_name = each.value.display_name
-  instance_id          = each.value.instance_id
-  instance_display_name = each.value.display_name # インスタンスの表示名もクラスタの表示名と同じに設定
-  network              = data.google_compute_network.vpc_network.self_link # セカンダリクラスタは同じネットワークを使用します
-  database_version     = var.database_version
-  user_password        = var.alloydb_user_password
-
-  # レプリケーションのためにプライマリクラスタのIDをソースIDとして設定します
-  secondary_cluster_source_id   = module.primary_clusters[each.value.source_cluster_key].cluster_id
-  secondary_cluster_source_region = each.value.source_cluster_region # ソースプライマリクラスタのリージョン
-
-  # 明示的な依存関係を定義します（出力による暗黙的な依存関係も機能しますが、明確化のため）
-  # これにより、プライマリクラスタが完全に作成されてからセカンダリの作成が試行されます。
-  depends_on = [
-    module.primary_clusters[each.value.source_cluster_key]
-  ]
+variable "instance_display_name" {
+  description = "The display name of the AlloyDB instance."
+  type        = string
+  default     = null
 }
 
-# すべての作成されたAlloyDBクラスタの名前を出力します
-output "all_cluster_names" {
-  description = "A map of all created AlloyDB cluster names by their logical key."
-  value = merge(
-    { for k, v in module.primary_clusters : k => v.cluster_name },
-    { for k, v in module.secondary_clusters : k => v.cluster_name }
-  )
+variable "instance_type" {
+  description = "The type of the instance. Can be PRIMARY or READ_POOL."
+  type        = string
+  validation {
+    condition     = contains(["PRIMARY", "READ_POOL"], upper(var.instance_type))
+    error_message = "Instance type must be 'PRIMARY' or 'READ_POOL'."
+  }
 }
 
-# すべての作成されたAlloyDBインスタンスの名前を出力します
-output "all_instance_names" {
-  description = "A map of all created AlloyDB instance names by their logical key."
-  value = merge(
-    { for k, v in module.primary_clusters : k => v.instance_name },
-    { for k, v in module.secondary_clusters : k => v.instance_name }
-  )
+variable "cpu_count" {
+  description = "The number of CPUs for the instance."
+  type        = number
+  default     = 2
 }
-===========================================================================================================================
-# clusters.yaml
-# 複数のAlloyDBクラスタの定義
+========================================================================================
+# modules/alloydb_instance/main.tf
 
-clusters:
-  # プライマリクラスタの例 (us-central1)
-  primary_us_central:
-    type: primary
-    region: us-central1
-    cluster_id: my-primary-us-central-cluster
-    instance_id: my-primary-us-central-instance
-    display_name: "US Central Primary AlloyDB Cluster"
+resource "google_alloydb_instance" "alloydb_instance" {
+  project      = var.project_id
+  location     = var.region
+  cluster      = var.cluster_id
+  instance_id  = var.instance_id
+  display_name = var.instance_display_name
 
-  # セカンダリクラスタの例 (us-east1)
-  # source_cluster_key と source_cluster_region でプライマリクラスタにリンクします
-  secondary_us_east:
-    type: secondary
-    region: us-east1
-    cluster_id: my-secondary-us-east-cluster
-    instance_id: my-secondary-us-east-instance
-    display_name: "US East Secondary AlloyDB Cluster"
-    source_cluster_key: primary_us_central # 上記のプライマリクラスタの論理キー
-    source_cluster_region: us-central1 # ソースプライマリクラスタのリージョン
+  instance_type = var.instance_type
 
-  # 別のプライマリクラスタの例 (europe-west1)
-  primary_europe_west:
-    type: primary
-    region: europe-west1
-    cluster_id: my-primary-europe-west-cluster
-    instance_id: my-primary-europe-west-instance
-    display_name: "Europe West Primary AlloyDB Cluster"
+  machine_config {
+    cpu_count = var.cpu_count
+  }
 
-  # 別のセカンダリクラスタの例 (europe-west2)
-  secondary_europe_west_2:
-    type: secondary
-    region: europe-west2
-    cluster_id: my-secondary-europe-west-2-cluster
-    instance_id: my-secondary-europe-west-2-instance
-    display_name: "Europe West 2 Secondary AlloyDB Cluster"
-    source_cluster_key: primary_europe_west # 上記のプライマリクラスタの論理キー
-    source_cluster_region: europe-west1 # ソースプライマリクラスタのリージョン
+  # Add labels for better organization
+  labels = {
+    environment = "dev"
+    managed_by  = "terraform"
+    type        = lower(var.instance_type) # Use instance type as label
+  }
+
+  # Deletion protection for the instance
+  deletion_protection = false # Set to true for production environments
+}
+========================================================================================
+# modules/alloydb_instance/outputs.tf
+
+output "instance_id" {
+  description = "The ID of the created AlloyDB instance."
+  value       = google_alloydb_instance.alloydb_instance.instance_id
+}
+
+output "instance_name" {
+  description = "The full resource name of the AlloyDB instance."
+  value       = google_alloydb_instance.alloydb_instance.name
+}
+
+output "instance_state" {
+  description = "The current state of the AlloyDB instance."
+  value       = google_alloydb_instance.alloydb_instance.state
+}
